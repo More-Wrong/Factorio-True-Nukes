@@ -165,19 +165,6 @@ data.raw.recipe["atomic-bomb"].ingredients=
 
 
 
-local debris = table.deepcopy(data.raw.projectile["piercing-shotgun-pellet"])
-debris.action.action_delivery.target_effects.damage.ammount=100
-debris.name = "nuclear-blast-debris"
-debris.animation=
-    {
-      filename = "__core__/graphics/empty.png",
-      frame_count = 1,
-      width = 1,
-      height = 1,
-      priority = "high"
-    }
-
-
 local radiation_cloud_vis_dum = table.deepcopy(data.raw["smoke-with-trigger"]["poison-cloud-visual-dummy"])
 radiation_cloud_vis_dum.name="radiation-cloud-visual-dummy"
 radiation_cloud_vis_dum.color = {r = 0.220, g = 0.220, b = 0.220, a = 0.800}
@@ -241,7 +228,7 @@ lingering_fallout.animation=
       priority = "high"
     }
 
-data:extend{debris, radiation_cloud_vis_dum, radiation_cloud, fallout, lingering_radiation_cloud_vis_dum, lingering_radiation_cloud, lingering_fallout}
+data:extend{radiation_cloud_vis_dum, radiation_cloud, fallout, lingering_radiation_cloud_vis_dum, lingering_radiation_cloud, lingering_fallout}
 
 
 
