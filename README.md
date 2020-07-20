@@ -20,6 +20,7 @@ The mod adds three new kinds of nuclear weapon, and changes the existing one.
 These are:
   - An atomic cannon shell, for the tank. This has a yield of ~2 tons
   - The base atomic bomb. This has a yield of ~20 tons, equivalent to the 'Davy Crockett'
+  - A small atomic artillery shell. This has a yield of ~500 tons
   - An atomic artillery shell. This has a yield of ~1 kiloton
   - A Hiroshima grade artillery shell. This has a yield of ~15 kilotons, equivilent to the Hiroshima 'Little Boy' explosion
   
@@ -31,6 +32,7 @@ The other weapons are all wide-area, and can do massive damage to one or several
 To allow the game to load in the relevent map areas and apply damage, the larger weapons can freeze the game for some time when they hit (as the initial damage is applied), and cause slow down for a period afterwards while the blast-wave propagates.
 The atomic cannon shell is quick enough that it can be fired at full rate, even with fire rate upgrades.  
 The atomic bomb causes some slow down, but less than 1s of wait, and little slowness afterwards.  
+The small atomic artillery shell causes ~2s of freeze, less if the area is explored, and ~10s of slowness afterwards.  
 The atomic artillery shell causes ~10s of freeze, less if the area is explored, and ~40s of slowness afterwards.  
 The big atomic artillery shell causes ~15s of freeze, less if the area is explored, and ~120s of slowness afterwards.  
 
