@@ -250,6 +250,7 @@ local atomic_artillery_recipe = {
 
 local atomic_artillery_item = table.deepcopy(data.raw["ammo"]["artillery-shell"])
 atomic_artillery_item.name = "atomic-artillery-shell"
+atomic_artillery_item.order = "d[explosive-cannon-shell]-e[atomic-artillery]"
 atomic_artillery_item.ammo_type.action.action_delivery.projectile = "atomic-artillery-projectile"
 atomic_artillery_item.icon = "__True-Nukes__/graphics/atomic-artillery-shell.png"
 
@@ -429,6 +430,7 @@ local big_atomic_artillery_recipe = {
 
 local big_atomic_artillery_item = table.deepcopy(data.raw["ammo"]["artillery-shell"])
 big_atomic_artillery_item.name = "big-atomic-artillery-shell"
+big_atomic_artillery_item.order = "d[explosive-cannon-shell]-e[big-atomic-artillery]"
 big_atomic_artillery_item.ammo_type.action.action_delivery.projectile = "nuclear-artillery-projectile"
 big_atomic_artillery_item.icon = "__True-Nukes__/graphics/big-atomic-artillery-shell.png"
 
@@ -447,6 +449,46 @@ big_atomic_artillery_projectile.action.action_delivery.target_effects[11].action
 big_atomic_artillery_projectile.action.action_delivery.target_effects[12].action.radius = 250
 big_atomic_artillery_projectile.action.action_delivery.target_effects[12].action.repeat_count = 100
 data:extend{big_atomic_artillery_recipe, big_atomic_artillery_item, big_atomic_artillery_projectile}
+
+
+
+local small_atomic_artillery_recipe = {
+    type = "recipe",
+    name = "small-atomic-artillery-shell",
+    enabled = false,
+    energy_required = 300,
+    ingredients =
+    {
+      {"artillery-shell", 1},
+      {"processing-unit", 10},
+      {"uranium-235", 75},
+      {"explosives", 10}
+    },
+    result = "small-atomic-artillery-shell"
+}
+
+local small_atomic_artillery_item = table.deepcopy(data.raw["ammo"]["artillery-shell"])
+small_atomic_artillery_item.name = "small-atomic-artillery-shell"
+small_atomic_artillery_item.order = "d[explosive-cannon-shell]-d[atomic-artillery]"
+small_atomic_artillery_item.ammo_type.action.action_delivery.projectile = "artillery-projectile-nuclear"
+small_atomic_artillery_item.icon = "__True-Nukes__/graphics/small-atomic-artillery-shell.png"
+
+local small_atomic_artillery_projectile = table.deepcopy(data.raw["artillery-projectile"]["atomic-artillery-projectile"])
+small_atomic_artillery_projectile.name = "artillery-projectile-nuclear"
+small_atomic_artillery_projectile.action.action_delivery.target_effects[1].effect_id = "Atomic Weapon hit 500t"
+small_atomic_artillery_projectile.action.action_delivery.target_effects[5].radius = 60
+small_atomic_artillery_projectile.action.action_delivery.target_effects[6].radius = 60
+small_atomic_artillery_projectile.action.action_delivery.target_effects[7].action.radius = 150
+small_atomic_artillery_projectile.action.action_delivery.target_effects[8].action.radius = 60
+small_atomic_artillery_projectile.action.action_delivery.target_effects[9].action.radius = 25
+small_atomic_artillery_projectile.action.action_delivery.target_effects[9].action.repeat_count = 15
+small_atomic_artillery_projectile.action.action_delivery.target_effects[10].action.radius = 50
+small_atomic_artillery_projectile.action.action_delivery.target_effects[10].action.repeat_count = 15
+small_atomic_artillery_projectile.action.action_delivery.target_effects[11].action.radius = 50
+small_atomic_artillery_projectile.action.action_delivery.target_effects[11].action.repeat_count = 25
+small_atomic_artillery_projectile.action.action_delivery.target_effects[12].action.radius = 50
+small_atomic_artillery_projectile.action.action_delivery.target_effects[12].action.repeat_count = 40
+data:extend{small_atomic_artillery_recipe, small_atomic_artillery_item, small_atomic_artillery_projectile}
 
 
 
@@ -481,6 +523,7 @@ local atomic_cannon_recipe = {
 
 local  atomic_cannon_item = table.deepcopy(data.raw["ammo"]["explosive-uranium-cannon-shell"])
 atomic_cannon_item.name = "atomic-cannon-shell"
+atomic_cannon_item.order = "d[explosive-cannon-shell]-dA[nuclear]"
 atomic_cannon_item.ammo_type.action.action_delivery.projectile = "atomic-cannon-projectile"
 atomic_cannon_item.icon = "__True-Nukes__/graphics/atomic-cannon-shell.png"
 
@@ -629,6 +672,10 @@ data:extend{atomic_cannon_recipe, atomic_cannon_item, atomic_cannon_projectile}
 table.insert(data.raw.technology["atomic-bomb"].effects, {
         type = "unlock-recipe",
         recipe = "atomic-cannon-shell"
+      })
+table.insert(data.raw.technology["atomic-bomb"].effects, {
+        type = "unlock-recipe",
+        recipe = "small-atomic-artillery-shell"
       })
 local artillery_nuke_tech = table.deepcopy(data.raw["technology"]["atomic-bomb"])
 artillery_nuke_tech.name = "atomic-artillery-shells"

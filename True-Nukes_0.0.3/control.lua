@@ -133,6 +133,8 @@ script.on_event(defines.events.on_script_trigger_effect, function(event)
 	 atomic_weapon_hit(event, 0, 5, 5, 8, 80, 50, 100, 100, 50, 2);
   elseif(event.effect_id=="Atomic Weapon hit 20t") then
 	 atomic_weapon_hit(event, 5, 10, 20, 30, 320, 320, 320, 180, 150, 1);
+  elseif(event.effect_id=="Atomic Weapon hit 500t") then
+	 atomic_weapon_hit(event, 10, 20, 40, 35, 400, 400, 600, 400, 300, 1);
   elseif(event.effect_id=="Atomic Weapon hit 1kt") then
 	 atomic_weapon_hit(event, 20, 40, 80, 75, 800, 800, 1200, 800, 300, 2);
   elseif(event.effect_id=="Atomic Weapon hit 15kt") then
