@@ -5,7 +5,6 @@ script.on_init(function()
 	global.nukeBlasts = {}
 end)
 
-
 local function moveBlast()
 	 if(global.nukeBlasts ==nil) then
 		global.nukeBlasts = {}
@@ -85,7 +84,7 @@ local function atomic_weapon_hit(event, crater_internal_r, crater_external_r, fi
 		f.chart(game.surfaces[event.surface_index], {{event.target_position.x-visable_r,event.target_position.y-visable_r},{event.target_position.x+visable_r,event.target_position.y+visable_r}})
 	 end
 	 for _,v in pairs(game.surfaces[event.surface_index].find_entities_filtered{position=event.target_position, radius=fireball_r}) do
-		if( not (string.match(v.type, "ghost"))) then
+		if(v.valid and (not (string.match(v.type, "ghost")))) then
 			if v.type=="tree" or not v.die(nil) then
 				v.destroy()
 			end
@@ -93,7 +92,8 @@ local function atomic_weapon_hit(event, crater_internal_r, crater_external_r, fi
 	 end
 	 for _,v in pairs(game.surfaces[event.surface_index].find_entities_filtered{position=event.target_position, radius=fireball_r}) do
 		if(not (string.match(v.type, "ghost"))) then
-			v.destroy()
+			v.die(nil);
+			v.destroy();
 		end
 	 end
 	 local tileTable = {}
