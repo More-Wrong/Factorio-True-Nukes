@@ -47,7 +47,7 @@ local function moveBlast()
 								damage = math.random(damage/2, damage*2)
 							end
 							entity.damage(math.random(damage/2, damage*2), "enemy","impact")
-						elseif (entity.type =="explosion" and not (entity.name=="big-artillery-explosion")) then
+						elseif (entity.type =="explosion" and not (entity.name=="nuke-explosion")) then
 							entity.destroy()
 						end
 					end
@@ -111,14 +111,16 @@ local function atomic_weapon_hit(event, crater_internal_r, crater_external_r, fi
 		if(not (v.prototype.max_health == 0)) then
 			local distSq = (v.position.x-event.target_position.x)*(v.position.x-event.target_position.x)+(v.position.y-event.target_position.y)*(v.position.y-event.target_position.y)
 			if(distSq>fireball_r) then
-				local damage = thermal_max_r*thermal_max_r/distSq*10
-				if(v.type=="tree") then
-					if(math.random(0, 100)<1) then
-						game.surfaces[event.surface_index].create_entity{name="fire-flame-on-tree",position=v.position, initial_ground_flame_count=1+math.min(254,thermal_max_r*thermal_max_r/distSq)}
+				local damage = thermal_max_r*thermal_max_r/distSq*10				
+				if(not (v.name=="spidertron")) then
+					if(v.type=="tree") then
+						if(math.random(0, 100)<1) then
+							game.surfaces[event.surface_index].create_entity{name="fire-flame-on-tree",position=v.position, initial_ground_flame_count=1+math.min(254,thermal_max_r*thermal_max_r/distSq)}
+						end
+				 		v.damage(math.random(damage/10, damage), force,"fire")
+					else
+						v.damage(math.random(damage/2, damage*2), force,"fire")
 					end
-			 		v.damage(math.random(damage/10, damage), force,"fire")
-				else
-					v.damage(math.random(damage/2, damage*2), force,"fire")
 				end
 			end
 		end

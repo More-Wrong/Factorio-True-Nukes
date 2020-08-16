@@ -1,3 +1,5 @@
+
+local sounds = require("__base__.prototypes.entity.demo-sounds")
 data.raw.projectile["atomic-rocket"].action = 
 {
   type = "direct",
@@ -25,10 +27,6 @@ data.raw.projectile["atomic-rocket"].action =
         type = "create-entity",
         entity_name = "big-scorchmark-tintable",
         check_buildability = true
-      },
-      {
-        type = "create-entity",
-        entity_name = "big-artillery-explosion"
       },
       {
         type = "destroy-cliffs",
@@ -153,6 +151,46 @@ data.raw.projectile["atomic-rocket"].action =
     }
   }
 }
+if not mods["MushroomCloud"] then
+	table.insert(data.raw.projectile["atomic-rocket"].action.action_delivery.target_effects, 
+      {
+        type = "create-entity",
+        entity_name = "nuke-explosion"
+      });
+	table.insert(data.raw.projectile["atomic-rocket"].action.action_delivery.target_effects, 
+      {
+            type = "camera-effect",
+            effect = "screen-burn",
+            duration = 60,
+            ease_in_duration = 5,
+            ease_out_duration = 60,
+            delay = 0,
+            strength = 6,
+            full_strength_max_distance = 200,
+            max_distance = 800
+          });
+	table.insert(data.raw.projectile["atomic-rocket"].action.action_delivery.target_effects, 
+      {
+            type = "play-sound",
+            sound = sounds.nuclear_explosion(0.9),
+            play_on_target_position = false,
+            -- min_distance = 200,
+            max_distance = 1000,
+            -- volume_modifier = 1,
+            audible_distance_modifier = 3
+          });
+	table.insert(data.raw.projectile["atomic-rocket"].action.action_delivery.target_effects, 
+      {
+            type = "play-sound",
+            sound = sounds.nuclear_explosion_aftershock(0.4),
+            play_on_target_position = false,
+            -- min_distance = 200,
+            max_distance = 1000,
+            -- volume_modifier = 1,
+            audible_distance_modifier = 3
+          });
+end
+
 data.raw.recipe["atomic-bomb"].energy_required=60
 data.raw.recipe["atomic-bomb"].ingredients=
     {
@@ -285,10 +323,6 @@ atomic_artillery_projectile.action = {
         check_buildability = true
       },
       {
-        type = "create-entity",
-        entity_name = "big-artillery-explosion"
-      },
-      {
         type = "destroy-cliffs",
         radius = 80 
       },
@@ -411,6 +445,45 @@ atomic_artillery_projectile.action = {
     }
   }
 }
+if not mods["MushroomCloud"] then
+	table.insert(atomic_artillery_projectile.action.action_delivery.target_effects, 
+      {
+        type = "create-entity",
+        entity_name = "nuke-explosion"
+      });
+	table.insert(atomic_artillery_projectile.action.action_delivery.target_effects, 
+      {
+            type = "camera-effect",
+            effect = "screen-burn",
+            duration = 60,
+            ease_in_duration = 5,
+            ease_out_duration = 60,
+            delay = 0,
+            strength = 6,
+            full_strength_max_distance = 200,
+            max_distance = 800
+          });
+	table.insert(atomic_artillery_projectile.action.action_delivery.target_effects, 
+      {
+            type = "play-sound",
+            sound = sounds.nuclear_explosion(0.9),
+            play_on_target_position = false,
+            -- min_distance = 200,
+            max_distance = 1000,
+            -- volume_modifier = 1,
+            audible_distance_modifier = 3
+          });
+	table.insert(atomic_artillery_projectile.action.action_delivery.target_effects, 
+      {
+            type = "play-sound",
+            sound = sounds.nuclear_explosion_aftershock(0.4),
+            play_on_target_position = false,
+            -- min_distance = 200,
+            max_distance = 1000,
+            -- volume_modifier = 1,
+            audible_distance_modifier = 3
+          });
+end
 data:extend{atomic_artillery_recipe, atomic_artillery_item, atomic_artillery_projectile}
 
 local big_atomic_artillery_recipe = {
@@ -437,17 +510,17 @@ big_atomic_artillery_item.icon = "__True-Nukes__/graphics/big-atomic-artillery-s
 local big_atomic_artillery_projectile = table.deepcopy(data.raw["artillery-projectile"]["atomic-artillery-projectile"])
 big_atomic_artillery_projectile.name = "nuclear-artillery-projectile"
 big_atomic_artillery_projectile.action.action_delivery.target_effects[1].effect_id = "Atomic Weapon hit 15kt"
-big_atomic_artillery_projectile.action.action_delivery.target_effects[5].radius = 200
-big_atomic_artillery_projectile.action.action_delivery.target_effects[6].radius = 100
-big_atomic_artillery_projectile.action.action_delivery.target_effects[7].action.radius = 500
-big_atomic_artillery_projectile.action.action_delivery.target_effects[8].action.radius = 400
-big_atomic_artillery_projectile.action.action_delivery.target_effects[9].action.radius = 100
-big_atomic_artillery_projectile.action.action_delivery.target_effects[10].action.radius = 200
-big_atomic_artillery_projectile.action.action_delivery.target_effects[10].action.repeat_count = 200
-big_atomic_artillery_projectile.action.action_delivery.target_effects[11].action.radius = 150
-big_atomic_artillery_projectile.action.action_delivery.target_effects[11].action.repeat_count = 300
-big_atomic_artillery_projectile.action.action_delivery.target_effects[12].action.radius = 250
-big_atomic_artillery_projectile.action.action_delivery.target_effects[12].action.repeat_count = 100
+big_atomic_artillery_projectile.action.action_delivery.target_effects[4].radius = 200
+big_atomic_artillery_projectile.action.action_delivery.target_effects[5].radius = 100
+big_atomic_artillery_projectile.action.action_delivery.target_effects[6].action.radius = 500
+big_atomic_artillery_projectile.action.action_delivery.target_effects[7].action.radius = 400
+big_atomic_artillery_projectile.action.action_delivery.target_effects[8].action.radius = 100
+big_atomic_artillery_projectile.action.action_delivery.target_effects[9].action.radius = 200
+big_atomic_artillery_projectile.action.action_delivery.target_effects[9].action.repeat_count = 200
+big_atomic_artillery_projectile.action.action_delivery.target_effects[10].action.radius = 150
+big_atomic_artillery_projectile.action.action_delivery.target_effects[10].action.repeat_count = 300
+big_atomic_artillery_projectile.action.action_delivery.target_effects[11].action.radius = 250
+big_atomic_artillery_projectile.action.action_delivery.target_effects[11].action.repeat_count = 100
 data:extend{big_atomic_artillery_recipe, big_atomic_artillery_item, big_atomic_artillery_projectile}
 
 
@@ -476,18 +549,18 @@ small_atomic_artillery_item.icon = "__True-Nukes__/graphics/small-atomic-artille
 local small_atomic_artillery_projectile = table.deepcopy(data.raw["artillery-projectile"]["atomic-artillery-projectile"])
 small_atomic_artillery_projectile.name = "artillery-projectile-nuclear"
 small_atomic_artillery_projectile.action.action_delivery.target_effects[1].effect_id = "Atomic Weapon hit 500t"
+small_atomic_artillery_projectile.action.action_delivery.target_effects[4].radius = 60
 small_atomic_artillery_projectile.action.action_delivery.target_effects[5].radius = 60
-small_atomic_artillery_projectile.action.action_delivery.target_effects[6].radius = 60
-small_atomic_artillery_projectile.action.action_delivery.target_effects[7].action.radius = 150
-small_atomic_artillery_projectile.action.action_delivery.target_effects[8].action.radius = 60
-small_atomic_artillery_projectile.action.action_delivery.target_effects[9].action.radius = 25
+small_atomic_artillery_projectile.action.action_delivery.target_effects[6].action.radius = 150
+small_atomic_artillery_projectile.action.action_delivery.target_effects[7].action.radius = 60
+small_atomic_artillery_projectile.action.action_delivery.target_effects[8].action.radius = 25
+small_atomic_artillery_projectile.action.action_delivery.target_effects[8].action.repeat_count = 15
+small_atomic_artillery_projectile.action.action_delivery.target_effects[9].action.radius = 50
 small_atomic_artillery_projectile.action.action_delivery.target_effects[9].action.repeat_count = 15
 small_atomic_artillery_projectile.action.action_delivery.target_effects[10].action.radius = 50
-small_atomic_artillery_projectile.action.action_delivery.target_effects[10].action.repeat_count = 15
+small_atomic_artillery_projectile.action.action_delivery.target_effects[10].action.repeat_count = 25
 small_atomic_artillery_projectile.action.action_delivery.target_effects[11].action.radius = 50
-small_atomic_artillery_projectile.action.action_delivery.target_effects[11].action.repeat_count = 25
-small_atomic_artillery_projectile.action.action_delivery.target_effects[12].action.radius = 50
-small_atomic_artillery_projectile.action.action_delivery.target_effects[12].action.repeat_count = 40
+small_atomic_artillery_projectile.action.action_delivery.target_effects[11].action.repeat_count = 40
 data:extend{small_atomic_artillery_recipe, small_atomic_artillery_item, small_atomic_artillery_projectile}
 
 
@@ -558,7 +631,7 @@ atomic_cannon_projectile.action = {
       },
       {
         type = "create-entity",
-        entity_name = "big-artillery-explosion"
+        entity_name = "nuke-explosion"
       },
       {
         type = "destroy-cliffs",
