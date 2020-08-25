@@ -1,0 +1,36 @@
+data:extend({
+	{
+		type = "bool-setting",
+		name = "crater-water-filling",
+		setting_type = "runtime-global",
+		default_value = true
+	},
+	{
+		type = "bool-setting",
+		name = "nuke-random-fires",
+		setting_type = "runtime-global",
+		default_value = true
+	},
+	{
+		type = "double-setting",
+		name = "hiroshima-fire-scaledown",
+		setting_type = "runtime-global",
+		minimum_value = 1,
+		maximum_value = 20,
+		default_value = 5
+	},
+	{
+		type = "double-setting",
+		name = "hiroshima-blast-range-scaledown",
+		setting_type = "runtime-global",
+		minimum_value = 1,
+		maximum_value = 2,
+		default_value = 2
+	},
+	{
+		type = "bool-setting",
+		name = "enable-thermobaric",
+		setting_type = "startup",
+		default_value = true
+	}
+})

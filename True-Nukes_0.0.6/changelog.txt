@@ -1,0 +1,24 @@
+---------------------------------------------------------------------------------------------------
+Version: 0.0.6
+Date: 2020-08-24
+  Features:
+    - Fixed version error in Changelog (oops...)
+    - Changed crater to use nuclear ground
+    - Added thermobaric weaponry
+    - Made fires around nuclear detonations last longer
+    - Added short lived fires after nuclear detonations
+    - Fixed spelling error in Atomic Bomb description
+    - Changed graphics for technologies
+    - Added descriptions to settings, and more settings
+---------------------------------------------------------------------------------------------------
+Version: 0.0.5
+Date: 2020-08-16
+  Features:
+    - Updated to use Factorio 1.0.0
+    - Updated graphics to use nuke-explosion if MushroomCloud not present, and to use it anyway for the tank shell.
+    - Made Spidertron 'immune' to thermal element of nuclear blast (by not applying it)
+---------------------------------------------------------------------------------------------------
+Version: 0.0.4
+  Features:
+    - Fixed crash on spidertron being destroyed by nuclear weapon.
+

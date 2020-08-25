@@ -1,4 +1,4 @@
-
+local fireutil = require("__base__.prototypes.fire-util")
 local sounds = require("__base__.prototypes.entity.demo-sounds")
 data.raw.projectile["atomic-rocket"].action = 
 {
@@ -73,7 +73,7 @@ data.raw.projectile["atomic-rocket"].action =
 			target_effects = {
 	 		  {
 				  type = "create-fire",
-				  entity_name = "fire-flame",
+				  entity_name = "nuclear-fire",
 				  initial_ground_flame_count = 1
 			  }
 			}
@@ -200,6 +200,33 @@ data.raw.recipe["atomic-bomb"].ingredients=
       {"uranium-235", 30},
     }
 
+data:extend({
+fireutil.add_basic_fire_graphics_and_effects_definitions
+{
+  type = "fire",
+  name = "nuclear-fire",
+  flags = {"placeable-off-grid", "not-on-map"},
+  damage_per_tick = {amount = 130 / 60, type = "fire"},
+  maximum_damage_multiplier = 6,
+  damage_multiplier_increase_per_added_fuel = 1,
+  damage_multiplier_decrease_per_tick = 0.0005,
+
+  spawn_entity = "fire-flame-on-tree",
+
+  spread_delay = 300,
+  spread_delay_deviation = 180,
+  maximum_spread_count = 100,
+
+  emissions_per_second = 0.005,
+
+  initial_lifetime = 3600,
+  lifetime_increase_by = 150,
+  lifetime_increase_cooldown = 4,
+  maximum_lifetime = 3600,
+  delay_between_initial_flames = 10,
+  --initial_flame_count = 1,
+
+}})
 
 
 
@@ -219,6 +246,7 @@ radiation_cloud.duration=60*60
 local fallout = table.deepcopy(data.raw.projectile["poison-capsule"])
 fallout.name="fallout"
 fallout.action[1].action_delivery.target_effects[1].entity_name = "dangerous-radiation-cloud"
+fallout.action[1].action_delivery.target_effects[1].show_in_tooltip = false
 table.remove(fallout.action[1].action_delivery.target_effects, 2)
 fallout.smoke = nil
 fallout.shadow = nil
@@ -253,6 +281,7 @@ lingering_radiation_cloud.created_effect[2].action_delivery.target_effects[1].en
 local lingering_fallout = table.deepcopy(data.raw.projectile["poison-capsule"])
 lingering_fallout.name="lingering-fallout"
 lingering_fallout.action[1].action_delivery.target_effects[1].entity_name = "lingering-radiation-cloud"
+lingering_fallout.action[1].action_delivery.target_effects[1].show_in_tooltip = false
 table.remove(lingering_fallout.action[1].action_delivery.target_effects, 2)
 lingering_fallout.smoke = nil
 lingering_fallout.shadow = nil
@@ -367,7 +396,7 @@ atomic_artillery_projectile.action = {
 			target_effects = {
 	 		  {
 				  type = "create-fire",
-				  entity_name = "fire-flame",
+				  entity_name = "nuclear-fire",
 				  initial_ground_flame_count = 1
 			  }
 			}
@@ -695,7 +724,7 @@ atomic_cannon_projectile.action = {
 			target_effects = {
 	 		  {
 				  type = "create-fire",
-				  entity_name = "fire-flame",
+				  entity_name = "nuclear-fire",
 				  initial_ground_flame_count = 1
 			  }
 			}
@@ -714,6 +743,7 @@ atomic_cannon_projectile.action = {
 	      action_delivery =
 	      {
 	        type = "projectile",
+            show_in_tooltip = false,
 	        projectile = "lingering-fallout",
 	        starting_speed = 0.0001
 	      }
@@ -731,6 +761,7 @@ atomic_cannon_projectile.action = {
 	      action_delivery =
 	      {
 	        type = "projectile",
+            show_in_tooltip = false,
 	        projectile = "fallout",
 	        starting_speed = 0.0001
 	      }
@@ -746,10 +777,6 @@ table.insert(data.raw.technology["atomic-bomb"].effects, {
         type = "unlock-recipe",
         recipe = "atomic-cannon-shell"
       })
-table.insert(data.raw.technology["atomic-bomb"].effects, {
-        type = "unlock-recipe",
-        recipe = "small-atomic-artillery-shell"
-      })
 local artillery_nuke_tech = table.deepcopy(data.raw["technology"]["atomic-bomb"])
 artillery_nuke_tech.name = "atomic-artillery-shells"
 artillery_nuke_tech.effects =
@@ -761,8 +788,13 @@ artillery_nuke_tech.effects =
       {
         type = "unlock-recipe",
         recipe = "big-atomic-artillery-shell"
+      }, 
+	  {
+        type = "unlock-recipe",
+        recipe = "small-atomic-artillery-shell"
       }
     }
+artillery_nuke_tech.unit.count=1000
 artillery_nuke_tech.prerequisites = {"atomic-bomb", "artillery"}
 artillery_nuke_tech.icon = "__True-Nukes__/graphics/atomic-artillery-tech.png",
 data:extend{artillery_nuke_tech}
