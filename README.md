@@ -12,7 +12,7 @@ The effects modelled are:
   - The thermal radiation: instantaneous energy release, which burns anything its path, causing instant damage in a wide area.
   - The blast wave: a pressure wave, blowing over structures and trees, which ripples out causing damage as it goes.
   - The fireball: vaporizes everything within a certain radius.
-  - The crater: formed of an inner and outer section. The inner section is a depression, which will slowly fill with water (this behaviour can be toggled in the     settings), and the outer section is composed of turned-over land (modelled by replacing the tiles with landfill).
+  - The crater: formed of an inner and outer section. The inner section is a depression, which will slowly fill with water (this behaviour can be toggled in the settings), and the outer section is composed of turned-over land.
   - The radiation: modelled as something like the poison effects, but longer lasting, and black.
 
 ### New weapons
@@ -28,6 +28,22 @@ The cannon shell has the effect of making the tank a viable late-game option, as
 
 The other weapons are all wide-area, and can do massive damage to one or several bases, but draw in enemies from a huge area and start forest fires. 
 
+### Thermobaric weapons
+The mod also adds Thermobaric weapons. These are weapons using lots of fuel which ignites with the air. The most well known example is the fuel air bomb, but other types exist.
+These are not nukes (by any streatch of the imagination), but they rely on similar systems (the blast wave etc.) and are, with some imagination, like early game nukes.
+
+There are three types implemented, and, due to the lack of information on thermobaric weapons, they are basically small, medium and large.
+  - Small:  Thermobaric cannon shell, for the tank. This has a 40m outer blast radius.
+  - Medium: Thermobaric rocket, for the rocket launcher. This has an 80m outer blast radius.blast radius.
+  - Large:  Thermobaric artillery shell. This has a 120m outer blast radius.
+
+These weapons have their own research, and can be obtained using chemical and military science packs, however they are relatively expensive.
+They also do poorly against strong enemies, as while they have a large blast radius, they do not do much damage.
+
+Compared to the nuclear weapons, these have much shorter ranges, but they do involve a lot of fire, which is very performance intensive. 
+They are not too bad, but firing the cannon shell at full fire rate can reduce the framerate significantly. 
+Due to the lack of extra map loading, they have no noticable freeze time when they hit.
+
 ### Performance
 To allow the game to load in the relevent map areas and apply damage, the larger weapons can freeze the game for some time when they hit (as the initial damage is applied), and cause slow down for a period afterwards while the blast-wave propagates.
 The atomic cannon shell is quick enough that it can be fired at full rate, even with fire rate upgrades.  
@@ -40,7 +56,7 @@ These numbers get substantially worse in high density areas, such as the inside 
 I had originally intended to go all the way up into 100kt range, but the game simply could not cope; I had also originally implemented entities sheltering one another from the blast, and had debris flying off of destroyed entities, but this made little difference to the outcome, and slowed it down.
 
 ### General
-The artillery shells should not be used with autofire, but there does not seem to be an obvious way to disable it, so would advise using a normal artillery shells first to clear out nearby enemies, and then switch to the nuclear shells for remote targets. Fortunately it takes very few nuclear shells to go a very long way.
+The artillery shells should not be used with autofire, but there does not seem to be an obvious way to disable it, so would advise using a normal (or thermobaric) artillery shells first to clear out nearby enemies, and then switch to the nuclear shells for remote targets. Fortunately it takes very few nuclear shells to go a very long way.
 
 The balance of this mod is unlikely to be perfect, but with artillery, late game enemies offer little threat, and the costs of these devices are high. Also these weapons tend be double-edged swords, lighting fires in the factory, and even destryoing power poles if detonated too close by.
 
