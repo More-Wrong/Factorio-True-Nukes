@@ -1,5 +1,5 @@
 # Factorio-True-Nukes
-A Factorio mod adding realistic nuclear blasts, and more nuclear options.
+A Factorio mod adding realistic nuclear blasts, and more nuclear options, as well as Thermobaric weapons.
 
 The Factorio in-built atomic weapons are tiny, and don't really model the destructive side-effects of the blast. Sure, the explosions blast out in a ring, but then they just stop. What about the fire, the blast wave crashing across the world. It just won't do!
 
