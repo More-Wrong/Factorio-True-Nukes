@@ -34,7 +34,7 @@ These are not nukes (by any streatch of the imagination), but they rely on simil
 
 There are three types implemented, and, due to the lack of information on thermobaric weapons, they are basically small, medium and large.
   - Small:  Thermobaric cannon shell, for the tank. This has a 40m outer blast radius.
-  - Medium: Thermobaric rocket, for the rocket launcher. This has an 80m outer blast radius.blast radius.
+  - Medium: Thermobaric rocket, for the rocket launcher. This has an 80m outer blast radius.
   - Large:  Thermobaric artillery shell. This has a 120m outer blast radius.
 
 These weapons have their own research, and can be obtained using chemical and military science packs, however they are relatively expensive.
@@ -44,6 +44,7 @@ Compared to the nuclear weapons, these have much shorter ranges, but they do inv
 They are not too bad, but firing the cannon shell at full fire rate can reduce the framerate significantly. 
 Due to the lack of extra map loading, they have no noticable freeze time when they hit.
 
+These weapons are more likely to disrupt game balance, as they are much more early game, hence the option to disable them
 ### Performance
 To allow the game to load in the relevent map areas and apply damage, the larger weapons can freeze the game for some time when they hit (as the initial damage is applied), and cause slow down for a period afterwards while the blast-wave propagates.
 The atomic cannon shell is quick enough that it can be fired at full rate, even with fire rate upgrades.  
