@@ -214,7 +214,22 @@ thermobaric_artillery_item.icon = "__True-Nukes__/graphics/thermobaric-artillery
 
 local thermobaric_artillery_projectile = table.deepcopy(data.raw["artillery-projectile"]["artillery-projectile"])
 thermobaric_artillery_projectile.name = "thermobaric-artillery-projectile"
-thermobaric_artillery_projectile.chart_picture.filename = "__True-Nukes__/graphics/thermobaric-artillery-map-visualization.png"
+
+--Hack to fix Make Artillery Great Again's removal of the 'chart_picture'... also just being defensive
+if(thermobaric_artillery_projectile.chart_picture) then
+	thermobaric_artillery_projectile.chart_picture.filename = "__True-Nukes__/graphics/thermobaric-artillery-map-visualization.png"
+else
+	thermobaric_artillery_projectile.chart_picture = {
+	      filename = "__True-Nukes__/graphics/thermobaric-artillery-map-visualization.png",
+	      flags = { "icon" },
+	      frame_count = 1,
+	      width = 64,
+	      height = 64,
+	      priority = "high",
+	      scale = 0.25
+	    }
+end
+
 thermobaric_artillery_projectile.action = {
   type = "direct",
   action_delivery =

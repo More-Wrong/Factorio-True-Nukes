@@ -323,7 +323,22 @@ atomic_artillery_item.icon = "__True-Nukes__/graphics/atomic-artillery-shell.png
 
 local atomic_artillery_projectile = table.deepcopy(data.raw["artillery-projectile"]["artillery-projectile"])
 atomic_artillery_projectile.name = "atomic-artillery-projectile"
-atomic_artillery_projectile.chart_picture.filename = "__True-Nukes__/graphics/atomic-artillery-map-visualization.png"
+
+--Hack to fix Make Artillery Great Again's removal of the 'chart_picture'... also just being defensive
+if(atomic_artillery_projectile.chart_picture) then
+	atomic_artillery_projectile.chart_picture.filename = "__True-Nukes__/graphics/atomic-artillery-map-visualization.png"
+else
+	atomic_artillery_projectile.chart_picture = {
+	      filename = "__True-Nukes__/graphics/atomic-artillery-map-visualization.png",
+	      flags = { "icon" },
+	      frame_count = 1,
+	      width = 64,
+	      height = 64,
+	      priority = "high",
+	      scale = 0.25
+	    }
+end
+
 atomic_artillery_projectile.action = {
   type = "direct",
   action_delivery =
