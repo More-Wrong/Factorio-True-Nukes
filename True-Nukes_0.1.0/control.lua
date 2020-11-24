@@ -262,13 +262,13 @@ script.on_event(defines.events.on_script_trigger_effect, function(event)
   elseif(event.effect_id=="Atomic Weapon hit 20t") then
 	 atomic_weapon_hit(event, 5, 10, 20, 30, 320, 320, 320, 180, 150, 1);
   elseif(event.effect_id=="Atomic Weapon hit 500t") then
-	 atomic_weapon_hit(event, 10, 20, 40, 35, 400, 400, 600, 400, 300, 1);
+	 atomic_weapon_hit(event, 10, 20, 40, 35, 400, 400, 600, 400, 300, 1*settings.global["large-nuke-fire-scaledown"].value);
   elseif(event.effect_id=="Atomic Weapon hit 1kt") then
-	 atomic_weapon_hit(event, 20, 40, 80, 75, 800, 800, 1200, 800, 300, 2);
+	 atomic_weapon_hit(event, 20, 40, 80, 75, 800, 800, 1200, 800, 300, 2*settings.global["large-nuke-fire-scaledown"].value);
   elseif(event.effect_id=="Atomic Weapon hit 15kt") then
-	 atomic_weapon_hit(event, 50, 100, 200, 150, 2000/settings.global["large-nuke-blast-range-scaledown"].value, 1000, 3000, 1000, 500, settings.global["large-nuke-fire-scaledown"].value);
+	 atomic_weapon_hit(event, 50, 100, 200, 150, 2000/settings.global["large-nuke-blast-range-scaledown"].value, 1000, 3000, 1000, 500, settings.global["huge-nuke-fire-scaledown"].value);
   elseif(event.effect_id=="Atomic Weapon hit 100kt") then
-	 atomic_weapon_hit(event, 90, 180, 500, 400, 5500/settings.global["large-nuke-blast-range-scaledown"].value, 2500, 6000, 1500, 1000, settings.global["large-nuke-fire-scaledown"].value);
+	 atomic_weapon_hit(event, 90, 180, 500, 400, 5500/settings.global["large-nuke-blast-range-scaledown"].value, 2500, 6000, 1500, 1000, 2*settings.global["really-huge-nuke-fire-scaledown"].value);
   end
 end)
 

@@ -64,15 +64,26 @@ radiation_cloud.created_effect[1].action_delivery.target_effects[1].entity_name 
 radiation_cloud.created_effect[2].action_delivery.target_effects[1].entity_name = "radiation-cloud-visual-dummy"
 radiation_cloud.duration=60*60
 
-local fallout = table.deepcopy(data.raw.projectile["poison-capsule"])
-fallout.name="fallout"
-fallout.action[1].action_delivery.target_effects[1].entity_name = "dangerous-radiation-cloud"
-fallout.action[1].action_delivery.target_effects[1].show_in_tooltip = false
-table.remove(fallout.action[1].action_delivery.target_effects, 2)
-fallout.smoke = nil
-fallout.shadow = nil
-fallout.light = nil
-fallout.animation=
+local fallout = 
+  {
+    type = "projectile",
+    name = "fallout",
+    flags = {"not-on-map"},
+    acceleration = 0.005,
+    action =
+    {
+      type = "direct",
+      action_delivery =
+      {
+        type = "instant",
+        target_effects =
+        {
+          type = "create-entity",
+          entity_name = "dangerous-radiation-cloud"
+        }
+      }
+    },
+    animation =
     {
       filename = "__core__/graphics/empty.png",
       frame_count = 1,
@@ -80,7 +91,7 @@ fallout.animation=
       height = 1,
       priority = "high"
     }
-
+  }
 
 
 
@@ -99,15 +110,26 @@ lingering_radiation_cloud.fade_away_duration = 40 * 60
 lingering_radiation_cloud.created_effect[1].action_delivery.target_effects[1].entity_name = "lingering-radiation-cloud-visual-dummy"
 lingering_radiation_cloud.created_effect[2].action_delivery.target_effects[1].entity_name = "lingering-radiation-cloud-visual-dummy"
 
-local lingering_fallout = table.deepcopy(data.raw.projectile["poison-capsule"])
-lingering_fallout.name="lingering-fallout"
-lingering_fallout.action[1].action_delivery.target_effects[1].entity_name = "lingering-radiation-cloud"
-lingering_fallout.action[1].action_delivery.target_effects[1].show_in_tooltip = false
-table.remove(lingering_fallout.action[1].action_delivery.target_effects, 2)
-lingering_fallout.smoke = nil
-lingering_fallout.shadow = nil
-lingering_fallout.light = nil
-lingering_fallout.animation=
+local lingering_fallout = 
+  {
+    type = "projectile",
+    name = "lingering-fallout",
+    flags = {"not-on-map"},
+    acceleration = 0.005,
+    action =
+    {
+      type = "direct",
+      action_delivery =
+      {
+        type = "instant",
+        target_effects =
+        {
+          type = "create-entity",
+          entity_name = "lingering-radiation-cloud"
+        }
+      }
+    },
+    animation =
     {
       filename = "__core__/graphics/empty.png",
       frame_count = 1,
@@ -115,6 +137,7 @@ lingering_fallout.animation=
       height = 1,
       priority = "high"
     }
+  }
 
 data:extend{radiation_cloud_vis_dum, radiation_cloud, fallout, lingering_radiation_cloud_vis_dum, lingering_radiation_cloud, lingering_fallout}
 
@@ -231,7 +254,7 @@ scary_nuke_tech.effects =
       },
       {
         type = "unlock-recipe",
-        recipe = "very-big-atomic-artillery-shell"
+        recipe = "TN-very-big-atomic-artillery-shell"
       }
     }
 scary_nuke_tech.unit.count=2000
@@ -245,21 +268,13 @@ scary_nuke_tech.unit.ingredients = {
         {"space-science-pack", 1}
       }
 scary_nuke_tech.prerequisites = {"atomic-artillery-shells", "californium-processing"}
-scary_nuke_tech.icon = "__True-Nukes__/graphics/atomic-artillery-tech.png",
+scary_nuke_tech.icon = "__True-Nukes__/graphics/scary-atomic-tech.png",
 data:extend{scary_nuke_tech}
 
 
 require("data-nukes-californium")
 
 
-
-
-
-
-table.insert(data.raw.technology["atomic-bomb"].effects, {
-        type = "unlock-recipe",
-        recipe = "atomic-cannon-shell"
-      })
 
 
 

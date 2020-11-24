@@ -9,6 +9,8 @@ Date: 2020-11-24
     - Added high yield rockets
     - Added upgraded versions of atomic tank shells and ammunition
     - Increased range of most nuclear weapons, and decreased fire-rate in some cases
+    - Added more performance settings
+    - Fixed migration script
 ---------------------------------------------------------------------------------------------------
 Version: 0.0.7
 Date: 2020-11-08

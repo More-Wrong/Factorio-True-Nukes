@@ -16,6 +16,22 @@ data:extend({
 		name = "large-nuke-fire-scaledown",
 		setting_type = "runtime-global",
 		minimum_value = 1,
+		maximum_value = 5,
+		default_value = 1
+	},
+	{
+		type = "double-setting",
+		name = "huge-nuke-fire-scaledown",
+		setting_type = "runtime-global",
+		minimum_value = 1,
+		maximum_value = 10,
+		default_value = 2
+	},
+	{
+		type = "double-setting",
+		name = "really-huge-nuke-fire-scaledown",
+		setting_type = "runtime-global",
+		minimum_value = 1,
 		maximum_value = 20,
 		default_value = 5
 	},
