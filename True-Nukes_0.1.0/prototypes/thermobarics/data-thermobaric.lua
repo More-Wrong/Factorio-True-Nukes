@@ -9,8 +9,8 @@ local thermobaric_rocket_recipe = {
     {
       {"explosive-rocket", 1},
       {"advanced-circuit", 4},
-      {"rocket-fuel", 20},
-      {"empty-barrel", 2}
+      {"rocket-fuel", 25},
+      {"empty-barrel", 4}
     },
     result = "thermobaric-rocket"
 }
@@ -18,6 +18,8 @@ local thermobaric_rocket_recipe = {
 local thermobaric_rocket_item = table.deepcopy(data.raw["ammo"]["atomic-bomb"])
 thermobaric_rocket_item.name = "thermobaric-rocket"
 thermobaric_rocket_item.order = "d[rocket-launcher]-b[thermobaric]"
+thermobaric_rocket_item.ammo_type.range_modifier = 3
+thermobaric_rocket_item.ammo_type.cooldown_modifier = 3
 thermobaric_rocket_item.ammo_type.action.action_delivery.projectile = "thermobaric-rocket"
 thermobaric_rocket_item.icon = "__True-Nukes__/graphics/thermobaric-rocket.png"
 
@@ -114,7 +116,10 @@ local thermobaric_cannon_recipe = {
 
 local thermobaric_cannon_item = table.deepcopy(data.raw["ammo"]["explosive-cannon-shell"])
 thermobaric_cannon_item.name = "thermobaric-cannon-shell"
+thermobaric_cannon_item.ammo_type.range_modifier = 1.5
+thermobaric_cannon_item.ammo_type.cooldown_modifier = 1.5
 thermobaric_cannon_item.ammo_type.action.action_delivery.projectile = "thermobaric-cannon-projectile"
+thermobaric_cannon_item.order = "d[cannon-shell]-c[thermobaric]"
 thermobaric_cannon_item.icon = "__True-Nukes__/graphics/thermobaric-cannon-shell.png"
 
 local thermobaric_cannon_projectile = table.deepcopy(data.raw["projectile"]["explosive-cannon-projectile"])
@@ -154,7 +159,7 @@ thermobaric_cannon_projectile.action = {
         action =
 		 {
 		   type = "area",
-		   radius = 60,
+		   radius = 30,
 		   action_delivery =
 		   {
 		     type = "instant",
@@ -200,17 +205,21 @@ local thermobaric_artillery_recipe = {
     ingredients =
     {
       {"artillery-shell", 1},
-      {"advanced-circuit", 5},
-      {"rocket-fuel", 30},
-      {"empty-barrel", 3}
+      {"advanced-circuit", 10},
+      {"rocket-fuel", 40},
+      {"empty-barrel", 5}
     },
     result = "thermobaric-artillery-shell"
 }
 
 local thermobaric_artillery_item = table.deepcopy(data.raw["ammo"]["artillery-shell"])
 thermobaric_artillery_item.name = "thermobaric-artillery-shell"
+thermobaric_artillery_item.ammo_type.cooldown_modifier = 2
 thermobaric_artillery_item.ammo_type.action.action_delivery.projectile = "thermobaric-artillery-projectile"
 thermobaric_artillery_item.icon = "__True-Nukes__/graphics/thermobaric-artillery-shell.png"
+if mods["SchallTankPlatoon"] then
+	thermobaric_artillery_item.order = "h[artillery]-c[thermobaric-artillery]"
+end
 
 local thermobaric_artillery_projectile = table.deepcopy(data.raw["artillery-projectile"]["artillery-projectile"])
 thermobaric_artillery_projectile.name = "thermobaric-artillery-projectile"
@@ -308,18 +317,26 @@ thermobaric_tech.effects =
     {
       {
         type = "unlock-recipe",
-        recipe = "thermobaric-artillery-shell"
-      },
-      {
-        type = "unlock-recipe",
         recipe = "thermobaric-cannon-shell"
       },
       {
         type = "unlock-recipe",
         recipe = "thermobaric-rocket"
+      },
+      {
+        type = "unlock-recipe",
+        recipe = "thermobaric-artillery-shell"
+      },
+      {
+        type = "unlock-recipe",
+        recipe = "fire-shield-equipment"
       }
     }
 thermobaric_tech.prerequisites = {"rocket-fuel", "flamethrower", "military-3"}
 thermobaric_tech.icon = "__True-Nukes__/graphics/thermobaric-tech.png"
 thermobaric_tech.unit.count=250
 data:extend{thermobaric_tech}
+if mods["SchallTankPlatoon"] then
+  require("data-thermobaric-schall")
+end
+

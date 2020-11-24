@@ -13,7 +13,7 @@ data:extend({
 	},
 	{
 		type = "double-setting",
-		name = "hiroshima-fire-scaledown",
+		name = "large-nuke-fire-scaledown",
 		setting_type = "runtime-global",
 		minimum_value = 1,
 		maximum_value = 20,
@@ -21,7 +21,7 @@ data:extend({
 	},
 	{
 		type = "double-setting",
-		name = "hiroshima-blast-range-scaledown",
+		name = "large-nuke-blast-range-scaledown",
 		setting_type = "runtime-global",
 		minimum_value = 1,
 		maximum_value = 2,
@@ -30,6 +30,12 @@ data:extend({
 	{
 		type = "bool-setting",
 		name = "enable-thermobaric",
+		setting_type = "startup",
+		default_value = true
+	},
+	{
+		type = "bool-setting",
+		name = "use-californium",
 		setting_type = "startup",
 		default_value = true
 	}

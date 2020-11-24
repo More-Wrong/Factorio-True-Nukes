@@ -44,6 +44,10 @@ local function moveBlast()
 								damage = damage/10
 							elseif (t=="land-mine") then
 								damage = damage/10
+							elseif(t=="car" or t=="spider-vehicle") then
+								if (next(entity.prototype.collision_mask)==nil)then
+									damage = damage/5
+								end
 							end
 							if(t=="tree") then
 								if(blast.fire) then
@@ -53,17 +57,33 @@ local function moveBlast()
 							else
 								damage = math.random(damage/2, damage*2)
 							end
-							entity.damage(math.random(damage/2, damage*2), "enemy","impact")
-							if blast.fire and entity.valid and (entity.type == "unit" or entity.type == "car") then
-								surface.create_entity{name="fire-sticker", position=entity.position, target=entity}
+							entity.damage(damage, "enemy","explosion")
+							if blast.fire and entity.valid and (entity.type == "unit" or entity.type == "car" or entity.type == "spider-vehicle") then
+								local fireShield = nil
+								if entity.grid then
+									for _,e in pairs(entity.grid.equipment) do
+										if(e.name=="fire-shield-equipment" and e.energy>=500000) then
+											fireShield = e;
+											break;
+										end	
+									end
+								end
+								if fireShield then
+									fireShield.energy = fireShield.energy-500000
+								else
+									surface.create_entity{name="fire-sticker", position=entity.position, target=entity}
+								end
 								entity.damage(20, "enemy", "fire")
-								if(entity.valid and entity.name =="tank") then
-									entity.damage(100, "enemy", "fire")
+								if(entity.valid)then
+									entity.damage(40, "enemy", "physical")
+								end
+								if(entity.valid and entity.type == "car" and (entity.prototype.max_health >= 1000 or fireShield)) then
+									entity.damage(80, "enemy", "fire")
 								end
 							elseif blast.fire and entity.valid and (not (entity.type == "tree")) then
 								entity.damage(100, "enemy", "fire")
 							end
-						elseif ((not (blast.fire)) and entity.type =="explosion" and not (entity.name=="nuke-explosion")) then
+						elseif ((not (blast.fire)) and entity.type =="explosion" and not (entity.name=="nuke-explosion") and not (entity.name=="big-artillery-explosion")) then
 							entity.destroy()
 						end
 					end
@@ -108,6 +128,9 @@ script.on_event(defines.events.on_tick, moveBlast);
 local function atomic_weapon_hit(event, crater_internal_r, crater_external_r, fireball_r, fire_outer_r, blast_max_r, tree_fire_max_r, thermal_max_r, load_r, visable_r, flame_proportion)
 	 local force
 	 local position = event.target_position
+	 if(not position) then
+	 	position = event.source_position
+	 end
 	 if(not (event.source_entity==nil)) then
 	 	force = event.source_entity.force
 	 else
@@ -160,16 +183,27 @@ local function atomic_weapon_hit(event, crater_internal_r, crater_external_r, fi
 		if(v.valid and not (v.prototype.max_health == 0)) then
 			local distSq = (v.position.x-position.x)*(v.position.x-position.x)+(v.position.y-position.y)*(v.position.y-position.y)
 			if(distSq>fireball_r) then
-				local damage = thermal_max_r*thermal_max_r/distSq*10				
-				if(not (v.name=="spidertron")) then
-					if(v.type=="tree") then
-						if(math.random(0, 100)<1) then
-							game.surfaces[event.surface_index].create_entity{name="fire-flame-on-tree",position=v.position, initial_ground_flame_count=1+math.min(254,thermal_max_r*thermal_max_r/distSq)}
+				local damage = thermal_max_r*thermal_max_r/distSq*10	
+				if(v.type=="tree") then
+					if(math.random(0, 100)<1) then
+						game.surfaces[event.surface_index].create_entity{name="fire-flame-on-tree",position=v.position, initial_ground_flame_count=1+math.min(254,thermal_max_r*thermal_max_r/distSq)}
+					end
+			 		v.damage(math.random(damage/10, damage), force,"fire")
+				else
+					v.damage(math.random(damage/2, damage*2), force,"fire")
+					if(v.valid and (v.type == "unit" or v.type == "car" or v.type == "spider-vehicle")) then
+						local fireShield = nil
+						if v.grid then
+							for _,e in pairs(v.grid.equipment) do
+								if(e.name=="fire-shield-equipment" and e.energy>=1000000) then
+									fireShield = e;
+									break;
+								end	
+							end
 						end
-				 		v.damage(math.random(damage/10, damage), force,"fire")
-					else
-						v.damage(math.random(damage/2, damage*2), force,"fire")
-						if(v.valid and (v.type == "unit" or v.type == "car")) then
+						if fireShield then
+							fireShield.energy = fireShield.energy-1000000
+						else
 							game.surfaces[event.surface_index].create_entity{name="fire-sticker", position=v.position, target=v}
 						end
 					end
@@ -197,20 +231,34 @@ local function thermobaric_weapon_hit(event, explosion_r, blast_max_r, fire_r, l
 	 for _,v in pairs(game.surfaces[event.surface_index].find_tiles_filtered{position=position, radius=explosion_r}) do
 		game.surfaces[event.surface_index].create_entity{name="fire-flame",position=v.position}
 	 end
-	 table.insert(global.blastWaves, {r = explosion_r, pos = position, pow = explosion_r*explosion_r, max = blast_max_r, s = event.surface_index, fire = true, damage_init = 400.0, speed = 1, fire_rad = fire_r, blast_min_damage = 30})
+	 table.insert(global.blastWaves, {r = explosion_r, pos = position, pow = explosion_r*explosion_r, max = blast_max_r, s = event.surface_index, fire = true, damage_init = 600.0, speed = 1, fire_rad = fire_r, blast_min_damage = 30})
 end
 
 
 --local function atomic_weapon_hit(event, crater_internal_r, crater_external_r, fireball_r, fire_outer_r, blast_max_r, tree_fire_max_r, thermal_max_r, load_r, visable_r, flame_proportion)
 script.on_event(defines.events.on_script_trigger_effect, function(event)
-  if(event.effect_id=="Thermobaric Weapon hit small") then
-	 thermobaric_weapon_hit(event, 3, 40, 25, 40, 20);
+  if(event.effect_id=="Thermobaric Weapon hit small-") then
+	 thermobaric_weapon_hit(event, 1, 15, 10, 10, 10);
+  elseif(event.effect_id=="Thermobaric Weapon hit small") then
+	 thermobaric_weapon_hit(event, 3, 30, 20, 30, 15);
+  elseif(event.effect_id=="Thermobaric Weapon hit small+") then
+	 thermobaric_weapon_hit(event, 4, 45, 30, 45, 25);
+  elseif(event.effect_id=="Thermobaric Weapon hit medium-") then
+	 thermobaric_weapon_hit(event, 5, 60, 40, 60, 35);
   elseif(event.effect_id=="Thermobaric Weapon hit medium") then
 	 thermobaric_weapon_hit(event, 6, 80, 50, 80, 50);
   elseif(event.effect_id=="Thermobaric Weapon hit large") then
 	 thermobaric_weapon_hit(event, 9, 120, 100, 120, 100);
+  elseif(event.effect_id=="Atomic Weapon hit 0.1t") then
+	 atomic_weapon_hit(event, 0, 1, 1, 3, 30, 15, 30, 15, 15, 1);
+  elseif(event.effect_id=="Atomic Weapon hit 0.5t") then
+	 atomic_weapon_hit(event, 0, 3, 3, 5, 50, 25, 30, 30, 20, 1);
   elseif(event.effect_id=="Atomic Weapon hit 2t") then
 	 atomic_weapon_hit(event, 0, 5, 5, 15, 80, 50, 100, 100, 50, 2);
+  elseif(event.effect_id=="Atomic Weapon hit 4t") then
+	 atomic_weapon_hit(event, 1, 6, 7, 20, 130, 120, 150, 180, 80, 1);
+  elseif(event.effect_id=="Atomic Weapon hit 8t") then
+	 atomic_weapon_hit(event, 3, 8, 14, 25, 200, 200, 200, 180, 100, 1);
   elseif(event.effect_id=="Atomic Weapon hit 20t") then
 	 atomic_weapon_hit(event, 5, 10, 20, 30, 320, 320, 320, 180, 150, 1);
   elseif(event.effect_id=="Atomic Weapon hit 500t") then
@@ -218,7 +266,9 @@ script.on_event(defines.events.on_script_trigger_effect, function(event)
   elseif(event.effect_id=="Atomic Weapon hit 1kt") then
 	 atomic_weapon_hit(event, 20, 40, 80, 75, 800, 800, 1200, 800, 300, 2);
   elseif(event.effect_id=="Atomic Weapon hit 15kt") then
-	 atomic_weapon_hit(event, 50, 100, 200, 150, 2000/settings.global["hiroshima-blast-range-scaledown"].value, 1000, 3000, 1000, 500, settings.global["hiroshima-fire-scaledown"].value);
+	 atomic_weapon_hit(event, 50, 100, 200, 150, 2000/settings.global["large-nuke-blast-range-scaledown"].value, 1000, 3000, 1000, 500, settings.global["large-nuke-fire-scaledown"].value);
+  elseif(event.effect_id=="Atomic Weapon hit 100kt") then
+	 atomic_weapon_hit(event, 90, 180, 500, 400, 5500/settings.global["large-nuke-blast-range-scaledown"].value, 2500, 6000, 1500, 1000, settings.global["large-nuke-fire-scaledown"].value);
   end
 end)
 
