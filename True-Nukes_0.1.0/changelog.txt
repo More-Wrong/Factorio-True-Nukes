@@ -1,4 +1,15 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.1.0
+Date: 2020-11-24
+  Features:
+    - Added extra nukes for compatability with Schall's Tank Platoon
+    - Added californium, and smaller nuclear weapons
+    - Added 100kt nuclear weapon
+    - Added fire shield
+    - Added high yield rockets
+    - Added upgraded versions of atomic tank shells and ammunition
+    - Increased range of most nuclear weapons, and decreased fire-rate in some cases
+---------------------------------------------------------------------------------------------------
 Version: 0.0.7
 Date: 2020-11-08
   Features:
