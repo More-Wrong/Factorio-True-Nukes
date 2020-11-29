@@ -1,5 +1,6 @@
 local fireutil = require("__base__.prototypes.fire-util")
 local nuke_explosions = require("data-nuke-explosions")
+
 data.raw.projectile["atomic-rocket"].action = 
 {
   type = "direct",
@@ -13,14 +14,23 @@ data.raw.projectile["atomic-rocket"].action =
 
 data.raw.ammo["atomic-bomb"].ammo_type.range_modifier = 3
 data.raw.recipe["atomic-bomb"].energy_required=60
-data.raw.recipe["atomic-bomb"].ingredients=
-    {
-      {"rocket-control-unit", 10},
-      {"processing-unit", 5},
-      {"explosives", 10},
-      {"uranium-235", 30},
-    }
-
+if mods["bobelectronics"] then
+	data.raw.recipe["atomic-bomb"].ingredients=
+	    {
+	      {"plastic-bar", 20},
+	      {"superior-circuit-board", 5},
+	      {"explosives", 10},
+	      {"uranium-235", 30},
+	    }
+else
+	data.raw.recipe["atomic-bomb"].ingredients=
+	    {
+	      {"rocket-control-unit", 10},
+	      {"processing-unit", 5},
+	      {"explosives", 10},
+	      {"uranium-235", 30},
+	    }
+end
 data:extend({
 fireutil.add_basic_fire_graphics_and_effects_definitions
 {
@@ -76,10 +86,15 @@ local fallout =
       action_delivery =
       {
         type = "instant",
-        target_effects =
-        {
-          type = "create-entity",
-          entity_name = "dangerous-radiation-cloud"
+        target_effects ={
+          {
+            type = "create-entity",
+            entity_name = "dangerous-radiation-cloud"
+          },
+          {
+            type = "create-entity",
+            entity_name = "radiation-cloud"
+          }
         }
       }
     },

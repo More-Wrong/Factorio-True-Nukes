@@ -1,10 +1,23 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.1.1
+Date: 2020-11-29
+  Features:
+    - Enabled 100kt nukes
+    - Added significant performance optimisations when destroying large numbers of trees
+    - Added Bob's compatable recipies (electronics and plates/intermediates)
+    - Incorperated MushroomCloud graphics and sounds into the mod, so that they work by default
+    - Moved to factorio 1.1
+    - Added different flash effects for the different nukes, and added them to all nukes
+    - Added different sound ranges for different nukes, adding sounds to those that didn't have it before
+    - Added better graphics to thermobaric weapons.
+    - Disabled 'lots of small fires' for both 15kt and 100kt nukes
+    - Added ordering to mod settings.
+---------------------------------------------------------------------------------------------------
 Version: 0.1.0
 Date: 2020-11-24
   Features:
     - Added extra nukes for compatability with Schall's Tank Platoon
     - Added californium, and smaller nuclear weapons
-    - Added 100kt nuclear weapon
     - Added fire shield
     - Added high yield rockets
     - Added upgraded versions of atomic tank shells and ammunition

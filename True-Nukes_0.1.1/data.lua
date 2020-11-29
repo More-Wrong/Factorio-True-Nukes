@@ -1,4 +1,11 @@
+require("MushroomCloudInBuilt.explosions")
+require("MushroomCloudInBuilt.radiation_noise")
+require("MushroomCloudInBuilt.ground_zero")
+require("MushroomCloudInBuilt.explosion_sizes")
+
+	
 local fireutil = require("__base__.prototypes.fire-util")
+
 data:extend({
 fireutil.add_basic_fire_graphics_and_effects_definitions
 {
@@ -83,3 +90,46 @@ data:extend({
     result = "fire-shield-equipment"
   }
   })
+  
+  
+  
+  
+  
+  
+
+function add_mushroom_cloud_effect(effect, prefix)
+    table.insert(effect, 2, {
+	                    type = "create-entity",
+	                    entity_name = prefix .. "uranium-explosion-LUQ",
+	                })
+    table.insert(effect, 3, {
+	                    type = "create-entity",
+	                    entity_name = prefix .. "uranium-explosion-RUQ"
+	                })
+    table.insert(effect, 4, {
+	                    type = "create-entity",
+	                    entity_name = prefix .. "uranium-explosion-LLQ"
+	                })
+    table.insert(effect, 5, {
+	                    type = "create-entity",
+	                    entity_name = prefix .. "uranium-explosion-RLQ"
+	                })
+    table.insert(effect, 6, {
+	                    type = "create-entity",
+	                    entity_name = "nuclear-scorchmark",
+	                    check_buildability = true
+	                })
+    table.insert(effect, 7, {
+			     type = "create-entity",
+			     entity_name = "radiation-cloud"
+		        })
+
+end
+	
+if(settings.startup["enable-thermobaric"].value) then
+	add_mushroom_cloud_effect(data.raw.projectile["thermobaric-rocket"].action.action_delivery.target_effects, "small-")
+	add_mushroom_cloud_effect(data.raw["artillery-projectile"]["thermobaric-artillery-projectile"].action.action_delivery.target_effects, "")
+	if mods["SchallTankPlatoon"] then
+		add_mushroom_cloud_effect(data.raw.projectile["thermobaric-cannon-H2-projectile"].action.action_delivery.target_effects, "small-")
+	end
+end

@@ -1,6 +1,15 @@
 local fireutil = require("__base__.prototypes.fire-util")
 local nuke_explosions = require("data-nuke-explosions")
 
+local circuit_type;
+local upgrade_circuit_mult = 5
+if not mods["bobelectronics"] then
+	circuit_type = "processing-unit"
+else
+	circuit_type = "superior-circuit-board"
+	upgrade_circuit_mult = 1
+end
+
 local material;
 if(settings.startup["use-californium"].value) then
 	material = "californium"
@@ -46,7 +55,7 @@ local atomic_ammo_recipe = {
       {"uranium-rounds-magazine", 1},
       {"low-density-structure", 10},
       {material, 10},
-      {"processing-unit", 2}
+      {circuit_type, 2}
     },
     result = "atomic-rounds-magazine"
   }
@@ -96,7 +105,7 @@ local big_atomic_ammo_recipe = {
       {"atomic-rounds-magazine", 1},
       {"low-density-structure", 10},
       {material, 20},
-      {"processing-unit", 10}
+      {"processing-unit", 2*upgrade_circuit_mult}
     },
     result = "big-atomic-rounds-magazine"
   }
@@ -146,7 +155,7 @@ local atomic_cannon_recipe = {
       {"explosive-uranium-cannon-shell", 1},
       {"explosives", 5},
       {material, 10},
-      {"processing-unit", 5}
+      {circuit_type, 5}
     },
     result = "atomic-cannon-shell"
   }
@@ -181,7 +190,7 @@ local big_atomic_cannon_recipe = {
       {"atomic-cannon-shell", 1},
       {material, 15},
       {"low-density-structure", 10},
-      {"processing-unit", 5}
+      {"processing-unit", 3*upgrade_circuit_mult}
     },
     result = "big-atomic-cannon-shell"
   }

@@ -1,5 +1,18 @@
 local fireutil = require("__base__.prototypes.fire-util")
 
+local circuit_type;
+if not mods["bobelectronics"] then
+	circuit_type = "advanced-circuit"
+else
+	circuit_type = "circuit-board"
+end
+local fuel_type;
+if not mods["bobplates"] then
+	fuel_type = "rocket-fuel"
+else
+	fuel_type = "enriched-fuel"
+end
+
 local thermobaric_rocket_recipe = {
     type = "recipe",
     name = "thermobaric-rocket",
@@ -8,8 +21,8 @@ local thermobaric_rocket_recipe = {
     ingredients =
     {
       {"explosive-rocket", 1},
-      {"advanced-circuit", 4},
-      {"rocket-fuel", 25},
+      {circuit_type, 4},
+      {fuel_type, 25},
       {"empty-barrel", 4}
     },
     result = "thermobaric-rocket"
@@ -107,8 +120,8 @@ local thermobaric_cannon_recipe = {
     ingredients =
     {
       {"explosive-cannon-shell", 1},
-      {"advanced-circuit", 2},
-      {"rocket-fuel", 10},
+      {circuit_type, 2},
+      {fuel_type, 10},
       {"empty-barrel", 1}
     },
     result = "thermobaric-cannon-shell"
@@ -206,7 +219,7 @@ local thermobaric_artillery_recipe = {
     {
       {"artillery-shell", 1},
       {"advanced-circuit", 10},
-      {"rocket-fuel", 40},
+      {fuel_type, 40},
       {"empty-barrel", 5}
     },
     result = "thermobaric-artillery-shell"
@@ -332,6 +345,11 @@ thermobaric_tech.effects =
         recipe = "fire-shield-equipment"
       }
     }
+if not mods["bobplates"] then
+	thermobaric_tech.prerequisites = {"rocket-fuel", "flamethrower", "military-3"}
+else
+	thermobaric_tech.prerequisites = {"advanced-oil-processing", "flamethrower", "military-3"}
+end
 thermobaric_tech.prerequisites = {"rocket-fuel", "flamethrower", "military-3"}
 thermobaric_tech.icon = "__True-Nukes__/graphics/thermobaric-tech.png"
 thermobaric_tech.unit.count=250

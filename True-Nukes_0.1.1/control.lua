@@ -1,11 +1,13 @@
 
-
+local mushroomFunctions = require("MushroomCloudInBuilt.control")
+local createBlastSoundsAndFlash = mushroomFunctions[1]
 script.on_init(function()
 	global.waitingNukes = {}
 	global.blastWaves = {}
 end)
 
-local function moveBlast()
+local function moveBlast(event)
+	mushroomFunctions[2](event)
 	 if(global.blastWaves ==nil) then
 		global.blastWaves = {}
 	 end
@@ -57,7 +59,17 @@ local function moveBlast()
 							else
 								damage = math.random(damage/2, damage*2)
 							end
-							entity.damage(damage, "enemy","explosion")
+							if(t=="tree") then
+								if((not entity.prototype.resistances and entity.health<damage) or (entity.prototype.resistances and entity.health<(damage-entity.prototype.resistances.explosion.decrease)*(1-entity.prototype.resistances.explosion.percent))) then
+									local destPos = entity.position
+									entity.destroy()
+									surface.create_entity{name="tree-01-stump",position=destPos}
+								else
+									entity.damage(damage, "enemy","explosion")
+								end
+							else
+								entity.damage(damage, "enemy","explosion")
+							end
 							if blast.fire and entity.valid and (entity.type == "unit" or entity.type == "car" or entity.type == "spider-vehicle") then
 								local fireShield = nil
 								if entity.grid then
@@ -125,7 +137,7 @@ script.on_event(defines.events.on_tick, moveBlast);
 
 
 
-local function atomic_weapon_hit(event, crater_internal_r, crater_external_r, fireball_r, fire_outer_r, blast_max_r, tree_fire_max_r, thermal_max_r, load_r, visable_r, flame_proportion)
+local function atomic_weapon_hit(event, crater_internal_r, crater_external_r, fireball_r, fire_outer_r, blast_max_r, tree_fire_max_r, thermal_max_r, load_r, visable_r, flame_proportion, create_small_fires)
 	 local force
 	 local position = event.target_position
 	 if(not position) then
@@ -172,7 +184,7 @@ local function atomic_weapon_hit(event, crater_internal_r, crater_external_r, fi
 			game.surfaces[event.surface_index].create_entity{name="nuclear-fire",position=v.position}
 		end
 	 end
-	 if (settings.global["nuke-random-fires"].value) then
+	 if (settings.global["nuke-random-fires"].value and create_small_fires) then
 		for i=0,(tree_fire_max_r*tree_fire_max_r/10) do
 			local dist = math.random(0, math.random(0, tree_fire_max_r))
 			local angle = math.random()*3.1416*2
@@ -188,7 +200,15 @@ local function atomic_weapon_hit(event, crater_internal_r, crater_external_r, fi
 					if(math.random(0, 100)<1) then
 						game.surfaces[event.surface_index].create_entity{name="fire-flame-on-tree",position=v.position, initial_ground_flame_count=1+math.min(254,thermal_max_r*thermal_max_r/distSq)}
 					end
-			 		v.damage(math.random(damage/10, damage), force,"fire")
+					local damage = math.random(damage/10, damage)
+					if((not v.prototype.resistances and v.health<damage) or (v.prototype.resistances and v.health<(damage-v.prototype.resistances.fire.decrease)*(1-v.prototype.resistances.fire.percent))) then
+						local surface = v.surface
+						local destPos = v.position
+						v.destroy()
+						surface.create_entity{name="tree-01-stump",position=destPos}
+					else
+						v.damage(damage, force,"fire")
+					end
 				else
 					v.damage(math.random(damage/2, damage*2), force,"fire")
 					if(v.valid and (v.type == "unit" or v.type == "car" or v.type == "spider-vehicle")) then
@@ -250,25 +270,35 @@ script.on_event(defines.events.on_script_trigger_effect, function(event)
   elseif(event.effect_id=="Thermobaric Weapon hit large") then
 	 thermobaric_weapon_hit(event, 9, 120, 100, 120, 100);
   elseif(event.effect_id=="Atomic Weapon hit 0.1t") then
-	 atomic_weapon_hit(event, 0, 1, 1, 3, 30, 15, 30, 15, 15, 1);
+	 atomic_weapon_hit(event, 0, 1, 1, 3, 30, 15, 30, 15, 15, 1, true);
+	 createBlastSoundsAndFlash(event.target_position, game.surfaces[event.surface_index], 60, 100, 200, 700, 10, 0.06);
   elseif(event.effect_id=="Atomic Weapon hit 0.5t") then
-	 atomic_weapon_hit(event, 0, 3, 3, 5, 50, 25, 30, 30, 20, 1);
+	 atomic_weapon_hit(event, 0, 3, 3, 5, 50, 25, 30, 30, 20, 1, true);
+	 createBlastSoundsAndFlash(event.target_position, game.surfaces[event.surface_index], 80, 150, 300, 1000, 20, 0.12);
   elseif(event.effect_id=="Atomic Weapon hit 2t") then
-	 atomic_weapon_hit(event, 0, 5, 5, 15, 80, 50, 100, 100, 50, 2);
+	 atomic_weapon_hit(event, 0, 5, 5, 15, 80, 50, 100, 100, 50, 2, true);
+	 createBlastSoundsAndFlash(event.target_position, game.surfaces[event.surface_index], 100, 250, 500, 2000, 40, 0.25);
   elseif(event.effect_id=="Atomic Weapon hit 4t") then
-	 atomic_weapon_hit(event, 1, 6, 7, 20, 130, 120, 150, 180, 80, 1);
+	 atomic_weapon_hit(event, 1, 6, 7, 20, 130, 120, 150, 180, 80, 1, true);
+	 createBlastSoundsAndFlash(event.target_position, game.surfaces[event.surface_index], 120, 300, 900, 4000, 70, 0.4);
   elseif(event.effect_id=="Atomic Weapon hit 8t") then
-	 atomic_weapon_hit(event, 3, 8, 14, 25, 200, 200, 200, 180, 100, 1);
+	 atomic_weapon_hit(event, 3, 8, 14, 25, 200, 200, 200, 180, 100, 1, true);
+	 createBlastSoundsAndFlash(event.target_position, game.surfaces[event.surface_index], 150, 400, 1250, 10000, 100, 0.6);
   elseif(event.effect_id=="Atomic Weapon hit 20t") then
-	 atomic_weapon_hit(event, 5, 10, 20, 30, 320, 320, 320, 180, 150, 1);
+	 atomic_weapon_hit(event, 5, 10, 20, 30, 320, 320, 320, 180, 150, 1, true);
+	 createBlastSoundsAndFlash(event.target_position, game.surfaces[event.surface_index], 250, 600, 1800, 15000, 160, 1);
   elseif(event.effect_id=="Atomic Weapon hit 500t") then
-	 atomic_weapon_hit(event, 10, 20, 40, 35, 400, 400, 600, 400, 300, 1*settings.global["large-nuke-fire-scaledown"].value);
+	 atomic_weapon_hit(event, 10, 20, 40, 35, 400, 400, 600, 400, 300, 1*settings.global["large-nuke-fire-scaledown"].value, true);
+	 createBlastSoundsAndFlash(event.target_position, game.surfaces[event.surface_index], 400, 800, 2500, 25000, 300, 2);
   elseif(event.effect_id=="Atomic Weapon hit 1kt") then
-	 atomic_weapon_hit(event, 20, 40, 80, 75, 800, 800, 1200, 800, 300, 2*settings.global["large-nuke-fire-scaledown"].value);
+	 atomic_weapon_hit(event, 20, 40, 80, 75, 800, 800, 1200, 800, 300, 2*settings.global["large-nuke-fire-scaledown"].value, true);
+	 createBlastSoundsAndFlash(event.target_position, game.surfaces[event.surface_index], 600, 1200, 8000, 60000, 600, 4);
   elseif(event.effect_id=="Atomic Weapon hit 15kt") then
-	 atomic_weapon_hit(event, 50, 100, 200, 150, 2000/settings.global["large-nuke-blast-range-scaledown"].value, 1000, 3000, 1000, 500, settings.global["huge-nuke-fire-scaledown"].value);
+	 atomic_weapon_hit(event, 50, 100, 200, 150, 2000/settings.global["large-nuke-blast-range-scaledown"].value, 1000, 3000, 1000, 500, settings.global["huge-nuke-fire-scaledown"].value, false);
+	 createBlastSoundsAndFlash(event.target_position, game.surfaces[event.surface_index], 1500, 3000, 20000, 100000, 1500, 8);
   elseif(event.effect_id=="Atomic Weapon hit 100kt") then
-	 atomic_weapon_hit(event, 90, 180, 500, 400, 5500/settings.global["large-nuke-blast-range-scaledown"].value, 2500, 6000, 1500, 1000, 2*settings.global["really-huge-nuke-fire-scaledown"].value);
+	 atomic_weapon_hit(event, 90, 180, 500, 400, 5500/settings.global["really-huge-nuke-blast-range-scaledown"].value, 2500, 6000, 1500, 1000, 2*settings.global["really-huge-nuke-fire-scaledown"].value, false);
+	 createBlastSoundsAndFlash(event.target_position, game.surfaces[event.surface_index], 2700, 5400, 36000, 200000, 2700, 16);
   end
 end)
 

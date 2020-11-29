@@ -1,34 +1,33 @@
-local sounds = require("__base__.prototypes.entity.sounds")
+function add_mushroom_cloud_effect(effect, prefix)
+    table.insert(effect, 2, {
+	                    type = "create-entity",
+	                    entity_name = prefix .. "uranium-explosion-LUQ",
+	                })
+    table.insert(effect, 3, {
+	                    type = "create-entity",
+	                    entity_name = prefix .. "uranium-explosion-RUQ"
+	                })
+    table.insert(effect, 4, {
+	                    type = "create-entity",
+	                    entity_name = prefix .. "uranium-explosion-LLQ"
+	                })
+    table.insert(effect, 5, {
+	                    type = "create-entity",
+	                    entity_name = prefix .. "uranium-explosion-RLQ"
+	                })
+    table.insert(effect, 6, {
+	                    type = "create-entity",
+	                    entity_name = "nuclear-scorchmark",
+	                    check_buildability = true
+	                })
+    table.insert(effect, 7, {
+			     type = "create-entity",
+			     entity_name = "radiation-cloud"
+		        })
+
+end
+
 local N0_1t_detonation = {
-	  {
-	    type = "camera-effect",
-	    effect = "screen-burn",
-	    duration = 30,
-	    ease_in_duration = 5,
-	    ease_out_duration = 30,
-	    delay = 0,
-	    strength = 3,
-	    full_strength_max_distance = 5,
-	    max_distance = 20
-	  },
-          {
-            type = "play-sound",
-            sound = sounds.nuclear_explosion(0.9),
-            play_on_target_position = false,
-            -- min_distance = 200,
-            max_distance = 25,
-            volume_modifier = 1,
-            audible_distance_modifier = 3
-          },
-          {
-            type = "play-sound",
-            sound = sounds.nuclear_explosion_aftershock(0.4),
-            play_on_target_position = false,
-            -- min_distance = 200,
-            max_distance = 25,
-            -- volume_modifier = 1,
-            audible_distance_modifier = 3
-          },
           {
             type = "create-trivial-smoke",
             smoke_name = "artillery-smoke",
@@ -48,10 +47,10 @@ local N0_1t_detonation = {
         entity_name = "medium-scorchmark-tintable",
         check_buildability = true
       },
-          {
-            type = "create-entity",
-            entity_name = "big-explosion"
-          },
+      {
+	type = "create-entity",
+	entity_name = "massive-explosion"
+      },
       {
         type = "destroy-cliffs",
         radius = 1 
@@ -108,35 +107,6 @@ local N0_1t_detonation = {
         }
         
 local N0_5t_detonation = {
-	  {
-	    type = "camera-effect",
-	    effect = "screen-burn",
-	    duration = 15,
-	    ease_in_duration = 5,
-	    ease_out_duration = 15,
-	    delay = 0,
-	    strength = 6,
-	    full_strength_max_distance = 10,
-	    max_distance = 50
-	  },
-          {
-            type = "play-sound",
-            sound = sounds.nuclear_explosion(0.9),
-            play_on_target_position = false,
-            -- min_distance = 200,
-            max_distance = 50,
-            volume_modifier = 1,
-            audible_distance_modifier = 3
-          },
-          {
-            type = "play-sound",
-            sound = sounds.nuclear_explosion_aftershock(0.4),
-            play_on_target_position = false,
-            -- min_distance = 200,
-            max_distance = 50,
-            -- volume_modifier = 1,
-            audible_distance_modifier = 3
-          },
       {
         type = "script",
 		effect_id = "Atomic Weapon hit 0.5t"
@@ -148,7 +118,7 @@ local N0_5t_detonation = {
       },
       {
         type = "create-entity",
-        entity_name = "big-artillery-explosion"
+        entity_name = "massive-explosion"
       },
       {
         type = "destroy-cliffs",
@@ -240,35 +210,6 @@ local N0_5t_detonation = {
     }
     
 local N2t_detonation = {
-	  {
-	    type = "camera-effect",
-	    effect = "screen-burn",
-	    duration = 30,
-	    ease_in_duration = 5,
-	    ease_out_duration = 30,
-	    delay = 0,
-	    strength = 6,
-	    full_strength_max_distance = 20,
-	    max_distance = 100
-	  },
-          {
-            type = "play-sound",
-            sound = sounds.nuclear_explosion(0.9),
-            play_on_target_position = false,
-            -- min_distance = 200,
-            max_distance = 100,
-            volume_modifier = 1,
-            audible_distance_modifier = 3
-          },
-          {
-            type = "play-sound",
-            sound = sounds.nuclear_explosion_aftershock(0.4),
-            play_on_target_position = false,
-            -- min_distance = 200,
-            max_distance = 100,
-            -- volume_modifier = 1,
-            audible_distance_modifier = 3
-          },
       {
         type = "script",
 		effect_id = "Atomic Weapon hit 2t"
@@ -402,35 +343,6 @@ local N2t_detonation = {
     
     
 local N4t_detonation = {
-	  {
-	    type = "camera-effect",
-	    effect = "screen-burn",
-	    duration = 60,
-	    ease_in_duration = 5,
-	    ease_out_duration = 60,
-	    delay = 0,
-	    strength = 6,
-	    full_strength_max_distance = 45,
-	    max_distance = 200
-	  },
-          {
-            type = "play-sound",
-            sound = sounds.nuclear_explosion(0.9),
-            play_on_target_position = false,
-            -- min_distance = 200,
-            max_distance = 200,
-            volume_modifier = 1,
-            audible_distance_modifier = 3
-          },
-          {
-            type = "play-sound",
-            sound = sounds.nuclear_explosion_aftershock(0.4),
-            play_on_target_position = false,
-            -- min_distance = 200,
-            max_distance = 200,
-            -- volume_modifier = 1,
-            audible_distance_modifier = 3
-          },
       {
         type = "script",
 		effect_id = "Atomic Weapon hit 4t"
@@ -563,35 +475,6 @@ local N4t_detonation = {
   }
   
 local N8t_detonation = {
-	  {
-	    type = "camera-effect",
-	    effect = "screen-burn",
-	    duration = 120,
-	    ease_in_duration = 5,
-	    ease_out_duration = 120,
-	    delay = 0,
-	    strength = 6,
-	    full_strength_max_distance = 75,
-	    max_distance = 300
-	  },
-          {
-            type = "play-sound",
-            sound = sounds.nuclear_explosion(0.9),
-            play_on_target_position = false,
-            -- min_distance = 200,
-            max_distance = 300,
-            volume_modifier = 1,
-            audible_distance_modifier = 3
-          },
-          {
-            type = "play-sound",
-            sound = sounds.nuclear_explosion_aftershock(0.4),
-            play_on_target_position = false,
-            -- min_distance = 200,
-            max_distance = 300,
-            -- volume_modifier = 1,
-            audible_distance_modifier = 3
-          },
       {
         type = "script",
 		effect_id = "Atomic Weapon hit 8t"
@@ -611,10 +494,6 @@ local N8t_detonation = {
         type = "create-entity",
         entity_name = "big-scorchmark-tintable",
         check_buildability = true
-      },
-      {
-        type = "create-entity",
-        entity_name = "nuke-explosion"
       },
       {
         type = "destroy-cliffs",
@@ -741,7 +620,7 @@ local N20t_detonation =
       },
       {
         type = "create-entity",
-        entity_name = "big-scorchmark-tintable",
+        entity_name = "nuclear-scorchmark",
         check_buildability = true
       },
       {
@@ -865,45 +744,6 @@ local N20t_detonation =
 	    }
 	  }
     }
-if not mods["MushroomCloud"] then
-	table.insert(N20t_detonation, 
-      {
-        type = "create-entity",
-        entity_name = "nuke-explosion"
-      });
-	table.insert(N20t_detonation, 
-      {
-            type = "camera-effect",
-            effect = "screen-burn",
-            duration = 60,
-            ease_in_duration = 5,
-            ease_out_duration = 60,
-            delay = 0,
-            strength = 6,
-            full_strength_max_distance = 200,
-            max_distance = 800
-          });
-	table.insert(N20t_detonation, 
-      {
-            type = "play-sound",
-            sound = sounds.nuclear_explosion(0.9),
-            play_on_target_position = false,
-            -- min_distance = 200,
-            max_distance = 1000,
-            -- volume_modifier = 1,
-            audible_distance_modifier = 3
-          });
-	table.insert(N20t_detonation, 
-      {
-            type = "play-sound",
-            sound = sounds.nuclear_explosion_aftershock(0.4),
-            play_on_target_position = false,
-            -- min_distance = 200,
-            max_distance = 1000,
-            -- volume_modifier = 1,
-            audible_distance_modifier = 3
-          });
-end
 local N1kt_detonation = {
       {
         type = "script",
@@ -922,7 +762,7 @@ local N1kt_detonation = {
       },
       {
         type = "create-entity",
-        entity_name = "big-scorchmark-tintable",
+        entity_name = "nuclear-scorchmark",
         check_buildability = true
       },
       {
@@ -1046,45 +886,6 @@ local N1kt_detonation = {
 	    }
 	  }
     }
-if not mods["MushroomCloud"] then
-	table.insert(N1kt_detonation, 
-      {
-        type = "create-entity",
-        entity_name = "nuke-explosion"
-      });
-	table.insert(N1kt_detonation, 
-      {
-            type = "camera-effect",
-            effect = "screen-burn",
-            duration = 60,
-            ease_in_duration = 5,
-            ease_out_duration = 60,
-            delay = 0,
-            strength = 6,
-            full_strength_max_distance = 200,
-            max_distance = 800
-          });
-	table.insert(N1kt_detonation, 
-      {
-            type = "play-sound",
-            sound = sounds.nuclear_explosion(0.9),
-            play_on_target_position = false,
-            -- min_distance = 200,
-            max_distance = 1000,
-            -- volume_modifier = 1,
-            audible_distance_modifier = 3
-          });
-	table.insert(N1kt_detonation, 
-      {
-            type = "play-sound",
-            sound = sounds.nuclear_explosion_aftershock(0.4),
-            play_on_target_position = false,
-            -- min_distance = 200,
-            max_distance = 1000,
-            -- volume_modifier = 1,
-            audible_distance_modifier = 3
-          });
-end
 local N500t_detonation = table.deepcopy(N1kt_detonation)
 N500t_detonation[1].effect_id = "Atomic Weapon hit 500t"
 N500t_detonation[4].radius = 60
@@ -1127,6 +928,12 @@ N100kt_detonation[10].action.radius = 150
 N100kt_detonation[10].action.repeat_count = 300
 N100kt_detonation[11].action.radius = 250
 N100kt_detonation[11].action.repeat_count = 100
+
+add_mushroom_cloud_effect(N8t_detonation, "small-")
+add_mushroom_cloud_effect(N20t_detonation, "small-")
+add_mushroom_cloud_effect(N500t_detonation, "")
+add_mushroom_cloud_effect(N15kt_detonation, "huge-")
+add_mushroom_cloud_effect(N100kt_detonation, "really-huge-")
 
 return {
 	N0_1t_detonation = N0_1t_detonation,

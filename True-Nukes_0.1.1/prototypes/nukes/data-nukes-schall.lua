@@ -1,6 +1,15 @@
 local fireutil = require("__base__.prototypes.fire-util")
 local nuke_explosions = require("data-nuke-explosions")
 
+local circuit_type;
+local upgrade_circuit_mult = 4
+if not mods["bobelectronics"] then
+	circuit_type = "processing-unit"
+else
+	circuit_type = "superior-circuit-board"
+	upgrade_circuit_mult = 1
+end
+local material;
 if(settings.startup["use-californium"].value) then
 	material = "californium"
 else
@@ -18,7 +27,7 @@ local atomic_autocannon_recipe = {
       {"explosives", 10},
       {material, 20},
       {"uranium-238", 5},
-      {"processing-unit", 20}
+      {circuit_type, 20}
     },
     result = "atomic-autocannon-shell"
   }
@@ -53,7 +62,7 @@ local atomic_cannon_H1_recipe = {
       {"explosive-uranium-cannon-H1-shell", 1},
       {"explosives", 5},
       {material, 15},
-      {"processing-unit", 5}
+      {circuit_type, 5}
     },
     result = "atomic-cannon-H1-shell"
   }
@@ -87,7 +96,7 @@ local atomic_cannon_H2_recipe = {
       {"explosive-uranium-cannon-H2-shell", 1},
       {"explosives", 5},
       {material, 20},
-      {"processing-unit", 10}
+      {circuit_type, 10}
     },
     result = "atomic-cannon-H2-shell"
   }
@@ -125,7 +134,7 @@ local big_atomic_autocannon_recipe = {
       {"atomic-autocannon-shell", 1},
       {material, 30},
       {"low-density-structure", 40},
-      {"processing-unit", 20}
+      {"processing-unit", 5*upgrade_circuit_mult}
     },
     result = "big-atomic-autocannon-shell"
   }
@@ -160,7 +169,7 @@ local big_atomic_cannon_H1_recipe = {
       {"atomic-cannon-H1-shell", 1},
       {material, 25},
       {"low-density-structure", 15},
-      {"processing-unit", 5}
+      {"processing-unit", 2*upgrade_circuit_mult}
     },
     result = "big-atomic-cannon-H1-shell"
   }
@@ -194,7 +203,7 @@ local big_atomic_cannon_H2_recipe = {
       {"atomic-cannon-H2-shell", 1},
       {"low-density-structure", 20},
       {material, 30},
-      {"processing-unit", 5}
+      {"processing-unit", 3*upgrade_circuit_mult}
     },
     result = "big-atomic-cannon-H2-shell"
   }

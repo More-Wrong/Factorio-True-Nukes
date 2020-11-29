@@ -1,5 +1,19 @@
 local fireutil = require("__base__.prototypes.fire-util")
 
+local circuit_type;
+if not mods["bobelectronics"] then
+	circuit_type = "advanced-circuit"
+else
+	circuit_type = "circuit-board"
+end
+local fuel_type;
+if not mods["bobplates"] then
+	fuel_type = "rocket-fuel"
+else
+	fuel_type = "enriched-fuel"
+end
+
+
 local thermobaric_autocannon_recipe = {
     type = "recipe",
     name = "thermobaric-autocannon-shell",
@@ -8,8 +22,8 @@ local thermobaric_autocannon_recipe = {
     ingredients =
     {
       {"explosive-autocannon-shell", 1},
-      {"advanced-circuit", 10},
-      {"rocket-fuel", 10},
+      {circuit_type, 10},
+      {fuel_type, 10},
       {"empty-barrel", 1}
     },
     result = "thermobaric-autocannon-shell"
@@ -38,7 +52,7 @@ thermobaric_autocannon_projectile.action = {
       },
       {
         type = "create-entity",
-        entity_name = "big-artillery-explosion"
+        entity_name = "massive-explosion"
       },
       {
         type = "create-entity",
@@ -94,8 +108,8 @@ local thermobaric_cannon_H1_recipe = {
     ingredients =
     {
       {"explosive-cannon-H1-shell", 1},
-      {"advanced-circuit", 3},
-      {"rocket-fuel", 15},
+      {circuit_type, 3},
+      {fuel_type, 15},
       {"empty-barrel", 1}
     },
     result = "thermobaric-cannon-H1-shell"
@@ -189,8 +203,8 @@ local thermobaric_cannon_H2_recipe = {
     ingredients =
     {
       {"explosive-cannon-H2-shell", 1},
-      {"advanced-circuit", 3},
-      {"rocket-fuel", 20},
+      {circuit_type, 3},
+      {fuel_type, 20},
       {"empty-barrel", 2}
     },
     result = "thermobaric-cannon-H2-shell"
@@ -216,10 +230,6 @@ thermobaric_cannon_H2_projectile.action = {
       {
         type = "script",
 		effect_id = "Thermobaric Weapon hit medium-"
-      },
-      {
-        type = "create-entity",
-        entity_name = "nuke-explosion"
       },
       {
         type = "create-entity",

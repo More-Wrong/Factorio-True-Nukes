@@ -6,6 +6,6 @@
  "description": "Adds realistic nuclear blasts, and more nuclear options.",
  "homepage": "https://github.com/More-Wrong/Factorio-True-Nukes",
  "factorio_version": "1.1",
- "dependencies": ["? MushroomCloud", "? SchallTankPlatoon", "? Aircraft"]
+ "dependencies": ["? SchallTankPlatoon", "? Aircraft", "? bobelectronics", "? bobwarfare", "? bobplates", "? True-Nukes-Graphics"]
 }
 

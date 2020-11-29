@@ -31,7 +31,6 @@ for index, force in pairs(game.forces) do
   
   
   recipes["big-atomic-bomb"].enabled = technologies["scary-atomic-weapons"].researched
-  recipes["very-big-atomic-bomb"].enabled = technologies["scary-atomic-weapons"].researched
   recipes["big-atomic-rounds-magazine"].enabled = technologies["scary-atomic-weapons"].researched
   --if mods["SchallTankPlatoon"] then
     --recipes["big-atomic-autocannon-shell"].enabled = technologies["scary-atomic-weapons"].researched

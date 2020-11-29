@@ -1,0 +1,11 @@
+{
+ "name": "True-Nukes-Graphics",
+ "version": "0.0.1",
+ "title": "True Nukes Graphics",
+ "author": "BicycleEater",
+ "description": "Adds bigger animations for the nukes.",
+ "homepage": "https://github.com/More-Wrong/Factorio-True-Nukes",
+ "factorio_version": "1.1",
+ "dependencies": []
+}
+
