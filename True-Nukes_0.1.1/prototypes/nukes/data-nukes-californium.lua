@@ -219,7 +219,7 @@ data:extend{
   {
     type = "technology",
     name = "californium-processing",
-    icon_size = 128,
+    icon_size = 256, icon_mipmaps = 4,
     icon = "__True-Nukes__/graphics/californium-processing-tech.png",
     effects =
     {
