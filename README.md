@@ -9,30 +9,32 @@ And thus I present to you, True-Nukes!!!
 This mod aims to simulate most of the real effects of a nuclear weapon, in a Factorio world. It models the blast wave and the thermal radiation release, as well as the fireball and crater, and does this at realistic scales for the yields of the nuclear weapons. This both makes nuclear weapons more useful, and demonstrates quite how destructive even small nuclear weapons can be.  
 
 The effects modelled are:
-  - The thermal radiation: instantaneous energy release, which burns anything its path, causing instant damage in a wide area.
-  - The blast wave: a pressure wave, blowing over structures and trees, which ripples out causing damage as it goes.
-  - The fireball: vaporizes everything within a certain radius.
-  - The crater: formed of an inner and outer section. The inner section is a depression, which will slowly fill with water (this behaviour can be toggled in the     settings), and the outer section is composed of turned-over land (modelled by replacing the tiles with landfill).
-  - The radiation: modelled as something like the poison effects, but longer lasting, and black.
+ - The thermal radiation: instantaneous energy release, which burns anything its path, causing instant damage in a wide area.
+ - The blast wave: a pressure wave, blowing over structures and trees, which ripples out causing damage as it goes.
+ - The fireball: vaporizes everything within a certain radius.
+ - The crater: formed of an inner and outer section. The inner section is a depression, which will slowly fill with water (this behaviour can be toggled in the     settings), and the outer section is composed of turned-over land (modelled by replacing the tiles with landfill).
+ - The radiation: modelled as something like the poison effects, but longer lasting, and black.
 
 ### Graphics
 The graphics and sounds used by this mod are all sourced from MushroomCloud, which is a wonderful mod, which I cannot love enough, however, since Mushroom Cloud does not cope with different sized explosions, all the effects of it are overridden, as such installing will make little to no difference. Using it with this mod may overwrite some changes made internally as well.
   - [MushroomCloud](https://mods.factorio.com/mod/MushroomCloud) by Arcitos
 
+If it bothers you that the larger nuclear detonations are really pixelated, and don't mind the extra VRAM usage, then try [True-Nukes-Graphics](https://mods.factorio.com/mod/True-Nukes-Graphics), which adds a really large version of the explosion, and nothing else. It is only there to make that section of the mod optional.
+
 ### New weapons
 The mod adds three new kinds of nuclear weapon, and changes the existing one.
 These are:
-  - Atomic ammunition magazine, for the machine-gun. This has a yield of maybe 0.1 tons
-  - High Yield atomic ammunition magazine, for the machine-gun. This has a yield of maybe 0.5 tons
-  - An atomic cannon shell, for the tank. This has a yield of ~2 tons
-  - High Yield atomic cannon shell, for the tank. This has a yield of ~4 tons
-  - The base atomic bomb. This has a yield of ~20 tons, equivalent to the 'Davy Crockett'
-  - A small atomic artillery shell. This has a yield of ~500 tons
-  - A rocket launched version of the 500 ton yield artillery shell
-  - An atomic artillery shell. This has a yield of ~1 kiloton
-  - A rocket launched version of the 1 kiloton yield artillery shell
-  - A Hiroshima grade artillery shell. This has a yield of ~15 kilotons, equivalent to the Hiroshima 'Little Boy' explosion
-  - A 100kt artillery shell. This is equivalent to many real nuclear weapons, and is ridiculously large.
+ - Atomic ammunition magazine, for the machine-gun. This has a yield of maybe 0.1 tons
+ - High Yield atomic ammunition magazine, for the machine-gun. This has a yield of maybe 0.5 tons
+ - An atomic cannon shell, for the tank. This has a yield of ~2 tons
+ - High Yield atomic cannon shell, for the tank. This has a yield of ~4 tons
+ - The base atomic bomb. This has a yield of ~20 tons, equivalent to the 'Davy Crockett'
+ - A small atomic artillery shell. This has a yield of ~500 tons
+ - A rocket launched version of the 500 ton yield artillery shell
+ - An atomic artillery shell. This has a yield of ~1 kiloton
+ - A rocket launched version of the 1 kiloton yield artillery shell
+ - A Hiroshima grade artillery shell. This has a yield of ~15 kilotons, equivalent to the Hiroshima 'Little Boy' explosion
+ - A 100kt artillery shell. This is equivalent to many real nuclear weapons, and is ridiculously large.
   
 
 The cannon shell has the effect of making the tank a viable late-game option, as it can realistically defeat behemoth enemies, although the tank will almost always take some damage from the blast.
@@ -59,9 +61,9 @@ The 100kt nuclear weapon is only just usable. There is a significant change that
 The mod also adds Thermobaric weapons. These are weapons using lots of fuel which ignites with the air. The most well known example is the fuel air bomb, but other types exist. These are not nukes (by any stretch of the imagination), but they rely on similar systems (the blast wave, etc) and are, with some imagination, like early-game nukes.
 
 There are three types implemented, small, medium and large.
-  - Small:  Thermobaric cannon shell, for the tank. This has a 40m outer blast radius.
-  - Medium: Thermobaric rocket, for the rocket launcher. This has an 80m outer blast radius.
-  - Large:  Thermobaric artillery shell. This has a 120m outer blast radius.
+ - Small:  Thermobaric cannon shell, for the tank. This has a 40m outer blast radius.
+ - Medium: Thermobaric rocket, for the rocket launcher. This has an 80m outer blast radius.
+ - Large:  Thermobaric artillery shell. This has a 120m outer blast radius.
 
 These weapons have their own research, and can be obtained using chemical and military science packs, however they are relatively expensive. They also do poorly against behemoth biters/spitters, as while they have a large blast radius; they do not do much damage, this leaves a good role for nukes in the late game.
 
@@ -75,15 +77,23 @@ This is primarily because for light vehicles, the fire will tend to slowly eat a
 
 ### Performance
 To allow the game to load in the relevant map areas and apply damage, the larger weapons can freeze the game for some time when they hit (as the initial damage is applied), and cause slow down for a period afterwards while the blast-wave propagates.
-The atomic cannon shell is quick enough that it can be fired at full rate, even with fire rate upgrades.  
-The atomic bomb causes some slow down, but less than 1s of wait, and little slowness afterwards.  
-The small atomic artillery shell causes ~2s of freeze, less if the area is explored, and ~10s of slowness afterwards.  
-The atomic artillery shell causes ~10s of freeze, less if the area is explored, and ~40s of slowness afterwards.  
-The hiroshima atomic artillery shell causes ~15s of freeze, less if the area is explored, and ~5 minutes of slowness afterwards.  
-The 100kt atomic artillery shell causes a minute or two of freeze, less if the area is explored, and ~40 minutes of slowness afterwards.  
+ - The atomic cannon shell is quick enough that it can be fired at full rate, even with fire rate upgrades.  
+ - The atomic bomb causes some slow down, but less than 1s of wait, and little slowness afterwards.  
+ - The small atomic artillery shell causes ~2s of freeze, less if the area is explored, and ~10s of slowness afterwards.  
+ - The atomic artillery shell causes ~10s of freeze, less if the area is explored, and ~40s of slowness afterwards.  
+ - The hiroshima atomic artillery shell causes ~15s of freeze, less if the area is explored, and ~5 minutes of slowness afterwards.  
+ - The 100kt atomic artillery shell causes a minute or two of freeze, less if the area is explored, and ~40 minutes of slowness afterwards.  
 
 These numbers get substantially worse in high density areas, such as the inside of a factory, although the freeze time reduces in explored areas.
 I had originally implemented entities sheltering one another from the blast, and had debris flying off of destroyed entities, but this made little difference to the outcome, and slowed it down, so the feature was removed.
+
+
+If the mod runs very slow, or crashes from lack of memory, a few mod settings can be used to help:
+ - Enable nuclear weapons causing large numbers of short lived fires: unsetting this saves a lot of memory for the small to mid sized weapons (it is regarded as off for the 15kt and 100kt)
+ - All the Fire reduction settings can be increased, and are applied separately to the 100kt, the 15kt and the 1000 and 500 ton, this reduces memory usage, in exchange for not looking as good.
+ - All the Blast reduction settings can be increased, and are applied separately to the 100kt and the 15kt, this stops the blast wave early, making the end more pronounced, but significantly reducing time to run.
+
+Other than this, I can only recommend reducing other settings in Factorio to free up memory, if out of memory is the issue, or not detonating larger nukes, the 500t is usually enough for most things, and can normally be fired without too many consequences.
 
 ### General
 The artillery shells should not be used with auto-fire, but there does not seem to be an obvious way to disable it, so would advise using a normal artillery shells first to clear out nearby enemies, and then switch to the nuclear shells for remote targets. Fortunately it takes very few nuclear shells to go a very long way.
@@ -92,14 +102,6 @@ The balance of this mod is unlikely to be perfect, but with artillery, late game
 
 The craters will, by default, slowly fill with water after 5 minutes. This creates nice craters in remote areas, but can cause some trouble inside a factory, as it destroys buildings in its way. To reduce the problem this causes, the ghosts still remain, and if there are any, the crater will place ghost landfill across the pool. Until the crater is complete however, it will destroy any landfill placed in it. This is why the option to disable the water exists - but the driving principle is that you really shouldn't be trying to build over a nuclear crater too soon after the explosion.
 See [Lake Chagan](https://en.wikipedia.org/wiki/Lake_Chagan) for an example of such a flooded crater.
-
-### Performance
-If the mod runs very slow, or crashes from lack of memory, a few mod settings can be used to help:
- - Enable nuclear weapons causing large numbers of short lived fires: unsetting this saves a lot of memory for the small to mid sized weapons (it is regarded as off for the 15kt and 100kt)
- - All the Fire reduction settings can be increased, and are applied separately to the 100kt, the 15kt and the 1000 and 500 ton, this reduces memory usage, in exchange for not looking as good.
- - All the Blast reduction settings can be increased, and are applied separately to the 100kt and the 15kt, this stops the blast wave early, making the end more pronounced, but significantly reducing time to run.
-
-Other than this, I can only recommend reducing other settings in Factorio to free up memory, if out of memory is the issue, or not detonating larger nukes, the 500t is usually enough for most things, and can normally be fired without too many consequences.
 
 ### Compatibility
 This mod works with MushroomCloud, however the graphics from Mushroom Cloud are now included in this mod. 
