@@ -1,13 +1,13 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.1.4
 Date: 2020-12-30
-  BugFixes:
+  Bugfixes:
     - Fixed crash for entities with resistances, but without fire resistance
     - Fixed Changelog
 ---------------------------------------------------------------------------------------------------
 Version: 0.1.3
 Date: 2020-12-29
-  BugFixes:
+  Bugfixes:
     - Fixed crash for entities without position
 ---------------------------------------------------------------------------------------------------
 Version: 0.1.2
