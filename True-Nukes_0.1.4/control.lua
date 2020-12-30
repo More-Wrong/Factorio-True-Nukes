@@ -201,7 +201,7 @@ local function atomic_weapon_hit(event, crater_internal_r, crater_external_r, fi
 						game.surfaces[event.surface_index].create_entity{name="fire-flame-on-tree",position=v.position, initial_ground_flame_count=1+math.min(254,thermal_max_r*thermal_max_r/distSq)}
 					end
 					local damage = math.random(damage/10, damage)
-					if((not v.prototype.resistances and v.health<damage) or (v.prototype.resistances and v.health<(damage-v.prototype.resistances.fire.decrease)*(1-v.prototype.resistances.fire.percent))) then
+					if((((not v.prototype.resistances) or not v.prototype.resistances.fire) and v.health<damage) or (v.prototype.resistances and v.health<(damage-v.prototype.resistances.fire.decrease)*(1-v.prototype.resistances.fire.percent))) then
 						local surface = v.surface
 						local destPos = v.position
 						v.destroy()
