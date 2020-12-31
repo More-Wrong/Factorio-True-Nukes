@@ -51,10 +51,6 @@ thermobaric_rocket_projectile.action = {
       },
       {
         type = "create-entity",
-        entity_name = "nuke-explosion"
-      },
-      {
-        type = "create-entity",
         entity_name = "medium-scorchmark-tintable",
         check_buildability = true
       },

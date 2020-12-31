@@ -3,6 +3,7 @@ Version: 0.1.5
 Date: 2020-12-31
   Bugfixes:
     - Fixed crash for entities with resistances, but without fire resistance (properly this time)
+    - Removed other explosion effect from thermobaric rocket
 ---------------------------------------------------------------------------------------------------
 Version: 0.1.4
 Date: 2020-12-30
