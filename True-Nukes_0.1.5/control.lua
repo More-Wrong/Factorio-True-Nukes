@@ -60,7 +60,7 @@ local function moveBlast(event)
 								damage = math.random(damage/2, damage*2)
 							end
 							if(t=="tree") then
-								if((not entity.prototype.resistances and entity.health<damage) or (entity.prototype.resistances and entity.health<(damage-entity.prototype.resistances.explosion.decrease)*(1-entity.prototype.resistances.explosion.percent))) then
+								if((((not entity.prototype.resistances) or not entity.prototype.resistances.fire) and entity.health<damage) or (entity.prototype.resistances and entity.prototype.resistances.fire and entity.health<(damage-entity.prototype.resistances.explosion.decrease)*(1-entity.prototype.resistances.explosion.percent))) then
 									local destPos = entity.position
 									entity.destroy()
 									surface.create_entity{name="tree-01-stump",position=destPos}
@@ -201,7 +201,7 @@ local function atomic_weapon_hit(event, crater_internal_r, crater_external_r, fi
 						game.surfaces[event.surface_index].create_entity{name="fire-flame-on-tree",position=v.position, initial_ground_flame_count=1+math.min(254,thermal_max_r*thermal_max_r/distSq)}
 					end
 					local damage = math.random(damage/10, damage)
-					if((((not v.prototype.resistances) or not v.prototype.resistances.fire) and v.health<damage) or (v.prototype.resistances and v.health<(damage-v.prototype.resistances.fire.decrease)*(1-v.prototype.resistances.fire.percent))) then
+					if((((not v.prototype.resistances) or not v.prototype.resistances.fire) and v.health<damage) or (v.prototype.resistances and v.prototype.resistances.fire and v.health<(damage-v.prototype.resistances.fire.decrease)*(1-v.prototype.resistances.fire.percent))) then
 						local surface = v.surface
 						local destPos = v.position
 						v.destroy()
