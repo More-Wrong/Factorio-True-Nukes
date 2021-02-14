@@ -8,7 +8,7 @@ end)
 
 local function moveBlast(i,blast,pastEHits)
 	local regNum = 8
-	if(blast.r<=10 or not blast.doItts) then
+	if(blast.r<=500 or not blast.doItts) then
 		regNum = 8
 	elseif(blast.r<=2000) then
 		regNum = 24
@@ -45,7 +45,7 @@ local function moveBlast(i,blast,pastEHits)
 				 {{center.x-(blast.r-extraSpace)*0.86603-0.5, center.y-(blast.r-extraSpace)*0.86603-0.5}, {center.x-blast.r/2+extraSpace/2+0.5, center.y-blast.r/2+extraSpace/2+0.5}}, 
 				 {{center.x+blast.r/2-extraSpace/2-0.5, center.y-(blast.r-extraSpace)*0.86603-0.5}, {center.x+(blast.r-extraSpace)*0.86603+0.5, center.y-blast.r/2+extraSpace/2+0.5}}}
 
-	if(blast.r<=10 or not blast.doItts) then
+	if(blast.r<=500 or not blast.doItts) then
 		area = regions[blast.itt]
 	else
 
@@ -265,6 +265,11 @@ local function atomic_weapon_hit(event, crater_internal_r, crater_external_r, fi
 			end
 		end
 	 end
+	 for _,v in pairs(game.surfaces[event.surface_index].find_decoratives_filtered{area = {{position.x-fireball_r, position.y-fireball_r}, {position.x+fireball_r, position.y+fireball_r}}}) do
+		if(v.position.x*v.position.x+v.position.y*v.position.y<=fireball_r) then
+			game.surfaces[event.surface_index].destroy_decoratives{position = v.position};
+		end
+	 end
 	 for _,v in pairs(game.surfaces[event.surface_index].find_entities_filtered{position=position, radius=fireball_r}) do
 		if(not (string.match(v.type, "ghost"))) then
 			v.die(nil);
@@ -353,6 +358,29 @@ local function thermobaric_weapon_hit(event, explosion_r, blast_max_r, fire_r, l
 end
 
 
+
+local function nukeFiredScan(event)
+	local entity;
+	if(event.entity) then
+	 	entity = event.entity
+	elseif(event.source_entity) then
+	 	entity = event.source_entity
+	end
+	if (entity) then
+		local position = event.target_entity.position 
+		if(entity.prototype.name == "TN-very-big-atomic-artillery-projectile") then
+	 		game.surfaces[event.surface_index].request_to_generate_chunks(position, 2500/32)
+		elseif(entity.prototype.name == "TN-big-atomic-artillery-projectile") then
+	 		game.surfaces[event.surface_index].request_to_generate_chunks(position, 1500/32)
+		elseif(entity.prototype.name == "TN-atomic-artillery-projectile" or entity.prototype.name == "big-atomic-bomb-projectile") then
+	 		game.surfaces[event.surface_index].request_to_generate_chunks(position, 800/32)
+		elseif(entity.prototype.name == "TN-small-atomic-artillery-projectile" or entity.prototype.name == "very-big-atomic-bomb-projectile") then
+	 		game.surfaces[event.surface_index].request_to_generate_chunks(position, 400/32)
+		end
+	end
+end
+
+
 --local function atomic_weapon_hit(event, crater_internal_r, crater_external_r, fireball_r, fire_outer_r, blast_max_r, tree_fire_max_r, thermal_max_r, load_r, visable_r, flame_proportion)
 script.on_event(defines.events.on_script_trigger_effect, function(event)
   if(event.effect_id=="Thermobaric Weapon hit small-") then
@@ -397,8 +425,12 @@ script.on_event(defines.events.on_script_trigger_effect, function(event)
   elseif(event.effect_id=="Atomic Weapon hit 100kt") then
 	 atomic_weapon_hit(event, 90, 180, 500, 400, 5500/settings.global["really-huge-nuke-blast-range-scaledown"].value, 2500, 6000, 1500, 1000, 2*settings.global["really-huge-nuke-fire-scaledown"].value, false);
 	 createBlastSoundsAndFlash(event.target_position, game.surfaces[event.surface_index], 2700, 5400, 36000, 200000, 2700, 16);
+  elseif(event.effect_id=="Nuke firing") then
+	 nukeFiredScan(event);
   end
 end)
+
+
 
 
 script.on_nth_tick(3600, function(event)

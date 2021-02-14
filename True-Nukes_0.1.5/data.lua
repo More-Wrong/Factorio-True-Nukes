@@ -124,6 +124,8 @@ function add_mushroom_cloud_effect(effect, prefix)
 			     entity_name = "radiation-cloud"
 		        })
 
+
+
 end
 	
 if(settings.startup["enable-thermobaric"].value) then

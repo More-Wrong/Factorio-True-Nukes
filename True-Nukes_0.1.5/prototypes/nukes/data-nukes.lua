@@ -200,7 +200,17 @@ end
 local big_atomic_bomb_projectile = table.deepcopy(data.raw["projectile"]["atomic-rocket"])
 big_atomic_bomb_projectile.name = "big-atomic-bomb-projectile"
 big_atomic_bomb_projectile.action.action_delivery.target_effects = nuke_explosions.N500t_detonation
-
+big_atomic_bomb_projectile.created_effect = {
+					  type = "direct",
+					  action_delivery =
+					  {
+						type = "instant",
+						target_effects = {
+				            type = "script",
+							effect_id = "Nuke firing"
+				          }
+					  }
+                  }
 
 
 data:extend{big_atomic_bomb_recipe, big_atomic_bomb_item, big_atomic_bomb_projectile}
@@ -245,7 +255,17 @@ end
 local very_big_atomic_bomb_projectile = table.deepcopy(data.raw["projectile"]["atomic-rocket"])
 very_big_atomic_bomb_projectile.name = "very-big-atomic-bomb-projectile"
 very_big_atomic_bomb_projectile.action.action_delivery.target_effects = nuke_explosions.N1kt_detonation
-
+very_big_atomic_bomb_projectile.created_effect = {
+					  type = "direct",
+					  action_delivery =
+					  {
+						type = "instant",
+						target_effects = {
+				            type = "script",
+							effect_id = "Nuke firing"
+				          }
+					  }
+                  }
 
 
 data:extend{very_big_atomic_bomb_recipe, very_big_atomic_bomb_item, very_big_atomic_bomb_projectile}

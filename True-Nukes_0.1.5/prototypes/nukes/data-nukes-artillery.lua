@@ -31,6 +31,17 @@ atomic_artillery_item.icon = "__True-Nukes__/graphics/atomic-artillery-shell.png
 
 local atomic_artillery_projectile = table.deepcopy(data.raw["artillery-projectile"]["artillery-projectile"])
 atomic_artillery_projectile.name = "TN-atomic-artillery-projectile"
+atomic_artillery_projectile.created_effect = {
+					  type = "direct",
+					  action_delivery =
+					  {
+						type = "instant",
+						target_effects = {
+				            type = "script",
+							effect_id = "Nuke firing"
+				          }
+					  }
+                  }
 
 --Hack to fix Make Artillery Great Again's removal of the 'chart_picture'... also just being defensive
 if(atomic_artillery_projectile.chart_picture) then
