@@ -6,134 +6,232 @@ script.on_init(function()
 	global.blastWaves = {}
 end)
 
-local function moveBlast(event)
+local function moveBlast(i,blast,pastEHits)
+	local regNum = 8
+	if(blast.r<=10 or not blast.doItts) then
+		regNum = 8
+	elseif(blast.r<=2000) then
+		regNum = 24
+	elseif(blast.r<=4000) then
+		regNum = 48
+	else
+		regNum = 96
+	end
+	blast.ittframe = blast.ittframe+1
+	if(blast.itt > regNum and blast.ittframe >=8) then
+		blast.r = blast.r + blast.speed
+		blast.ittframe = 1
+		blast.itt = 1
+	elseif (blast.itt > regNum) then
+		return
+	end
+
+	local surface = game.surfaces[blast["s"]]
+	local center = blast["pos"]
+	local sideOffset = blast.speed*1.5
+	local extraSpace = blast.speed
+	
+	local eHits = pastEHits
+	
+	local area = {{}, {}}
+
+	local regions = {{{center.x-blast.r/2-sideOffset, center.y+(blast.r-extraSpace)*0.86603-0.5}, {center.x+blast.r/2+sideOffset, center.y+blast.r+1}}, 
+		 		 {{center.x-blast.r/2-sideOffset, center.y-blast.r}, {center.x+blast.r/2+sideOffset, center.y-(blast.r-extraSpace)*0.86603+0.5}}, 
+				 {{center.x+(blast.r-extraSpace)*0.86603-0.5, center.y-blast.r/2-sideOffset}, {center.x+blast.r+1, center.y+blast.r/2+sideOffset}}, 
+				 {{center.x-blast.r, center.y-blast.r/2-sideOffset}, {center.x-(blast.r-extraSpace)*0.86603+0.5, center.y+blast.r/2+sideOffset}}, 
+
+				 {{center.x-(blast.r-extraSpace)*0.86603-0.5, center.y+blast.r/2-extraSpace/2-0.5}, {center.x-blast.r/2+extraSpace/2+0.5, center.y+(blast.r-extraSpace)*0.86603+0.5}}, 
+				 {{center.x+blast.r/2-extraSpace/2-0.5, center.y+blast.r/2-extraSpace/2-0.5}, {center.x+(blast.r-extraSpace)*0.86603+0.5, center.y+(blast.r-extraSpace)*0.86603+0.5}}, 
+				 {{center.x-(blast.r-extraSpace)*0.86603-0.5, center.y-(blast.r-extraSpace)*0.86603-0.5}, {center.x-blast.r/2+extraSpace/2+0.5, center.y-blast.r/2+extraSpace/2+0.5}}, 
+				 {{center.x+blast.r/2-extraSpace/2-0.5, center.y-(blast.r-extraSpace)*0.86603-0.5}, {center.x+(blast.r-extraSpace)*0.86603+0.5, center.y-blast.r/2+extraSpace/2+0.5}}}
+
+	if(blast.r<=10 or not blast.doItts) then
+		area = regions[blast.itt]
+	else
+
+		local reg = blast.itt % (regNum/4)
+		local currentQuadrant = (math.floor(blast.itt/(regNum/4)))%4
+		local angleUnit = 2*3.14159/regNum
+		local angleRelative = math.min(angleUnit*(reg+1), angleUnit*(regNum/4-reg-1))
+		local angleStart = angleUnit*((regNum/4)*currentQuadrant+reg)
+		local overstep = math.sqrt( (blast.r*math.sin(angleRelative))^2+2*blast.r*blast.speed+blast.speed*blast.speed)-blast.r*math.sin(angleRelative)+2;
+
+		
+
+		if(currentQuadrant==0) then
+			if(reg<regNum/8) then
+				area = {{center.x + (blast.r-blast.speed)*math.cos(angleStart+angleUnit), center.y + (blast.r)*math.sin(angleStart)}, 
+						{center.x + (blast.r)*math.cos(angleStart), center.y + (blast.r-blast.speed)*math.sin(angleStart+angleUnit)+overstep}}
+			elseif(reg==regNum/8) then
+				area = {{center.x + (blast.r-blast.speed)*math.cos(angleStart+angleUnit), center.y + (blast.r-blast.speed)*math.sin(angleStart)}, 
+							{center.x + (blast.r-blast.speed)*math.cos(angleStart), center.y + (blast.r-blast.speed)*math.sin(angleStart+angleUnit)}}
+			else
+				area = {{center.x + (blast.r)*math.cos(angleStart+angleUnit), center.y + (blast.r-blast.speed)*math.sin(angleStart)}, 
+						{center.x + (blast.r-blast.speed)*math.cos(angleStart)+overstep, center.y + (blast.r)*math.sin(angleStart+angleUnit)}}
+			end
+		elseif(currentQuadrant==1) then
+			if(reg<regNum/8) then
+				area = {{center.x + (blast.r-blast.speed)*math.cos(angleStart+angleUnit)-overstep, center.y + (blast.r-blast.speed)*math.sin(angleStart+angleUnit)}, 
+						{center.x + (blast.r)*math.cos(angleStart), center.y + (blast.r)*math.sin(angleStart)}}
+			elseif(reg==regNum/8) then
+				area = {{center.x + (blast.r-blast.speed)*math.cos(angleStart+angleUnit), center.y + (blast.r-blast.speed)*math.sin(angleStart+angleUnit)}, 
+						{center.x + (blast.r-blast.speed)*math.cos(angleStart), center.y + (blast.r-blast.speed)*math.sin(angleStart)}}
+			else
+				area = {{center.x + (blast.r)*math.cos(angleStart+angleUnit), center.y + (blast.r)*math.sin(angleStart+angleUnit)}, 
+						{center.x + (blast.r-blast.speed)*math.cos(angleStart), center.y + (blast.r-blast.speed)*math.sin(angleStart)+overstep}}
+			end
+		elseif(currentQuadrant==2) then
+			if(reg<regNum/8) then
+				area = {{center.x + (blast.r)*math.cos(angleStart), center.y + (blast.r-blast.speed)*math.sin(angleStart+angleUnit)-overstep}, 
+						{center.x + (blast.r-blast.speed)*math.cos(angleStart+angleUnit), center.y + (blast.r)*math.sin(angleStart)}}
+			elseif(reg==regNum/8) then
+				area = {{center.x + (blast.r-blast.speed)*math.cos(angleStart), center.y + (blast.r-blast.speed)*math.sin(angleStart+angleUnit)}, 
+							{center.x + (blast.r-blast.speed)*math.cos(angleStart+angleUnit), center.y + (blast.r-blast.speed)*math.sin(angleStart)}}
+			else
+				area = {{center.x + (blast.r-blast.speed)*math.cos(angleStart)-overstep, center.y + (blast.r)*math.sin(angleStart+angleUnit)}, 
+						{center.x + (blast.r)*math.cos(angleStart+angleUnit), center.y + (blast.r-blast.speed)*math.sin(angleStart)}}
+			end
+		else
+			if(reg<regNum/8) then
+				area = {{center.x + (blast.r)*math.cos(angleStart), center.y + (blast.r)*math.sin(angleStart)}, 
+						{center.x + (blast.r-blast.speed)*math.cos(angleStart+angleUnit)+overstep, center.y + (blast.r-blast.speed)*math.sin(angleStart+angleUnit)}}
+			elseif(reg==regNum/8) then
+				area = {{center.x + (blast.r-blast.speed)*math.cos(angleStart), center.y + (blast.r-blast.speed)*math.sin(angleStart)}, 
+							{center.x + (blast.r-blast.speed)*math.cos(angleStart+angleUnit), center.y + (blast.r-blast.speed)*math.sin(angleStart+angleUnit)}}
+			else
+				area = {{center.x + (blast.r-blast.speed)*math.cos(angleStart), center.y + (blast.r-blast.speed)*math.sin(angleStart)-overstep}, 
+						{center.x + (blast.r)*math.cos(angleStart+angleUnit), center.y + (blast.r)*math.sin(angleStart+angleUnit)}}
+			end
+		end
+	end
+
+	local entities = surface.find_entities(area)
+	eHits = eHits + #entities
+	--game.players[1].print(math.floor(blast.itt/6) .. " {" .. area[1][1] .. ", " .. area[1][2] .. "}, {" .. area[2][1] .. ", " .. area[2][2] .. "}")
+	for _,entity in pairs(entities) do
+		if (entity.valid and entity.position) then
+			local xdif = entity.position.x-center.x
+			local ydif = entity.position.y-center.y
+			local distSq = xdif*xdif + ydif*ydif
+			if((not (entity.prototype.max_health == 0)) and distSq > (blast.r - blast.speed)*(blast.r - blast.speed) and distSq <= blast["r"]*blast["r"]) then 
+				local dist = math.sqrt(xdif*xdif + ydif*ydif)
+				local damage = blast.pow/distSq*blast.damage_init+blast.blast_min_damage
+				local t = entity.type
+				if(t=="curved-rail") then
+					damage = damage/10
+				elseif (t=="straight-rail") then
+					damage = damage/10
+				elseif (t=="transport-belt") then
+					damage = damage/10
+				elseif (t=="land-mine") then
+					damage = damage/10
+				elseif(t=="car" or t=="spider-vehicle") then
+					if (next(entity.prototype.collision_mask)==nil)then
+						damage = damage/5
+					end
+				end
+				if(t=="tree") then
+					if(blast.fire) then
+						surface.create_entity{name="fire-flame-on-tree",position=entity.position, initial_ground_flame_count=255}
+					end
+					damage = math.random(damage/10, damage)
+				else
+					damage = math.random(damage/2, damage*2)
+				end
+				if(t=="tree") then
+					if((((not entity.prototype.resistances) or not entity.prototype.resistances.fire) and entity.health<damage) or (entity.prototype.resistances and entity.prototype.resistances.fire and entity.health<(damage-entity.prototype.resistances.explosion.decrease)*(1-entity.prototype.resistances.explosion.percent))) then
+						local destPos = entity.position
+						entity.destroy()
+						surface.create_entity{name="tree-01-stump",position=destPos}
+					else
+						entity.damage(damage, "enemy","explosion")
+					end
+				else
+					entity.damage(damage, "enemy","explosion")
+				end
+				if blast.fire and entity.valid and (entity.type == "unit" or entity.type == "car" or entity.type == "spider-vehicle") then
+					local fireShield = nil
+					if entity.grid then
+						for _,e in pairs(entity.grid.equipment) do
+							if(e.name=="fire-shield-equipment" and e.energy>=500000) then
+								fireShield = e;
+								break;
+							end	
+						end
+					end
+					if fireShield then
+						fireShield.energy = fireShield.energy-500000
+					else
+						surface.create_entity{name="fire-sticker", position=entity.position, target=entity}
+					end
+					entity.damage(20, "enemy", "fire")
+					if(entity.valid)then
+						entity.damage(40, "enemy", "physical")
+					end
+					if(entity.valid and entity.type == "car" and (entity.prototype.max_health >= 1000 or fireShield)) then
+						entity.damage(80, "enemy", "fire")
+					end
+				elseif blast.fire and entity.valid and (not (entity.type == "tree")) then
+					entity.damage(100, "enemy", "fire")
+				end
+			end
+		end
+	end
+
+	if(blast.fire) then
+		local area = regions[blast.itt]
+		local tiles = surface.find_tiles_filtered{area=area}
+		for _,tile in pairs(tiles) do
+			local xdif = tile.position.x-center.x
+			local ydif = tile.position.y-center.y
+			local distSq = xdif*xdif + ydif*ydif
+			if(distSq > (blast["r"] - blast.speed)*(blast["r"] - blast.speed) and distSq <= blast["r"]*blast["r"]) then 
+				if (blast.fire_rad >= blast.r) then 
+					local chance = math.random(0, blast.fire_rad)
+					if(chance*chance>distSq) then
+						surface.create_entity{name="fire-flame",position=tile.position}
+					else
+						surface.create_entity{name="thermobaric-wave-fire",position=tile.position}
+					end
+				else
+					local chanceWave = math.random(blast.fire_rad, blast.max)
+					if(chanceWave*chanceWave>distSq) then
+						surface.create_entity{name="thermobaric-wave-fire",position=tile.position}
+					end
+				end
+			end
+		end
+	end
+	if (blast.ittframe>=8) then
+		if(blast.itt == regNum) then
+			blast.r = blast.r + blast.speed
+			blast.itt = 1
+		else 
+			blast.itt = blast.itt+1
+			if(not blast.doItts or eHits<4000) then
+				moveBlast(i, blast,eHits)
+			end
+		end
+	end
+	if(blast.r>blast.max) then
+		table.remove(global.blastWaves, i)
+	end
+end
+
+local function tickHandler(event)
 	mushroomFunctions[2](event)
 	 if(global.blastWaves ==nil) then
 		global.blastWaves = {}
 	 end
 	if(#global.blastWaves>0) then
-		
 		for i,blast in ipairs(global.blastWaves) do
-			local surface = game.surfaces[blast["s"]]
-			local center = blast["pos"]
-			local sideOffset = blast.speed*1.5
-			local extraSpace = blast.speed
-			local regions = {{{center.x-blast.r/2-sideOffset, center.y+(blast.r-extraSpace)*0.86603-0.5}, {center.x+blast.r/2+sideOffset, center.y+blast.r+1}}, 
-					 		 {{center.x-blast.r/2-sideOffset, center.y-blast.r}, {center.x+blast.r/2+sideOffset, center.y-(blast.r-extraSpace)*0.86603+0.5}}, 
-							 {{center.x+(blast.r-extraSpace)*0.86603-0.5, center.y-blast.r/2-sideOffset}, {center.x+blast.r+1, center.y+blast.r/2+sideOffset}}, 
-							 {{center.x-blast.r, center.y-blast.r/2-sideOffset}, {center.x-(blast.r-extraSpace)*0.86603+0.5, center.y+blast.r/2+sideOffset}}, 
-
-							 {{center.x-(blast.r-extraSpace)*0.86603-0.5, center.y+blast.r/2-extraSpace/2-0.5}, {center.x-blast.r/2+extraSpace/2+0.5, center.y+(blast.r-extraSpace)*0.86603+0.5}}, 
-							 {{center.x+blast.r/2-extraSpace/2-0.5, center.y+blast.r/2-extraSpace/2-0.5}, {center.x+(blast.r-extraSpace)*0.86603+0.5, center.y+(blast.r-extraSpace)*0.86603+0.5}}, 
-							 {{center.x-(blast.r-extraSpace)*0.86603-0.5, center.y-(blast.r-extraSpace)*0.86603-0.5}, {center.x-blast.r/2+extraSpace/2+0.5, center.y-blast.r/2+extraSpace/2+0.5}}, 
-							 {{center.x+blast.r/2-extraSpace/2-0.5, center.y-(blast.r-extraSpace)*0.86603-0.5}, {center.x+(blast.r-extraSpace)*0.86603+0.5, center.y-blast.r/2+extraSpace/2+0.5}}}
-			for _,area in pairs(regions) do
-				local entities = surface.find_entities(area)
-				for _,entity in pairs(entities) do
-					if (entity.valid and entity.position) then
-						local xdif = entity.position.x-center.x
-						local ydif = entity.position.y-center.y
-						local distSq = xdif*xdif + ydif*ydif
-						if((not (entity.prototype.max_health == 0)) and distSq > (blast.r - blast.speed)*(blast.r - blast.speed) and distSq <= blast["r"]*blast["r"]) then 
-							local dist = math.sqrt(xdif*xdif + ydif*ydif)
-							local damage = blast.pow/distSq*blast.damage_init+blast.blast_min_damage
-							local t = entity.type
-							if(t=="curved-rail") then
-								damage = damage/10
-							elseif (t=="straight-rail") then
-								damage = damage/10
-							elseif (t=="transport-belt") then
-								damage = damage/10
-							elseif (t=="land-mine") then
-								damage = damage/10
-							elseif(t=="car" or t=="spider-vehicle") then
-								if (next(entity.prototype.collision_mask)==nil)then
-									damage = damage/5
-								end
-							end
-							if(t=="tree") then
-								if(blast.fire) then
-									surface.create_entity{name="fire-flame-on-tree",position=entity.position, initial_ground_flame_count=255}
-								end
-								damage = math.random(damage/10, damage)
-							else
-								damage = math.random(damage/2, damage*2)
-							end
-							if(t=="tree") then
-								if((((not entity.prototype.resistances) or not entity.prototype.resistances.fire) and entity.health<damage) or (entity.prototype.resistances and entity.prototype.resistances.fire and entity.health<(damage-entity.prototype.resistances.explosion.decrease)*(1-entity.prototype.resistances.explosion.percent))) then
-									local destPos = entity.position
-									entity.destroy()
-									surface.create_entity{name="tree-01-stump",position=destPos}
-								else
-									entity.damage(damage, "enemy","explosion")
-								end
-							else
-								entity.damage(damage, "enemy","explosion")
-							end
-							if blast.fire and entity.valid and (entity.type == "unit" or entity.type == "car" or entity.type == "spider-vehicle") then
-								local fireShield = nil
-								if entity.grid then
-									for _,e in pairs(entity.grid.equipment) do
-										if(e.name=="fire-shield-equipment" and e.energy>=500000) then
-											fireShield = e;
-											break;
-										end	
-									end
-								end
-								if fireShield then
-									fireShield.energy = fireShield.energy-500000
-								else
-									surface.create_entity{name="fire-sticker", position=entity.position, target=entity}
-								end
-								entity.damage(20, "enemy", "fire")
-								if(entity.valid)then
-									entity.damage(40, "enemy", "physical")
-								end
-								if(entity.valid and entity.type == "car" and (entity.prototype.max_health >= 1000 or fireShield)) then
-									entity.damage(80, "enemy", "fire")
-								end
-							elseif blast.fire and entity.valid and (not (entity.type == "tree")) then
-								entity.damage(100, "enemy", "fire")
-							end
-						elseif ((not (blast.fire)) and entity.type =="explosion" and not (entity.name=="nuke-explosion") and not (entity.name=="big-artillery-explosion")) then
-							entity.destroy()
-						end
-					end
-				end
-			end
-			if(blast.fire) then
-				for _,area in pairs(regions) do
-					local tiles = surface.find_tiles_filtered{area=area}
-					for _,tile in pairs(tiles) do
-						local xdif = tile.position.x-center.x
-						local ydif = tile.position.y-center.y
-						local distSq = xdif*xdif + ydif*ydif
-						if(distSq > (blast["r"] - blast.speed)*(blast["r"] - blast.speed) and distSq <= blast["r"]*blast["r"]) then 
-							if (blast.fire_rad >= blast.r) then 
-								local chance = math.random(0, blast.fire_rad)
-								if(chance*chance>distSq) then
-									surface.create_entity{name="fire-flame",position=tile.position}
-								else
-									surface.create_entity{name="thermobaric-wave-fire",position=tile.position}
-								end
-							else
-								local chanceWave = math.random(blast.fire_rad, blast.max)
-								if(chanceWave*chanceWave>distSq) then
-									surface.create_entity{name="thermobaric-wave-fire",position=tile.position}
-								end
-							end
-						end
-					end
-				end
-			end
-			blast.r = blast.r + blast.speed
-			if(blast.r>blast.max) then
-				table.remove(global.blastWaves, i)
-			end
+			moveBlast(i,blast,0)
 		end
 	end
 end
-script.on_event(defines.events.on_tick, moveBlast);
+script.on_event(defines.events.on_tick, tickHandler);
+
+
 
 
 
@@ -231,7 +329,7 @@ local function atomic_weapon_hit(event, crater_internal_r, crater_external_r, fi
 			end
 		end
 	 end
-	 table.insert(global.blastWaves, {r = fireball_r, pos = position, pow = fireball_r*fireball_r, max = blast_max_r, s = event.surface_index, fire = false, damage_init = 5000.0, speed = 2, fire_rad = 0, blast_min_damage = 0})
+	 table.insert(global.blastWaves, {r = fireball_r, pos = position, pow = fireball_r*fireball_r, max = blast_max_r, s = event.surface_index, fire = false, damage_init = 5000.0, speed = 8, fire_rad = 0, blast_min_damage = 0, itt = 1, doItts = true, ittframe = 1})
 end
 
 local function thermobaric_weapon_hit(event, explosion_r, blast_max_r, fire_r, load_r, visable_r)
@@ -251,7 +349,7 @@ local function thermobaric_weapon_hit(event, explosion_r, blast_max_r, fire_r, l
 	 for _,v in pairs(game.surfaces[event.surface_index].find_tiles_filtered{position=position, radius=explosion_r}) do
 		game.surfaces[event.surface_index].create_entity{name="fire-flame",position=v.position}
 	 end
-	 table.insert(global.blastWaves, {r = explosion_r, pos = position, pow = explosion_r*explosion_r, max = blast_max_r, s = event.surface_index, fire = true, damage_init = 600.0, speed = 1, fire_rad = fire_r, blast_min_damage = 30})
+	 table.insert(global.blastWaves, {r = explosion_r, pos = position, pow = explosion_r*explosion_r, max = blast_max_r, s = event.surface_index, fire = true, damage_init = 600.0, speed = 1, fire_rad = fire_r, blast_min_damage = 30, itt = 1, doItts = false, ittframe = 1})
 end
 
 
