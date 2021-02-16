@@ -42,6 +42,15 @@ data:extend({
 	},
 	{
 		type = "double-setting",
+		name = "mega-nuke-fire-scaledown",
+		setting_type = "runtime-global",
+		minimum_value = 1,
+		maximum_value = 20,
+		default_value = 5,
+		order = "b3"
+	},
+	{
+		type = "double-setting",
 		name = "large-nuke-blast-range-scaledown",
 		setting_type = "runtime-global",
 		minimum_value = 1,
@@ -59,6 +68,15 @@ data:extend({
 		order = "c1"
 	},
 	{
+		type = "double-setting",
+		name = "mega-nuke-blast-range-scaledown",
+		setting_type = "runtime-global",
+		minimum_value = 1,
+		maximum_value = 2,
+		default_value = 2,
+		order = "c2"
+	},
+	{
 		type = "bool-setting",
 		name = "enable-thermobaric",
 		setting_type = "startup",
@@ -72,11 +90,18 @@ data:extend({
 		default_value = true,
 		order = "b0"
 	},
-    	{
+	{
+		type = "bool-setting",
+		name = "use-tritium",
+		setting_type = "startup",
+		default_value = true,
+		order = "c0"
+	},
+	{
 		type = "bool-setting",
 		name = "TN-mushroom-cloud-style-nuclear-flash",
 		setting_type = "runtime-per-user",
 		default_value = true,
 		order = "a0",
-    	}
+	}
 })
