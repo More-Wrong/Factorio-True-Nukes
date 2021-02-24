@@ -289,10 +289,10 @@ scary_nuke_tech.effects =
       },
       {
         type = "unlock-recipe",
-        recipe = "TN-very-big-atomic-artillery-shell"
+        recipe = "TN-big-atomic-artillery-shell"
       }
     }
-scary_nuke_tech.unit.count=2000
+scary_nuke_tech.unit.count=1000
 scary_nuke_tech.unit.ingredients = {
         {"automation-science-pack", 1},
         {"logistic-science-pack", 1},
@@ -303,7 +303,8 @@ scary_nuke_tech.unit.ingredients = {
         {"space-science-pack", 1}
       }
 scary_nuke_tech.prerequisites = {"atomic-artillery-shells", "californium-processing"}
-scary_nuke_tech.icon = "__True-Nukes__/graphics/scary-atomic-tech.png",
+scary_nuke_tech.icon = "__True-Nukes__/graphics/scary-atomic-tech.png"
+scary_nuke_tech.icon_mipmaps = 1
 data:extend{scary_nuke_tech}
 
 

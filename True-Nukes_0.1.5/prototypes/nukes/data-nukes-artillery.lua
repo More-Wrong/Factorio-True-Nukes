@@ -109,9 +109,9 @@ local very_big_atomic_artillery_recipe = {
     {
       {"TN-big-atomic-artillery-shell", 1},
       {"processing-unit", 200},
-      {"uranium-235", 1000},
-      {"uranium-238", 100},
-      {"explosives", 500}
+      {"FOGBANK", 50},
+      {"tritium-canister", 5},
+      {"heat-pipe", 5}
     },
     result = "TN-very-big-atomic-artillery-shell"
 }
@@ -177,15 +177,12 @@ artillery_nuke_tech.effects =
       {
         type = "unlock-recipe",
         recipe = "TN-atomic-artillery-shell"
-      },
-      {
-        type = "unlock-recipe",
-        recipe = "TN-big-atomic-artillery-shell"
       }
     }
 artillery_nuke_tech.unit.count=2000
 artillery_nuke_tech.prerequisites = {"atomic-bomb", "artillery"}
-artillery_nuke_tech.icon = "__True-Nukes__/graphics/atomic-artillery-tech.png",
+artillery_nuke_tech.icon = "__True-Nukes__/graphics/atomic-artillery-tech.png"
+artillery_nuke_tech.icon_mipmaps = 1
 data:extend{artillery_nuke_tech}
 
       

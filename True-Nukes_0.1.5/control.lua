@@ -220,8 +220,15 @@ local function moveBlast(i,blast,pastEHits)
 end
 
 local function nukeBuildingDetonate(building)
+	if(building.get_recipe().name == "megaton-detonation") then
+		building.surface.create_entity{name="TN-really-huge-atomic-artillery-projectile", position={building.position.x-1, building.position.y}, target=building, speed=100, max_range=1, force=building.force}
+	elseif(building.get_recipe().name == "100kiloton-detonation") then
+		building.surface.create_entity{name="TN-very-big-atomic-artillery-projectile", position={building.position.x-1, building.position.y}, target=building, speed=100, max_range=1, force=building.force}
+	elseif(building.get_recipe().name == "15kiloton-detonation") then
+		building.surface.create_entity{name="TN-big-atomic-artillery-projectile", position={building.position.x-1, building.position.y}, target=building, speed=100, max_range=1, force=building.force}
+	end
 	building.get_output_inventory().clear();
-	building.surface.create_entity{name="TN-really-huge-atomic-artillery-projectile", position={building.position.x-1, building.position.y}, target=building, speed=100, max_range=1}
+	building.destroy();
 end
 
 local function tickHandler(event)
@@ -243,7 +250,13 @@ local function tickHandler(event)
 				if(not building.get_output_inventory().is_empty()) then
 					nukeBuildingDetonate(building)
 				elseif (building.crafting_progress > 0 and building.crafting_progress < 0.01) then
-	 				building.surface.request_to_generate_chunks(building.position, 3200/32)
+					if(building.get_recipe().name == "megaton-detonation") then
+	 					building.surface.request_to_generate_chunks(building.position, 3200/32)
+					elseif(building.get_recipe().name == "100kiloton-detonation") then
+	 					building.surface.request_to_generate_chunks(building.position, 2000/32)
+					elseif(building.get_recipe().name == "15kiloton-detonation") then
+	 					building.surface.request_to_generate_chunks(building.position, 1500/32)
+					end
 				end
 			else
 				table.remove(global.nukeBuildings, i)
@@ -301,6 +314,16 @@ local function atomic_weapon_hit(event, crater_internal_r, crater_external_r, fi
 	 local tileTable = {}
 	 for _,v in pairs(game.surfaces[event.surface_index].find_tiles_filtered{position=position, radius=crater_external_r}) do
 		table.insert(tileTable, {name = "nuclear-ground", position = v.position})
+	 end
+	 if (crater_external_r>8 and settings.global["nuke-crater-noise"].value) then
+		 for num=0,3 do
+			 local slice_w = (math.floor(crater_external_r/50)+1)
+			 for ang=0,math.ceil(3.1416*2*crater_external_r*slice_w*4/(num*num+1)) do
+				local dist = math.floor(math.random(num*slice_w, slice_w+num*slice_w))
+				local offset = math.random()
+				table.insert(tileTable, {name = "nuclear-ground", position = {position.x+math.floor((dist+crater_external_r-1)*math.sin(ang+offset)+0.5), position.y+math.floor((dist+crater_external_r-1)*math.cos(ang+offset)+0.5)}})
+			 end
+		 end
 	 end
 	 game.surfaces[event.surface_index].set_tiles(tileTable)
 	 if(flame_proportion>0) then
@@ -393,7 +416,7 @@ local function nukeFiredScan(event)
 	if (entity) then
 		local position = event.target_entity.position 
 		if(entity.prototype.name == "TN-very-big-atomic-artillery-projectile") then
-	 		game.surfaces[event.surface_index].request_to_generate_chunks(position, 2500/32)
+	 		game.surfaces[event.surface_index].request_to_generate_chunks(position, 2000/32)
 		elseif(entity.prototype.name == "TN-big-atomic-artillery-projectile") then
 	 		game.surfaces[event.surface_index].request_to_generate_chunks(position, 1500/32)
 		elseif(entity.prototype.name == "TN-atomic-artillery-projectile" or entity.prototype.name == "big-atomic-bomb-projectile") then

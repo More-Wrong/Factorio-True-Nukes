@@ -14,6 +14,13 @@ data:extend({
 		order = "a1"
 	},
 	{
+		type = "bool-setting",
+		name = "nuke-crater-noise",
+		setting_type = "runtime-global",
+		default_value = true,
+		order = "a2"
+	},
+	{
 		type = "double-setting",
 		name = "large-nuke-fire-scaledown",
 		setting_type = "runtime-global",
