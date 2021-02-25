@@ -1,4 +1,15 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.1.6
+Date: 2021-02-24
+  Features:
+    - Added Megaton nukes
+    - Added nuclear weapon building
+    - Added tritium production chain
+  Optimisations:
+    - Made the game pre-load the map where the nuke will hit, so as to reduce the time the game is frozen for
+    - Made the game time-slice the blast wave, so that it can slow down to maintain frame-rate
+    - Increased the jump radius of the blast wave, to compensate for the slower proccessing rate
+---------------------------------------------------------------------------------------------------
 Version: 0.1.5
 Date: 2020-12-31
   Bugfixes:

@@ -12,7 +12,7 @@ The effects modelled are:
  - The thermal radiation: instantaneous energy release, which burns anything its path, causing instant damage in a wide area.
  - The blast wave: a pressure wave, blowing over structures and trees, which ripples out causing damage as it goes.
  - The fireball: vaporizes everything within a certain radius.
- - The crater: formed of an inner and outer section. The inner section is a depression, which will slowly fill with water (this behaviour can be toggled in the     settings), and the outer section is composed of turned-over land (modelled by replacing the tiles with landfill).
+ - The crater: formed of an inner and outer section. The inner section is a depression, which will slowly fill with water (this behaviour can be toggled in the settings), and the outer section is composed of turned-over land (modelled by replacing the tiles with landfill). The mod also adds a bit of noise to the outisde of the crater to make it sem more natural, this can be toggled in settings.
  - The radiation: modelled as something like the poison effects, but longer lasting, and black.
 
 ### Graphics
@@ -35,7 +35,7 @@ These are:
  - A rocket launched version of the 1 kiloton yield artillery shell
  - A Hiroshima grade artillery shell. This has a yield of ~15 kilotons, equivalent to the Hiroshima 'Little Boy' explosion
  - A 100kt artillery shell. This is equivalent to many real nuclear weapons, and is ridiculously large.
-  
+ - The nuclear weapon building. This can detonate at 15kt, 100kt or 1Mt. 1Mt requires at least 20GB of RAM to avoid crashing.
 
 The cannon shell has the effect of making the tank a viable late-game option, as it can realistically defeat behemoth enemies, although the tank will almost always take some damage from the blast.
 
@@ -46,6 +46,12 @@ To try and justify the ridiculously low yields of the smaller weapons, a new mat
 
 It is very simply refined from U-235, and doesn't change that much, other than making the weapons at least seem realistic, as such, there is an option to cut it out of the production chain (so the weapons just use U-235).
 
+### Tritium
+
+To allow the larger nukes (100kt and 1Mt) tritium can be made, by refining the output of special nuclear fuel cells after they have been in a reactor. 
+
+The mod also adds Fogbank, a stange material, entirely classified, but used in the early US fusion bomb program, to reduce the required size of bomb. It is only needed to make the 100kt artillery shell.
+
 #### Schall's Tank Platoon
 
 For the sake of adding even more new nuclear options, if Schall's tank platoon is installed, the mod adds new, separate nuclear and thermobaric options for the auto-cannon, the 88mm cannon and the 128mm cannon, these have varying yields, and the Thermobarics work as one might expect. The nuclear weapons link into the rest of the weaponry nicely:
@@ -54,8 +60,12 @@ For the sake of adding even more new nuclear options, if Schall's tank platoon i
  - The 88mm cannon shells have the same yield as the upgraded base (or 75mm) cannon rounds (4 ton), and the upgraded version has an 8 ton yield.
  - The 128mm cannon shells have the same yield as the upgraded 88mm cannon rounds (8 ton), and the upgraded version has the same 20 ton yield as the base rocket.
 
-#### The 100kt
-The 100kt nuclear weapon is only just usable. There is a significant change that it will run your game out of memory and crash it, so it is recommended to ensure that nothing else is running (this particularly applies to web browsers, as they use loads of memory), and that it is only detonated on machines with 16GB of memory or more. It was recorded using almost 10GB of memory during a detonation in a late game factory. Use with caution.
+#### The 100kt and 1Mt
+The 100kt nuclear weapon is only just usable. There is a significant change that it will run your game out of memory and crash it, 
+so it is recommended to ensure that nothing else is running (this particularly applies to web browsers, as they use loads of memory), 
+and that it is only detonated on machines with 16GB of memory or more. It was recorded using almost 10GB of memory during a detonation in a late game factory. Be very careful.
+
+However bad the 100kt is, the 1Mt is worse. It only sometimes works, and the game can crash for no reason. It can use up to 16GB of memory, and so should only be detonated on machines with 20GB of memory or more. I honestly cannot think of a use for such a weapon, other that to show quite how big a real nuke is.
 
 ### Thermobaric weapons
 The mod also adds Thermobaric weapons. These are weapons using lots of fuel which ignites with the air. The most well known example is the fuel air bomb, but other types exist. These are not nukes (by any stretch of the imagination), but they rely on similar systems (the blast wave, etc) and are, with some imagination, like early-game nukes.
@@ -76,13 +86,15 @@ This is a bit of a weird item, it is simply an equipment module which prevents t
 This is primarily because for light vehicles, the fire will tend to slowly eat away their shields and then destroy them. It is much less relevant for vehicles like the tank or spider-tron, but makes a huge difference for the jet in the aircraft mod.
 
 ### Performance
+To make the nukes freeze the game for less time, a map generate is queued when the nuke is first fired/started. This can result in a burst of lag (4ups) for several seconds, but makes the nukes significantly less likely to crash the game.
 To allow the game to load in the relevant map areas and apply damage, the larger weapons can freeze the game for some time when they hit (as the initial damage is applied), and cause slow down for a period afterwards while the blast-wave propagates.
  - The atomic cannon shell is quick enough that it can be fired at full rate, even with fire rate upgrades.  
  - The atomic bomb causes some slow down, but less than 1s of wait, and little slowness afterwards.  
  - The small atomic artillery shell causes ~2s of freeze, less if the area is explored, and ~10s of slowness afterwards.  
- - The atomic artillery shell causes ~10s of freeze, less if the area is explored, and ~40s of slowness afterwards.  
- - The hiroshima atomic artillery shell causes ~15s of freeze, less if the area is explored, and ~5 minutes of slowness afterwards.  
- - The 100kt atomic artillery shell causes a minute or two of freeze, less if the area is explored, and ~40 minutes of slowness afterwards.  
+ - The atomic artillery shell causes ~10s of freeze, less if the area is explored, and ~20s of slowness afterwards.  
+ - The hiroshima atomic artillery shell causes ~15s of freeze, less if the area is explored, and ~2 minutes of slowness afterwards.  
+ - The 100kt nukes cause a minute or two of freeze, less if the area is explored, and ~15 minutes of slowness afterwards.  
+ - The 1Mt nuke causes 2-5 minutes of freeze, less if the area is explored, and ~1 hour of slowness afterwards.  
 
 These numbers get substantially worse in high density areas, such as the inside of a factory, although the freeze time reduces in explored areas.
 I had originally implemented entities sheltering one another from the blast, and had debris flying off of destroyed entities, but this made little difference to the outcome, and slowed it down, so the feature was removed.
@@ -90,8 +102,8 @@ I had originally implemented entities sheltering one another from the blast, and
 
 If the mod runs very slow, or crashes from lack of memory, a few mod settings can be used to help:
  - Enable nuclear weapons causing large numbers of short lived fires: unsetting this saves a lot of memory for the small to mid sized weapons (it is regarded as off for the 15kt and 100kt)
- - All the Fire reduction settings can be increased, and are applied separately to the 100kt, the 15kt and the 1000 and 500 ton, this reduces memory usage, in exchange for not looking as good.
- - All the Blast reduction settings can be increased, and are applied separately to the 100kt and the 15kt, this stops the blast wave early, making the end more pronounced, but significantly reducing time to run.
+ - All the Fire reduction settings can be increased, and are applied separately to the 100kt, the 15kt and the 1000 and 500 ton, this reduces memory usage, in exchange for not looking as good. (No fires are created for the 1Mt).
+ - All the Blast reduction settings can be increased, and are applied separately to the 1Mt, 100kt and 15kt nukes, this stops the blast wave early, making the end more pronounced, but significantly reducing time to run.
 
 Other than this, I can only recommend reducing other settings in Factorio to free up memory, if out of memory is the issue, or not detonating larger nukes, the 500t is usually enough for most things, and can normally be fired without too many consequences.
 

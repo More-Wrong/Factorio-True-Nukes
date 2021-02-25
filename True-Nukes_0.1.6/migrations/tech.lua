@@ -15,7 +15,6 @@ for index, force in pairs(game.forces) do
   --end
   recipes["TN-small-atomic-artillery-shell"].enabled = technologies["atomic-artillery-shells"].researched
   recipes["TN-atomic-artillery-shell"].enabled = technologies["atomic-artillery-shells"].researched
-  recipes["TN-big-atomic-artillery-shell"].enabled = technologies["atomic-artillery-shells"].researched
   if(settings.startup["enable-thermobaric"].value) then
     recipes["fire-shield-equipment"].enabled = technologies["atomic-bomb"].researched or technologies["thermobaric-weaponry"].researched
     recipes["thermobaric-cannon-shell"].enabled = technologies["thermobaric-weaponry"].researched
@@ -32,10 +31,11 @@ for index, force in pairs(game.forces) do
   
   recipes["big-atomic-bomb"].enabled = technologies["scary-atomic-weapons"].researched
   recipes["big-atomic-rounds-magazine"].enabled = technologies["scary-atomic-weapons"].researched
+  recipes["TN-big-atomic-artillery-shell"].enabled = technologies["scary-atomic-weapons"].researched
   --if mods["SchallTankPlatoon"] then
     --recipes["big-atomic-autocannon-shell"].enabled = technologies["scary-atomic-weapons"].researched
     --recipes["big-atomic-cannon-H1-shell"].enabled = technologies["scary-atomic-weapons"].researched
     --recipes["big-atomic-cannon-H2-shell"].enabled = technologies["scary-atomic-weapons"].researched
   --end
-  recipes["TN-very-big-atomic-artillery-shell"].enabled = technologies["scary-atomic-weapons"].researched
+  recipes["TN-very-big-atomic-artillery-shell"].enabled = technologies["fusion-weapons"].researched
 end
