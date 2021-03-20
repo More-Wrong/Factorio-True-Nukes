@@ -284,9 +284,7 @@ local function atomic_weapon_hit(event, crater_internal_r, crater_external_r, fi
 	 if(global.waitingNukes ==nil) then
 		global.waitingNukes = {}
 	 end
-	 if crater_internal_r>0 and settings.global["crater-water-filling"].value then
-	 	table.insert(global.waitingNukes, {t = 0, pos = position, d = crater_internal_r, s = event.surface_index})
-	 end
+
 	 game.surfaces[event.surface_index].request_to_generate_chunks(position, load_r/32)
 	 game.surfaces[event.surface_index].force_generate_chunk_requests()
 
@@ -312,19 +310,51 @@ local function atomic_weapon_hit(event, crater_internal_r, crater_external_r, fi
 		end
 	 end
 	 local tileTable = {}
-	 for _,v in pairs(game.surfaces[event.surface_index].find_tiles_filtered{position=position, radius=crater_external_r}) do
-		table.insert(tileTable, {name = "nuclear-ground", position = v.position})
-	 end
-	 if (crater_external_r>8 and settings.global["nuke-crater-noise"].value) then
-		 for num=0,3 do
-			 local slice_w = (math.floor(crater_external_r/50)+1)
-			 for ang=0,math.ceil(3.1416*2*crater_external_r*slice_w*4/(num*num+1)) do
+
+	local is_waterfilled = false
+	for _,v in pairs(game.surfaces[event.surface_index].find_tiles_filtered{position=position, radius=crater_external_r}) do
+		cur_tile = game.surfaces[1].get_tile(v.position)
+		if cur_tile.name == 'water' or cur_tile.name == 'deepwater' then
+			is_waterfilled = true
+		end
+	end
+
+	-- mandelbrodt - Moved from above to check if crater is next to water before appending to waitingNukes
+	if crater_internal_r>0 and settings.global["crater-water-filling"].value and not is_waterfilled then
+		table.insert(global.waitingNukes, {t = 0, pos = position, d = crater_internal_r, s = event.surface_index})
+	end
+
+	if not is_waterfilled then
+		for _,v in pairs(game.surfaces[event.surface_index].find_tiles_filtered{position=position, radius=crater_external_r}) do
+			table.insert(tileTable, {name = "nuclear-ground", position = v.position})
+		end
+	else
+		-- mandelbrodt - If crater touches (non-shallow/mud) water, fill crater with 'water' tiles
+		for _,v in pairs(game.surfaces[event.surface_index].find_tiles_filtered{position=position, radius=crater_external_r}) do
+			cur_tile = game.surfaces[1].get_tile(v.position)
+			if not (cur_tile.name == 'water' or cur_tile.name == 'deepwater') then
+				table.insert(tileTable, {name = 'water', position = v.position})
+			end
+		end
+	end
+
+	if (crater_external_r>8 and settings.global["nuke-crater-noise"].value) then
+		for num=0,3 do
+			local slice_w = (math.floor(crater_external_r/50)+1)
+			for ang=0,math.ceil(3.1416*2*crater_external_r*slice_w*4/(num*num+1)) do
 				local dist = math.floor(math.random(num*slice_w, slice_w+num*slice_w))
 				local offset = math.random()
-				table.insert(tileTable, {name = "nuclear-ground", position = {position.x+math.floor((dist+crater_external_r-1)*math.sin(ang+offset)+0.5), position.y+math.floor((dist+crater_external_r-1)*math.cos(ang+offset)+0.5)}})
-			 end
-		 end
-	 end
+
+				noise_pos = {position.x+math.floor((dist+crater_external_r-1)*math.sin(ang+offset)+0.5), position.y+math.floor((dist+crater_external_r-1)*math.cos(ang+offset)+0.5)}
+				cur_tile = game.surfaces[1].get_tile(noise_pos)
+				-- mandelbrodt - Only replace non-water ('water' & 'deepwater') tiles with 'nuclear-ground'
+				if not (cur_tile.name == 'water' or cur_tile.name == 'deepwater') then
+					table.insert(tileTable, {name = "nuclear-ground", position = noise_pos})
+				end
+			end
+		end
+	end
+
 	 game.surfaces[event.surface_index].set_tiles(tileTable)
 	 if(flame_proportion>0) then
 		 for _,v in pairs(game.surfaces[event.surface_index].find_tiles_filtered{position=position, radius=fire_outer_r}) do
