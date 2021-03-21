@@ -312,11 +312,20 @@ local function atomic_weapon_hit(event, crater_internal_r, crater_external_r, fi
 	 local tileTable = {}
 
 	local is_waterfilled = false
+	local edge_water_count = 0
+	local edge_water_threshold = 0.1 -- Threshold of proportion of crater edge touching water for crater to fill with water
+
 	for _,v in pairs(game.surfaces[event.surface_index].find_tiles_filtered{position=position, radius=crater_external_r}) do
 		cur_tile = game.surfaces[1].get_tile(v.position)
-		if cur_tile.name == 'water' or cur_tile.name == 'deepwater' then
-			is_waterfilled = true
+		if math.sqrt((cur_tile.position.x - position.x) ^ 2 + (cur_tile.position.y - position.y) ^ 2) > crater_external_r - 1 then
+			if cur_tile.name == 'water' or cur_tile.name == 'deepwater' then
+				edge_water_count = edge_water_count + 1
+			end
 		end
+	end
+
+	if edge_water_count / (2 * math.pi * crater_external_r) > edge_water_threshold then
+		is_waterfilled = true
 	end
 
 	-- mandelbrodt - Moved from above to check if crater is next to water before appending to waitingNukes
@@ -347,8 +356,8 @@ local function atomic_weapon_hit(event, crater_internal_r, crater_external_r, fi
 
 				noise_pos = {position.x+math.floor((dist+crater_external_r-1)*math.sin(ang+offset)+0.5), position.y+math.floor((dist+crater_external_r-1)*math.cos(ang+offset)+0.5)}
 				cur_tile = game.surfaces[1].get_tile(noise_pos)
-				-- mandelbrodt - Only replace non-water ('water' & 'deepwater') tiles with 'nuclear-ground'
-				if not (cur_tile.name == 'water' or cur_tile.name == 'deepwater') then
+				-- mandelbrodt - Only replace non-water ('water' & 'deepwater') tiles with 'nuclear-ground', if crater is water-filled
+				if not (is_waterfilled) or not (cur_tile.name == 'water' or cur_tile.name == 'deepwater') then
 					table.insert(tileTable, {name = "nuclear-ground", position = noise_pos})
 				end
 			end
