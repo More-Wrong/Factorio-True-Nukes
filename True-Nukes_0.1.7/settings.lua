@@ -21,6 +21,13 @@ data:extend({
 		order = "a2"
 	},
 	{
+		type = "bool-setting",
+		name = "use-height-for-craters",
+		setting_type = "runtime-global",
+		default_value = true,
+		order = "a3"
+	},
+	{
 		type = "double-setting",
 		name = "large-nuke-fire-scaledown",
 		setting_type = "runtime-global",
@@ -99,10 +106,10 @@ data:extend({
 	},
 	{
 		type = "bool-setting",
-		name = "use-tritium",
+		name = "enable-new-craters",
 		setting_type = "startup",
 		default_value = true,
-		order = "c0"
+		order = "d0"
 	},
 	{
 		type = "bool-setting",

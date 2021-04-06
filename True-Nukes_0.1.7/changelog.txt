@@ -1,4 +1,14 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.1.7
+Date: 2021-04-06
+  Features:
+    - Added new crater system (and option to go back to old system, which may be signifacntly higher performance, old system enhanced by mandelbrodt on github - thanks)
+    - Added crater filling with more dynamic water, so that it flows in from lakes etc.
+    - Also made the nukes vapourise any water inside their fireball
+    - Added new tiles to allow new crater system - this may break other mods, so there is an option to remove these, but this will make maps with them in not load properly
+  Bugfixes:
+    - Removed use-tritium setting, as this was never implemented (and, presumably, never used, as I never got a bug report!!!)
+---------------------------------------------------------------------------------------------------
 Version: 0.1.6
 Date: 2021-02-24
   Features:
