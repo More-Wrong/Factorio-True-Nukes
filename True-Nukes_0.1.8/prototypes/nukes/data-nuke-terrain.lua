@@ -166,7 +166,6 @@ if(settings.startup["enable-new-craters"]) then
 		  "water-tile",
 		  --"ground-tile",
 		  "item-layer",
-		  "resource-layer",
 		  "object-layer"
 		  --"doodad-layer"
 		}
@@ -184,7 +183,6 @@ if(settings.startup["enable-new-craters"]) then
 		{
 		  "water-tile",
 		  "item-layer",
-		  "resource-layer",
 		  "player-layer",
 		  "doodad-layer"
 		}
@@ -203,7 +201,6 @@ if(settings.startup["enable-new-craters"]) then
 		{
 		  "water-tile",
 		  "item-layer",
-		  "resource-layer",
 		  "player-layer",
 		  "doodad-layer"
 		}
@@ -217,7 +214,6 @@ if(settings.startup["enable-new-craters"]) then
 	nuclear_deep.collision_mask =
 		{
 		  "water-tile",
-		  "resource-layer",
 		  "item-layer",
 		  "player-layer",
 		  "doodad-layer"
@@ -238,7 +234,6 @@ if(settings.startup["enable-new-craters"]) then
 		{
 		  "water-tile",
 		  "item-layer",
-		  "resource-layer",
 		  "player-layer",
 		  "doodad-layer"
 		}
@@ -251,7 +246,6 @@ if(settings.startup["enable-new-craters"]) then
 		{
 		  "water-tile",
 		  "item-layer",
-		  "resource-layer",
 		  "player-layer",
 		  "doodad-layer"
 		}
@@ -270,7 +264,6 @@ nuclear_high.collision_mask =
       -- Not sure what other side effects could different combinations of tile masks cause.
       "ground-tile",
       "item-layer",
-      "resource-layer",
       "player-layer",
       "object-layer",
       "doodad-layer"
@@ -300,7 +293,6 @@ data:extend{{
 		  "water-tile",
 		  "ground-tile",
 		  "item-layer",
-		  "resource-layer",
 		  "player-layer",
 		  "object-layer",
 		  "doodad-layer"

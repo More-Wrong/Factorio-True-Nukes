@@ -1024,11 +1024,13 @@ local function atomic_weapon_hit(event, crater_internal_r, crater_external_r, fi
 			end
 		end
 	 end
-	 -- destroy resources in crater (a bit more to account for the noise on crater edge)
-	 for _,v in pairs(game.surfaces[event.surface_index].find_entities_filtered{position=position, radius=crater_external_r*1.1+4, type="resource"}) do
-		if(v.valid) then
-			v.destroy()
-		end
+	 if(settings.global["destroy-resources-in-crater"]) then
+		 -- destroy resources in crater (a bit more to account for the noise on crater edge)
+		 for _,v in pairs(game.surfaces[event.surface_index].find_entities_filtered{position=position, radius=crater_external_r*1.1+4, type="resource"}) do
+			if(v.valid) then
+				v.destroy()
+			end
+		 end
 	 end
 	 -- destroy decoratives in the fireball
 	 for _,v in pairs(game.surfaces[event.surface_index].find_decoratives_filtered{area = {{position.x-fireball_r, position.y-fireball_r}, {position.x+fireball_r, position.y+fireball_r}}}) do

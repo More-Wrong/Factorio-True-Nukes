@@ -28,6 +28,13 @@ data:extend({
 		order = "a3"
 	},
 	{
+		type = "bool-setting",
+		name = "destroy-resources-in-crater",
+		setting_type = "runtime-global",
+		default_value = true,
+		order = "a4"
+	},
+	{
 		type = "double-setting",
 		name = "large-nuke-fire-scaledown",
 		setting_type = "runtime-global",
