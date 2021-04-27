@@ -1024,7 +1024,7 @@ local function atomic_weapon_hit(event, crater_internal_r, crater_external_r, fi
 			end
 		end
 	 end
-	 if(settings.global["destroy-resources-in-crater"]) then
+	 if(settings.global["destroy-resources-in-crater"].value) then
 		 -- destroy resources in crater (a bit more to account for the noise on crater edge)
 		 for _,v in pairs(game.surfaces[event.surface_index].find_entities_filtered{position=position, radius=crater_external_r*1.1+4, type="resource"}) do
 			if(v.valid) then
@@ -1051,7 +1051,7 @@ local function atomic_weapon_hit(event, crater_internal_r, crater_external_r, fi
 			end
 		end
 	 end
-	 if(settings.global["use-height-for-craters"].value and settings.startup["enable-new-craters"]) then
+	 if(settings.global["use-height-for-craters"].value and settings.startup["enable-new-craters"].value) then
 		if(crater_external_r>200) then --use efficient crater generator (ignores height for lakes)
 			nukeTileChangesHeightAwareHuge(position, check_craters, event.surface_index, crater_internal_r, crater_external_r, fireball_r)
 		else

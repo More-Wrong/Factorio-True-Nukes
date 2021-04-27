@@ -2,6 +2,11 @@
 Version: 0.1.7
 Date: 2021-04-06
   Features:
+    - Added setting to preserve resources in craters - this might not be too pretty depending on how the tile transitions happen.
+---------------------------------------------------------------------------------------------------
+Version: 0.1.7
+Date: 2021-04-06
+  Features:
     - Added new crater system (and option to go back to old system, which may be signifacntly higher performance, old system enhanced by mandelbrodt on github - thanks)
     - Added crater filling with more dynamic water, so that it flows in from lakes etc.
     - Also made the nukes vapourise any water inside their fireball
