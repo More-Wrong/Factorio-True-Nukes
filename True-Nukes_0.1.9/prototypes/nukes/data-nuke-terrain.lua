@@ -123,7 +123,7 @@ if(settings.startup["enable-new-craters"]) then
 	  ),
 	  ground_to_out_of_map_transition
 	}
-	tileNames = {"nuclear-deep", "nuclear-crater", "nuclear-shallow"}
+	local tileNames = {"nuclear-deep", "nuclear-crater", "nuclear-deep-fill", "nuclear-deep-shallow-fill", "nuclear-crater-shallow-fill", "nuclear-shallow"}
 	for _,tile in pairs(data.raw["tile"]) do
 		table.insert(tileNames, tile.name)
 	end
@@ -250,53 +250,53 @@ if(settings.startup["enable-new-craters"]) then
 		  "doodad-layer"
 		}
 	data:extend{nuclear_water_in_deep}
-end
 
-local nuclear_high = table.deepcopy(data.raw["tile"]["nuclear-ground"])
-nuclear_high.name = "nuclear-high"
-nuclear_high.minable = {mining_time = 0.1, result = "stone"}
-nuclear_high.can_be_part_of_blueprint = true
-nuclear_high.collision_mask =
-    {
-      -- Player collides only with player-layer and train-layer,
-      -- this can have any tile collision masks it doesn't matter for being walkable by player but not buildable.
-      -- Having water-tile prevents placing paths, ground-tile prevents placing landfill.
-      -- Not sure what other side effects could different combinations of tile masks cause.
-      "ground-tile",
-      "item-layer",
-      "player-layer",
-      "object-layer",
-      "doodad-layer"
-    }
-nuclear_high.transition_merges_with_tile = "water"
-nuclear_high.layer = 128
-nuclear_high.map_color={r=53, g=43, b=39}
-nuclear_high.transitions = nuclear_high_transitions;
-
-data:extend{nuclear_high}
-
-
-data:extend{{
-    type = "item",
-    name = "nuclear-crater-mound",
-    icon = "__base__/graphics/icons/stone.png",
-    icon_size = 64, icon_mipmaps = 4,
-    subgroup = "terrain",
-    order = "c[nuclear-crater-mound]",
-    stack_size = 100,
-    place_as_tile =
-    {
-      result = "nuclear-high",
-      condition_size = 6,
-      condition = 
+	local nuclear_high = table.deepcopy(data.raw["tile"]["nuclear-ground"])
+	nuclear_high.name = "nuclear-high"
+	nuclear_high.minable = {mining_time = 0.1, result = "stone"}
+	nuclear_high.can_be_part_of_blueprint = true
+	nuclear_high.collision_mask =
 		{
-		  "water-tile",
+		  -- Player collides only with player-layer and train-layer,
+		  -- this can have any tile collision masks it doesn't matter for being walkable by player but not buildable.
+		  -- Having water-tile prevents placing paths, ground-tile prevents placing landfill.
+		  -- Not sure what other side effects could different combinations of tile masks cause.
 		  "ground-tile",
 		  "item-layer",
 		  "player-layer",
 		  "object-layer",
 		  "doodad-layer"
 		}
-    }
-  }}
+	nuclear_high.transition_merges_with_tile = "water"
+	nuclear_high.layer = 128
+	nuclear_high.map_color={r=53, g=43, b=39}
+	nuclear_high.transitions = nuclear_high_transitions;
+
+	data:extend{nuclear_high}
+
+
+	data:extend{{
+		type = "item",
+		name = "nuclear-crater-mound",
+		icon = "__base__/graphics/icons/stone.png",
+		icon_size = 64, icon_mipmaps = 4,
+		subgroup = "terrain",
+		order = "c[nuclear-crater-mound]",
+		stack_size = 100,
+		place_as_tile =
+		{
+		  result = "nuclear-high",
+		  condition_size = 6,
+		  condition = 
+			{
+			  "water-tile",
+			  "ground-tile",
+			  "item-layer",
+			  "player-layer",
+			  "object-layer",
+			  "doodad-layer"
+			}
+		}
+	  }}
+end
 

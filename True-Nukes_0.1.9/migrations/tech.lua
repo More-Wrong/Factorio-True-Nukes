@@ -15,14 +15,7 @@ for index, force in pairs(game.forces) do
   --end
   recipes["TN-small-atomic-artillery-shell"].enabled = technologies["atomic-artillery-shells"].researched
   recipes["TN-atomic-artillery-shell"].enabled = technologies["atomic-artillery-shells"].researched
-  if(settings.startup["enable-thermobaric"].value) then
-    recipes["fire-shield-equipment"].enabled = technologies["atomic-bomb"].researched or technologies["thermobaric-weaponry"].researched
-    recipes["thermobaric-cannon-shell"].enabled = technologies["thermobaric-weaponry"].researched
-    recipes["thermobaric-rocket"].enabled = technologies["thermobaric-weaponry"].researched
-    recipes["thermobaric-artillery-shell"].enabled = technologies["thermobaric-weaponry"].researched
-  else
-    recipes["fire-shield-equipment"].enabled = technologies["atomic-bomb"].researched
-  end
+
   if(settings.startup["use-californium"].value) then
     recipes["californium-processing"].enabled = technologies["californium-processing"].researched
   end

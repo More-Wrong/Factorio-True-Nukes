@@ -1,6 +1,18 @@
 ---------------------------------------------------------------------------------------------------
-Version: 0.1.7
-Date: 2021-04-06
+Version: 0.1.9
+Date: 2021-07-14
+  Features:
+    - Added settings to disable catagories of weapons (I haven't been able to test every combination, so bugs may be lurking here - please report them if you find them)
+    - Added pollution output to Nukes
+    - Updated technology icons
+    - Added nuke related menu simulations (there is an option to disable these, as they may be slow/annoying)
+  Bugfixes:
+    - Fixed Crater Mound transitions
+    - Fixed unfinished localisations for some settings
+    - Fixed Changelog (again)
+---------------------------------------------------------------------------------------------------
+Version: 0.1.8
+Date: 2021-04-25
   Features:
     - Added setting to preserve resources in craters - this might not be too pretty depending on how the tile transitions happen.
 ---------------------------------------------------------------------------------------------------

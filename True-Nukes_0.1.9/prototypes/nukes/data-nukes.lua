@@ -161,8 +161,10 @@ data:extend{radiation_cloud_vis_dum, radiation_cloud, fallout, lingering_radiati
 
 
 
-require("data-nukes-artillery")
-
+if(settings.startup["enable-small-atomic-artillery"].value or settings.startup["enable-atomic-artillery"].value
+    	or settings.startup["enable-big-atomic-artillery"].value or settings.startup["enable-very-big-atomic-artillery"].value) then
+	require("data-nukes-artillery")
+end
 
 
 
@@ -213,8 +215,9 @@ big_atomic_bomb_projectile.created_effect = {
 					  }
                   }
 
-
-data:extend{big_atomic_bomb_recipe, big_atomic_bomb_item, big_atomic_bomb_projectile}
+if(settings.startup["enable-big-atomic-bomb"].value) then
+	data:extend{big_atomic_bomb_recipe, big_atomic_bomb_item, big_atomic_bomb_projectile}
+end
 
 
 
@@ -269,60 +272,95 @@ very_big_atomic_bomb_projectile.created_effect = {
                   }
 
 
-data:extend{very_big_atomic_bomb_recipe, very_big_atomic_bomb_item, very_big_atomic_bomb_projectile}
-
-
-
-
-
-
-local scary_nuke_tech = table.deepcopy(data.raw["technology"]["atomic-bomb"])
-scary_nuke_tech.name = "scary-atomic-weapons"
-scary_nuke_tech.effects =
-    {
-      {
-        type = "unlock-recipe",
-        recipe = "big-atomic-bomb"
-      },
-      {
-        type = "unlock-recipe",
-        recipe = "very-big-atomic-bomb"
-      },
-      {
-        type = "unlock-recipe",
-        recipe = "TN-big-atomic-artillery-shell"
-      }
-    }
-scary_nuke_tech.unit.count=1000
-scary_nuke_tech.unit.ingredients = {
-        {"automation-science-pack", 1},
-        {"logistic-science-pack", 1},
-        {"chemical-science-pack", 1},
-        {"military-science-pack", 1},
-        {"production-science-pack", 1},
-        {"utility-science-pack", 1},
-        {"space-science-pack", 1}
-      }
-scary_nuke_tech.prerequisites = {"atomic-artillery-shells", "californium-processing"}
-scary_nuke_tech.icon = "__True-Nukes__/graphics/scary-atomic-tech.png"
-scary_nuke_tech.icon_mipmaps = 1
-data:extend{scary_nuke_tech}
-
-
-require("data-nukes-californium")
-require("data-nukes-huge")
-
-
-
-
-
-
-if mods["SchallTankPlatoon"] then
-  require("data-nukes-schall")
+if(settings.startup["enable-very-big-atomic-bomb"].value) then
+	data:extend{very_big_atomic_bomb_recipe, very_big_atomic_bomb_item, very_big_atomic_bomb_projectile}
 end
 
-table.insert(data.raw.technology["atomic-bomb"].effects, {
+
+
+
+
+
+
+if(settings.startup["enable-big-atomic-ammo"].value or settings.startup["enable-big-atomic-cannons"].value
+    	or settings.startup["enable-big-atomic-bomb"].value or settings.startup["enable-very-big-atomic-bomb"].value
+    	or settings.startup["enable-big-atomic-artillery"].value or settings.startup["enable-very-big-atomic-artillery"].value) then
+	local scary_nuke_tech = table.deepcopy(data.raw["technology"]["atomic-bomb"])
+	scary_nuke_tech.name = "scary-atomic-weapons"
+	scary_nuke_tech.effects = {}
+	
+	if (settings.startup["enable-big-atomic-bomb"].value) then
+		table.insert(scary_nuke_tech.effects, 
+		  {
+		    type = "unlock-recipe",
+		    recipe = "big-atomic-bomb"
+		  })
+	end
+	if (settings.startup["enable-very-big-atomic-bomb"].value) then
+		table.insert(scary_nuke_tech.effects, 
+		  {
+		    type = "unlock-recipe",
+		    recipe = "very-big-atomic-bomb"
+		  })
+	end
+	if (settings.startup["enable-big-atomic-artillery"].value or settings.startup["enable-very-big-atomic-artillery"].value) then
+		table.insert(scary_nuke_tech.effects, 
+		  {
+		    type = "unlock-recipe",
+		    recipe = "TN-big-atomic-artillery-shell"
+		  })
+	end
+	scary_nuke_tech.unit.count=1000
+	scary_nuke_tech.unit.ingredients = {
+		    {"automation-science-pack", 1},
+		    {"logistic-science-pack", 1},
+		    {"chemical-science-pack", 1},
+		    {"military-science-pack", 1},
+		    {"production-science-pack", 1},
+		    {"utility-science-pack", 1},
+		    {"space-science-pack", 1}
+		  }
+    scary_nuke_tech.order = "e-b-a"
+	scary_nuke_tech.prerequisites = {} -- "atomic-artillery-shells", "californium-processing"
+	if(settings.startup["enable-atomic-ammo"].value or settings.startup["enable-big-atomic-ammo"].value
+			or settings.startup["enable-atomic-cannons"].value or settings.startup["enable-big-atomic-cannons"].value) then
+		table.insert(scary_nuke_tech.prerequisites, "californium-processing")
+		if(settings.startup["enable-small-atomic-artillery"].value or settings.startup["enable-atomic-artillery"].value
+    			or settings.startup["enable-big-atomic-artillery"].value or settings.startup["enable-very-big-atomic-artillery"].value) then
+			table.insert(scary_nuke_tech.prerequisites, "atomic-artillery-shells")
+		end
+	elseif(settings.startup["enable-small-atomic-artillery"].value or settings.startup["enable-atomic-artillery"].value
+    	or settings.startup["enable-big-atomic-artillery"].value or settings.startup["enable-very-big-atomic-artillery"].value) then
+		table.insert(scary_nuke_tech.prerequisites, "atomic-artillery-shells")
+	else
+		table.insert(scary_nuke_tech.prerequisites, "atomic-bomb")
+	end
+	scary_nuke_tech.icon = "__True-Nukes__/graphics/scary-atomic-tech.png"
+	scary_nuke_tech.icon_mipmaps = 1
+	data:extend{scary_nuke_tech}
+end
+
+if(settings.startup["enable-atomic-ammo"].value or settings.startup["enable-big-atomic-ammo"].value
+    	or settings.startup["enable-atomic-cannons"].value or settings.startup["enable-big-atomic-cannons"].value) then
+	require("data-nukes-californium")
+end
+
+if(settings.startup["enable-very-big-atomic-artillery"].value or settings.startup["enable-fusion-building"].value or settings.startup["enable-mega-fusion-building"].value) then
+	require("data-nukes-huge")
+end
+
+
+
+
+
+
+if ((settings.startup["enable-atomic-cannons"].value or settings.startup["enable-big-atomic-cannons"].value) and mods["SchallTankPlatoon"] )then
+  require("data-nukes-schall")
+end
+if(settings.startup["enable-fire-shield"].value) then
+	table.insert(data.raw.technology["atomic-bomb"].effects, {
         type = "unlock-recipe",
         recipe = "fire-shield-equipment"
       })
+end
       

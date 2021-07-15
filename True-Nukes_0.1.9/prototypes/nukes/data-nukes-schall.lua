@@ -161,8 +161,9 @@ big_atomic_autocannon_projectile.final_action = {
     target_effects = nuke_explosions.N2t_detonation
   }
 }
-data:extend{big_atomic_autocannon_recipe, big_atomic_autocannon_item, big_atomic_autocannon_projectile}
-
+if(settings.startup["enable-big-atomic-ammo"].value) then
+	data:extend{big_atomic_autocannon_recipe, big_atomic_autocannon_item, big_atomic_autocannon_projectile}
+end
 local big_atomic_cannon_H1_recipe = {
     type = "recipe",
     name = "big-atomic-cannon-H1-shell",
@@ -196,8 +197,9 @@ big_atomic_cannon_H1_projectile.final_action = {
     target_effects = nuke_explosions.N8t_detonation
   }
 }
-data:extend{big_atomic_cannon_H1_recipe, big_atomic_cannon_H1_item, big_atomic_cannon_H1_projectile}
-
+if(settings.startup["enable-big-atomic-ammo"].value) then
+	data:extend{big_atomic_cannon_H1_recipe, big_atomic_cannon_H1_item, big_atomic_cannon_H1_projectile}
+end
 local big_atomic_cannon_H2_recipe = {
     type = "recipe",
     name = "big-atomic-cannon-H2-shell",
@@ -232,8 +234,9 @@ big_atomic_cannon_H2_projectile.final_action = {
     target_effects = nuke_explosions.N20t_detonation
   }
 }
-data:extend{big_atomic_cannon_H2_recipe, big_atomic_cannon_H2_item, big_atomic_cannon_H2_projectile}
-
+if(settings.startup["enable-big-atomic-ammo"].value) then
+	data:extend{big_atomic_cannon_H2_recipe, big_atomic_cannon_H2_item, big_atomic_cannon_H2_projectile}
+end
 table.insert(data.raw.technology["californium-processing"].effects, 3, {
         type = "unlock-recipe",
         recipe = "atomic-autocannon-shell"
@@ -246,15 +249,17 @@ table.insert(data.raw.technology["californium-processing"].effects, {
         type = "unlock-recipe",
         recipe = "atomic-cannon-H2-shell"
       })
-table.insert(data.raw.technology["scary-atomic-weapons"].effects, 3, {
-        type = "unlock-recipe",
-        recipe = "big-atomic-cannon-H2-shell"
-      })
-table.insert(data.raw.technology["scary-atomic-weapons"].effects, 3, {
-        type = "unlock-recipe",
-        recipe = "big-atomic-cannon-H1-shell"
-      })
-table.insert(data.raw.technology["scary-atomic-weapons"].effects, 2, {
-        type = "unlock-recipe",
-        recipe = "big-atomic-autocannon-shell"
-      })
+if(settings.startup["enable-big-atomic-ammo"].value) then
+	table.insert(data.raw.technology["scary-atomic-weapons"].effects, 3, {
+		    type = "unlock-recipe",
+		    recipe = "big-atomic-cannon-H2-shell"
+		  })
+	table.insert(data.raw.technology["scary-atomic-weapons"].effects, 3, {
+		    type = "unlock-recipe",
+		    recipe = "big-atomic-cannon-H1-shell"
+		  })
+	table.insert(data.raw.technology["scary-atomic-weapons"].effects, 2, {
+		    type = "unlock-recipe",
+		    recipe = "big-atomic-autocannon-shell"
+		  })
+end

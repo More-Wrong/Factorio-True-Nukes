@@ -92,9 +92,9 @@ local  atomic_ammo_item = {
   }
 
 
-
-data:extend{atomic_ammo_recipe, atomic_ammo_item}
-
+if(settings.startup["enable-atomic-ammo"].value or settings.startup["enable-big-atomic-ammo"].value) then
+	data:extend{atomic_ammo_recipe, atomic_ammo_item}
+end
 
 local big_atomic_ammo_recipe = {
     type = "recipe",
@@ -143,9 +143,9 @@ local  big_atomic_ammo_item = {
   }
 
 
-
-data:extend{big_atomic_ammo_recipe, big_atomic_ammo_item}
-
+if(settings.startup["enable-big-atomic-ammo"].value) then
+	data:extend{big_atomic_ammo_recipe, big_atomic_ammo_item}
+end
 
 local atomic_cannon_recipe = {
     type = "recipe",
@@ -182,8 +182,9 @@ atomic_cannon_projectile.final_action = {
     target_effects = nuke_explosions.N2t_detonation
   }
 }
-data:extend{atomic_cannon_recipe, atomic_cannon_item, atomic_cannon_projectile}
-
+if(settings.startup["enable-atomic-cannons"].value or settings.startup["enable-big-atomic-cannons"].value) then
+	data:extend{atomic_cannon_recipe, atomic_cannon_item, atomic_cannon_projectile}
+end
 local big_atomic_cannon_recipe = {
     type = "recipe",
     name = "big-atomic-cannon-shell",
@@ -219,24 +220,16 @@ big_atomic_cannon_projectile.final_action = {
     target_effects = nuke_explosions.N4t_detonation
   }
 }
-data:extend{big_atomic_cannon_recipe, big_atomic_cannon_item, big_atomic_cannon_projectile}
+if(settings.startup["enable-big-atomic-cannons"].value) then
+	data:extend{big_atomic_cannon_recipe, big_atomic_cannon_item, big_atomic_cannon_projectile}
+end
 data:extend{
   {
     type = "technology",
     name = "californium-processing",
     icon_size = 256, icon_mipmaps = 4,
     icon = "__True-Nukes__/graphics/californium-processing-tech.png",
-    effects =
-    {
-      {
-        type = "unlock-recipe",
-        recipe = "atomic-rounds-magazine"
-      },
-      {
-        type = "unlock-recipe",
-        recipe = "atomic-cannon-shell"
-      }
-    },
+    effects = {},
     prerequisites = { "kovarex-enrichment-process", "atomic-bomb"},
     unit =
     {
@@ -251,9 +244,24 @@ data:extend{
       time = 30,
       count = 500
     },
-    order = "e-p-b-c"
+    order = "e-a-d"
   }
 }
+if(settings.startup["enable-atomic-cannons"].value or settings.startup["enable-big-atomic-cannons"].value) then
+	table.insert(data.raw.technology["californium-processing"].effects, 
+	  {
+	    type = "unlock-recipe",
+	    recipe = "atomic-cannon-shell"
+	  })
+end
+if(settings.startup["enable-atomic-ammo"].value or settings.startup["enable-big-atomic-ammo"].value) then
+	table.insert(data.raw.technology["californium-processing"].effects, 
+	  {
+	    type = "unlock-recipe",
+	    recipe = "atomic-rounds-magazine"
+	  })
+	  
+end
 if(settings.startup["use-californium"].value) then
 	table.insert(data.raw.technology["californium-processing"].effects, 1, {
 	        type = "unlock-recipe",
@@ -261,11 +269,17 @@ if(settings.startup["use-californium"].value) then
  	     })
 end
 
-table.insert(data.raw.technology["scary-atomic-weapons"].effects, 1, {
-        type = "unlock-recipe",
-        recipe = "big-atomic-rounds-magazine"
-      })
-table.insert(data.raw.technology["scary-atomic-weapons"].effects, 2, {
-        type = "unlock-recipe",
-        recipe = "big-atomic-cannon-shell"
-      })
+if(settings.startup["enable-big-atomic-ammo"].value) then
+	table.insert(data.raw.technology["scary-atomic-weapons"].effects, 1, {
+		    type = "unlock-recipe",
+		    recipe = "big-atomic-rounds-magazine"
+		  })
+end
+if(settings.startup["enable-big-atomic-cannons"].value) then
+	table.insert(data.raw.technology["scary-atomic-weapons"].effects, 2, {
+			type = "unlock-recipe",
+			recipe = "big-atomic-cannon-shell"
+		  })
+end
+
+

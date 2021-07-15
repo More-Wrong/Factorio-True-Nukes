@@ -986,12 +986,15 @@ end
 
 
 
-local function atomic_weapon_hit(event, crater_internal_r, crater_external_r, fireball_r, fire_outer_r, blast_max_r, tree_fire_max_r, thermal_max_r, load_r, visable_r, flame_proportion, create_small_fires, check_craters)
+local function atomic_weapon_hit(event, crater_internal_r, crater_external_r, fireball_r, fire_outer_r, blast_max_r, tree_fire_max_r, thermal_max_r, load_r, visable_r, polution, flame_proportion, create_small_fires, check_craters)
 	 -- find forces, positions, etc.
 	 local force
 	 local position = event.target_position
 	 if(not position) then
 	 	position = event.source_position
+	 end
+	 if(settings.global["nukes-cause-pollution"].value) then
+	 	game.surfaces[event.surface_index].pollute(position, polution)
 	 end
 	 if(not (event.source_entity==nil)) then
 	 	force = event.source_entity.force
@@ -1177,8 +1180,8 @@ local function nukeFiredScan(event)
 	end
 end
 
-
---local function atomic_weapon_hit(event, crater_internal_r, crater_external_r, fireball_r, fire_outer_r, blast_max_r, tree_fire_max_r, thermal_max_r, load_r, visable_r, flame_proportion)
+ -- calculate polution as 1*tonnage + 1000*uranium input + 100*californium input + 10000*tritium input
+--local function atomic_weapon_hit(event, crater_internal_r, crater_external_r, fireball_r, fire_outer_r, blast_max_r, tree_fire_max_r, thermal_max_r, load_r, visable_r, polution, flame_proportion, create_small_fires, check_craters)
 script.on_event(defines.events.on_script_trigger_effect, function(event)
   if(event.effect_id=="Thermobaric Weapon hit small-") then
 	 thermobaric_weapon_hit(event, 1, 15, 10, 10, 10);
@@ -1193,37 +1196,37 @@ script.on_event(defines.events.on_script_trigger_effect, function(event)
   elseif(event.effect_id=="Thermobaric Weapon hit large") then
 	 thermobaric_weapon_hit(event, 9, 120, 100, 120, 100);
   elseif(event.effect_id=="Atomic Weapon hit 0.1t") then
-	 atomic_weapon_hit(event, 0, 1, 1, 3, 30, 15, 30, 15, 15, 1, true, true);
+	 atomic_weapon_hit(event, 0, 1, 1, 3, 30, 15, 30, 15, 15, 300.1, 1, true, true);
 	 createBlastSoundsAndFlash(event.target_position, game.surfaces[event.surface_index], 60, 100, 200, 700, 10, 0.06);
   elseif(event.effect_id=="Atomic Weapon hit 0.5t") then
-	 atomic_weapon_hit(event, 0, 3, 3, 5, 50, 25, 30, 30, 20, 1, true, true);
+	 atomic_weapon_hit(event, 0, 3, 3, 5, 50, 25, 30, 30, 20, 700.5, 1, true, true);
 	 createBlastSoundsAndFlash(event.target_position, game.surfaces[event.surface_index], 80, 150, 300, 1000, 20, 0.12);
   elseif(event.effect_id=="Atomic Weapon hit 2t") then
-	 atomic_weapon_hit(event, 0, 5, 5, 15, 80, 50, 100, 100, 50, 2, true, true);
+	 atomic_weapon_hit(event, 0, 5, 5, 15, 80, 50, 100, 100, 50, 1302, 2, true, true);
 	 createBlastSoundsAndFlash(event.target_position, game.surfaces[event.surface_index], 100, 250, 500, 2000, 40, 0.25);
   elseif(event.effect_id=="Atomic Weapon hit 4t") then
-	 atomic_weapon_hit(event, 1, 6, 7, 20, 130, 120, 150, 180, 80, 1, true, true);
+	 atomic_weapon_hit(event, 1, 6, 7, 20, 130, 120, 150, 180, 80, 4004, 1, true, true);
 	 createBlastSoundsAndFlash(event.target_position, game.surfaces[event.surface_index], 120, 300, 900, 4000, 70, 0.4);
   elseif(event.effect_id=="Atomic Weapon hit 8t") then
-	 atomic_weapon_hit(event, 3, 8, 14, 25, 200, 200, 200, 180, 100, 1, true, true);
+	 atomic_weapon_hit(event, 3, 8, 14, 25, 200, 200, 200, 180, 100, 9008, 1, true, true);
 	 createBlastSoundsAndFlash(event.target_position, game.surfaces[event.surface_index], 150, 400, 1250, 10000, 100, 0.6);
   elseif(event.effect_id=="Atomic Weapon hit 20t") then
-	 atomic_weapon_hit(event, 5, 10, 20, 30, 320, 320, 320, 180, 150, 1, true, true);
+	 atomic_weapon_hit(event, 5, 10, 20, 30, 320, 320, 320, 180, 150, 30020, 1, true, true);
 	 createBlastSoundsAndFlash(event.target_position, game.surfaces[event.surface_index], 250, 600, 1800, 15000, 160, 1);
   elseif(event.effect_id=="Atomic Weapon hit 500t") then
-	 atomic_weapon_hit(event, 10, 20, 40, 35, 400, 400, 600, 400, 300, 1*settings.global["large-nuke-fire-scaledown"].value, true, true);
+	 atomic_weapon_hit(event, 10, 20, 40, 35, 400, 400, 600, 400, 300, 75500, 1*settings.global["large-nuke-fire-scaledown"].value, true, true);
 	 createBlastSoundsAndFlash(event.target_position, game.surfaces[event.surface_index], 400, 800, 2500, 25000, 300, 2);
   elseif(event.effect_id=="Atomic Weapon hit 1kt") then
-	 atomic_weapon_hit(event, 20, 40, 80, 75, 800, 800, 1200, 800, 300, 2*settings.global["large-nuke-fire-scaledown"].value, true, true);
+	 atomic_weapon_hit(event, 20, 40, 80, 75, 800, 800, 1200, 800, 300, 101000, 2*settings.global["large-nuke-fire-scaledown"].value, true, true);
 	 createBlastSoundsAndFlash(event.target_position, game.surfaces[event.surface_index], 600, 1200, 8000, 60000, 600, 4);
   elseif(event.effect_id=="Atomic Weapon hit 15kt") then
-	 atomic_weapon_hit(event, 50, 100, 200, 150, 2000/settings.global["large-nuke-blast-range-scaledown"].value, 1000, 4000, 1000, 500, settings.global["huge-nuke-fire-scaledown"].value, false, true);
+	 atomic_weapon_hit(event, 50, 100, 200, 150, 2000/settings.global["large-nuke-blast-range-scaledown"].value, 1000, 4000, 1000, 500, 315000, settings.global["huge-nuke-fire-scaledown"].value, false, true);
 	 createBlastSoundsAndFlash(event.target_position, game.surfaces[event.surface_index], 1500, 3000, 20000, 100000, 1500, 8);
   elseif(event.effect_id=="Atomic Weapon hit 100kt") then
-	 atomic_weapon_hit(event, 90, 180, 500, 400, 5500/settings.global["really-huge-nuke-blast-range-scaledown"].value, 2500, 9000, 1500, 1000, 2*settings.global["really-huge-nuke-fire-scaledown"].value, false, false);
+	 atomic_weapon_hit(event, 90, 180, 500, 400, 5500/settings.global["really-huge-nuke-blast-range-scaledown"].value, 2500, 9000, 1500, 1000, 450000, 2*settings.global["really-huge-nuke-fire-scaledown"].value, false, false);
 	 createBlastSoundsAndFlash(event.target_position, game.surfaces[event.surface_index], 2700, 5400, 36000, 200000, 2700, 16);
   elseif(event.effect_id=="Atomic Weapon hit 1Mt") then
-	 atomic_weapon_hit(event, 190, 390, 1200, 1000, 12000/settings.global["mega-nuke-blast-range-scaledown"].value, 5000, 10000, 3200, 2500, 0, false, false);
+	 atomic_weapon_hit(event, 190, 390, 1200, 1000, 12000/settings.global["mega-nuke-blast-range-scaledown"].value, 5000, 10000, 3200, 2500, 1800000, 0, false, false);
 	 createBlastSoundsAndFlash(event.target_position, game.surfaces[event.surface_index], 6000, 10000, 60000, 400000, 5000, 32);
   elseif(event.effect_id=="Nuke firing") then
 	 nukeFiredScan(event);
