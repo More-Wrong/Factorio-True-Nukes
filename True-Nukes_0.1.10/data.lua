@@ -33,23 +33,22 @@ fireutil.add_basic_fire_graphics_and_effects_definitions
   --initial_flame_count = 1,
 
 }})
+if(settings.startup["enable-thermobaric-cannons"].value or settings.startup["enable-thermobaric-rockets"].value or settings.startup["enable-thermobaric-artillery"].value) then
+	require("prototypes.thermobarics.data-thermobaric")
+end
+if not (settings.startup["enable-atomic-bomb"].value or settings.startup["enable-big-atomic-bomb"].value or settings.startup["enable-very-big-atomic-bomb"].value) then
+	table.remove(data.raw.technology["atomic-bomb"].effects, 1)
+end
+require("prototypes.nukes.data-nuke-terrain")
 if(settings.startup["enable-atomic-ammo"].value or settings.startup["enable-big-atomic-ammo"].value
     	or settings.startup["enable-atomic-cannons"].value or settings.startup["enable-big-atomic-cannons"].value
     	or settings.startup["enable-atomic-bomb"].value or settings.startup["enable-big-atomic-bomb"].value or settings.startup["enable-very-big-atomic-bomb"].value
     	or settings.startup["enable-small-atomic-artillery"].value or settings.startup["enable-atomic-artillery"].value
     	or settings.startup["enable-big-atomic-artillery"].value or settings.startup["enable-very-big-atomic-artillery"].value
-    	or settings.startup["enable-fusion-building"].value or settings.startup["enable-mega-fusion-building"].value) then
+    	or settings.startup["enable-fusion-building"].value or settings.startup["enable-mega-fusion-building"].value or settings.startup["keep-atomic-research-without-weapons"].value) then
 	require("prototypes.nukes.data-nukes")
 else
 	data.raw.technology["atomic-bomb"] = nil
-end
-if(settings.startup["enable-thermobaric-cannons"].value or settings.startup["enable-thermobaric-rockets"].value or settings.startup["enable-thermobaric-artillery"].value) then
-	require("prototypes.thermobarics.data-thermobaric")
-end
-if not (settings.startup["enable-atomic-bomb"].value or settings.startup["enable-big-atomic-bomb"].value or settings.startup["enable-very-big-atomic-bomb"].value) then
-	data.raw.recipe["atomic-bomb"] = nil
-	data.raw.ammo["atomic-bomb"] = nil
-	table.remove(data.raw.technology["atomic-bomb"].effects, 1)
 end
 
 if(settings.startup["enable-fire-shield"].value) then

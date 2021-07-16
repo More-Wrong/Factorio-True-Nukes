@@ -1,4 +1,4 @@
-require("data-nuke-terrain")
+
 local fireutil = require("__base__.prototypes.fire-util")
 local nuke_explosions = require("data-nuke-explosions")
 

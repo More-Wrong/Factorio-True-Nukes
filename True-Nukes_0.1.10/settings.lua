@@ -255,6 +255,14 @@ data:extend({
 	
 	{
 		type = "bool-setting",
+		name = "keep-atomic-research-without-weapons",
+		setting_type = "startup",
+		default_value = false,
+		order = "fh"
+	},
+	
+	{
+		type = "bool-setting",
 		name = "TN-mushroom-cloud-style-nuclear-flash",
 		setting_type = "runtime-per-user",
 		default_value = true,
