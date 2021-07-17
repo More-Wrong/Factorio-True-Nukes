@@ -2,35 +2,36 @@
 local fireutil = require("__base__.prototypes.fire-util")
 local nuke_explosions = require("data-nuke-explosions")
 
-data.raw.projectile["atomic-rocket"].action = 
-{
-  type = "direct",
-  action_delivery =
-  {
-    type = "instant",
-    target_effects = nuke_explosions.N20t_detonation
-    
-  }
-}
-
-data.raw.ammo["atomic-bomb"].ammo_type.range_modifier = 3
-data.raw.recipe["atomic-bomb"].energy_required=60
-if mods["bobelectronics"] then
-	data.raw.recipe["atomic-bomb"].ingredients=
-	    {
-	      {"plastic-bar", 20},
-	      {"superior-circuit-board", 5},
-	      {"explosives", 10},
-	      {"uranium-235", 30},
-	    }
-else
-	data.raw.recipe["atomic-bomb"].ingredients=
-	    {
-	      {"rocket-control-unit", 10},
-	      {"processing-unit", 5},
-	      {"explosives", 10},
-	      {"uranium-235", 30},
-	    }
+if settings.startup["enable-atomic-bomb"].value then
+	data.raw.projectile["atomic-rocket"].action = 
+	{
+	  type = "direct",
+	  action_delivery =
+	  {
+		type = "instant",
+		target_effects = nuke_explosions.N20t_detonation
+		
+	  }
+	}
+	data.raw.ammo["atomic-bomb"].ammo_type.range_modifier = 3
+	data.raw.recipe["atomic-bomb"].energy_required=60
+	if mods["bobelectronics"] then
+		data.raw.recipe["atomic-bomb"].ingredients=
+			{
+			  {"plastic-bar", 20},
+			  {"superior-circuit-board", 5},
+			  {"explosives", 10},
+			  {"uranium-235", 30},
+			}
+	else
+		data.raw.recipe["atomic-bomb"].ingredients=
+			{
+			  {"rocket-control-unit", 10},
+			  {"processing-unit", 5},
+			  {"explosives", 10},
+			  {"uranium-235", 30},
+			}
+	end
 end
 data:extend({
 fireutil.add_basic_fire_graphics_and_effects_definitions

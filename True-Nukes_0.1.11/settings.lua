@@ -260,6 +260,13 @@ data:extend({
 		default_value = false,
 		order = "fh"
 	},
+	{
+		type = "bool-setting",
+		name = "keep-atomic-bomb-without-changes",
+		setting_type = "startup",
+		default_value = false,
+		order = "fh"
+	},
 	
 	{
 		type = "bool-setting",
