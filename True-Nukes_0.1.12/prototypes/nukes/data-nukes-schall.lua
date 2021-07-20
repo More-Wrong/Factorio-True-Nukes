@@ -36,9 +36,29 @@ local  atomic_autocannon_item = table.deepcopy(data.raw["ammo"]["explosive-autoc
 atomic_autocannon_item.name = "atomic-autocannon-shell"
 atomic_autocannon_item.order = "d[f-explosive-autocannon-shell]-h[nuclear]"
 atomic_autocannon_item.ammo_type.range_modifier = 2
+atomic_autocannon_item.ammo_type.action.action_delivery.max_range = atomic_autocannon_item.ammo_type.action.action_delivery.max_range*2
 atomic_autocannon_item.ammo_type.cooldown_modifier = 5
 atomic_autocannon_item.ammo_type.action.action_delivery.projectile = "atomic-autocannon-projectile"
 atomic_autocannon_item.icons[1] = {icon = "__True-Nukes__/graphics/atomic-autocannon-shell.png", icon_size = 64, icon_mipmaps = 4}
+atomic_autocannon_item.pictures = {
+	  layers =
+	  {
+	    {
+	      size = 64,
+	      filename = "__True-Nukes__/graphics/atomic-autocannon-shell.png",
+	      scale = 0.25,
+	      mipmap_count = 4
+	    },
+	    {
+	      draw_as_light = true,
+	      flags = {"light"},
+	      size = 64,
+	      filename = "__True-Nukes__/graphics/atomic-autocannon-shell-light.png",
+	      scale = 0.25,
+	      mipmap_count = 4
+	    }
+	  }
+	}
 
 local atomic_autocannon_projectile = table.deepcopy(data.raw["projectile"]["explosive-autocannon-projectile"])
 atomic_autocannon_projectile.name = "atomic-autocannon-projectile"
@@ -72,9 +92,35 @@ local  atomic_cannon_H1_item = table.deepcopy(data.raw["ammo"]["cannon-H1-shell"
 atomic_cannon_H1_item.name = "atomic-cannon-H1-shell"
 atomic_cannon_H1_item.order = "d[explosive-cannon-shell]-dA[nuclear]-1"
 atomic_cannon_H1_item.ammo_type.range_modifier = 3
+atomic_cannon_H1_item.ammo_type.action.action_delivery.max_range = atomic_cannon_H1_item.ammo_type.action.action_delivery.max_range*3
 atomic_cannon_H1_item.ammo_type.cooldown_modifier = 3
 atomic_cannon_H1_item.ammo_type.action.action_delivery.projectile = "atomic-cannon-H1-projectile"
 atomic_cannon_H1_item.icons[1] = {icon = "__True-Nukes__/graphics/atomic-cannon-shell.png", icon_size = 64, icon_mipmaps = 4}
+atomic_cannon_H1_item.pictures = {
+	  layers =
+	  {
+	    {
+	      size = 64,
+	      filename = "__True-Nukes__/graphics/atomic-cannon-shell.png",
+	      scale = 0.25,
+	      mipmap_count = 4
+	    },
+	    {
+	      size = 128,
+	      filename = "__SchallTankPlatoon__/graphics/icons/H1.png",
+	      scale = 0.125,
+	      mipmap_count = 3
+	    },
+	    {
+	      draw_as_light = true,
+	      flags = {"light"},
+	      size = 64,
+	      filename = "__True-Nukes__/graphics/atomic-cannon-shell-light.png",
+	      scale = 0.25,
+	      mipmap_count = 4
+	    }
+	  }
+	}
 local atomic_cannon_H1_projectile = table.deepcopy(data.raw["projectile"]["explosive-cannon-H1-projectile"])
 atomic_cannon_H1_projectile.name = "atomic-cannon-H1-projectile"
 atomic_cannon_H1_projectile.collision_box = {{0, 0}, {0, 0}}
@@ -107,9 +153,36 @@ local  atomic_cannon_H2_item = table.deepcopy(data.raw["ammo"]["explosive-cannon
 atomic_cannon_H2_item.name = "atomic-cannon-H2-shell"
 atomic_cannon_H2_item.order = "d[explosive-cannon-shell]-dA[nuclear]-1"
 atomic_cannon_H2_item.ammo_type.range_modifier = 3
+atomic_cannon_H2_item.ammo_type.action.action_delivery.max_range = atomic_cannon_H2_item.ammo_type.action.action_delivery.max_range*3
 atomic_cannon_H2_item.ammo_type.cooldown_modifier = 3
 atomic_cannon_H2_item.ammo_type.action.action_delivery.projectile = "atomic-cannon-H2-projectile"
 atomic_cannon_H2_item.icons[1] = {icon = "__True-Nukes__/graphics/atomic-cannon-shell.png", icon_size = 64, icon_mipmaps = 4}
+atomic_cannon_H2_item.pictures = {
+	  layers =
+	  {
+	    {
+	      size = 64,
+	      filename = "__True-Nukes__/graphics/atomic-cannon-shell.png",
+	      scale = 0.25,
+	      mipmap_count = 4
+	    },
+	    {
+	      size = 128,
+	      filename = "__SchallTankPlatoon__/graphics/icons/H2.png",
+	      scale = 0.125,
+	      mipmap_count = 3
+	    },
+	    {
+	      draw_as_light = true,
+	      flags = {"light"},
+	      size = 64,
+	      filename = "__True-Nukes__/graphics/atomic-cannon-shell-light.png",
+	      scale = 0.25,
+	      mipmap_count = 4
+	    }
+	  }
+	}
+
 
 local atomic_cannon_H2_projectile = table.deepcopy(data.raw["projectile"]["explosive-cannon-H2-projectile"])
 atomic_cannon_H2_projectile.name = "atomic-cannon-H2-projectile"
@@ -145,11 +218,31 @@ local big_atomic_autocannon_recipe = {
 local  big_atomic_autocannon_item = table.deepcopy(data.raw["ammo"]["explosive-autocannon-shell"])
 big_atomic_autocannon_item.name = "big-atomic-autocannon-shell"
 big_atomic_autocannon_item.order = "d[f-explosive-autocannon-shell]-h[nuclear]"
-big_atomic_autocannon_item.ammo_type.range_modifier = 2
+big_atomic_autocannon_item.ammo_type.range_modifier = 3
+big_atomic_autocannon_item.ammo_type.action.action_delivery.max_range = big_atomic_autocannon_item.ammo_type.action.action_delivery.max_range*3
 big_atomic_autocannon_item.ammo_type.cooldown_modifier = 10
 big_atomic_autocannon_item.ammo_type.action.action_delivery.projectile = "big-atomic-autocannon-projectile"
 big_atomic_autocannon_item.icons[1] = {icon = "__True-Nukes__/graphics/big-atomic-autocannon-shell.png", icon_size = 64, icon_mipmaps = 4}
-
+big_atomic_autocannon_item.pictures = {
+	  layers =
+	  {
+	    {
+	      size = 64,
+	      filename = "__True-Nukes__/graphics/big-atomic-autocannon-shell.png",
+	      scale = 0.25,
+	      mipmap_count = 4
+	    },
+	    {
+	      draw_as_light = true,
+	      flags = {"light"},
+	      size = 64,
+	      filename = "__True-Nukes__/graphics/atomic-autocannon-shell-light.png",
+	      scale = 0.25,
+	      mipmap_count = 4
+	    }
+	  }
+	}
+	
 local big_atomic_autocannon_projectile = table.deepcopy(data.raw["projectile"]["explosive-autocannon-projectile"])
 big_atomic_autocannon_projectile.name = "big-atomic-autocannon-projectile"
 big_atomic_autocannon_projectile.collision_box = {{0, 0}, {0, 0}}
@@ -182,9 +275,35 @@ local big_atomic_cannon_H1_recipe = {
 local  big_atomic_cannon_H1_item = table.deepcopy(data.raw["ammo"]["cannon-H1-shell"])
 big_atomic_cannon_H1_item.name = "big-atomic-cannon-H1-shell"
 big_atomic_cannon_H1_item.order = "d[explosive-cannon-shell]-dB[nuclear]-1"
-big_atomic_cannon_H1_item.ammo_type.range_modifier = 3
-big_atomic_cannon_H1_item.ammo_type.cooldown_modifier = 3
+big_atomic_cannon_H1_item.ammo_type.range_modifier = 5
+big_atomic_cannon_H1_item.ammo_type.action.action_delivery.max_range = big_atomic_cannon_H1_item.ammo_type.action.action_delivery.max_range*5
+big_atomic_cannon_H1_item.ammo_type.cooldown_modifier = 5
 big_atomic_cannon_H1_item.ammo_type.action.action_delivery.projectile = "big-atomic-cannon-H1-projectile"
+big_atomic_cannon_H1_item.pictures = {
+	  layers =
+	  {
+	    {
+	      size = 64,
+	      filename = "__True-Nukes__/graphics/big-atomic-cannon-shell.png",
+	      scale = 0.25,
+	      mipmap_count = 4
+	    },
+	    {
+	      size = 128,
+	      filename = "__SchallTankPlatoon__/graphics/icons/H1.png",
+	      scale = 0.125,
+	      mipmap_count = 3
+	    },
+	    {
+	      draw_as_light = true,
+	      flags = {"light"},
+	      size = 64,
+	      filename = "__True-Nukes__/graphics/atomic-cannon-shell-light.png",
+	      scale = 0.25,
+	      mipmap_count = 4
+	    }
+	  }
+	}
 big_atomic_cannon_H1_item.icons[1] = {icon = "__True-Nukes__/graphics/big-atomic-cannon-shell.png", icon_size = 64, icon_mipmaps = 4}
 local big_atomic_cannon_H1_projectile = table.deepcopy(data.raw["projectile"]["explosive-cannon-H1-projectile"])
 big_atomic_cannon_H1_projectile.name = "big-atomic-cannon-H1-projectile"
@@ -218,10 +337,36 @@ local big_atomic_cannon_H2_recipe = {
 local  big_atomic_cannon_H2_item = table.deepcopy(data.raw["ammo"]["explosive-cannon-H2-shell"])
 big_atomic_cannon_H2_item.name = "big-atomic-cannon-H2-shell"
 big_atomic_cannon_H2_item.order = "d[explosive-cannon-shell]-dB[nuclear]-1"
-big_atomic_cannon_H2_item.ammo_type.range_modifier = 3
-big_atomic_cannon_H2_item.ammo_type.cooldown_modifier = 3
+big_atomic_cannon_H2_item.ammo_type.range_modifier = 5
+big_atomic_cannon_H2_item.ammo_type.action.action_delivery.max_range = big_atomic_cannon_H2_item.ammo_type.action.action_delivery.max_range*5
+big_atomic_cannon_H2_item.ammo_type.cooldown_modifier = 5
 big_atomic_cannon_H2_item.ammo_type.action.action_delivery.projectile = "big-atomic-cannon-H2-projectile"
 big_atomic_cannon_H2_item.icons[1] = {icon = "__True-Nukes__/graphics/big-atomic-cannon-shell.png", icon_size = 64, icon_mipmaps = 4}
+big_atomic_cannon_H2_item.pictures = {
+	  layers =
+	  {
+	    {
+	      size = 64,
+	      filename = "__True-Nukes__/graphics/big-atomic-cannon-shell.png",
+	      scale = 0.25,
+	      mipmap_count = 4
+	    },
+	    {
+	      size = 128,
+	      filename = "__SchallTankPlatoon__/graphics/icons/H2.png",
+	      scale = 0.125,
+	      mipmap_count = 3
+	    },
+	    {
+	      draw_as_light = true,
+	      flags = {"light"},
+	      size = 64,
+	      filename = "__True-Nukes__/graphics/atomic-cannon-shell-light.png",
+	      scale = 0.25,
+	      mipmap_count = 4
+	    }
+	  }
+	}
 
 local big_atomic_cannon_H2_projectile = table.deepcopy(data.raw["projectile"]["explosive-cannon-H2-projectile"])
 big_atomic_cannon_H2_projectile.name = "big-atomic-cannon-H2-projectile"

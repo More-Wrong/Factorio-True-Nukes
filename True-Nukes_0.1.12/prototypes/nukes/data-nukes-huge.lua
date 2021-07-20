@@ -130,6 +130,26 @@ data:extend{
     name = "tritium-canister",
     icon = "__True-Nukes__/graphics/tritium-canister.png",
     icon_size = 64, icon_mipmaps = 1,
+    pictures =
+    {
+      layers =
+      {
+        {
+          size = 64,
+          filename = "__True-Nukes__/graphics/tritium-canister.png",
+          scale = 0.25,
+          mipmap_count = 1
+        },
+        {
+          draw_as_light = true,
+          flags = {"light"},
+          size = 64,
+          filename = "__True-Nukes__/graphics/tritium-canister-light.png",
+          scale = 0.25,
+          mipmap_count = 1
+        }
+      }
+    },
     subgroup = "intermediate-product",
     order = "q[tritium-canister]",
     stack_size = 50
@@ -137,7 +157,7 @@ data:extend{
   {
 	type = "technology",
 	name = "tritium-proccessing",
-	icon_size = 256, icon_mipmaps = 4,
+	icon_size = 256, icon_mipmaps = 1,
 	icon = "__True-Nukes__/graphics/tritium-proccessing.png",
 	effects =
 	{

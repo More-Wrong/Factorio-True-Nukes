@@ -35,6 +35,7 @@ if(settings.startup["enable-thermobaric-rockets"].value) then
 	thermobaric_rocket_item.ammo_type.cooldown_modifier = 3
 	thermobaric_rocket_item.ammo_type.action.action_delivery.projectile = "thermobaric-rocket"
 	thermobaric_rocket_item.icon = "__True-Nukes__/graphics/thermobaric-rocket.png"
+	thermobaric_rocket_item.pictures=nil;
 
 	local thermobaric_rocket_projectile = table.deepcopy(data.raw["projectile"]["atomic-rocket"])
 	thermobaric_rocket_projectile.name = "thermobaric-rocket"
@@ -127,6 +128,7 @@ if(settings.startup["enable-thermobaric-cannons"].value) then
 	local thermobaric_cannon_item = table.deepcopy(data.raw["ammo"]["explosive-cannon-shell"])
 	thermobaric_cannon_item.name = "thermobaric-cannon-shell"
 	thermobaric_cannon_item.ammo_type.range_modifier = 1.5
+	thermobaric_cannon_item.ammo_type.action.action_delivery.max_range = 45
 	thermobaric_cannon_item.ammo_type.cooldown_modifier = 1.5
 	thermobaric_cannon_item.ammo_type.action.action_delivery.projectile = "thermobaric-cannon-projectile"
 	thermobaric_cannon_item.order = "d[cannon-shell]-c[thermobaric]"

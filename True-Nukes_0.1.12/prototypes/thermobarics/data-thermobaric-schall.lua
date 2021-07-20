@@ -32,7 +32,8 @@ local thermobaric_autocannon_recipe = {
 local  thermobaric_autocannon_item = table.deepcopy(data.raw["ammo"]["explosive-autocannon-shell"])
 thermobaric_autocannon_item.name = "thermobaric-autocannon-shell"
 thermobaric_autocannon_item.order = "d[f-explosive-autocannon-shell]-g[thermobaric]"
-thermobaric_autocannon_item.ammo_type.range_modifier = 2
+thermobaric_autocannon_item.ammo_type.range_modifier = 1.5
+thermobaric_autocannon_item.ammo_type.action.action_delivery.max_range = thermobaric_autocannon_item.ammo_type.action.action_delivery.max_range*1.5
 thermobaric_autocannon_item.ammo_type.cooldown_modifier = 10
 thermobaric_autocannon_item.ammo_type.action.action_delivery.projectile = "thermobaric-autocannon-projectile"
 thermobaric_autocannon_item.icons[1] = {icon = "__True-Nukes__/graphics/thermobaric-autocannon-shell.png", icon_size = 64, icon_mipmaps = 4}
@@ -119,7 +120,8 @@ local thermobaric_cannon_H1_recipe = {
 local  thermobaric_cannon_H1_item = table.deepcopy(data.raw["ammo"]["cannon-H1-shell"])
 thermobaric_cannon_H1_item.name = "thermobaric-cannon-H1-shell"
 thermobaric_cannon_H1_item.order = "d[cannon-shell]-c[thermobaric]-1"
-thermobaric_cannon_H1_item.ammo_type.range_modifier = 3
+thermobaric_cannon_H1_item.ammo_type.range_modifier = 1.5
+thermobaric_cannon_H1_item.ammo_type.action.action_delivery.max_range = thermobaric_cannon_H1_item.ammo_type.action.action_delivery.max_range*1.5
 thermobaric_cannon_H1_item.ammo_type.cooldown_modifier = 3
 thermobaric_cannon_H1_item.ammo_type.action.action_delivery.projectile = "thermobaric-cannon-H1-projectile"
 thermobaric_cannon_H1_item.icons[1] = {icon = "__True-Nukes__/graphics/thermobaric-cannon-shell.png", icon_size = 64, icon_mipmaps = 4}
@@ -215,7 +217,8 @@ local thermobaric_cannon_H2_recipe = {
 local  thermobaric_cannon_H2_item = table.deepcopy(data.raw["ammo"]["explosive-cannon-H2-shell"])
 thermobaric_cannon_H2_item.name = "thermobaric-cannon-H2-shell"
 thermobaric_cannon_H2_item.order = "d[cannon-shell]-c[thermobaric]-1"
-thermobaric_cannon_H2_item.ammo_type.range_modifier = 3
+thermobaric_cannon_H2_item.ammo_type.range_modifier = 1.5
+thermobaric_cannon_H2_item.ammo_type.action.action_delivery.max_range = thermobaric_cannon_H2_item.ammo_type.action.action_delivery.max_range*1.5
 thermobaric_cannon_H2_item.ammo_type.cooldown_modifier = 3
 thermobaric_cannon_H2_item.ammo_type.action.action_delivery.projectile = "thermobaric-cannon-H2-projectile"
 thermobaric_cannon_H2_item.icons[1] = {icon = "__True-Nukes__/graphics/thermobaric-cannon-shell.png", icon_size = 64, icon_mipmaps = 4}

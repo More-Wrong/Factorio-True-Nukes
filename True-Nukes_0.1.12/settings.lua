@@ -106,6 +106,13 @@ data:extend({
 	},
 	{
 		type = "bool-setting",
+		name = "use-efficient-thermal",
+		setting_type = "runtime-global",
+		default_value = false,
+		order = "c3"
+	},
+	{
+		type = "bool-setting",
 		name = "use-californium",
 		setting_type = "startup",
 		default_value = true,
@@ -181,21 +188,23 @@ data:extend({
 	
 	{
 		type = "bool-setting",
-		name = "enable-atomic-bomb",
+		name = "enable-small-atomic-bomb",
 		setting_type = "startup",
 		default_value = true,
 		order = "f7"
 	},
+	
 	{
 		type = "bool-setting",
-		name = "enable-big-atomic-bomb",
+		name = "enable-very-small-atomic-bomb",
 		setting_type = "startup",
 		default_value = true,
 		order = "f8"
 	},
+	
 	{
 		type = "bool-setting",
-		name = "enable-very-big-atomic-bomb",
+		name = "enable-really-very-small-atomic-bomb",
 		setting_type = "startup",
 		default_value = true,
 		order = "f9"
@@ -203,31 +212,60 @@ data:extend({
 	
 	{
 		type = "bool-setting",
-		name = "enable-small-atomic-artillery",
+		name = "enable-atomic-bomb",
 		setting_type = "startup",
 		default_value = true,
 		order = "fa"
 	},
 	{
 		type = "bool-setting",
-		name = "enable-atomic-artillery",
+		name = "enable-big-atomic-bomb",
 		setting_type = "startup",
 		default_value = true,
 		order = "fb"
 	},
 	{
 		type = "bool-setting",
-		name = "enable-big-atomic-artillery",
+		name = "enable-very-big-atomic-bomb",
 		setting_type = "startup",
 		default_value = true,
 		order = "fc"
+	},
+	
+	{
+		type = "bool-setting",
+		name = "enable-very-small-atomic-artillery",
+		setting_type = "startup",
+		default_value = true,
+		order = "fd"
+	},
+	{
+		type = "bool-setting",
+		name = "enable-small-atomic-artillery",
+		setting_type = "startup",
+		default_value = true,
+		order = "fe"
+	},
+	{
+		type = "bool-setting",
+		name = "enable-atomic-artillery",
+		setting_type = "startup",
+		default_value = true,
+		order = "fh"
+	},
+	{
+		type = "bool-setting",
+		name = "enable-big-atomic-artillery",
+		setting_type = "startup",
+		default_value = true,
+		order = "fi"
 	},
 	{
 		type = "bool-setting",
 		name = "enable-very-big-atomic-artillery",
 		setting_type = "startup",
 		default_value = true,
-		order = "fd"
+		order = "fj"
 	},
 	
 	{
@@ -235,14 +273,14 @@ data:extend({
 		name = "enable-fusion-building",
 		setting_type = "startup",
 		default_value = true,
-		order = "fe"
+		order = "fk"
 	},
 	{
 		type = "bool-setting",
 		name = "enable-mega-fusion-building",
 		setting_type = "startup",
 		default_value = true,
-		order = "ff"
+		order = "fl"
 	},
 	
 	{
@@ -250,7 +288,7 @@ data:extend({
 		name = "enable-fire-shield",
 		setting_type = "startup",
 		default_value = true,
-		order = "fg"
+		order = "fm"
 	},
 	
 	{
@@ -258,14 +296,14 @@ data:extend({
 		name = "keep-atomic-research-without-weapons",
 		setting_type = "startup",
 		default_value = false,
-		order = "fh"
+		order = "fn"
 	},
 	{
 		type = "bool-setting",
 		name = "keep-atomic-bomb-without-changes",
 		setting_type = "startup",
 		default_value = false,
-		order = "fh"
+		order = "fo"
 	},
 	
 	{

@@ -1,4 +1,17 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.1.12
+Date: 2021-07-20
+  Features:
+    - Added glow effects to all nukes and nuke-related items (e.g. Californium, Tritium)
+    - Changes to graphics for small atomic artillery shell
+    - Added new smaller atomic artillery shell (20t)
+    - Added new smaller atomic rockets (2t, 4t, 8t) - sorry that the 2t looks like the basic rocket, I couldn't think of anything else
+    - Added option for a more aggressively optimised detonation system, but this might not actually save all that much, so is off by default (in Settings->Mod settings->Map Settings->Use more optimised detonation system (BETA))
+  Bugfixes:
+    - Fixed wrong pictures for items on ground
+    - Increased range of cannon shells to full intended range
+    - Decreased stack size of High yield atomic cannon shells to intended levels
+---------------------------------------------------------------------------------------------------
 Version: 0.1.11
 Date: 2021-07-17
   Bugfixes:

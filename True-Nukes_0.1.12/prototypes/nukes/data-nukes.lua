@@ -162,8 +162,8 @@ data:extend{radiation_cloud_vis_dum, radiation_cloud, fallout, lingering_radiati
 
 
 
-if(settings.startup["enable-small-atomic-artillery"].value or settings.startup["enable-atomic-artillery"].value
-    	or settings.startup["enable-big-atomic-artillery"].value or settings.startup["enable-very-big-atomic-artillery"].value) then
+if(settings.startup["enable-very-small-atomic-artillery"].value or settings.startup["enable-small-atomic-artillery"].value
+		or settings.startup["enable-atomic-artillery"].value or settings.startup["enable-big-atomic-artillery"].value or settings.startup["enable-very-big-atomic-artillery"].value) then
 	require("data-nukes-artillery")
 end
 
@@ -200,6 +200,9 @@ big_atomic_bomb_item.stack_size = 5
 if mods["SchallTankPlatoon"] then
 	big_atomic_bomb_item.order = "d[rocket-launcher]-n[very-big-atomic-bomb]"
 end
+big_atomic_bomb_item.pictures.layers[1].filename="__True-Nukes__/graphics/big-atomic-bomb.png"
+big_atomic_bomb_item.pictures.layers[2].filename="__True-Nukes__/graphics/big-atomic-bomb-light.png"
+big_atomic_bomb_item.pictures.layers[2].mipmap_count = 1
 
 local big_atomic_bomb_projectile = table.deepcopy(data.raw["projectile"]["atomic-rocket"])
 big_atomic_bomb_projectile.name = "big-atomic-bomb-projectile"
@@ -253,6 +256,9 @@ very_big_atomic_bomb_item.ammo_type.action.action_delivery.projectile = "very-bi
 very_big_atomic_bomb_item.ammo_type.action.action_delivery.starting_speed = 0.01
 very_big_atomic_bomb_item.icon = "__True-Nukes__/graphics/very-big-atomic-bomb.png"
 very_big_atomic_bomb_item.stack_size = 1
+very_big_atomic_bomb_item.pictures.layers[1].filename="__True-Nukes__/graphics/very-big-atomic-bomb.png"
+very_big_atomic_bomb_item.pictures.layers[2].filename="__True-Nukes__/graphics/very-big-atomic-bomb-light.png"
+very_big_atomic_bomb_item.pictures.layers[2].mipmap_count = 1
 
 if mods["SchallTankPlatoon"] then
 	very_big_atomic_bomb_item.order = "d[rocket-launcher]-n[very-big-atomic-bomb]"
