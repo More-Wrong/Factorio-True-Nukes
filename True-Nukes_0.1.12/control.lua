@@ -1075,7 +1075,7 @@ end
 local function old_atomic_thermal_blast(surface_index, position, force, thermal_max_r, fireball_r)
 	 -- do thermal heat-wave damage
 	 
-	 for _,v in pairs(game.surfaces[event.surface_index].find_entities_filtered{position=position, radius=thermal_max_r}) do
+	 for _,v in pairs(game.surfaces[surface_index].find_entities_filtered{position=position, radius=thermal_max_r}) do
 		if(v.valid and not (v.prototype.max_health == 0)) then
 			local distSq = (v.position.x-position.x)*(v.position.x-position.x)+(v.position.y-position.y)*(v.position.y-position.y)
 			if(distSq>fireball_r) then
@@ -1083,7 +1083,7 @@ local function old_atomic_thermal_blast(surface_index, position, force, thermal_
 				if(v.type=="tree") then
 	 				-- efficient tree handling
 					if(math.random(0, 100)<1) then
-						game.surfaces[event.surface_index].create_entity{name="fire-flame-on-tree",position=v.position, initial_ground_flame_count=1+math.min(254,thermal_max_r*thermal_max_r/distSq)}
+						game.surfaces[surface_index].create_entity{name="fire-flame-on-tree",position=v.position, initial_ground_flame_count=1+math.min(254,thermal_max_r*thermal_max_r/distSq)}
 					end
 					local damage = math.random(damage/10, damage)
 					if((((not v.prototype.resistances) or not v.prototype.resistances.fire) and v.health<damage) or (v.prototype.resistances and v.prototype.resistances.fire and v.health<(damage-v.prototype.resistances.fire.decrease)*(1-v.prototype.resistances.fire.percent))) then
@@ -1117,7 +1117,7 @@ local function old_atomic_thermal_blast(surface_index, position, force, thermal_
 						if fireShield then
 							fireShield.energy = fireShield.energy-1000000
 						else
-							game.surfaces[event.surface_index].create_entity{name="fire-sticker", position=v.position, target=v}
+							game.surfaces[surface_index].create_entity{name="fire-sticker", position=v.position, target=v}
 						end
 					end
 				end
