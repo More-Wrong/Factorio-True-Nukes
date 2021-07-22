@@ -1,4 +1,16 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.1.13
+Date: 2021-07-22
+  Features:
+    - Increased range on small rocket-nukes
+    - Changed icons for 20t, 500t and 1kt artillery nukes
+    - The mod now changes the rocket to grey if there any small atomic-rockets (2t, 4t, 8t) enabled - to avoid confusion  
+  Bugfixes:
+    - Fixed wrong ranges on cannon shells
+    - Fixed ordering issues on 20t atomic artillery shell
+  Optimisations:
+    - Fixed massive inefficiencies for crater system - not as likely to crash for really big nukes (1Mt, 100kt)
+---------------------------------------------------------------------------------------------------
 Version: 0.1.12
 Date: 2021-07-20
   Features:

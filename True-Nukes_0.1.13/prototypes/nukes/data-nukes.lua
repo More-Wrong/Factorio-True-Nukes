@@ -13,7 +13,7 @@ if settings.startup["enable-atomic-bomb"].value then
 		
 	  }
 	}
-	data.raw.ammo["atomic-bomb"].ammo_type.range_modifier = 3
+	data.raw.ammo["atomic-bomb"].ammo_type.range_modifier = 6
 	data.raw.recipe["atomic-bomb"].energy_required=60
 	if mods["bobelectronics"] then
 		data.raw.recipe["atomic-bomb"].ingredients=

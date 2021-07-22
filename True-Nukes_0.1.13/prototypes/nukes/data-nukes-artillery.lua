@@ -147,7 +147,7 @@ if(settings.startup["enable-very-big-atomic-artillery"].value) then
 		type = "recipe",
 		name = "TN-very-big-atomic-artillery-shell",
 		enabled = false,
-		energy_required = 300,
+		energy_required = 600,
 		ingredients =
 		{
 		  {"TN-big-atomic-artillery-shell", 1},
@@ -203,7 +203,7 @@ local small_atomic_artillery_recipe = {
     type = "recipe",
     name = "TN-small-atomic-artillery-shell",
     enabled = false,
-    energy_required = 300,
+    energy_required = 90,
     ingredients =
     {
       {"artillery-shell", 1},
@@ -217,9 +217,9 @@ local small_atomic_artillery_recipe = {
 local small_atomic_artillery_item = table.deepcopy(data.raw["ammo"]["artillery-shell"])
 small_atomic_artillery_item.name = "TN-small-atomic-artillery-shell"
 if mods["SchallTankPlatoon"] then
-	small_atomic_artillery_item.order = "h[artillery]-d[atomic-artillery]"
+	small_atomic_artillery_item.order = "h[artillery]-d[small-atomic-artillery]"
 else
-	small_atomic_artillery_item.order = "d[explosive-cannon-shell]-d[atomic-artillery]"
+	small_atomic_artillery_item.order = "d[explosive-cannon-shell]-d[small-atomic-artillery]"
 end
 small_atomic_artillery_item.ammo_type.cooldown_modifier = 3
 small_atomic_artillery_item.ammo_type.action.action_delivery.projectile = "TN-small-atomic-artillery-projectile"
@@ -256,7 +256,7 @@ local very_small_atomic_artillery_recipe = {
     type = "recipe",
     name = "TN-very-small-atomic-artillery-shell",
     enabled = false,
-    energy_required = 300,
+    energy_required = 60,
     ingredients =
     {
       {"artillery-shell", 1},
@@ -270,11 +270,11 @@ local very_small_atomic_artillery_recipe = {
 local very_small_atomic_artillery_item = table.deepcopy(data.raw["ammo"]["artillery-shell"])
 very_small_atomic_artillery_item.name = "TN-very-small-atomic-artillery-shell"
 if mods["SchallTankPlatoon"] then
-	very_small_atomic_artillery_item.order = "h[artillery]-d[ atomic-artillery]"
+	very_small_atomic_artillery_item.order = "h[artillery]-d[atomic-artillery]"
 else
-	very_small_atomic_artillery_item.order = "d[explosive-cannon-shell]-d[ atomic-artillery]"
+	very_small_atomic_artillery_item.order = "d[explosive-cannon-shell]-d[atomic-artillery]"
 end
-very_small_atomic_artillery_item.ammo_type.cooldown_modifier = 3
+very_small_atomic_artillery_item.ammo_type.cooldown_modifier = 1.5
 very_small_atomic_artillery_item.ammo_type.action.action_delivery.projectile = "TN-very-small-atomic-artillery-projectile"
 very_small_atomic_artillery_item.icon = "__True-Nukes__/graphics/very-small-atomic-artillery-shell.png"
 very_small_atomic_artillery_item.icon_mipmaps = 1
@@ -291,7 +291,7 @@ very_small_atomic_artillery_item.pictures = {
           draw_as_light = true,
           flags = {"light"},
           size = 64,
-          filename = "__True-Nukes__/graphics/very-small-atomic-artillery-shell-light.png",
+          filename = "__True-Nukes__/graphics/atomic-artillery-shell-light.png",
           scale = 0.25,
           mipmap_count = 1
         }

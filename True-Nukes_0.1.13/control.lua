@@ -1,4 +1,3 @@
-
 local mushroomFunctions = require("MushroomCloudInBuilt.control")
 local createBlastSoundsAndFlash = mushroomFunctions[1]
 script.on_init(function()
@@ -378,7 +377,7 @@ local function moveBlast(i,blast,pastEHits)
 					damage = math.random(damage/2, damage*2)
 				end
 				if(t=="tree") then
-					-- If a tree is destroyed, don't bother boing particle effects, just destroy it - huge performance savings
+					-- If a tree is destroyed, don't bother doing particle effects, just destroy it - huge performance savings
 					if((((not entity.prototype.resistances) or not entity.prototype.resistances.fire) and entity.health<damage) or (entity.prototype.resistances and entity.prototype.resistances.fire and entity.health<(damage-entity.prototype.resistances.explosion.decrease)*(1-entity.prototype.resistances.explosion.percent))) then
 						local destPos = entity.position
 						entity.destroy()
@@ -601,6 +600,10 @@ local function nukeTileChangesHeightAwareHuge(position, check_craters, surface_i
 				table.insert(tileGhosts, {ghost_name = tileGhost.ghost_name, force = tileGhost.force, pos = tileGhost.position})
 			end
 		end
+		if(#tileTable >=1000) then
+			game.surfaces[surface_index].set_tiles(tileTable)
+			tileTable = {};
+		end
 	end
 	local groundNoise = {}
 	circularNoise(groundNoise, position, fireball_r, 1, 3)
@@ -612,6 +615,10 @@ local function nukeTileChangesHeightAwareHuge(position, check_craters, surface_i
 					table.insert(tileGhosts, {ghost_name = tileGhost.ghost_name, force = tileGhost.force, pos = tileGhost.position})
 				end
 			end
+		end
+		if(#tileTable >=1000) then
+			game.surfaces[surface_index].set_tiles(tileTable)
+			tileTable = {};
 		end
 	end
 	-- make the crater
@@ -627,6 +634,10 @@ local function nukeTileChangesHeightAwareHuge(position, check_craters, surface_i
 				table.insert(tileTable, {name = depthsForCrater[-1], position = tilepos})
 			elseif(distSq<crater_external_r*crater_external_r) then
 				table.insert(tileTable, {name = depthsForCrater[1], position = tilepos})
+			end
+			if(#tileTable >=1000) then
+				game.surfaces[surface_index].set_tiles(tileTable)
+				tileTable = {};
 			end
 		end
 	end
@@ -751,10 +762,13 @@ local function nukeTileChangesHeightAware(position, check_craters, surface_index
 		circularNoise(noiseTables[1], position, crater_external_r-1, noiseLevel, 3)
 	end
 	-- find interested forces
-	for _,ghost in pairs(game.surfaces[surface_index].find_entities_filtered{position = position, radius = crater_external_r*1.1+4, name = "entity-ghost"}) do
-		buildingForces[ghost.force] = 1
+	local entitiesFound = game.surfaces[surface_index].find_entities_filtered{position = position, radius = crater_external_r*1.1+4, limit=1}
+	while(entitiesFound[1]) do
+		table.insert(buildingForces, entitiesFound[1].force)
 		hasBuildings = true
+		entitiesFound = game.surfaces[surface_index].find_entities_filtered{position = position, radius = crater_external_r*1.1+4, limit=1, force=buildingForces, invert=true}
 	end
+	entitiesFound = {}
 	-- do the noise around the craters
 	if (crater_external_r>8) then
 		local externalNoise = {default = "nuclear-ground"}
@@ -848,6 +862,10 @@ local function nukeTileChangesHeightAware(position, check_craters, surface_index
 			else
 				table.insert(tileTable, {name = depthsForCrater[curr_height], position = v.position})
 			end
+			if(#tileTable >=1000) then
+				game.surfaces[surface_index].set_tiles(tileTable)
+				tileTable = {};
+			end
 		end
 	end
 
@@ -877,14 +895,14 @@ local function nukeTileChangesHeightAware(position, check_craters, surface_index
 	end 
 	if(hasBuildings) then
 		for _,tile in pairs(game.surfaces[surface_index].find_tiles_filtered{position=position, radius=crater_external_r*1.1+4, name=waterAndCraterTypes}) do
-			for f,_ in pairs(buildingForces) do
+			for _,f in pairs(buildingForces) do
 				if (game.surfaces[surface_index].count_entities_filtered{position={tile.position.x+0.5, tile.position.y+0.5}, force = f, name="tile-ghost"} == 0) then
 					game.surfaces[surface_index].create_entity{name="tile-ghost", position={tile.position.x+0.5, tile.position.y+0.5}, inner_name="landfill", force=f}
 				end
 			end
 		end
 		for _,tile in pairs(game.surfaces[surface_index].find_tiles_filtered{position=position, radius=crater_external_r*1.1+4, name="nuclear-high"}) do
-			for f,_ in pairs(buildingForces) do
+			for _,f in pairs(buildingForces) do
 				tile.order_deconstruction(f);
 			end
 		end
@@ -942,6 +960,10 @@ local function nukeTileChanges(position, check_craters, surface_index, crater_in
 					edge_water_count = edge_water_count + 1
 				end
 			end
+			if(#tileTable >=1000) then
+				game.surfaces[surface_index].set_tiles(tileTable)
+				tileTable = {};
+			end
 		end
 
 		if edge_water_count / (2 * math.pi * crater_external_r) > edge_water_threshold then
@@ -967,6 +989,10 @@ local function nukeTileChanges(position, check_craters, surface_index, crater_in
 				else
 					table.insert(tileTable, {name = "nuclear-ground", position = v.position})
 				end
+			end
+			if(#tileTable >=1000) then
+				game.surfaces[surface_index].set_tiles(tileTable)
+				tileTable = {};
 			end
 		end
 	end
