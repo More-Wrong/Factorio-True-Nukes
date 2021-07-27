@@ -33,6 +33,13 @@ if settings.startup["enable-atomic-bomb"].value then
 			}
 	end
 end
+
+local atom = data.raw["ammo"]["atomic-bomb"]
+atom.icon = "__True-Nukes__/graphics/atomic-bomb.png"
+atom.pictures.layers[1].filename="__True-Nukes__/graphics/atomic-bomb.png"
+atom.pictures.layers[2].filename="__True-Nukes__/graphics/rocket-light-1.png"
+atom.pictures.layers[2].mipmap_count = 1
+
 data:extend({
 fireutil.add_basic_fire_graphics_and_effects_definitions
 {
@@ -201,7 +208,7 @@ if mods["SchallTankPlatoon"] then
 	big_atomic_bomb_item.order = "d[rocket-launcher]-n[very-big-atomic-bomb]"
 end
 big_atomic_bomb_item.pictures.layers[1].filename="__True-Nukes__/graphics/big-atomic-bomb.png"
-big_atomic_bomb_item.pictures.layers[2].filename="__True-Nukes__/graphics/big-atomic-bomb-light.png"
+big_atomic_bomb_item.pictures.layers[2].filename="__True-Nukes__/graphics/rocket-light-2.png"
 big_atomic_bomb_item.pictures.layers[2].mipmap_count = 1
 
 local big_atomic_bomb_projectile = table.deepcopy(data.raw["projectile"]["atomic-rocket"])
@@ -257,7 +264,7 @@ very_big_atomic_bomb_item.ammo_type.action.action_delivery.starting_speed = 0.01
 very_big_atomic_bomb_item.icon = "__True-Nukes__/graphics/very-big-atomic-bomb.png"
 very_big_atomic_bomb_item.stack_size = 1
 very_big_atomic_bomb_item.pictures.layers[1].filename="__True-Nukes__/graphics/very-big-atomic-bomb.png"
-very_big_atomic_bomb_item.pictures.layers[2].filename="__True-Nukes__/graphics/very-big-atomic-bomb-light.png"
+very_big_atomic_bomb_item.pictures.layers[2].filename="__True-Nukes__/graphics/rocket-light-3.png"
 very_big_atomic_bomb_item.pictures.layers[2].mipmap_count = 1
 
 if mods["SchallTankPlatoon"] then

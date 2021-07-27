@@ -237,7 +237,7 @@ small_atomic_artillery_item.pictures = {
           draw_as_light = true,
           flags = {"light"},
           size = 64,
-          filename = "__True-Nukes__/graphics/atomic-artillery-shell-light.png",
+          filename = "__True-Nukes__/graphics/small-atomic-artillery-shell-light.png",
           scale = 0.25,
           mipmap_count = 1
         }
@@ -291,7 +291,7 @@ very_small_atomic_artillery_item.pictures = {
           draw_as_light = true,
           flags = {"light"},
           size = 64,
-          filename = "__True-Nukes__/graphics/atomic-artillery-shell-light.png",
+          filename = "__True-Nukes__/graphics/very-small-atomic-artillery-shell-light.png",
           scale = 0.25,
           mipmap_count = 1
         }

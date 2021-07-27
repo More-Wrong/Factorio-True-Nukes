@@ -326,7 +326,7 @@ small_atomic_bomb_item.icon_mipmaps = 1
 small_atomic_bomb_item.stack_size = 10
 small_atomic_bomb_item.pictures.layers[1].filename="__True-Nukes__/graphics/small-3-atomic-bomb.png"
 small_atomic_bomb_item.pictures.layers[1].mipmap_count = 1
-small_atomic_bomb_item.pictures.layers[2].filename="__True-Nukes__/graphics/very-big-atomic-bomb-light.png"
+small_atomic_bomb_item.pictures.layers[2].filename="__True-Nukes__/graphics/rocket-light-3.png"
 small_atomic_bomb_item.pictures.layers[2].mipmap_count = 1
 
 if mods["SchallTankPlatoon"] then
@@ -369,7 +369,7 @@ very_small_atomic_bomb_item.icon_mipmaps = 1
 very_small_atomic_bomb_item.stack_size = 20
 very_small_atomic_bomb_item.pictures.layers[1].filename="__True-Nukes__/graphics/small-2-atomic-bomb.png"
 very_small_atomic_bomb_item.pictures.layers[1].mipmap_count = 1
-very_small_atomic_bomb_item.pictures.layers[2].filename="__True-Nukes__/graphics/big-atomic-bomb-light.png"
+very_small_atomic_bomb_item.pictures.layers[2].filename="__True-Nukes__/graphics/rocket-light-2.png"
 very_small_atomic_bomb_item.pictures.layers[2].mipmap_count = 1
 
 if mods["SchallTankPlatoon"] then
@@ -410,6 +410,7 @@ really_very_small_atomic_bomb_item.icon = "__True-Nukes__/graphics/small-1-atomi
 really_very_small_atomic_bomb_item.icon_mipmaps = 1
 really_very_small_atomic_bomb_item.stack_size = 50
 really_very_small_atomic_bomb_item.pictures.layers[1].filename="__True-Nukes__/graphics/small-1-atomic-bomb.png"
+really_very_small_atomic_bomb_item.pictures.layers[2].filename="__True-Nukes__/graphics/rocket-light-1.png"
 really_very_small_atomic_bomb_item.pictures.layers[1].mipmap_count = 1
 
 if mods["SchallTankPlatoon"] then
