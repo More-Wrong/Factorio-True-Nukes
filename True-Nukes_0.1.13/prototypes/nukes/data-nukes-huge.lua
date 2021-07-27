@@ -158,7 +158,7 @@ data:extend{
 	type = "technology",
 	name = "tritium-proccessing",
 	icon_size = 256, icon_mipmaps = 1,
-	icon = "__True-Nukes__/graphics/tritium-proccessing.png",
+	icon = "__True-Nukes__/graphics/tritium-processing.png",
 	effects =
 	{
 	  {

@@ -472,13 +472,13 @@ if(settings.startup["enable-really-very-small-atomic-bomb"].value) then
  	     })
 end
 if(settings.startup["enable-very-small-atomic-bomb"].value) then
-	table.insert(data.raw.technology["californium-processing"].effects, {
+	table.insert(data.raw.technology["scary-atomic-weapons"].effects, {
 	        type = "unlock-recipe",
 	        recipe = "very-small-atomic-bomb"
  	     })
 end
 if(settings.startup["enable-small-atomic-bomb"].value) then
-	table.insert(data.raw.technology["californium-processing"].effects, {
+	table.insert(data.raw.technology["scary-atomic-weapons"].effects, {
 	        type = "unlock-recipe",
 	        recipe = "small-atomic-bomb"
  	     })
