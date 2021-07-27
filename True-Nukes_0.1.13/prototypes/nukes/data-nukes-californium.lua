@@ -322,12 +322,12 @@ small_atomic_bomb_item.ammo_type.cooldown_modifier = 5
 small_atomic_bomb_item.ammo_type.action.action_delivery.starting_speed = 0.025
 small_atomic_bomb_item.ammo_type.action.action_delivery.projectile = "small-atomic-bomb-projectile"
 small_atomic_bomb_item.icon = "__True-Nukes__/graphics/small-3-atomic-bomb.png"
-small_atomic_bomb_item.icon_mipmaps = 1
+small_atomic_bomb_item.icon_mipmaps = 4
 small_atomic_bomb_item.stack_size = 10
 small_atomic_bomb_item.pictures.layers[1].filename="__True-Nukes__/graphics/small-3-atomic-bomb.png"
-small_atomic_bomb_item.pictures.layers[1].mipmap_count = 1
+small_atomic_bomb_item.pictures.layers[1].mipmap_count = 4
 small_atomic_bomb_item.pictures.layers[2].filename="__True-Nukes__/graphics/rocket-light-3.png"
-small_atomic_bomb_item.pictures.layers[2].mipmap_count = 1
+small_atomic_bomb_item.pictures.layers[2].mipmap_count = 4
 
 if mods["SchallTankPlatoon"] then
 	small_atomic_bomb_item.order = "d[rocket-launcher]-n[ small-atomic-bomb]"
@@ -365,12 +365,12 @@ very_small_atomic_bomb_item.ammo_type.cooldown_modifier = 3
 very_small_atomic_bomb_item.ammo_type.action.action_delivery.starting_speed = 0.05
 very_small_atomic_bomb_item.ammo_type.action.action_delivery.projectile = "very-small-atomic-bomb-projectile"
 very_small_atomic_bomb_item.icon = "__True-Nukes__/graphics/small-2-atomic-bomb.png"
-very_small_atomic_bomb_item.icon_mipmaps = 1
+very_small_atomic_bomb_item.icon_mipmaps = 4
 very_small_atomic_bomb_item.stack_size = 20
 very_small_atomic_bomb_item.pictures.layers[1].filename="__True-Nukes__/graphics/small-2-atomic-bomb.png"
-very_small_atomic_bomb_item.pictures.layers[1].mipmap_count = 1
+very_small_atomic_bomb_item.pictures.layers[1].mipmap_count = 4
 very_small_atomic_bomb_item.pictures.layers[2].filename="__True-Nukes__/graphics/rocket-light-2.png"
-very_small_atomic_bomb_item.pictures.layers[2].mipmap_count = 1
+very_small_atomic_bomb_item.pictures.layers[2].mipmap_count = 4
 
 if mods["SchallTankPlatoon"] then
 	very_small_atomic_bomb_item.order = "d[rocket-launcher]-n[ avery-small-atomic-bomb]"
@@ -407,11 +407,12 @@ really_very_small_atomic_bomb_item.ammo_type.range_modifier = 1.5
 really_very_small_atomic_bomb_item.ammo_type.cooldown_modifier = 1.5
 really_very_small_atomic_bomb_item.ammo_type.action.action_delivery.projectile = "really-very-small-atomic-bomb-projectile"
 really_very_small_atomic_bomb_item.icon = "__True-Nukes__/graphics/small-1-atomic-bomb.png"
-really_very_small_atomic_bomb_item.icon_mipmaps = 1
+really_very_small_atomic_bomb_item.icon_mipmaps = 4
 really_very_small_atomic_bomb_item.stack_size = 50
 really_very_small_atomic_bomb_item.pictures.layers[1].filename="__True-Nukes__/graphics/small-1-atomic-bomb.png"
 really_very_small_atomic_bomb_item.pictures.layers[2].filename="__True-Nukes__/graphics/rocket-light-1.png"
-really_very_small_atomic_bomb_item.pictures.layers[1].mipmap_count = 1
+really_very_small_atomic_bomb_item.pictures.layers[1].mipmap_count = 4
+really_very_small_atomic_bomb_item.pictures.layers[2].mipmap_count = 4
 
 if mods["SchallTankPlatoon"] then
 	really_very_small_atomic_bomb_item.order = "d[rocket-launcher]-n[ areally-very-small-atomic-bomb]"
