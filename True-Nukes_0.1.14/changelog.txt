@@ -6,7 +6,7 @@ Date: 2021-07-28
     - A small rearangement moving 4t and 8t rockets behind Very dangerous high-yield atomic weapons
   Bugfixes:
     - Fixed an internal spelling error (well spotted)
---------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
 Version: 0.1.13
 Date: 2021-07-22
   Features:
