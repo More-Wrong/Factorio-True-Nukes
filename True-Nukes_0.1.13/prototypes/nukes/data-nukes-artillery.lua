@@ -43,7 +43,7 @@ atomic_artillery_item.pictures = {
           size = 64,
           filename = "__True-Nukes__/graphics/atomic-artillery-shell-light.png",
           scale = 0.25,
-          mipmap_count = 1
+          mipmap_count = 4
         }
       }
     }
@@ -237,9 +237,9 @@ small_atomic_artillery_item.pictures = {
           draw_as_light = true,
           flags = {"light"},
           size = 64,
-          filename = "__True-Nukes__/graphics/atomic-artillery-shell-light.png",
+          filename = "__True-Nukes__/graphics/small-atomic-artillery-shell-light.png",
           scale = 0.25,
-          mipmap_count = 1
+          mipmap_count = 4
         }
       }
     }
@@ -277,7 +277,7 @@ end
 very_small_atomic_artillery_item.ammo_type.cooldown_modifier = 1.5
 very_small_atomic_artillery_item.ammo_type.action.action_delivery.projectile = "TN-very-small-atomic-artillery-projectile"
 very_small_atomic_artillery_item.icon = "__True-Nukes__/graphics/very-small-atomic-artillery-shell.png"
-very_small_atomic_artillery_item.icon_mipmaps = 1
+very_small_atomic_artillery_item.icon_mipmaps = 4
 very_small_atomic_artillery_item.pictures = {
       layers =
       {
@@ -285,15 +285,15 @@ very_small_atomic_artillery_item.pictures = {
           size = 64,
           filename = "__True-Nukes__/graphics/very-small-atomic-artillery-shell.png",
           scale = 0.25,
-          mipmap_count = 1
+          mipmap_count = 4
         },
         {
           draw_as_light = true,
           flags = {"light"},
           size = 64,
-          filename = "__True-Nukes__/graphics/atomic-artillery-shell-light.png",
+          filename = "__True-Nukes__/graphics/very-small-atomic-artillery-shell-light.png",
           scale = 0.25,
-          mipmap_count = 1
+          mipmap_count = 4
         }
       }
     }
