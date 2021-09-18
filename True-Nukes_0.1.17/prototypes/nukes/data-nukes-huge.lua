@@ -297,7 +297,7 @@ if(settings.startup["enable-mega-fusion-building"].value) then
 		icon_size = 64, icon_mipmaps = 1,
 		enabled = false,
 		subgroup = "ammo",
-		order = "a[nuke]-b[1Mt]",
+		order = "a[nuke]-ba[1Mt]",
 		stack_size = 1
 	  }}
 	  
@@ -321,7 +321,7 @@ if(settings.startup["enable-mega-fusion-building"].value) then
 		icon_size = 64, icon_mipmaps = 1,
 		enabled = false,
 		subgroup = "ammo",
-		order = "a[nuke]-b[1Mt]",
+		order = "a[nuke]-bb[5Mt]",
 		stack_size = 1
 	  }}
 	  
@@ -331,7 +331,7 @@ if(settings.startup["enable-mega-fusion-building"].value) then
 		name = "10megaton-detonation",
 		category = "nuclear-detonation",
 		enabled = true,
-		energy_required = 240,
+		energy_required = 300,
 		ingredients =
 		{
 		  {"tritium-canister", 500}
@@ -345,7 +345,7 @@ if(settings.startup["enable-mega-fusion-building"].value) then
 		icon_size = 64, icon_mipmaps = 1,
 		enabled = false,
 		subgroup = "ammo",
-		order = "a[nuke]-b[1Mt]",
+		order = "a[nuke]-bc[10Mt]",
 		stack_size = 1
 	  }}
 	  
@@ -355,7 +355,7 @@ if(settings.startup["enable-mega-fusion-building"].value) then
 		name = "50megaton-detonation",
 		category = "nuclear-detonation",
 		enabled = true,
-		energy_required = 240,
+		energy_required = 300,
 		ingredients =
 		{
 		  {"tritium-canister", 2500}
@@ -369,7 +369,7 @@ if(settings.startup["enable-mega-fusion-building"].value) then
 		icon_size = 64, icon_mipmaps = 1,
 		enabled = false,
 		subgroup = "ammo",
-		order = "a[nuke]-b[1Mt]",
+		order = "a[nuke]-bd[50Mt]",
 		stack_size = 1
 	  }}
 	  
@@ -379,7 +379,7 @@ if(settings.startup["enable-mega-fusion-building"].value) then
 		name = "100megaton-detonation",
 		category = "nuclear-detonation",
 		enabled = true,
-		energy_required = 480,
+		energy_required = 600,
 		ingredients =
 		{
 		  {"tritium-canister", 5000}
@@ -393,7 +393,7 @@ if(settings.startup["enable-mega-fusion-building"].value) then
 		icon_size = 64, icon_mipmaps = 1,
 		enabled = false,
 		subgroup = "ammo",
-		order = "a[nuke]-b[1Mt]",
+		order = "a[nuke]-be[100Mt]",
 		stack_size = 1
 	  }}
 	  
@@ -403,7 +403,7 @@ if(settings.startup["enable-mega-fusion-building"].value) then
 		name = "1gigaton-detonation",
 		category = "nuclear-detonation",
 		enabled = true,
-		energy_required = 480,
+		energy_required = 600,
 		ingredients =
 		{
 		  {"tritium-canister", 50000}
@@ -417,7 +417,7 @@ if(settings.startup["enable-mega-fusion-building"].value) then
 		icon_size = 64, icon_mipmaps = 1,
 		enabled = false,
 		subgroup = "ammo",
-		order = "a[nuke]-b[1Mt]",
+		order = "a[nuke]-bf[1Gt]",
 		stack_size = 1
 	  }}
 end
