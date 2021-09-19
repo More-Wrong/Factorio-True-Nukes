@@ -121,6 +121,65 @@ corpseMap["small-worm-turret"] = "small-worm-corpse"
 corpseMap["medium-worm-turret"] = "medium-worm-corpse"
 corpseMap["big-worm-turret"] = "big-worm-corpse"
 corpseMap["behemoth-worm-turret"] = "behemoth-worm-corpse"
+
+local decorativeMap = {}
+decorativeMap["brown-asterisk"] = {"rock-tiny", 1/4}
+decorativeMap["green-asterisk"] = {"brown-asterisk", 1/4}
+decorativeMap["green-asterisk-mini"] = {"brown-asterisk", 1/10}
+decorativeMap["brown-asterisk-mini"] = {"brown-asterisk", 1/20}
+decorativeMap["red-asterisk"] = {"brown-asterisk", 1/4}
+
+decorativeMap["green-pita"] = {"rock-tiny", 1/10}
+decorativeMap["red-pita"] = {"rock-small", 1/10}
+decorativeMap["green-croton"] = {"sand-rock-small", 1/10}
+decorativeMap["red-croton"] = {"red-desert-decal", 1/10}
+decorativeMap["green-pita-mini"] = {"enemy-decal-transparent", 1/20}
+
+decorativeMap["brown-fluff"] = {"rock-tiny", 1/10}
+decorativeMap["brown-fluff-dry"] = {"brown-asterisk", 1/10}
+decorativeMap["garballo"] = {"brown-fluff", 1/10}
+decorativeMap["garballo-mini-dry"] = {"brown-fluff-dry", 1/10}
+
+decorativeMap["green-bush-mini"] = {"brown-fluff", 1/10}
+decorativeMap["green-hairy-grass"] = {"brown-hairy-grass", 1/10}
+decorativeMap["muddy-stump"] = nil
+
+decorativeMap["green-carpet-grass"] = {"sand-decal", 1/2}
+
+decorativeMap["green-desert-bush"] = {"red-desert-bush", 1/2}
+decorativeMap["white-desert-bush"] = {"white-desert-bush", 1/4}
+
+decorativeMap["red-desert-bush"] = {"red-desert-bush", 1/2}
+decorativeMap["green-small-grass"] = {"brown-asterisk", 1/10}
+decorativeMap["brown-carpet-grass"] = {"brown-carpet-grass", 1/2}
+decorativeMap["brown-hairy-grass"] = {"brown-hairy-grass", 1/2}
+
+decorativeMap["rock-medium"] = {}
+decorativeMap["rock-small"] = {}
+decorativeMap["rock-tiny"] = {}
+decorativeMap["sand-rock-medium"] = {}
+decorativeMap["sand-rock-small"] = {}
+
+decorativeMap["red-desert-decal"] = {}
+decorativeMap["dark-mud-decal"] = {}
+decorativeMap["puberty-decal"] = {}
+decorativeMap["light-mud-decal"] = {}
+decorativeMap["sand-decal"] = {}
+
+decorativeMap["sand-dune-decal"] = {}
+decorativeMap["big-ship-wreck-grass"] = nil
+decorativeMap["small-ship-wreck-grass"] = nil
+
+decorativeMap["enemy-decal"] = {}
+decorativeMap["enemy-decal-transparent"] = {}
+
+decorativeMap["nuclear-ground-patch"] = {}
+decorativeMap["shroom-decal"] = nil
+decorativeMap["worms-decal"] = nil
+decorativeMap["lichen-decal"] = nil
+
+
+
 	 
 local function doFastCraterFilling(event) 
 	-- fast crater filling
@@ -802,7 +861,6 @@ local function tileNoiseLimited(surface, tableTarget, position, radius, depthMul
 			startAngle = endAngle;
 			endAngle = tmp+6.283185307;
 		end
-		local count = 0
 		for num=0,sliceCount do
 			local slice_w = (math.floor(radius*depthMult/50)+1)
 			for ang=0,math.ceil(angleDiff*radius*slice_w*4/(num*num+1)) do
@@ -810,19 +868,19 @@ local function tileNoiseLimited(surface, tableTarget, position, radius, depthMul
 				local offset = math.random()+sliceCount
 				local angle = (ang+offset)%angleDiff+startAngle
 				local noise_pos = {x = math.floor(position.x+(dist+radius-1)*math.cos(angle)+0.5), y = math.floor(position.y+(dist+radius-1)*math.sin(angle)+0.5)}
-				if(boundaryBox.left_top.x<=noise_pos.x and boundaryBox.right_bottom.x>noise_pos.x 
-						and boundaryBox.left_top.y<=noise_pos.y and boundaryBox.right_bottom.y>noise_pos.y) then
+				if(boundaryBox.left_top.x<=noise_pos.x and boundaryBox.right_bottom.x>=noise_pos.x 
+						and boundaryBox.left_top.y<=noise_pos.y and boundaryBox.right_bottom.y>=noise_pos.y) then
 					local cur_tile = surface.get_tile(noise_pos)
-					if((position.x-noise_pos.x)*(position.x-noise_pos.x)+(position.y-noise_pos.y)*(position.y-noise_pos.y)<=radius+0.5) then
-						--Do nothing - used to remove rounding errors and prevent hitting the same tile twice
-					elseif (tileMap[cur_tile.name] == nil) then
-						if(not(tileMap["default"] == nil)) then
-							count = count+1
-							table.insert(tableTarget, {name = tileMap["default"], position = noise_pos})
+					if(cur_tile.valid) then
+						if((position.x-noise_pos.x)*(position.x-noise_pos.x)+(position.y-noise_pos.y)*(position.y-noise_pos.y)<=radius+0.5) then
+							--Do nothing - used to remove rounding errors and prevent hitting the same tile twice
+						elseif (tileMap[cur_tile.name] == nil) then
+							if(not(tileMap["default"] == nil)) then
+								table.insert(tableTarget, {name = tileMap["default"], position = noise_pos})
+							end
+						else
+							table.insert(tableTarget, {name = tileMap[cur_tile.name], position = noise_pos})
 						end
-					else
-						count = count+1
-						table.insert(tableTarget, {name = tileMap[cur_tile.name], position = noise_pos})
 					end
 				end
 			end
@@ -1378,11 +1436,13 @@ local function optimisedChunkLoadHandler(chunkPosAndArea, chunkLoaderStruct, kil
 			local entities = game.surfaces[surface_index].find_entities_filtered{area = chunkPosAndArea.area}
 			local fireballSq = chunkLoaderStruct.fireball_r*chunkLoaderStruct.fireball_r;
 			for _,e in pairs(entities) do
-				if(e.valid and (not (string.match(e.type, "ghost"))) and (not (e.type == "resource") and (killPlanes or (e.type ~= "car"))) 
+				if(e.valid and (not (string.match(e.type, "ghost"))) and ((e.type ~= "resource") and (killPlanes or (e.type ~= "car"))) 
 				    and e.position.x>=x and e.position.x<x+32 and e.position.y>=y and e.position.y<y+32 and 
 					(e.position.x-originPos.x)*(e.position.x-originPos.x) + (e.position.y-originPos.y)*(e.position.y-originPos.y)<=fireballSq) then
 
 					if e.type=="tree" then
+						e.destroy()
+					elseif(corpseMap[e.name]) then
 						e.destroy()
 					elseif(cause ~= nil and cause.valid) then
 						e.die(force, cause)
@@ -1397,10 +1457,12 @@ local function optimisedChunkLoadHandler(chunkPosAndArea, chunkLoaderStruct, kil
 			end
 			entities = game.surfaces[surface_index].find_entities_filtered{area = chunkPosAndArea.area}
 			for _,e in pairs(entities) do
-				if(e.valid and (not (string.match(e.type, "ghost"))) and (not (e.type == "resource")) and (killPlanes or e.type ~= "car") 
+				if(e.valid and (not (string.match(e.type, "ghost"))) and ((e.type ~= "resource")) and (killPlanes or e.type ~= "car") 
 				    and e.position.x>=x and e.position.x<x+32 and e.position.y>=y and e.position.y<y+32 and 
 					(e.position.x-originPos.x)*(e.position.x-originPos.x) + (e.position.y-originPos.y)*(e.position.y-originPos.y)<=fireballSq) then
 					if e.type=="tree" then
+						e.destroy()
+					elseif(corpseMap[e.name]) then
 						e.destroy()
 					elseif(cause ~= nil and cause.valid) then
 						e.die(force, cause)
@@ -1410,6 +1472,29 @@ local function optimisedChunkLoadHandler(chunkPosAndArea, chunkLoaderStruct, kil
 					
 					if(e.valid) then
 						e.destroy();
+					end
+				end
+			end
+			-- destroy decoratives in the fireball
+			local craterEdgeSq = (chunkLoaderStruct.crater_external_r*1.1+4)*(chunkLoaderStruct.crater_external_r*1.1+4)
+			for _,v in pairs(game.surfaces[surface_index].find_decoratives_filtered{area = chunkPosAndArea.area}) do
+				local distSq = (v.position.x-originPos.x)*(v.position.x-originPos.x)+(v.position.y-originPos.y)*(v.position.y-originPos.y);
+				if(distSq<=fireballSq) then
+					local tmpPos = v.position;
+					local result = decorativeMap[v.decorative.name]
+					if(result == nil or distSq<craterEdgeSq) then
+						game.surfaces[surface_index].destroy_decoratives{position = v.position};
+					elseif(result[1] == v.decorative.name) then
+						local rnd = math.random();
+						if(rnd<=result[2]) then
+							game.surfaces[surface_index].destroy_decoratives{position = v.position};
+						end
+					elseif(result[1] ~=nil) then
+						local rnd = math.random();
+						game.surfaces[surface_index].destroy_decoratives{position = v.position};
+						if(rnd<=result[2]) then
+							game.surfaces[surface_index].create_decoratives{decoratives={{name=result[1], position=tmpPos, amount=1}}}
+						end
 					end
 				end
 			end
@@ -1617,6 +1702,15 @@ local function optimisedChunkLoadHandler(chunkPosAndArea, chunkLoaderStruct, kil
 			end	
 		end
 		if(minR<chunkLoaderStruct.crater_external_r*1.1+4) then
+			if(settings.global["destroy-resources-in-crater"].value) then
+				-- destroy resources in crater (a bit more to account for the noise on crater edge)
+				local craterEdgeSq = (chunkLoaderStruct.crater_external_r*1.1+4)*(chunkLoaderStruct.crater_external_r*1.1+4)
+				for _,v in pairs(game.surfaces[surface_index].find_entities_filtered{area = chunkPosAndArea.area, type="resource"}) do
+					if(v.valid and (v.position.x-originPos.x)*(v.position.x-originPos.x) + (v.position.y-originPos.y)*(v.position.y-originPos.y)<=craterEdgeSq) then
+						v.destroy()
+					end
+				end
+			end
 			local startAngle = math.min(ang1, ang2, ang3, ang4)
 			local endAngle = math.max(ang1, ang2, ang3, ang4)
 			local crater_internal_r = chunkLoaderStruct.crater_internal_r
@@ -1666,6 +1760,9 @@ local function optimisedChunkLoadHandler(chunkPosAndArea, chunkLoaderStruct, kil
 			end
 			
 			game.surfaces[surface_index].set_tiles(tileTable)
+			for _,v in pairs(game.surfaces[surface_index].find_tiles_filtered{area=chunkPosAndArea.area, name="nuclear-high"}) do
+				game.surfaces[surface_index].set_hidden_tile(v.position, "nuclear-ground")
+			end
 		end
 		if (not (game.surfaces[surface_index].count_tiles_filtered{area={{x=chunkPosAndArea.area.left_top.x+1, y=chunkPosAndArea.area.left_top.y+1},{x=chunkPosAndArea.area.right_bottom.x-1, y=chunkPosAndArea.area.right_bottom.y-1}} , name = craterTypes0, limit = 1} == 0)) then
 			table.insert(global.cratersSlow, {t = 0, x = chunkPosAndArea.x, y = chunkPosAndArea.y, surface = surface_index});
@@ -1741,6 +1838,8 @@ local function atomic_weapon_hit(surface_index, source, position, crater_interna
 			if(v.valid and (not (string.match(v.type, "ghost"))) and (not (v.type == "resource"))) then
 				if v.type=="tree" then
 					v.destroy()
+				elseif(corpseMap[v.name]) then
+					v.destroy()
 				elseif cause and cause.valid then
 					if not v.die(force, cause) then
 						v.destroy()
@@ -1760,9 +1859,24 @@ local function atomic_weapon_hit(surface_index, source, position, crater_interna
 		 end
 		 -- destroy decoratives in the fireball
 		 for _,v in pairs(game.surfaces[surface_index].find_decoratives_filtered{area = {{position.x-fireball_r, position.y-fireball_r}, {position.x+fireball_r, position.y+fireball_r}}}) do
-			if((v.position.x-position.x)*(v.position.x-position.x)+(v.position.y-position.y)*(v.position.y-position.y)<=fireball_r*fireball_r) then
-				game.surfaces[surface_index].destroy_decoratives{position = v.position};
-			end
+				if((v.position.x-position.x)*(v.position.x-position.x)+(v.position.y-position.y)*(v.position.y-position.y)<=fireball_r*fireball_r) then
+					local tmpPos = v.position;
+					local result = decorativeMap[v.decorative.name]
+					if(result == nil) then
+						game.surfaces[surface_index].destroy_decoratives{position = v.position};
+					elseif(result[1] == v.decorative.name) then
+						local rnd = math.random();
+						if(rnd<=result[2]) then
+							game.surfaces[surface_index].destroy_decoratives{position = v.position};
+						end
+					elseif(result[1] ~=nil) then
+						local rnd = math.random();
+						game.surfaces[surface_index].destroy_decoratives{position = v.position};
+						if(rnd<=result[2]) then
+							game.surfaces[surface_index].create_decoratives{decoratives={{name=result[1], position=tmpPos, amount=1}}}
+						end
+					end
+				end
 		 end
 		 -- make sure everything is dead in the fireball
 		 for _,v in pairs(game.surfaces[surface_index].find_entities_filtered{position=position, radius=fireball_r}) do
@@ -1778,7 +1892,7 @@ local function atomic_weapon_hit(surface_index, source, position, crater_interna
 			end
 		 end
 		 if(settings.global["use-height-for-craters"].value and settings.startup["enable-new-craters"].value) then
-			if(crater_external_r>200) then --use efficient crater generator (ignores height for lakes)
+			if(crater_external_r>150) then --use efficient crater generator (ignores height for lakes)
 				nukeTileChangesHeightAwareHuge(position, check_craters, surface_index, crater_internal_r, crater_external_r, fireball_r)
 			else
 			 	nukeTileChangesHeightAware(position, check_craters, surface_index, crater_internal_r, crater_external_r, fireball_r)
