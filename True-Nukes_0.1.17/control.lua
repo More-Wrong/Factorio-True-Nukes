@@ -2020,7 +2020,11 @@ script.on_event(defines.events.on_script_trigger_effect, function(event)
 	 atomic_weapon_hit(event.surface_index, event.source_entity, find_event_position(event), 50, 100, 200, 150, 2000/settings.global["large-nuke-blast-range-scaledown"].value, 1000, 4000, 1000, 500, 315000, settings.global["huge-nuke-fire-scaledown"].value, false, true, false);
 	 createBlastSoundsAndFlash(event.target_position, game.surfaces[event.surface_index], 1500, 3000, 20000, 100000, 1500, 8);
   elseif(event.effect_id=="Atomic Weapon hit 100kt") then
-	 atomic_weapon_hit(event.surface_index, event.source_entity, find_event_position(event), 90, 180, 500, 400, 5500/settings.global["really-huge-nuke-blast-range-scaledown"].value, 2500, 10000, 1500, 1000, 450000, 2*settings.global["really-huge-nuke-fire-scaledown"].value, false, false, settings.global["optimise-100kt"].value);
+  	 local blastD = 5500;
+  	 if not settings.global["optimise-100kt"].value then
+  	 	blastD = blastD/settings.global["really-huge-nuke-blast-range-scaledown"].value
+  	 end
+	 atomic_weapon_hit(event.surface_index, event.source_entity, find_event_position(event), 90, 180, 500, 400, blastD, 2500, 10000, 1500, 1000, 450000, 2*settings.global["really-huge-nuke-fire-scaledown"].value, false, false, settings.global["optimise-100kt"].value);
 	 createBlastSoundsAndFlash(event.target_position, game.surfaces[event.surface_index], 2700, 5400, 36000, 200000, 2700, 16);
   elseif(event.effect_id=="Atomic Weapon hit 1Mt") then
 	 atomic_weapon_hit(event.surface_index, event.source_entity, find_event_position(event), 190, 390, 1200, 1000, 12000, 5000, 24000, 3200, 2000, 1800000, 0, false, false, true);

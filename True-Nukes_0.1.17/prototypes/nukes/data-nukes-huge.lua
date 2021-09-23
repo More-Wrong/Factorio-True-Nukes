@@ -240,6 +240,17 @@ elseif(settings.startup["enable-small-atomic-artillery"].value or settings.start
 else 
 	table.insert(data.raw.technology["fusion-weapons"].prerequisites, "atomic-bomb");
 end
+if(settings.startup["enable-very-big-atomic-artillery"].value) then
+	table.insert(data.raw.technology["fusion-weapons"].effects, 
+	  {
+	    type = "unlock-recipe",
+	    recipe = "FOGBANK"
+	  })
+	table.insert(data.raw.technology["fusion-weapons"].effects, 
+	  {
+	    type = "unlock-recipe",
+	    recipe = "TN-very-big-atomic-artillery-shell"
+	  })
 if(settings.startup["enable-fusion-building"].value or settings.startup["enable-mega-fusion-building"].value) then
 	table.insert(data.raw.technology["fusion-weapons"].effects, 
 	  {
@@ -263,18 +274,32 @@ if(settings.startup["enable-mega-fusion-building"].value) then
 	    type = "unlock-recipe",
 	    recipe = "megaton-detonation"
 	  })
+	table.insert(data.raw.technology["fusion-weapons"].effects, 
+	  {
+	    type = "unlock-recipe",
+	    recipe = "5megaton-detonation"
+	  })
+	table.insert(data.raw.technology["fusion-weapons"].effects, 
+	  {
+	    type = "unlock-recipe",
+	    recipe = "10megaton-detonation"
+	  })
+	table.insert(data.raw.technology["fusion-weapons"].effects, 
+	  {
+	    type = "unlock-recipe",
+	    recipe = "50megaton-detonation"
+	  })
+	table.insert(data.raw.technology["fusion-weapons"].effects, 
+	  {
+	    type = "unlock-recipe",
+	    recipe = "100megaton-detonation"
+	  })
+	table.insert(data.raw.technology["fusion-weapons"].effects, 
+	  {
+	    type = "unlock-recipe",
+	    recipe = "1gigaton-detonation"
+	  })
 end
-if(settings.startup["enable-very-big-atomic-artillery"].value) then
-	table.insert(data.raw.technology["fusion-weapons"].effects, 
-	  {
-	    type = "unlock-recipe",
-	    recipe = "FOGBANK"
-	  })
-	table.insert(data.raw.technology["fusion-weapons"].effects, 
-	  {
-	    type = "unlock-recipe",
-	    recipe = "TN-very-big-atomic-artillery-shell"
-	  })
 end
 if(settings.startup["enable-mega-fusion-building"].value) then
 	data:extend{
