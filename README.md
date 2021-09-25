@@ -152,14 +152,12 @@ This mod will not play nicely with any other mods which change nuclear weapons. 
 The chunk loaded detonations don't play nice with mods which change things using scripts as they are loaded. This includes the Ruins mod. This is why the option to disable chunk based nukes is available for the 100kt.
 
 ### The CHALLENGE!
-1. Install this mod.
-2. Load up your favourite mega-factory, or closest equivalent (please take a copy of the save first).
-3. Set off an 'Atomic artillery shell' (the 1 kiloton device) in the middle of your base (larger weapons if you feel brave).
-4. Try to recover!
+In a normal freeplay game, set off a 1Gigaton nuke, and have your base survive with limited damage (i.e. could reasonably repair itself - maybe some losses, but not catastrophic).
 
-Experimenting with this, I found that the recovery is hampered by the *sheer loss of infrastructure*! Most power is down, and most active drones are destroyed. The drones that are left have no power or resources, and there aren't enough railways to bring resources in. The effects of a real weapon are similar, not only causing immediate damage, but also loss of infrastructure, allowing little help in. The recovery operation feels very post-nuclear, scavenging for surviving resources or drones, and trying to defend the borders against the biter attacks with whatever fragmentary defences are still working.
+This will take 1000 reactors about 7 hours to produce the tritium, and needs to be detonated ~70km away - this is a 15 minute journey by nuclear-fuel train, or about 30 minutes by car (presuming no turning, stopping, etc.). 
+You also need to get 1000 stacks (25 full train carriages) of tritium there... and escape...
 
-Note that the 1 kiloton device is so low-yield that few such devices were developed for practical warfare. The closest in the US arsenal was the [W25](https://en.wikipedia.org/wiki/W25_(nuclear_warhead)) at 1.5 kilotons, which was deployed as an air defence weapon! You are destroying your base with an air-to-air missile... 
+Good luck!!! 
 
 ### References
 The numbers for the weapons are sourced from [NUKEMAP](https://nuclearsecrecy.com/nukemap/) which is excellent for giving a real world view on nukes.
