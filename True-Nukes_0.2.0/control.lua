@@ -827,6 +827,13 @@ end
 
 local function tileNoise(surface, tableTarget, position, radius, depthMult, tileMap, sliceCount)
 	if (settings.global["nuke-crater-noise"].value) then
+		local defaultOnly = true
+		for k,v in pairs (tableTarget) do
+			if(k~="default") then
+				defaultOnly=false;
+				break;
+			end
+		end
 		for num=0,sliceCount do
 			local slice_w = (math.floor(radius*depthMult/50)+1)
 			for ang=0,math.ceil(3.1416*2*radius*slice_w*4/(num*num+1)) do
@@ -834,10 +841,10 @@ local function tileNoise(surface, tableTarget, position, radius, depthMult, tile
 				local offset = math.random()
 
 				local noise_pos = {x = math.floor(position.x+(dist+radius-1)*math.sin(ang+offset)+0.5), y = math.floor(position.y+(dist+radius-1)*math.cos(ang+offset)+0.5)}
-				local cur_tile = surface.get_tile(noise_pos)
+				local cur_tile = defaultOnly or surface.get_tile(noise_pos)
 				if((position.x-noise_pos.x)*(position.x-noise_pos.x)+(position.y-noise_pos.y)*(position.y-noise_pos.y)<=radius+0.5) then
 					--Do nothing - used to remove rounding errors and prevent hitting the same tile twice
-				elseif (tileMap[cur_tile.name] == nil) then
+				elseif (defaultOnly or tileMap[cur_tile.name] == nil) then
 					if(not(tileMap["default"] ==nil)) then
 						table.insert(tableTarget, {name = tileMap["default"], position = noise_pos})
 					end
@@ -852,6 +859,13 @@ end
 
 local function tileNoiseLimited(surface, tableTarget, position, radius, depthMult, tileMap, sliceCount, lesserAngle, greaterAngle, boundaryBox)
 	if (settings.global["nuke-crater-noise"].value) then
+		local defaultOnly = true
+		for k,v in pairs (tableTarget) do
+			if(k~="default") then
+				defaultOnly=false;
+				break;
+			end
+		end
 		local startAngle = lesserAngle
 		local endAngle = greaterAngle
 		local angleDiff = (endAngle-startAngle)
@@ -870,11 +884,11 @@ local function tileNoiseLimited(surface, tableTarget, position, radius, depthMul
 				local noise_pos = {x = math.floor(position.x+(dist+radius-1)*math.cos(angle)+0.5), y = math.floor(position.y+(dist+radius-1)*math.sin(angle)+0.5)}
 				if(boundaryBox.left_top.x<=noise_pos.x and boundaryBox.right_bottom.x>=noise_pos.x 
 						and boundaryBox.left_top.y<=noise_pos.y and boundaryBox.right_bottom.y>=noise_pos.y) then
-					local cur_tile = surface.get_tile(noise_pos)
-					if(cur_tile.valid) then
+					local cur_tile = defaultOnly or surface.get_tile(noise_pos)
+					if(defaultOnly or cur_tile.valid) then
 						if((position.x-noise_pos.x)*(position.x-noise_pos.x)+(position.y-noise_pos.y)*(position.y-noise_pos.y)<=radius+0.5) then
 							--Do nothing - used to remove rounding errors and prevent hitting the same tile twice
-						elseif (tileMap[cur_tile.name] == nil) then
+						elseif (defaultOnly or tileMap[cur_tile.name] == nil) then
 							if(not(tileMap["default"] == nil)) then
 								table.insert(tableTarget, {name = tileMap["default"], position = noise_pos})
 							end
@@ -904,9 +918,8 @@ local function nukeTileChangesHeightAwareHuge(position, check_craters, surface_i
 	end
 	--fireball boils water...
 	for _,v in pairs(game.surfaces[surface_index].find_tiles_filtered{position=position, radius=fireball_r+0.5, name=waterTypes}) do
-		local cur_tile = game.surfaces[surface_index].get_tile(v.position)
-		if(waterDepths[cur_tile.name]) then
-			table.insert(tileTable, {name = depthsForCrater[waterDepths[cur_tile.name]], position = v.position})
+		if(waterDepths[v.name]) then
+			table.insert(tileTable, {name = depthsForCrater[waterDepths[v.name]], position = v.position})
 			for _,tileGhost in pairs(game.surfaces[surface_index].find_entities_filtered{position = {v.position.x+0.5, v.position.y+0.5}, name = "tile-ghost"}) do
 				table.insert(tileGhosts, {ghost_name = tileGhost.ghost_name, force = tileGhost.force, pos = tileGhost.position})
 			end
@@ -920,8 +933,9 @@ local function nukeTileChangesHeightAwareHuge(position, check_craters, surface_i
 	circularNoise(groundNoise, position, fireball_r, 1, 3)
 	for x,xtiles in pairs(groundNoise) do
 		for y,_ in pairs(xtiles) do
-			if not(waterDepths[game.surfaces[surface_index].get_tile(x, y).name] == nil) then
-				table.insert(tileTable, {name = depthsForCrater[waterDepths[game.surfaces[surface_index].get_tile(x, y).name]], position = {x = x, y = y}})
+			local tile = game.surfaces[surface_index].get_tile(x, y)
+			if not(waterDepths[tile.name] == nil) then
+				table.insert(tileTable, {name = depthsForCrater[waterDepths[tile.name]], position = {x = x, y = y}})
 				for _,tileGhost in pairs(game.surfaces[surface_index].find_entities_filtered{position = {x = x+0.5, y = y+0.5}, name = "tile-ghost"}) do
 					table.insert(tileGhosts, {ghost_name = tileGhost.ghost_name, force = tileGhost.force, pos = tileGhost.position})
 				end
@@ -1105,16 +1119,15 @@ local function nukeTileChangesHeightAware(position, check_craters, surface_index
 	end
 	for _,v in pairs(game.surfaces[surface_index].find_tiles_filtered{position=position, radius=fireball_r+0.5}) do
 		local distSq = (v.position.x-position.x)*(v.position.x-position.x)+(v.position.y-position.y)*(v.position.y-position.y)
-		local cur_tile = game.surfaces[surface_index].get_tile(v.position)
 		if(distSq>crater_external_r*crater_external_r and (noiseTables[1][v.position.x]==nil or noiseTables[1][v.position.x][v.position.y]==nil)) then
-			if(waterDepths[cur_tile.name]) then
-				table.insert(tileTable, {name = depthsForCrater[waterDepths[cur_tile.name]], position = v.position})
+			if(waterDepths[v.name]) then
+				table.insert(tileTable, {name = depthsForCrater[waterDepths[v.name]], position = v.position})
 				for _,tileGhost in pairs(game.surfaces[surface_index].find_entities_filtered{position = {v.position.x+0.5, v.position.y+0.5}, name = "tile-ghost"}) do
 					table.insert(tileGhosts, {ghost_name = tileGhost.ghost_name, force = tileGhost.force, pos = tileGhost.position})
 				end
 			end
 		else
-			local curr_height = waterDepths[cur_tile.name]
+			local curr_height = waterDepths[v.name]
 			if(curr_height==nil) then
 				curr_height = 0;
 			end
@@ -1125,7 +1138,7 @@ local function nukeTileChangesHeightAware(position, check_craters, surface_index
 			elseif (crater_internal_r<10) then
 				if(distSq<=crater_internal_r*crater_internal_r) then
 					curr_height = math.min(curr_height, -1)
-				elseif (noiseTables[2][cur_tile.position.x]==nil or noiseTables[2][cur_tile.position.x][cur_tile.position.y]==nil)then
+				elseif (noiseTables[2][v.position.x]==nil or noiseTables[2][v.position.x][v.position.y]==nil)then
 					-- any tile not hit by the noise does this, otherwise we leave it
 					curr_height = curr_height+1;
 				end
@@ -1133,45 +1146,45 @@ local function nukeTileChangesHeightAware(position, check_craters, surface_index
 				if(distSq<=crater_internal_r*crater_internal_r/4) then
 					curr_height = math.min(curr_height, -2)
 				elseif(distSq<=crater_internal_r*crater_internal_r) then
-					if (noiseTables[4][cur_tile.position.x]==nil or noiseTables[4][cur_tile.position.x][cur_tile.position.y]==nil)then
+					if (noiseTables[4][v.position.x]==nil or noiseTables[4][v.position.x][v.position.y]==nil)then
 						curr_height = math.min(curr_height, -1)
 					else
 						curr_height = math.min(curr_height, -2)
 					end
-				elseif not (noiseTables[3][cur_tile.position.x]==nil or noiseTables[3][cur_tile.position.x][cur_tile.position.y]==nil)then
+				elseif not (noiseTables[3][v.position.x]==nil or noiseTables[3][v.position.x][v.position.y]==nil)then
 					curr_height = math.min(curr_height, -1)
-				elseif (noiseTables[2][cur_tile.position.x]==nil or noiseTables[2][cur_tile.position.x][cur_tile.position.y]==nil)then
+				elseif (noiseTables[2][v.position.x]==nil or noiseTables[2][v.position.x][v.position.y]==nil)then
 					curr_height = curr_height+1;
 				end
 			else
 				if(distSq<=crater_internal_r*crater_internal_r/9) then
 					curr_height = math.min(curr_height, -3)
 				elseif(distSq<=crater_internal_r*crater_internal_r*4/9) then
-					if  (noiseTables[7][cur_tile.position.x]==nil or noiseTables[7][cur_tile.position.x][cur_tile.position.y]==nil)then
+					if  (noiseTables[7][v.position.x]==nil or noiseTables[7][v.position.x][v.position.y]==nil)then
 						curr_height = math.min(curr_height, -2)
 					else
 						curr_height = math.min(curr_height, -3)
 					end
 				elseif(distSq<=crater_internal_r*crater_internal_r) then
-					if  (noiseTables[6][cur_tile.position.x]==nil or noiseTables[6][cur_tile.position.x][cur_tile.position.y]==nil)then
+					if  (noiseTables[6][v.position.x]==nil or noiseTables[6][v.position.x][v.position.y]==nil)then
 						curr_height = math.min(curr_height, -1)
 					else
 						curr_height = math.min(curr_height, -2)
 					end
 				elseif(distSq<=(crater_external_r*1/3+crater_internal_r*2/3)*(crater_external_r*1/3+crater_internal_r*2/3)) then
-					if  not (noiseTables[5][cur_tile.position.x]==nil or noiseTables[5][cur_tile.position.x][cur_tile.position.y]==nil)then
+					if  not (noiseTables[5][v.position.x]==nil or noiseTables[5][v.position.x][v.position.y]==nil)then
 						curr_height = math.min(curr_height, -1)
-					elseif  (noiseTables[4][cur_tile.position.x]==nil or noiseTables[4][cur_tile.position.x][cur_tile.position.y]==nil)then
+					elseif  (noiseTables[4][v.position.x]==nil or noiseTables[4][v.position.x][v.position.y]==nil)then
 						curr_height = curr_height+1;
 					end
 				elseif(distSq<=(crater_external_r*2/3+crater_internal_r*1/3)*(crater_external_r*2/3+crater_internal_r*1/3)) then
-					if  (noiseTables[3][cur_tile.position.x]==nil or noiseTables[3][cur_tile.position.x][cur_tile.position.y]==nil)then
+					if  (noiseTables[3][v.position.x]==nil or noiseTables[3][v.position.x][v.position.y]==nil)then
 						curr_height = curr_height+2;
 					else
 						curr_height = curr_height+1;
 					end
 				else
-					if  (noiseTables[2][cur_tile.position.x]==nil or noiseTables[2][cur_tile.position.x][cur_tile.position.y]==nil)then
+					if  (noiseTables[2][v.position.x]==nil or noiseTables[2][v.position.x][v.position.y]==nil)then
 						curr_height = curr_height+1;
 					else
 						curr_height = curr_height+2;
@@ -1195,8 +1208,9 @@ local function nukeTileChangesHeightAware(position, check_craters, surface_index
 		circularNoise(groundNoise, position, fireball_r, 1, 3)
 		for x,xtiles in pairs(groundNoise) do
 			for y,_ in pairs(xtiles) do
-				if not(waterDepths[game.surfaces[surface_index].get_tile(x, y).name] == nil) then
-					table.insert(tileTable, {name = depthsForCrater[waterDepths[game.surfaces[surface_index].get_tile(x, y).name]], position = {x = x, y = y}})
+				local cur_tile = waterDepths[game.surfaces[surface_index].get_tile(x, y);
+				if not(cur_tile.name] == nil) then
+					table.insert(tileTable, {name = depthsForCrater[waterDepths[cur_tile.name]], position = {x = x, y = y}})
 					for _,tileGhost in pairs(game.surfaces[surface_index].find_entities_filtered{position = {x = x+0.5, y = y+0.5}, name = "tile-ghost"}) do
 						table.insert(tileGhosts, {ghost_name = tileGhost.ghost_name, force = tileGhost.force, pos = tileGhost.position})
 					end
@@ -1274,9 +1288,8 @@ local function nukeTileChanges(position, check_craters, surface_index, crater_in
 		local edge_water_threshold = 0.1 -- Threshold of proportion of crater edge touching water for crater to fill with water
 
 		for _,v in pairs(game.surfaces[surface_index].find_tiles_filtered{position=position, radius=crater_external_r}) do
-			local cur_tile = game.surfaces[surface_index].get_tile(v.position)
-			if math.sqrt((cur_tile.position.x - position.x) ^ 2 + (cur_tile.position.y - position.y) ^ 2) > crater_external_r - 1 then
-				if cur_tile.name == "water" or cur_tile.name == "deepwater" then
+			if math.sqrt((v.position.x - position.x) ^ 2 + (v.position.y - position.y) ^ 2) > crater_external_r - 1 then
+				if v.name == "water" or v.name == "deepwater" then
 					edge_water_count = edge_water_count + 1
 				end
 			end
@@ -1302,8 +1315,7 @@ local function nukeTileChanges(position, check_craters, surface_index, crater_in
 	else
 		-- mandelbrodt - If crater touches (non-shallow/mud) water, fill crater with "water" tiles
 		for _,v in pairs(game.surfaces[surface_index].find_tiles_filtered{position=position, radius=crater_external_r}) do
-			local cur_tile = game.surfaces[surface_index].get_tile(v.position)
-			if not (cur_tile.name == "water" or cur_tile.name == "deepwater") then
+			if not (v.name == "water" or v.name == "deepwater") then
 				if((v.position.x-position.x)*(v.position.x-position.x)+(v.position.y-position.y)*(v.position.y-position.y) <= crater_internal_r*crater_internal_r) then
 					table.insert(tileTable, {name = "water", position = v.position})
 				else
@@ -1677,8 +1689,7 @@ local function optimisedChunkLoadHandler(chunkPosAndArea, chunkLoaderStruct, kil
 				local fireballSq = chunkLoaderStruct.fireball_r*chunkLoaderStruct.fireball_r;
 				for _,v in pairs(tiles) do
 					if((v.position.x-originPos.x)*(v.position.x-originPos.x)+(v.position.y-originPos.y)*(v.position.y-originPos.y)<=fireballSq) then
-						local cur_tile = game.surfaces[surface_index].get_tile(v.position)
-						local depth = waterDepths[cur_tile.name]
+						local depth = waterDepths[v.name]
 						if(depth) then
 							if (depth == -2 and (v.position.x == x or v.position.x == x+31))then
 								--depth = -3;
@@ -1690,15 +1701,15 @@ local function optimisedChunkLoadHandler(chunkPosAndArea, chunkLoaderStruct, kil
 					end
 				end
 				game.surfaces[surface_index].set_tiles(tileTable)
-				tileTable = {};
 				if(maxR>chunkLoaderStruct.fireball_r-4) then
+					tileTable = {};
 					local waterMapping = {}
 					for t,h in pairs(waterDepths) do
 						waterMapping[t] = depthsForCrater[h]
 					end
 					tileNoiseLimited(game.surfaces[surface_index], tileTable, originPos, chunkLoaderStruct.fireball_r, 1, waterMapping, 3, startAngle, endAngle, chunkPosAndArea.area);
+					game.surfaces[surface_index].set_tiles(tileTable)
 				end
-				game.surfaces[surface_index].set_tiles(tileTable)
 			end	
 		end
 		if(minR<chunkLoaderStruct.crater_external_r*1.1+4) then
@@ -1818,6 +1829,9 @@ local function atomic_weapon_hit(surface_index, source, position, crater_interna
 	 	local chunkData = {surface_index=surface_index, blastIndex=index, blastId=blastId, force=force, source=cause, position=position, crater_internal_r=crater_internal_r, 
 	 				crater_external_r=crater_external_r, fireball_r=fireball_r, blast_max_r=blast_max_r, init_blast=5000.0, blast_min_damage=0, thermal_max_r=thermal_max_r, init_thermal=5000.0};
 	 	for chunk in game.surfaces[surface_index].get_chunks() do
+	 		local xdiff = chunk.x*32+16-position.x
+	 		local ydiff = chunk.y*32+16-position.y
+	 		log(math.sqrt(xdiff*xdiff+ydiff*ydiff));
 		  	optimisedChunkLoadHandler(chunk, chunkData, true);
 		end
 		if(not global.optimisedNukes) then
