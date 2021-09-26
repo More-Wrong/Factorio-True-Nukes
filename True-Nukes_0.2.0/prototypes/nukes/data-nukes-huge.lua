@@ -307,7 +307,7 @@ if(settings.startup["enable-mega-fusion-building"].value) then
 		type = "recipe",
 		name = "megaton-detonation",
 		category = "nuclear-detonation",
-		enabled = true,
+		enabled = false,
 		energy_required = 120,
 		ingredients =
 		{
@@ -331,7 +331,7 @@ if(settings.startup["enable-mega-fusion-building"].value) then
 		type = "recipe",
 		name = "5megaton-detonation",
 		category = "nuclear-detonation",
-		enabled = true,
+		enabled = false,
 		energy_required = 120,
 		ingredients =
 		{
@@ -355,7 +355,7 @@ if(settings.startup["enable-mega-fusion-building"].value) then
 		type = "recipe",
 		name = "10megaton-detonation",
 		category = "nuclear-detonation",
-		enabled = true,
+		enabled = false,
 		energy_required = 300,
 		ingredients =
 		{
@@ -379,7 +379,7 @@ if(settings.startup["enable-mega-fusion-building"].value) then
 		type = "recipe",
 		name = "50megaton-detonation",
 		category = "nuclear-detonation",
-		enabled = true,
+		enabled = false,
 		energy_required = 300,
 		ingredients =
 		{
@@ -403,7 +403,7 @@ if(settings.startup["enable-mega-fusion-building"].value) then
 		type = "recipe",
 		name = "100megaton-detonation",
 		category = "nuclear-detonation",
-		enabled = true,
+		enabled = false,
 		energy_required = 600,
 		ingredients =
 		{
@@ -427,7 +427,7 @@ if(settings.startup["enable-mega-fusion-building"].value) then
 		type = "recipe",
 		name = "1gigaton-detonation",
 		category = "nuclear-detonation",
-		enabled = true,
+		enabled = false,
 		energy_required = 600,
 		ingredients =
 		{
@@ -473,7 +473,7 @@ if(settings.startup["enable-fusion-building"].value or settings.startup["enable-
 		type = "recipe",
 		name = "100kiloton-detonation",
 		category = "nuclear-detonation",
-		enabled = true,
+		enabled = false,
 		energy_required = 120,
 		ingredients =
 		{
@@ -485,7 +485,7 @@ if(settings.startup["enable-fusion-building"].value or settings.startup["enable-
 		type = "recipe",
 		name = "15kiloton-detonation",
 		category = "nuclear-detonation",
-		enabled = true,
+		enabled = false,
 		energy_required = 120,
 		ingredients =
 		{
