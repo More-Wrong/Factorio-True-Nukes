@@ -12,7 +12,7 @@ script.on_init(function()
 	global.nukeBuildings = {} 				-- array of the LuaEntities for any nukeBuildings
 	global.optimisedNukes = {} 				-- has keys: 
 	    --position, surface_index, crater_internal_r, crater_external_r, fireball_r, fire_outer_r, blast_max_r, tree_fire_max_r, thermal_max_r, check_craters
-	    --used for doing chunk-by-chunk loading of detonation results... pretty weird, but should work fine, needs to be careful of rng chunk order safety (so needs to seed its rng off of loaded chunk, not use global one)
+	    --used for doing chunk-by-chunk loading of detonation results
 
 	global.cratersFast = {} 				-- map: cratersFast[surface index][xposition][yposition] = the highest water height in that area (x, y in units of 10)
 	global.cratersFastData = {}				-- map: cratersFastData[surface index] = 
@@ -27,6 +27,7 @@ end)
 local waterAndCraterTypes = {"nuclear-deep", "nuclear-crater", "nuclear-shallow", "nuclear-crater-shallow-fill", "nuclear-deep-shallow-fill", "nuclear-deep-fill", "deepwater", "water", "water-shallow", "water-mud"}
 
 local waterTypes = {"water-shallow", "water-mud", "nuclear-crater-shallow-fill", "water", "nuclear-deep-shallow-fill", "nuclear-deep-fill", "deepwater"}
+
 
 local craterTypes0 = {"nuclear-deep", "nuclear-crater", "nuclear-shallow", "nuclear-crater-shallow-fill", "nuclear-deep-shallow-fill", "nuclear-deep-fill"}
 local craterTypes1 = {"nuclear-deep", "nuclear-crater", "nuclear-deep-shallow-fill"}
@@ -65,7 +66,7 @@ waterInCraterGoingOutDepths["deepwater"] = 0
 -- these are the waters for different heights, so that we can find the water height in any given area
 local waterInCraterGoingOutDepth0Only = {"deepwater", "water", "water-shallow", "water-mud"}
 local waterInCraterGoingOutDepth1Only = {"nuclear-crater-shallow-fill", "nuclear-deep-fill"}
-local waterInCraterGoingOutDepth2Only = {"nuclear-deep-fill"}
+local waterInCraterGoingOutDepth2Only = {"nuclear-deep-shallow-fill"}
 
 -- these are the height of water given a tile, for whether that tile will be filled with water
 local waterInCraterGoingInDepths = {}
@@ -217,7 +218,8 @@ local function doFastCraterFilling(event)
 					local ghostChanges = {}
 
 					local targetTiles
-					local chunkH = foundChunkH
+					local chunkH = foundChunkH					
+					
 					if(chunkH >= 0 and global.cratersFastData[surface].synch==1) then
 						targetTiles = game.surfaces[surface].find_tiles_filtered{area={{x*8, y*8}, {x*8+8, y*8+8}}, name=craterTypes0}
 					elseif(chunkH >= -1 and (global.cratersFastData[surface].synch == 3 or global.cratersFastData[surface].synch == 1)) then
@@ -225,115 +227,140 @@ local function doFastCraterFilling(event)
 					else
 						targetTiles = game.surfaces[surface].find_tiles_filtered{area={{x*8, y*8}, {x*8+8, y*8+8}}, name=craterTypes2}
 					end
-					local hasHeightDiff = false;
-					for _,t in pairs(targetTiles) do
-						local heightDiff = 0;
-						local currentH = waterInCraterGoingInDepths[t.name];
-						chunkH = math.max(chunkH, currentH)
-						local h1;
-						local h2;
-						local h3;
-						local h4;
-						if(game.surfaces[surface].is_chunk_generated({t.position.x/32, (t.position.y+1)/32})) then
-							h1 = waterInCraterGoingOutDepths[game.surfaces[surface].get_tile(t.position.x, t.position.y+1).name];
-						else
-							h1 = currentH
+					if(#targetTiles>0) then
+						local relevantTiles = game.surfaces[surface].find_tiles_filtered{area={{x*8-1, y*8-1}, {x*8+9, y*8+9}}, name=waterTypes}
+						
+						local tileH = {}
+						local existsChunks = {};
+						if(existsChunks[math.floor(x/4)] == nil) then
+							existsChunks[math.floor(x/4)] = {}
 						end
-						if(game.surfaces[surface].is_chunk_generated({t.position.x/32, (t.position.y-1)/32})) then
-							h2 = waterInCraterGoingOutDepths[game.surfaces[surface].get_tile(t.position.x, t.position.y-1).name];
-						else
-							h2 = currentH
+						existsChunks[math.floor(x/4)][math.floor(y/4)] = game.surfaces[surface].is_chunk_generated({math.floor(x/4), math.floor(y/4)});
+						existsChunks[math.floor(x/4)][math.floor((y+1)/4)] = game.surfaces[surface].is_chunk_generated({math.floor(x/4), math.floor((y+1)/4)});
+						existsChunks[math.floor(x/4)][math.floor((y-1)/4)] = game.surfaces[surface].is_chunk_generated({math.floor(x/4), math.floor((y-1)/4)});
+						
+						if(existsChunks[math.floor((x-1)/4)] == nil) then
+							existsChunks[math.floor((x-1)/4)] = {}
 						end
-						if(game.surfaces[surface].is_chunk_generated({(t.position.x+1)/32, t.position.y/32})) then
-							h3 = waterInCraterGoingOutDepths[game.surfaces[surface].get_tile(t.position.x+1, t.position.y).name];
-						else
-							h3 = currentH
+						existsChunks[math.floor((x-1)/4)][math.floor(y/4)] = game.surfaces[surface].is_chunk_generated({math.floor((x-1)/4), math.floor(y/4)});
+						
+						if(existsChunks[math.floor((x+1)/4)] == nil) then
+							existsChunks[math.floor((x+1)/4)] = {}
 						end
-						if(game.surfaces[surface].is_chunk_generated({(t.position.x-1)/32, t.position.y/32})) then
-							h4 = waterInCraterGoingOutDepths[game.surfaces[surface].get_tile(t.position.x-1, t.position.y).name];
-						else
-							h4 = currentH
+						existsChunks[math.floor((x+1)/4)][math.floor(y/4)] = game.surfaces[surface].is_chunk_generated({math.floor((x+1)/4), math.floor(y/4)});
+						
+						
+						
+						for _,t in pairs(relevantTiles) do
+							if(tileH[t.position.x] == nil) then
+								tileH[t.position.x] = {}
+							end
+							if(existsChunks[math.floor(t.position.x/32)][math.floor(t.position.y/32)]) then
+								tileH[t.position.x][t.position.y] = waterInCraterGoingOutDepths[t.name];
+							end 
 						end
-						if((not (h1 == nil)) and h1>currentH)then
-							heightDiff = heightDiff+h1-currentH;
-							chunkH = math.max(chunkH, h1)
-						end
-						if((not (h2 == nil)) and h2>currentH)then
-							heightDiff = heightDiff+h2-currentH;
-							chunkH = math.max(chunkH, h2)
-						end
-						if((not (h3 == nil)) and h3>currentH)then
-							heightDiff = heightDiff+h3-currentH;
-							chunkH = math.max(chunkH, h3)
-						end
-						if((not (h4 == nil)) and h4>currentH)then
-							heightDiff = heightDiff+h4-currentH;
-							chunkH = math.max(chunkH, h4)
-						end
-						if(heightDiff>0) then
-							hasHeightDiff = true;
-						end
-						if(heightDiff>0 and (heightDiff>=3 or math.random()*3<heightDiff))then
-							if(currentH == waterDepths[t.name]) then
-								for _,f in pairs(game.surfaces[surface].find_entities_filtered{area={{t.position.x, t.position.y}, {t.position.x+1, t.position.y+1}}, type="fire"}) do
-									f.destroy();
+						local hasHeightDiff = false;
+						for _,t in pairs(targetTiles) do
+							local heightDiff = 0;
+							local currentH = waterInCraterGoingInDepths[t.name];
+							chunkH = math.max(chunkH, currentH)
+							local h1
+							local h2
+							if(tileH[t.position.x] ~=nil) then
+								h1 = tileH[t.position.x][t.position.y+1];
+								h2 = tileH[t.position.x][t.position.y-1];
+							end
+							
+							local h3
+							if(tileH[t.position.x+1] ~=nil) then
+								h3 = tileH[t.position.x+1][t.position.y];
+							end
+							local h4
+							if(tileH[t.position.x-1] ~=nil) then
+								h4 = tileH[t.position.x-1][t.position.y];
+							end
+							
+							if((not (h1 == nil)) and h1>currentH)then
+								heightDiff = heightDiff+h1-currentH;
+								chunkH = math.max(chunkH, h1)
+							end
+							if((not (h2 == nil)) and h2>currentH)then
+								heightDiff = heightDiff+h2-currentH;
+								chunkH = math.max(chunkH, h2)
+							end
+							if((not (h3 == nil)) and h3>currentH)then
+								heightDiff = heightDiff+h3-currentH;
+								chunkH = math.max(chunkH, h3)
+							end
+							if((not (h4 == nil)) and h4>currentH)then
+								heightDiff = heightDiff+h4-currentH;
+								chunkH = math.max(chunkH, h4)
+							end
+							if(heightDiff>0) then
+								hasHeightDiff = true;
+							end
+							if(heightDiff>0 and (heightDiff>=3 or math.random()*3<heightDiff))then
+								if(currentH == waterDepths[t.name]) then
+									for _,f in pairs(game.surfaces[surface].find_entities_filtered{area={{t.position.x, t.position.y}, {t.position.x+1, t.position.y+1}}, type="fire"}) do
+										f.destroy();
+									end
+								end
+								chunkH = math.max(chunkH, currentH+1)
+								table.insert(tileChanges, {name=depthsForCraterWater[waterDepths[t.name]][currentH+1], position = t.position})
+								for _,tileGhost in pairs(game.surfaces[surface].find_entities_filtered{position = {t.position.x+0.5, t.position.y+0.5}, name = "tile-ghost"}) do
+									table.insert(ghostChanges, {ghost_name = tileGhost.ghost_name, force = tileGhost.force, pos = {t.position.x+0.5, t.position.y+0.5}})
+								end
+								if(t.position.x == x*8) then
+									if(chunks[x-1]==nil) then
+										chunks[x-1] = {};
+										global.cratersFastData[surface].xCount = global.cratersFastData[surface].xCount + 1
+									end
+									if(chunks[x-1][y]==nil) then
+										chunks[x-1][y] = currentH+1
+									else
+										chunks[x-1][y] = math.max(currentH+1, chunks[x-1][y])
+									end
+								elseif(t.position.x == x*8+7) then
+									if(chunks[x+1]==nil) then
+										chunks[x+1] = {};
+										global.cratersFastData[surface].xCount = global.cratersFastData[surface].xCount + 1
+									end
+									if(chunks[x+1][y]==nil) then
+										chunks[x+1][y] = currentH+1
+									else
+										chunks[x+1][y] = math.max(currentH+1, chunks[x+1][y]);
+									end
+								end
+								if(t.position.y == y*8) then
+									if(xchunks[y-1]==nil) then
+										xchunks[y-1] = currentH+1
+									else
+										xchunks[y-1] = math.max(currentH+1, xchunks[y-1]);
+									end
+								elseif(t.position.y == y*8+7) then
+									if(xchunks[y+1]==nil) then
+										xchunks[y+1] = currentH+1
+									else
+										xchunks[y+1] = math.max(currentH+1, xchunks[y+1]);
+									end
 								end
 							end
-							chunkH = math.max(chunkH, currentH+1)
-							table.insert(tileChanges, {name=depthsForCraterWater[waterDepths[t.name]][currentH+1], position = t.position})
-							for _,tileGhost in pairs(game.surfaces[surface].find_entities_filtered{position = {t.position.x+0.5, t.position.y+0.5}, name = "tile-ghost"}) do
-								table.insert(ghostChanges, {ghost_name = tileGhost.ghost_name, force = tileGhost.force, pos = {t.position.x+0.5, t.position.y+0.5}})
-							end
-							if(t.position.x == x*8) then
-								if(chunks[x-1]==nil) then
-									chunks[x-1] = {};
-									global.cratersFastData[surface].xCount = global.cratersFastData[surface].xCount + 1
-								end
-								if(chunks[x-1][y]==nil) then
-									chunks[x-1][y] = currentH+1
-								else
-									chunks[x-1][y] = math.max(currentH+1, chunks[x-1][y])
-								end
-							elseif(t.position.x == x*8+7) then
-								if(chunks[x+1]==nil) then
-									chunks[x+1] = {};
-									global.cratersFastData[surface].xCount = global.cratersFastData[surface].xCount + 1
-								end
-								if(chunks[x+1][y]==nil) then
-									chunks[x+1][y] = currentH+1
-								else
-									chunks[x+1][y] = math.max(currentH+1, chunks[x+1][y]);
-								end
-							end
-							if(t.position.y == y*8) then
-								if(xchunks[y-1]==nil) then
-									xchunks[y-1] = currentH+1
-								else
-									xchunks[y-1] = math.max(currentH+1, xchunks[y-1]);
-								end
-							elseif(t.position.y == y*8+7) then
-								if(xchunks[y+1]==nil) then
-									xchunks[y+1] = currentH+1
-								else
-									xchunks[y+1] = math.max(currentH+1, xchunks[y+1]);
-								end
-							end
 						end
-					end
-					game.surfaces[surface].set_tiles(tileChanges)
-					for _,ghost in pairs(ghostChanges) do
-						game.surfaces[surface].create_entity{name="tile-ghost",position=ghost.pos,inner_name=ghost.ghost_name,force=ghost.force}
-					end
-					xchunks[y] = chunkH; -- just to set the height back to being correct, in case it has changed (e.g. a new, higher water level has been found)
-					if global.cratersFastData[surface].synch==1 and not hasHeightDiff then
-						xchunks[y] = nil
-						if next(xchunks) == nil then
-							global.cratersFastData[surface].xCount = global.cratersFastData[surface].xCount-1
-							chunks[x] = nil
+						game.surfaces[surface].set_tiles(tileChanges)
+						for _,ghost in pairs(ghostChanges) do
+							game.surfaces[surface].create_entity{name="tile-ghost",position=ghost.pos,inner_name=ghost.ghost_name,force=ghost.force}
 						end
-						if next(chunks) == nil then
-							global.cratersFast[surface] = nil
-							global.cratersFastData[surface] = nil
+						xchunks[y] = chunkH; -- just to set the height back to being correct, in case it has changed (e.g. a new, higher water level has been found)
+						if global.cratersFastData[surface].synch==1 and not hasHeightDiff then
+							xchunks[y] = nil
+							if next(xchunks) == nil then
+								global.cratersFastData[surface].xCount = global.cratersFastData[surface].xCount-1
+								chunks[x] = nil
+							end
+							if next(chunks) == nil then
+								global.cratersFast[surface] = nil
+								global.cratersFastData[surface] = nil
+							end
 						end
 					end
 				end
@@ -828,7 +855,7 @@ end
 local function tileNoise(surface, tableTarget, position, radius, depthMult, tileMap, sliceCount)
 	if (settings.global["nuke-crater-noise"].value) then
 		local defaultOnly = true
-		for k,v in pairs (tableTarget) do
+		for k,v in pairs (tileMap) do
 			if(k~="default") then
 				defaultOnly=false;
 				break;
@@ -860,7 +887,7 @@ end
 local function tileNoiseLimited(surface, tableTarget, position, radius, depthMult, tileMap, sliceCount, lesserAngle, greaterAngle, minR, maxR, boundaryBox)
 	if (settings.global["nuke-crater-noise"].value) then
 		local defaultOnly = true
-		for k,v in pairs (tableTarget) do
+		for k,v in pairs (tileMap) do
 			if(k~="default") then
 				defaultOnly=false;
 				break;
@@ -1431,10 +1458,7 @@ local function optimisedChunkLoadHandler(chunkPosAndArea, chunkLoaderStruct, kil
 	local maxR = math.max(r1, r2, r3, r4)
 	if  ((minR<chunkLoaderStruct.blast_max_r) or (minR<chunkLoaderStruct.thermal_max_r)) then
       
-		local map_seed = game.surfaces[surface_index].map_gen_settings.seed
-		local new_rng_seed = (chunkPosAndArea.x * 374761393 + chunkPosAndArea.y * 668265263 + map_seed) % 4294967296
-		local rng = game.create_random_generator()
-		rng.re_seed(new_rng_seed); -- bit expensive to do for every chunk, but not much choice really
+
 		
 		
 		local cause = chunkLoaderStruct.source;
@@ -1525,11 +1549,11 @@ local function optimisedChunkLoadHandler(chunkPosAndArea, chunkLoaderStruct, kil
 					if(distSq>fireballSq and distSq<=thermSq and v.position.x>=x and v.position.x<x+32 and v.position.y>=y and v.position.y<y+32) then
 						local damage = fireballSq*chunkLoaderStruct.init_thermal/distSq
 						if(v.type=="tree") then
-							if(rng(0, 100)<1) then
+							if(math.random(0, 100)<1) then
 								game.surfaces[surface_index].create_entity{name="fire-flame-on-tree",position=v.position, initial_ground_flame_count=1+math.min(254,thermSq/distSq)}
 							end
 							-- efficient tree handling
-							damage = rng(damage/10, damage)
+							damage = math.random(damage/10, damage)
 							if((((not v.prototype.resistances) or not v.prototype.resistances.fire) and v.health<damage) or (v.prototype.resistances and v.prototype.resistances.fire and v.health<(damage-v.prototype.resistances.fire.decrease)*(1-v.prototype.resistances.fire.percent))) then
 								local surface = v.surface
 								local destPos = v.position
@@ -1837,9 +1861,9 @@ local function atomic_weapon_hit(surface_index, source, position, crater_interna
 			end
 		end
 		for _,chunk in pairs(chunks) do
-	 		local xdiff = chunk.x*32+16-position.x
-	 		local ydiff = chunk.y*32+16-position.y
-	 		log(math.sqrt(xdiff*xdiff+ydiff*ydiff));
+	 		--local xdiff = chunk.x*32+16-position.x
+	 		--local ydiff = chunk.y*32+16-position.y
+	 		--log(math.sqrt(xdiff*xdiff+ydiff*ydiff));
 		  	optimisedChunkLoadHandler(chunk, chunkData, true);
 	  	end
 		if(not global.optimisedNukes) then
