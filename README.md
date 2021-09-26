@@ -78,11 +78,10 @@ For the sake of adding even more new nuclear options, if Schall's tank platoon i
 #### The 100kt and above
 These larger bombs are run using a chunk-based system to avoid loading extra map. Instead the relevent damage is applied when that chunk generates. 
 This can have weird effects, making some damage seem very recent (e.g. fires still burning), but makes the detonation far quicker.
-These larger nukes can still be very slow when a very established factory is hit, but even in the worst cases tested, RAM usage doesn't exceed 10GB, and in unexplored map, usage didn't increase noticeably.
+These larger nukes can still be very slow when a very established factory is hit, but even in the worst cases tested, RAM usage doesn't exceed 10GB, and in unexplored map, RAM usage remained at ~2GB.
 
 
 Note that running the 100kt, with 'Optimise 100kt' set to false, results in huge memory usage, and is very slow - not recommended.
-Beware the 1Gt, an alternative to detonating this is to delete the save. The nearest survivng tree will be 70km away.
 
 If you don't want to wait for the timer on the nuclear weapon building (and are in creative), you can simply place the detonation item in the output slot, this will detonate it instantly.
 
@@ -113,7 +112,7 @@ To allow the game to load in the relevant map areas and apply damage, the larger
  - The 500 ton yield weapons cause ~2s of freeze, less if the area is explored, and ~10s of slowness afterwards.  
  - The 1kt yield weapons cause ~10s of freeze, less if the area is explored, and ~20s of slowness afterwards.  
  - The 15kt yield weapons cause ~15s of freeze, less if the area is explored, and ~2 minutes of slowness afterwards.  
- - The 100kt nukes and above cause some freeze (from ~15s on new map, up to ~10mins on a huge map), and some slowness afterwards. The nuke also causes chunk loading to be slower for a wide area, though not by much.
+ - The 100kt nukes and above cause some freeze (from ~5s on new map, up to ~10mins on a huge map), and some slowness afterwards. The nuke also causes chunk loading to be slower for a wide area, though not by much.
 
 These numbers get substantially worse in high density areas, such as the inside of a factory, although the freeze time reduces in explored areas.
 I had originally implemented entities sheltering one another from the blast, and had debris flying off of destroyed entities, but this made little difference to the outcome, and slowed it down, so the feature was removed.
