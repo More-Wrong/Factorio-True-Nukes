@@ -2241,6 +2241,19 @@ script.on_nth_tick(3601, function(event)
 		end
 	end
 end)
+local function clearAllCraters(surface)
+	local l = {};
+	for _,t in pairs(surface.find_tiles_filtered({name={"nuclear-deep", "nuclear-deep-shallow-fill", "nuclear-deep-fill"}})) do
+		table.insert(l, {position=t.position, name = "deepwater"});
+	end
+	for _,t in pairs(surface.find_tiles_filtered({name={"nuclear-crater", "nuclear-crater-fill"}})) do
+		table.insert(l, {position=t.position, name = "water"});
+	end
+	for _,t in pairs(surface.find_tiles_filtered({name={"nuclear-shallow"}})) do
+		table.insert(l, {position=t.position, name = "water-shallow"});
+	end
+	surface.set_tiles(l);
+end 
 remote.add_interface("True-Nukes Scripts", {
 	thermobaricWeaponHit = thermobaric_weapon_hit,
 	atomicWeaponHit = atomic_weapon_hit,
@@ -2248,4 +2261,5 @@ remote.add_interface("True-Nukes Scripts", {
 	nukeTileChangesHeightAware = nukeTileChangesHeightAware,
 	nukeTileChangesHeightAwareHuge = nukeTileChangesHeightAwareHuge,
 	nukeTileChanges = nukeTileChanges,
+	clearAllCraters = clearAllCraters
 });
