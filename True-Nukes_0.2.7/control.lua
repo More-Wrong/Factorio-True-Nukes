@@ -1498,7 +1498,7 @@ local function optimisedChunkLoadHandler(chunkPosAndArea, chunkLoaderStruct, kil
 					end
 					
 					if(e.valid) then
-						e.destroy();
+						e.destroy{raise_destroy = true};
 					end
 				end
 			end
@@ -1518,7 +1518,7 @@ local function optimisedChunkLoadHandler(chunkPosAndArea, chunkLoaderStruct, kil
 					end
 					
 					if(e.valid) then
-						e.destroy();
+						e.destroy{raise_destroy = true};
 					end
 				end
 			end
@@ -1897,10 +1897,10 @@ local function atomic_weapon_hit(surface_index, source, position, crater_interna
 					v.destroy()
 				elseif cause and cause.valid then
 					if not v.die(force, cause) then
-						v.destroy()
+						v.destroy{raise_destroy = true}
 					end
 				elseif not v.die(force) then
-					v.destroy()
+					v.destroy{raise_destroy = true}
 				end
 			end
 		 end
@@ -1942,7 +1942,7 @@ local function atomic_weapon_hit(surface_index, source, position, crater_interna
 					v.die(force);
 				end
 				if(v.valid) then
-					v.destroy();
+					v.destroy{raise_destroy = true};
 				end
 			end
 		 end

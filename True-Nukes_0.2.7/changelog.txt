@@ -1,4 +1,9 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.2.7
+Date: 2022-01-25
+  Bugfixes:
+    - Added raise_destroy to all destroy calls apart from those on trees and base-game enemies. If anyone is tracking either, please start a thing in the discussion page of the mod portal.
+---------------------------------------------------------------------------------------------------
 Version: 0.2.6
 Date: 2022-01-16
   Bugfixes:
