@@ -1,4 +1,11 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.2.7
+Date: 2022-04-21
+  Features:
+    - Added material type selection and custom setting to allow manual override to material settings - this might not work to allow extra compatibility, but might help. Please feel free to ask for a material change to be implemented in the mod.
+  Bugfixes:
+    - Added compatibility with Nuclear Fuels and Clowns-AngelBob-Nuclear.
+---------------------------------------------------------------------------------------------------
 Version: 0.2.6
 Date: 2022-01-16
   Bugfixes:
