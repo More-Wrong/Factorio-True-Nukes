@@ -22,7 +22,7 @@ if settings.startup["enable-atomic-bomb"].value then
 			  {"plastic-bar", 20},
 			  {"superior-circuit-board", 5},
 			  {"explosives", 10},
-			  {bigBoomMaterial, 30},
+			  {nuke_materials.bigBoomMaterial, 30},
 			}
 	else
 		data.raw.recipe["atomic-bomb"].ingredients=
