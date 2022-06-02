@@ -2,7 +2,7 @@
 Version: 0.2.9
 Date: 2022-05-04
   Bugfixes:
-    - Fixed bug causing entities to both killed and destroyed.
+    - Fixed Angels compatibility
 ---------------------------------------------------------------------------------------------------
 Version: 0.2.8
 Date: 2022-04-21
