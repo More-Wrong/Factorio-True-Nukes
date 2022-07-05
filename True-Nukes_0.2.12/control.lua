@@ -1446,11 +1446,17 @@ end
 
 
 local function find_event_position(event)
-	 local position = event.target_position
-	 if(not position) then
-	 	position = event.source_position
-	 end
-	 return position
+	if(event.target_position)then
+		return event.target_position;
+	elseif(event.target_entity and event.target_entity.position) then
+		return event.target_entity.position;
+	elseif(event.source_position)then
+		return event.source_position;
+	elseif(event.source_entity and event.source_entity.position) then
+		return event.source_entity.position
+	else
+		return nil;
+	end
 end
 
 --chunkLoaderStruct: surface_index, blastIndex, blastId, force, source, position, crater_internal_r, crater_external_r, fireball_r, blast_max_r, init_blast, blast_min_damage, thermal_max_r, init_thermal
@@ -1466,10 +1472,6 @@ local function optimisedChunkLoadHandler(chunkPosAndArea, chunkLoaderStruct, kil
 	local minR = math.min(r1, r2, r3, r4)
 	local maxR = math.max(r1, r2, r3, r4)
 	if  ((minR<chunkLoaderStruct.blast_max_r) or (minR<chunkLoaderStruct.thermal_max_r)) then
-      
-
-		
-		
 		local cause = chunkLoaderStruct.source;
 		local force = chunkLoaderStruct.force;
 		local blastR = 0
