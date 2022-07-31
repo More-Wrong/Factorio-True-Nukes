@@ -4,35 +4,35 @@ local nuke_explosions = require("data-nuke-explosions")
 local nuke_materials = require("data-nukes-material")
 
 if settings.startup["enable-atomic-bomb"].value then
-	data.raw.projectile["atomic-rocket"].action = 
-	{
-	  type = "direct",
-	  action_delivery =
-	  {
-		type = "instant",
-		target_effects = nuke_explosions.N20t_detonation
-		
-	  }
-	}
-	data.raw.ammo["atomic-bomb"].ammo_type.range_modifier = 6
-	data.raw.recipe["atomic-bomb"].energy_required=90
-	if mods["bobelectronics"] then
-		data.raw.recipe["atomic-bomb"].ingredients=
-			{
-			  {"plastic-bar", 20},
-			  {"superior-circuit-board", 5},
-			  {"explosives", 10},
-			  {nuke_materials.boomMaterial, 30},
-			}
-	else
-		data.raw.recipe["atomic-bomb"].ingredients=
-			{
-			  {"rocket-control-unit", 10},
-			  {"processing-unit", 5},
-			  {"explosives", 10},
-			  {nuke_materials.boomMaterial, 30},
-			}
-	end
+  data.raw.projectile["atomic-rocket"].action =
+    {
+      type = "direct",
+      action_delivery =
+      {
+        type = "instant",
+        target_effects = nuke_explosions.N20t_detonation
+
+      }
+    }
+  data.raw.ammo["atomic-bomb"].ammo_type.range_modifier = 6
+  data.raw.recipe["atomic-bomb"].energy_required=90
+  if mods["bobelectronics"] then
+    data.raw.recipe["atomic-bomb"].ingredients=
+      {
+        {"plastic-bar", 20},
+        {"superior-circuit-board", 5},
+        {"explosives", 10},
+        {nuke_materials.boomMaterial, 30},
+      }
+  else
+    data.raw.recipe["atomic-bomb"].ingredients=
+      {
+        {"rocket-control-unit", 10},
+        {"processing-unit", 5},
+        {"explosives", 10},
+        {nuke_materials.boomMaterial, 30},
+      }
+  end
 end
 
 local atom = data.raw["ammo"]["atomic-bomb"]
@@ -43,32 +43,32 @@ atom.pictures.layers[2].filename="__True-Nukes__/graphics/rocket-light-1.png"
 atom.pictures.layers[2].mipmap_count = 4
 
 data:extend({
-fireutil.add_basic_fire_graphics_and_effects_definitions
-{
-  type = "fire",
-  name = "nuclear-fire",
-  flags = {"placeable-off-grid", "not-on-map"},
-  damage_per_tick = {amount = 130 / 60, type = "fire"},
-  maximum_damage_multiplier = 6,
-  damage_multiplier_increase_per_added_fuel = 1,
-  damage_multiplier_decrease_per_tick = 0.0005,
+  fireutil.add_basic_fire_graphics_and_effects_definitions
+  {
+    type = "fire",
+    name = "nuclear-fire",
+    flags = {"placeable-off-grid", "not-on-map"},
+    damage_per_tick = {amount = 130 / 60, type = "fire"},
+    maximum_damage_multiplier = 6,
+    damage_multiplier_increase_per_added_fuel = 1,
+    damage_multiplier_decrease_per_tick = 0.0005,
 
-  spawn_entity = "fire-flame-on-tree",
+    spawn_entity = "fire-flame-on-tree",
 
-  spread_delay = 300,
-  spread_delay_deviation = 180,
-  maximum_spread_count = 100,
+    spread_delay = 300,
+    spread_delay_deviation = 180,
+    maximum_spread_count = 100,
 
-  emissions_per_second = 0.005,
+    emissions_per_second = 0.005,
 
-  initial_lifetime = 3600,
-  lifetime_increase_by = 150,
-  lifetime_increase_cooldown = 4,
-  maximum_lifetime = 3600,
-  delay_between_initial_flames = 10,
+    initial_lifetime = 3600,
+    lifetime_increase_by = 150,
+    lifetime_increase_cooldown = 4,
+    maximum_lifetime = 3600,
+    delay_between_initial_flames = 10,
   --initial_flame_count = 1,
 
-}})
+  }})
 
 
 
@@ -85,7 +85,7 @@ radiation_cloud.created_effect[1].action_delivery.target_effects[1].entity_name 
 radiation_cloud.created_effect[2].action_delivery.target_effects[1].entity_name = "radiation-cloud-visual-dummy"
 radiation_cloud.duration=60*60
 
-local fallout = 
+local fallout =
   {
     type = "projectile",
     name = "fallout",
@@ -136,7 +136,7 @@ lingering_radiation_cloud.fade_away_duration = 40 * 60
 lingering_radiation_cloud.created_effect[1].action_delivery.target_effects[1].entity_name = "lingering-radiation-cloud-visual-dummy"
 lingering_radiation_cloud.created_effect[2].action_delivery.target_effects[1].entity_name = "lingering-radiation-cloud-visual-dummy"
 
-local lingering_fallout = 
+local lingering_fallout =
   {
     type = "projectile",
     name = "lingering-fallout",
@@ -172,8 +172,8 @@ data:extend{radiation_cloud_vis_dum, radiation_cloud, fallout, lingering_radiati
 
 
 if(settings.startup["enable-very-small-atomic-artillery"].value or settings.startup["enable-small-atomic-artillery"].value
-		or settings.startup["enable-atomic-artillery"].value or settings.startup["enable-big-atomic-artillery"].value or settings.startup["enable-very-big-atomic-artillery"].value) then
-	require("data-nukes-artillery")
+  or settings.startup["enable-atomic-artillery"].value or settings.startup["enable-big-atomic-artillery"].value or settings.startup["enable-very-big-atomic-artillery"].value) then
+  require("data-nukes-artillery")
 end
 
 
@@ -182,20 +182,20 @@ end
 
 
 local big_atomic_bomb_recipe = {
-    type = "recipe",
-    name = "big-atomic-bomb",
-    enabled = false,
-    energy_required = 180,
-    ingredients =
-    {
-      {"atomic-bomb", 1},
-      {"processing-unit", 10},
-      {nuke_materials.boomMaterial, 75},
-      {"explosives", 10},
-      {"rocket-fuel", 20}
-    },
-    result = "big-atomic-bomb"
-  }
+  type = "recipe",
+  name = "big-atomic-bomb",
+  enabled = false,
+  energy_required = 180,
+  ingredients =
+  {
+    {"atomic-bomb", 1},
+    {"processing-unit", 10},
+    {nuke_materials.boomMaterial, 75},
+    {"explosives", 10},
+    {"rocket-fuel", 20}
+  },
+  result = "big-atomic-bomb"
+}
 
 local  big_atomic_bomb_item = table.deepcopy(data.raw["ammo"]["atomic-bomb"])
 big_atomic_bomb_item.name = "big-atomic-bomb"
@@ -207,7 +207,7 @@ big_atomic_bomb_item.ammo_type.action.action_delivery.projectile = "big-atomic-b
 big_atomic_bomb_item.icon = "__True-Nukes__/graphics/big-atomic-bomb.png"
 big_atomic_bomb_item.stack_size = 5
 if mods["SchallTankPlatoon"] then
-	big_atomic_bomb_item.order = "d[rocket-launcher]-n[very-big-atomic-bomb]"
+  big_atomic_bomb_item.order = "d[rocket-launcher]-n[very-big-atomic-bomb]"
 end
 big_atomic_bomb_item.pictures.layers[1].filename="__True-Nukes__/graphics/big-atomic-bomb.png"
 big_atomic_bomb_item.pictures.layers[1].mipmap_count = 4
@@ -218,19 +218,19 @@ local big_atomic_bomb_projectile = table.deepcopy(data.raw["projectile"]["atomic
 big_atomic_bomb_projectile.name = "big-atomic-bomb-projectile"
 big_atomic_bomb_projectile.action.action_delivery.target_effects = nuke_explosions.N500t_detonation
 big_atomic_bomb_projectile.created_effect = {
-					  type = "direct",
-					  action_delivery =
-					  {
-						type = "instant",
-						target_effects = {
-				            type = "script",
-							effect_id = "Nuke firing"
-				          }
-					  }
-                  }
+  type = "direct",
+  action_delivery =
+  {
+    type = "instant",
+    target_effects = {
+      type = "script",
+      effect_id = "Nuke firing"
+    }
+  }
+}
 
 if(settings.startup["enable-big-atomic-bomb"].value) then
-	data:extend{big_atomic_bomb_recipe, big_atomic_bomb_item, big_atomic_bomb_projectile}
+  data:extend{big_atomic_bomb_recipe, big_atomic_bomb_item, big_atomic_bomb_projectile}
 end
 
 
@@ -242,20 +242,20 @@ end
 
 
 local very_big_atomic_bomb_recipe = {
-    type = "recipe",
-    name = "very-big-atomic-bomb",
-    enabled = false,
-    energy_required = 300,
-    ingredients =
-    {
-      {"atomic-bomb", 1},
-      {"processing-unit", 20},
-      {nuke_materials.boomMaterial, 100},
-      {"explosives", 10},
-      {"rocket-fuel", 50}
-    },
-    result = "very-big-atomic-bomb"
-  }
+  type = "recipe",
+  name = "very-big-atomic-bomb",
+  enabled = false,
+  energy_required = 300,
+  ingredients =
+  {
+    {"atomic-bomb", 1},
+    {"processing-unit", 20},
+    {nuke_materials.boomMaterial, 100},
+    {"explosives", 10},
+    {"rocket-fuel", 50}
+  },
+  result = "very-big-atomic-bomb"
+}
 
 local  very_big_atomic_bomb_item = table.deepcopy(data.raw["ammo"]["atomic-bomb"])
 very_big_atomic_bomb_item.name = "very-big-atomic-bomb"
@@ -272,26 +272,26 @@ very_big_atomic_bomb_item.pictures.layers[2].filename="__True-Nukes__/graphics/r
 very_big_atomic_bomb_item.pictures.layers[2].mipmap_count = 4
 
 if mods["SchallTankPlatoon"] then
-	very_big_atomic_bomb_item.order = "d[rocket-launcher]-n[very-big-atomic-bomb]"
+  very_big_atomic_bomb_item.order = "d[rocket-launcher]-n[very-big-atomic-bomb]"
 end
 local very_big_atomic_bomb_projectile = table.deepcopy(data.raw["projectile"]["atomic-rocket"])
 very_big_atomic_bomb_projectile.name = "very-big-atomic-bomb-projectile"
 very_big_atomic_bomb_projectile.action.action_delivery.target_effects = nuke_explosions.N1kt_detonation
 very_big_atomic_bomb_projectile.created_effect = {
-					  type = "direct",
-					  action_delivery =
-					  {
-						type = "instant",
-						target_effects = {
-				            type = "script",
-							effect_id = "Nuke firing"
-				          }
-					  }
-                  }
+  type = "direct",
+  action_delivery =
+  {
+    type = "instant",
+    target_effects = {
+      type = "script",
+      effect_id = "Nuke firing"
+    }
+  }
+}
 
 
 if(settings.startup["enable-very-big-atomic-bomb"].value) then
-	data:extend{very_big_atomic_bomb_recipe, very_big_atomic_bomb_item, very_big_atomic_bomb_projectile}
+  data:extend{very_big_atomic_bomb_recipe, very_big_atomic_bomb_item, very_big_atomic_bomb_projectile}
 end
 
 
@@ -301,70 +301,70 @@ end
 
 
 if(settings.startup["enable-big-atomic-ammo"].value or settings.startup["enable-big-atomic-cannons"].value
-    	or settings.startup["enable-big-atomic-bomb"].value or settings.startup["enable-very-big-atomic-bomb"].value
-    	or settings.startup["enable-big-atomic-artillery"].value or settings.startup["enable-very-big-atomic-artillery"].value) then
-	local scary_nuke_tech = table.deepcopy(data.raw["technology"]["atomic-bomb"])
-	scary_nuke_tech.name = "scary-atomic-weapons"
-	scary_nuke_tech.effects = {}
-	
-	if (settings.startup["enable-big-atomic-bomb"].value) then
-		table.insert(scary_nuke_tech.effects, 
-		  {
-		    type = "unlock-recipe",
-		    recipe = "big-atomic-bomb"
-		  })
-	end
-	if (settings.startup["enable-very-big-atomic-bomb"].value) then
-		table.insert(scary_nuke_tech.effects, 
-		  {
-		    type = "unlock-recipe",
-		    recipe = "very-big-atomic-bomb"
-		  })
-	end
-	if (settings.startup["enable-big-atomic-artillery"].value or settings.startup["enable-very-big-atomic-artillery"].value) then
-		table.insert(scary_nuke_tech.effects, 
-		  {
-		    type = "unlock-recipe",
-		    recipe = "TN-big-atomic-artillery-shell"
-		  })
-	end
-	scary_nuke_tech.unit.count=1000
-	scary_nuke_tech.unit.ingredients = {
-		    {"automation-science-pack", 1},
-		    {"logistic-science-pack", 1},
-		    {"chemical-science-pack", 1},
-		    {"military-science-pack", 1},
-		    {"production-science-pack", 1},
-		    {"utility-science-pack", 1},
-		    {"space-science-pack", 1}
-		  }
-    scary_nuke_tech.order = "e-b-a"
-	scary_nuke_tech.prerequisites = {} -- "atomic-artillery-shells", "californium-processing"
-	if(settings.startup["enable-atomic-ammo"].value or settings.startup["enable-big-atomic-ammo"].value
-			or settings.startup["enable-atomic-cannons"].value or settings.startup["enable-big-atomic-cannons"].value) then
-		table.insert(scary_nuke_tech.prerequisites, "californium-processing")
-		if(settings.startup["enable-small-atomic-artillery"].value or settings.startup["enable-atomic-artillery"].value
-    			or settings.startup["enable-big-atomic-artillery"].value or settings.startup["enable-very-big-atomic-artillery"].value) then
-			table.insert(scary_nuke_tech.prerequisites, "atomic-artillery-shells")
-		end
-	elseif(settings.startup["enable-small-atomic-artillery"].value or settings.startup["enable-atomic-artillery"].value
-    	or settings.startup["enable-big-atomic-artillery"].value or settings.startup["enable-very-big-atomic-artillery"].value) then
-		table.insert(scary_nuke_tech.prerequisites, "atomic-artillery-shells")
-	else
-		table.insert(scary_nuke_tech.prerequisites, "atomic-bomb")
-	end
-	scary_nuke_tech.icon = "__True-Nukes__/graphics/scary-atomic-tech.png"
-	scary_nuke_tech.icon_mipmaps = 1
-	data:extend{scary_nuke_tech}
+  or settings.startup["enable-big-atomic-bomb"].value or settings.startup["enable-very-big-atomic-bomb"].value
+  or settings.startup["enable-big-atomic-artillery"].value or settings.startup["enable-very-big-atomic-artillery"].value) then
+  local scary_nuke_tech = table.deepcopy(data.raw["technology"]["atomic-bomb"])
+  scary_nuke_tech.name = "scary-atomic-weapons"
+  scary_nuke_tech.effects = {}
+
+  if (settings.startup["enable-big-atomic-bomb"].value) then
+    table.insert(scary_nuke_tech.effects,
+      {
+        type = "unlock-recipe",
+        recipe = "big-atomic-bomb"
+      })
+  end
+  if (settings.startup["enable-very-big-atomic-bomb"].value) then
+    table.insert(scary_nuke_tech.effects,
+      {
+        type = "unlock-recipe",
+        recipe = "very-big-atomic-bomb"
+      })
+  end
+  if (settings.startup["enable-big-atomic-artillery"].value or settings.startup["enable-very-big-atomic-artillery"].value) then
+    table.insert(scary_nuke_tech.effects,
+      {
+        type = "unlock-recipe",
+        recipe = "TN-big-atomic-artillery-shell"
+      })
+  end
+  scary_nuke_tech.unit.count=1000
+  scary_nuke_tech.unit.ingredients = {
+    {"automation-science-pack", 1},
+    {"logistic-science-pack", 1},
+    {"chemical-science-pack", 1},
+    {"military-science-pack", 1},
+    {"production-science-pack", 1},
+    {"utility-science-pack", 1},
+    {"space-science-pack", 1}
+  }
+  scary_nuke_tech.order = "e-b-a"
+  scary_nuke_tech.prerequisites = {} -- "atomic-artillery-shells", "californium-processing"
+  if(settings.startup["enable-atomic-ammo"].value or settings.startup["enable-big-atomic-ammo"].value
+    or settings.startup["enable-atomic-cannons"].value or settings.startup["enable-big-atomic-cannons"].value) then
+    table.insert(scary_nuke_tech.prerequisites, "californium-processing")
+    if(settings.startup["enable-small-atomic-artillery"].value or settings.startup["enable-atomic-artillery"].value
+      or settings.startup["enable-big-atomic-artillery"].value or settings.startup["enable-very-big-atomic-artillery"].value) then
+      table.insert(scary_nuke_tech.prerequisites, "atomic-artillery-shells")
+    end
+  elseif(settings.startup["enable-small-atomic-artillery"].value or settings.startup["enable-atomic-artillery"].value
+    or settings.startup["enable-big-atomic-artillery"].value or settings.startup["enable-very-big-atomic-artillery"].value) then
+    table.insert(scary_nuke_tech.prerequisites, "atomic-artillery-shells")
+  else
+    table.insert(scary_nuke_tech.prerequisites, "atomic-bomb")
+  end
+  scary_nuke_tech.icon = "__True-Nukes__/graphics/scary-atomic-tech.png"
+  scary_nuke_tech.icon_mipmaps = 1
+  data:extend{scary_nuke_tech}
 end
 
 if(settings.startup["enable-atomic-ammo"].value or settings.startup["enable-big-atomic-ammo"].value
-    	or settings.startup["enable-atomic-cannons"].value or settings.startup["enable-big-atomic-cannons"].value) then
-	require("data-nukes-californium")
+  or settings.startup["enable-atomic-cannons"].value or settings.startup["enable-big-atomic-cannons"].value) then
+  require("data-nukes-californium")
 end
 
 if(settings.startup["enable-very-big-atomic-artillery"].value or settings.startup["enable-fusion-building"].value or settings.startup["enable-mega-fusion-building"].value) then
-	require("data-nukes-huge")
+  require("data-nukes-huge")
 end
 
 
@@ -376,9 +376,9 @@ if ((settings.startup["enable-atomic-cannons"].value or settings.startup["enable
   require("data-nukes-schall")
 end
 if(settings.startup["enable-fire-shield"].value) then
-	table.insert(data.raw.technology["atomic-bomb"].effects, {
-        type = "unlock-recipe",
-        recipe = "fire-shield-equipment"
-      })
+  table.insert(data.raw.technology["atomic-bomb"].effects, {
+    type = "unlock-recipe",
+    recipe = "fire-shield-equipment"
+  })
 end
       

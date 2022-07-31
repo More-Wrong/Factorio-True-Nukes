@@ -6,219 +6,219 @@ local nuke_materials = require("data-nukes-material")
 local circuit_type;
 local upgrade_circuit_mult = 5
 if not mods["bobelectronics"] then
-	circuit_type = "processing-unit"
+  circuit_type = "processing-unit"
 else
-	circuit_type = "superior-circuit-board"
-	upgrade_circuit_mult = 1
+  circuit_type = "superior-circuit-board"
+  upgrade_circuit_mult = 1
 end
 
 local material = nuke_materials.smallBoomMaterial;
 if(material == "californium") then
-	data:extend({
-	  {
-	    type = "item",
-	    name = "californium",
-	    icon = "__True-Nukes__/graphics/californium.png",
-	    icon_size = 64, icon_mipmaps = 4,
-		pictures =
-		{
-		  layers =
-		  {
-		    {
-		      size = 64,
-		      filename = "__True-Nukes__/graphics/californium.png",
-		      scale = 0.25,
-		      mipmap_count = 4
-		    },
-		    {
-		      draw_as_light = true,
-		      blend_mode = "additive",
-		      size = 64,
-		      filename = "__base__/graphics/icons/uranium-235.png",
-		      scale = 0.25,
-		      tint = {r = 0.8, g = 0.8, b = 0.1, a = 0.8},
-		      mipmap_count = 4
-		    }
-		  }
-		},
-	    subgroup = "intermediate-product",
-	    order = "r[z-californium]",
-	    stack_size = 100
-	  },
-	  {
-	    type = "recipe",
-	    name = "californium-processing",
-	    energy_required = 120,
-	    enabled = false,
-	    category = "centrifuging",
-	    ingredients = {{nuke_materials.boomMaterial, 10}, {nuke_materials.deadMaterial, 1}},
-	    icon = "__True-Nukes__/graphics/californium-processing.png",
-	    icon_size = 64, icon_mipmaps = 4,
-	    subgroup = "intermediate-product",
-	    order = "r[uranium-processing]-d[californium-processing]",
-	    main_product = "californium",
-	    results = {{nuke_materials.boomMaterial, 9}, {"californium", 1}},
-	    allow_decomposition = false
-	  },
+  data:extend({
+    {
+      type = "item",
+      name = "californium",
+      icon = "__True-Nukes__/graphics/californium.png",
+      icon_size = 64, icon_mipmaps = 4,
+      pictures =
+      {
+        layers =
+        {
+          {
+            size = 64,
+            filename = "__True-Nukes__/graphics/californium.png",
+            scale = 0.25,
+            mipmap_count = 4
+          },
+          {
+            draw_as_light = true,
+            blend_mode = "additive",
+            size = 64,
+            filename = "__base__/graphics/icons/uranium-235.png",
+            scale = 0.25,
+            tint = {r = 0.8, g = 0.8, b = 0.1, a = 0.8},
+            mipmap_count = 4
+          }
+        }
+      },
+      subgroup = "intermediate-product",
+      order = "r[z-californium]",
+      stack_size = 100
+    },
+    {
+      type = "recipe",
+      name = "californium-processing",
+      energy_required = 120,
+      enabled = false,
+      category = "centrifuging",
+      ingredients = {{nuke_materials.boomMaterial, 10}, {nuke_materials.deadMaterial, 1}},
+      icon = "__True-Nukes__/graphics/californium-processing.png",
+      icon_size = 64, icon_mipmaps = 4,
+      subgroup = "intermediate-product",
+      order = "r[uranium-processing]-d[californium-processing]",
+      main_product = "californium",
+      results = {{nuke_materials.boomMaterial, 9}, {"californium", 1}},
+      allow_decomposition = false
+    },
 
-	});
+  });
 end
 
 
 local atomic_ammo_recipe = {
-    type = "recipe",
-    name = "atomic-rounds-magazine",
-    enabled = false,
-    energy_required = 120,
-    ingredients =
-    {
-      {"uranium-rounds-magazine", 1},
-      {"low-density-structure", 10},
-      {material, 10},
-      {circuit_type, 2}
-    },
-    result = "atomic-rounds-magazine"
-  }
+  type = "recipe",
+  name = "atomic-rounds-magazine",
+  enabled = false,
+  energy_required = 120,
+  ingredients =
+  {
+    {"uranium-rounds-magazine", 1},
+    {"low-density-structure", 10},
+    {material, 10},
+    {circuit_type, 2}
+  },
+  result = "atomic-rounds-magazine"
+}
 local  atomic_ammo_item = {
-    type = "ammo",
-    name = "atomic-rounds-magazine",
-    icon = "__True-Nukes__/graphics/atomic-rounds-magazine.png",
-    icon_size = 64, icon_mipmaps = 4,
-	pictures = {
-      layers =
-      {
-        {
-          size = 64,
-          filename = "__True-Nukes__/graphics/atomic-rounds-magazine.png",
-          scale = 0.25,
-          mipmap_count = 4
-        },
-        {
-          draw_as_light = true,
-          flags = {"light"},
-          size = 64,
-          filename = "__True-Nukes__/graphics/atomic-rounds-magazine-light.png",
-          scale = 0.25,
-          mipmap_count = 4
-        }
-      }
-    },
-    ammo_type =
+  type = "ammo",
+  name = "atomic-rounds-magazine",
+  icon = "__True-Nukes__/graphics/atomic-rounds-magazine.png",
+  icon_size = 64, icon_mipmaps = 4,
+  pictures = {
+    layers =
     {
-      cooldown_modifier = 2.5,
-      category = "bullet",
-      target_type = "position",
-      clamp_position = true,
-      action =
       {
-        type = "direct",
-        action_delivery =
-        {
-          type = "instant",
-          source_effects =
-          {
-            type = "create-explosion",
-            entity_name = "explosion-gunshot"
-          },
-          target_effects = nuke_explosions.N0_1t_detonation
-        }
+        size = 64,
+        filename = "__True-Nukes__/graphics/atomic-rounds-magazine.png",
+        scale = 0.25,
+        mipmap_count = 4
+      },
+      {
+        draw_as_light = true,
+        flags = {"light"},
+        size = 64,
+        filename = "__True-Nukes__/graphics/atomic-rounds-magazine-light.png",
+        scale = 0.25,
+        mipmap_count = 4
       }
-    },
-    magazine_size = 10,
-    subgroup = "ammo",
-    order = "a[basic-clips]-d[atomic-rounds-magazine]",
-    stack_size = 20
-  }
+    }
+  },
+  ammo_type =
+  {
+    cooldown_modifier = 2.5,
+    category = "bullet",
+    target_type = "position",
+    clamp_position = true,
+    action =
+    {
+      type = "direct",
+      action_delivery =
+      {
+        type = "instant",
+        source_effects =
+        {
+          type = "create-explosion",
+          entity_name = "explosion-gunshot"
+        },
+        target_effects = nuke_explosions.N0_1t_detonation
+      }
+    }
+  },
+  magazine_size = 10,
+  subgroup = "ammo",
+  order = "a[basic-clips]-d[atomic-rounds-magazine]",
+  stack_size = 20
+}
 
 
 if(settings.startup["enable-atomic-ammo"].value or settings.startup["enable-big-atomic-ammo"].value) then
-	data:extend{atomic_ammo_recipe, atomic_ammo_item}
+  data:extend{atomic_ammo_recipe, atomic_ammo_item}
 end
 
 local big_atomic_ammo_recipe = {
-    type = "recipe",
-    name = "big-atomic-rounds-magazine",
-    enabled = false,
-    energy_required = 240,
-    ingredients =
-    {
-      {"atomic-rounds-magazine", 1},
-      {"low-density-structure", 10},
-      {material, 20},
-      {"processing-unit", 2*upgrade_circuit_mult}
-    },
-    result = "big-atomic-rounds-magazine"
-  }
+  type = "recipe",
+  name = "big-atomic-rounds-magazine",
+  enabled = false,
+  energy_required = 240,
+  ingredients =
+  {
+    {"atomic-rounds-magazine", 1},
+    {"low-density-structure", 10},
+    {material, 20},
+    {"processing-unit", 2*upgrade_circuit_mult}
+  },
+  result = "big-atomic-rounds-magazine"
+}
 local  big_atomic_ammo_item = {
-    type = "ammo",
-    name = "big-atomic-rounds-magazine",
-    icon = "__True-Nukes__/graphics/big-atomic-rounds-magazine.png",
-    icon_size = 64, icon_mipmaps = 4,
-	pictures = {
-      layers =
-      {
-        {
-          size = 64,
-          filename = "__True-Nukes__/graphics/big-atomic-rounds-magazine.png",
-          scale = 0.25,
-          mipmap_count = 4
-        },
-        {
-          draw_as_light = true,
-          flags = {"light"},
-          size = 64,
-          filename = "__True-Nukes__/graphics/atomic-rounds-magazine-light.png",
-          scale = 0.25,
-          mipmap_count = 4
-        }
-      }
-    },
-    ammo_type =
+  type = "ammo",
+  name = "big-atomic-rounds-magazine",
+  icon = "__True-Nukes__/graphics/big-atomic-rounds-magazine.png",
+  icon_size = 64, icon_mipmaps = 4,
+  pictures = {
+    layers =
     {
-      cooldown_modifier = 5,
-      category = "bullet",
-      target_type = "position",
-      clamp_position = true,
-      action =
       {
-        type = "direct",
-        action_delivery =
-        {
-          type = "instant",
-          source_effects =
-          {
-            type = "create-explosion",
-            entity_name = "explosion-gunshot"
-          },
-          target_effects = nuke_explosions.N0_5t_detonation
-        }
+        size = 64,
+        filename = "__True-Nukes__/graphics/big-atomic-rounds-magazine.png",
+        scale = 0.25,
+        mipmap_count = 4
+      },
+      {
+        draw_as_light = true,
+        flags = {"light"},
+        size = 64,
+        filename = "__True-Nukes__/graphics/atomic-rounds-magazine-light.png",
+        scale = 0.25,
+        mipmap_count = 4
       }
-    },
-    magazine_size = 10,
-    subgroup = "ammo",
-    order = "a[basic-clips]-d[big-atomic-rounds-magazine]",
-    stack_size = 10
-  }
+    }
+  },
+  ammo_type =
+  {
+    cooldown_modifier = 5,
+    category = "bullet",
+    target_type = "position",
+    clamp_position = true,
+    action =
+    {
+      type = "direct",
+      action_delivery =
+      {
+        type = "instant",
+        source_effects =
+        {
+          type = "create-explosion",
+          entity_name = "explosion-gunshot"
+        },
+        target_effects = nuke_explosions.N0_5t_detonation
+      }
+    }
+  },
+  magazine_size = 10,
+  subgroup = "ammo",
+  order = "a[basic-clips]-d[big-atomic-rounds-magazine]",
+  stack_size = 10
+}
 
 
 if(settings.startup["enable-big-atomic-ammo"].value) then
-	data:extend{big_atomic_ammo_recipe, big_atomic_ammo_item}
+  data:extend{big_atomic_ammo_recipe, big_atomic_ammo_item}
 end
 
 local atomic_cannon_recipe = {
-    type = "recipe",
-    name = "atomic-cannon-shell",
-    enabled = false,
-    energy_required = 60,
-    ingredients =
-    {
-      {"explosive-uranium-cannon-shell", 1},
-      {"explosives", 5},
-      {material, 10},
-      {circuit_type, 5}
-    },
-    result = "atomic-cannon-shell"
-  }
+  type = "recipe",
+  name = "atomic-cannon-shell",
+  enabled = false,
+  energy_required = 60,
+  ingredients =
+  {
+    {"explosive-uranium-cannon-shell", 1},
+    {"explosives", 5},
+    {material, 10},
+    {circuit_type, 5}
+  },
+  result = "atomic-cannon-shell"
+}
 
 local  atomic_cannon_item = table.deepcopy(data.raw["ammo"]["explosive-uranium-cannon-shell"])
 atomic_cannon_item.name = "atomic-cannon-shell"
@@ -245,22 +245,22 @@ atomic_cannon_projectile.final_action = {
   }
 }
 if(settings.startup["enable-atomic-cannons"].value or settings.startup["enable-big-atomic-cannons"].value) then
-	data:extend{atomic_cannon_recipe, atomic_cannon_item, atomic_cannon_projectile}
+  data:extend{atomic_cannon_recipe, atomic_cannon_item, atomic_cannon_projectile}
 end
 local big_atomic_cannon_recipe = {
-    type = "recipe",
-    name = "big-atomic-cannon-shell",
-    enabled = false,
-    energy_required = 120,
-    ingredients =
-    {
-      {"atomic-cannon-shell", 1},
-      {material, 15},
-      {"low-density-structure", 10},
-      {"processing-unit", 3*upgrade_circuit_mult}
-    },
-    result = "big-atomic-cannon-shell"
-  }
+  type = "recipe",
+  name = "big-atomic-cannon-shell",
+  enabled = false,
+  energy_required = 120,
+  ingredients =
+  {
+    {"atomic-cannon-shell", 1},
+    {material, 15},
+    {"low-density-structure", 10},
+    {"processing-unit", 3*upgrade_circuit_mult}
+  },
+  result = "big-atomic-cannon-shell"
+}
 
 local  big_atomic_cannon_item = table.deepcopy(data.raw["ammo"]["explosive-uranium-cannon-shell"])
 big_atomic_cannon_item.name = "big-atomic-cannon-shell"
@@ -287,30 +287,30 @@ big_atomic_cannon_projectile.final_action = {
   }
 }
 if(settings.startup["enable-big-atomic-cannons"].value) then
-	data:extend{big_atomic_cannon_recipe, big_atomic_cannon_item, big_atomic_cannon_projectile}
+  data:extend{big_atomic_cannon_recipe, big_atomic_cannon_item, big_atomic_cannon_projectile}
 end
 
 
 
 
 local small_atomic_bomb_recipe = {
-    type = "recipe",
-    name = "small-atomic-bomb",
-    enabled = false,
-    energy_required = 60,
-    ingredients =
-    {
-      {"plastic-bar", 20},
-      {"explosives", 5},
-      {material, 20},
-      {circuit_type, 10},
-      {"rocket-fuel", 5}
-    },
-    result = "small-atomic-bomb"
-  }
+  type = "recipe",
+  name = "small-atomic-bomb",
+  enabled = false,
+  energy_required = 60,
+  ingredients =
+  {
+    {"plastic-bar", 20},
+    {"explosives", 5},
+    {material, 20},
+    {circuit_type, 10},
+    {"rocket-fuel", 5}
+  },
+  result = "small-atomic-bomb"
+}
 
 if(settings.startup["enable-small-atomic-bomb"].value or settings.startup["enable-very-small-atomic-bomb"].value or settings.startup["enable-really-very-small-atomic-bomb"].value) then
-	data.raw["ammo"]["rocket"].icon = "__True-Nukes__/graphics/rocket.png"
+  data.raw["ammo"]["rocket"].icon = "__True-Nukes__/graphics/rocket.png"
 end
 
 local  small_atomic_bomb_item = table.deepcopy(data.raw["ammo"]["atomic-bomb"])
@@ -329,7 +329,7 @@ small_atomic_bomb_item.pictures.layers[2].filename="__True-Nukes__/graphics/rock
 small_atomic_bomb_item.pictures.layers[2].mipmap_count = 4
 
 if mods["SchallTankPlatoon"] then
-	small_atomic_bomb_item.order = "d[rocket-launcher]-n[ small-atomic-bomb]"
+  small_atomic_bomb_item.order = "d[rocket-launcher]-n[ small-atomic-bomb]"
 end
 
 local small_atomic_bomb_projectile = table.deepcopy(data.raw["projectile"]["atomic-rocket"])
@@ -337,24 +337,24 @@ small_atomic_bomb_projectile.name = "small-atomic-bomb-projectile"
 small_atomic_bomb_projectile.action.action_delivery.target_effects = nuke_explosions.N8t_detonation
 
 if(settings.startup["enable-small-atomic-bomb"].value) then
-	data:extend{small_atomic_bomb_recipe, small_atomic_bomb_item, small_atomic_bomb_projectile}
+  data:extend{small_atomic_bomb_recipe, small_atomic_bomb_item, small_atomic_bomb_projectile}
 end
 
 local very_small_atomic_bomb_recipe = {
-    type = "recipe",
-    name = "very-small-atomic-bomb",
-    enabled = false,
-    energy_required = 40,
-    ingredients =
-    {
-      {"plastic-bar", 20},
-      {"explosives", 5},
-      {material, 15},
-      {circuit_type, 5},
-      {"rocket-fuel", 3}
-    },
-    result = "very-small-atomic-bomb"
-  }
+  type = "recipe",
+  name = "very-small-atomic-bomb",
+  enabled = false,
+  energy_required = 40,
+  ingredients =
+  {
+    {"plastic-bar", 20},
+    {"explosives", 5},
+    {material, 15},
+    {circuit_type, 5},
+    {"rocket-fuel", 3}
+  },
+  result = "very-small-atomic-bomb"
+}
 
 local  very_small_atomic_bomb_item = table.deepcopy(data.raw["ammo"]["atomic-bomb"])
 very_small_atomic_bomb_item.name = "very-small-atomic-bomb"
@@ -372,7 +372,7 @@ very_small_atomic_bomb_item.pictures.layers[2].filename="__True-Nukes__/graphics
 very_small_atomic_bomb_item.pictures.layers[2].mipmap_count = 4
 
 if mods["SchallTankPlatoon"] then
-	very_small_atomic_bomb_item.order = "d[rocket-launcher]-n[ avery-small-atomic-bomb]"
+  very_small_atomic_bomb_item.order = "d[rocket-launcher]-n[ avery-small-atomic-bomb]"
 end
 
 local very_small_atomic_bomb_projectile = table.deepcopy(data.raw["projectile"]["atomic-rocket"])
@@ -380,24 +380,24 @@ very_small_atomic_bomb_projectile.name = "very-small-atomic-bomb-projectile"
 very_small_atomic_bomb_projectile.action.action_delivery.target_effects = nuke_explosions.N4t_detonation
 
 if(settings.startup["enable-very-small-atomic-bomb"].value) then
-	data:extend{very_small_atomic_bomb_recipe, very_small_atomic_bomb_item, very_small_atomic_bomb_projectile}
+  data:extend{very_small_atomic_bomb_recipe, very_small_atomic_bomb_item, very_small_atomic_bomb_projectile}
 end
 
 local really_very_small_atomic_bomb_recipe = {
-    type = "recipe",
-    name = "really-very-small-atomic-bomb",
-    enabled = false,
-    energy_required = 20,
-    ingredients =
-    {
-      {"plastic-bar", 20},
-      {"explosives", 5},
-      {material, 10},
-      {circuit_type, 5},
-      {"rocket-fuel", 2}
-    },
-    result = "really-very-small-atomic-bomb"
-  }
+  type = "recipe",
+  name = "really-very-small-atomic-bomb",
+  enabled = false,
+  energy_required = 20,
+  ingredients =
+  {
+    {"plastic-bar", 20},
+    {"explosives", 5},
+    {material, 10},
+    {circuit_type, 5},
+    {"rocket-fuel", 2}
+  },
+  result = "really-very-small-atomic-bomb"
+}
 
 local  really_very_small_atomic_bomb_item = table.deepcopy(data.raw["ammo"]["atomic-bomb"])
 really_very_small_atomic_bomb_item.name = "really-very-small-atomic-bomb"
@@ -414,7 +414,7 @@ really_very_small_atomic_bomb_item.pictures.layers[1].mipmap_count = 4
 really_very_small_atomic_bomb_item.pictures.layers[2].mipmap_count = 4
 
 if mods["SchallTankPlatoon"] then
-	really_very_small_atomic_bomb_item.order = "d[rocket-launcher]-n[ areally-very-small-atomic-bomb]"
+  really_very_small_atomic_bomb_item.order = "d[rocket-launcher]-n[ areally-very-small-atomic-bomb]"
 end
 
 local really_very_small_atomic_bomb_projectile = table.deepcopy(data.raw["projectile"]["atomic-rocket"])
@@ -422,7 +422,7 @@ really_very_small_atomic_bomb_projectile.name = "really-very-small-atomic-bomb-p
 really_very_small_atomic_bomb_projectile.action.action_delivery.target_effects = nuke_explosions.N2t_detonation
 
 if(settings.startup["enable-really-very-small-atomic-bomb"].value) then
-	data:extend{really_very_small_atomic_bomb_recipe, really_very_small_atomic_bomb_item, really_very_small_atomic_bomb_projectile}
+  data:extend{really_very_small_atomic_bomb_recipe, really_very_small_atomic_bomb_item, really_very_small_atomic_bomb_projectile}
 end
 
 data:extend{
@@ -451,66 +451,66 @@ data:extend{
 }
 
 if mods["apm_nuclear_ldinc"] then
-	table.insert(data.raw.technology["californium-processing"].prerequisites, "apm_nuclear_breeder");
+  table.insert(data.raw.technology["californium-processing"].prerequisites, "apm_nuclear_breeder");
 elseif mods["Nuclear Fuel"] then
-	table.insert(data.raw.technology["californium-processing"].prerequisites, "plutonium-breeding");
+  table.insert(data.raw.technology["californium-processing"].prerequisites, "plutonium-breeding");
 elseif mods["Clowns-AngelBob-Nuclear"] then
-	table.insert(data.raw.technology["californium-processing"].prerequisites, "nuclear-fuel-reprocessing-2");
+  table.insert(data.raw.technology["californium-processing"].prerequisites, "nuclear-fuel-reprocessing-2");
 else
-	table.insert(data.raw.technology["californium-processing"].prerequisites, "kovarex-enrichment-process");
+  table.insert(data.raw.technology["californium-processing"].prerequisites, "kovarex-enrichment-process");
 end
 
 if(settings.startup["enable-atomic-ammo"].value or settings.startup["enable-big-atomic-ammo"].value) then
-	table.insert(data.raw.technology["californium-processing"].effects, 
-	  {
-	    type = "unlock-recipe",
-	    recipe = "atomic-rounds-magazine"
-	  })
-	  
+  table.insert(data.raw.technology["californium-processing"].effects,
+    {
+      type = "unlock-recipe",
+      recipe = "atomic-rounds-magazine"
+    })
+
 end
 if(settings.startup["enable-atomic-cannons"].value or settings.startup["enable-big-atomic-cannons"].value) then
-	table.insert(data.raw.technology["californium-processing"].effects, 
-	  {
-	    type = "unlock-recipe",
-	    recipe = "atomic-cannon-shell"
-	  })
+  table.insert(data.raw.technology["californium-processing"].effects,
+    {
+      type = "unlock-recipe",
+      recipe = "atomic-cannon-shell"
+    })
 end
 if(settings.startup["enable-really-very-small-atomic-bomb"].value) then
-	table.insert(data.raw.technology["californium-processing"].effects, {
-	        type = "unlock-recipe",
-	        recipe = "really-very-small-atomic-bomb"
- 	     })
+  table.insert(data.raw.technology["californium-processing"].effects, {
+    type = "unlock-recipe",
+    recipe = "really-very-small-atomic-bomb"
+  })
 end
 if(settings.startup["enable-very-small-atomic-bomb"].value) then
-	table.insert(data.raw.technology["scary-atomic-weapons"].effects, {
-	        type = "unlock-recipe",
-	        recipe = "very-small-atomic-bomb"
- 	     })
+  table.insert(data.raw.technology["scary-atomic-weapons"].effects, {
+    type = "unlock-recipe",
+    recipe = "very-small-atomic-bomb"
+  })
 end
 if(settings.startup["enable-small-atomic-bomb"].value) then
-	table.insert(data.raw.technology["scary-atomic-weapons"].effects, {
-	        type = "unlock-recipe",
-	        recipe = "small-atomic-bomb"
- 	     })
+  table.insert(data.raw.technology["scary-atomic-weapons"].effects, {
+    type = "unlock-recipe",
+    recipe = "small-atomic-bomb"
+  })
 end
 if(material == "californium") then
-	table.insert(data.raw.technology["californium-processing"].effects, {
-	        type = "unlock-recipe",
-	        recipe = "californium-processing"
- 	     })
+  table.insert(data.raw.technology["californium-processing"].effects, {
+    type = "unlock-recipe",
+    recipe = "californium-processing"
+  })
 end
 
 if(settings.startup["enable-big-atomic-ammo"].value) then
-	table.insert(data.raw.technology["scary-atomic-weapons"].effects, 1, {
-		    type = "unlock-recipe",
-		    recipe = "big-atomic-rounds-magazine"
-		  })
+  table.insert(data.raw.technology["scary-atomic-weapons"].effects, 1, {
+    type = "unlock-recipe",
+    recipe = "big-atomic-rounds-magazine"
+  })
 end
 if(settings.startup["enable-big-atomic-cannons"].value) then
-	table.insert(data.raw.technology["scary-atomic-weapons"].effects, 2, {
-			type = "unlock-recipe",
-			recipe = "big-atomic-cannon-shell"
-		  })
+  table.insert(data.raw.technology["scary-atomic-weapons"].effects, 2, {
+    type = "unlock-recipe",
+    recipe = "big-atomic-cannon-shell"
+  })
 end
 
 

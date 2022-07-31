@@ -1,11 +1,11 @@
-local controlScript = require("control-script") 
-data.raw["utility-constants"]["default"].main_menu_simulations.nuke_many_2t = 
-{
-  checkboard = false,
-  save = "__base__/menu-simulations/menu-simulation-biter-base.zip",
-  length = 60 * 12,
-  init =
-  [[
+local controlScript = require("control-script")
+data.raw["utility-constants"]["default"].main_menu_simulations.nuke_many_2t =
+  {
+    checkboard = false,
+    save = "__base__/menu-simulations/menu-simulation-biter-base.zip",
+    length = 60 * 12,
+    init =
+    [[
     local logo = game.surfaces.nauvis.find_entities_filtered{name = "factorio-logo-11tiles", limit = 1}[1]
     logo.destructible = true
     logo.health = 1
@@ -21,7 +21,7 @@ data.raw["utility-constants"]["default"].main_menu_simulations.nuke_many_2t =
     game.surfaces[1].create_entity{name = "atomic-cannon-projectile", position = {center[1], center[2]-200}, force = "player", target = {center[1]+10, center[2]-6}, speed = 1}
 
   ]] .. controlScript
-}
+  }
 
 
 
