@@ -172,6 +172,7 @@ if(settings.startup["enable-menu-backgrounds"].value)then
   end
 end
 
+require("prototypes.nukes.data-nukes-warheads")
 
 
 
