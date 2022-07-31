@@ -1,0 +1,7 @@
+
+**/target
+**/.settings
+**/.project
+**/.buildpath
+
+#Just lua and eclipse, so nothing much here...

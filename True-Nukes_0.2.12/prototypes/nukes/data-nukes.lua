@@ -15,7 +15,7 @@ if settings.startup["enable-atomic-bomb"].value then
 	  }
 	}
 	data.raw.ammo["atomic-bomb"].ammo_type.range_modifier = 6
-	data.raw.recipe["atomic-bomb"].energy_required=60
+	data.raw.recipe["atomic-bomb"].energy_required=90
 	if mods["bobelectronics"] then
 		data.raw.recipe["atomic-bomb"].ingredients=
 			{
@@ -185,7 +185,7 @@ local big_atomic_bomb_recipe = {
     type = "recipe",
     name = "big-atomic-bomb",
     enabled = false,
-    energy_required = 300,
+    energy_required = 180,
     ingredients =
     {
       {"atomic-bomb", 1},

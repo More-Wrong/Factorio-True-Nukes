@@ -297,7 +297,7 @@ local small_atomic_bomb_recipe = {
     type = "recipe",
     name = "small-atomic-bomb",
     enabled = false,
-    energy_required = 120,
+    energy_required = 60,
     ingredients =
     {
       {"plastic-bar", 20},
@@ -344,7 +344,7 @@ local very_small_atomic_bomb_recipe = {
     type = "recipe",
     name = "very-small-atomic-bomb",
     enabled = false,
-    energy_required = 120,
+    energy_required = 40,
     ingredients =
     {
       {"plastic-bar", 20},
@@ -387,7 +387,7 @@ local really_very_small_atomic_bomb_recipe = {
     type = "recipe",
     name = "really-very-small-atomic-bomb",
     enabled = false,
-    energy_required = 120,
+    energy_required = 20,
     ingredients =
     {
       {"plastic-bar", 20},
