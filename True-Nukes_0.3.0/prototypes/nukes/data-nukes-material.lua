@@ -8,6 +8,8 @@ local lightMaterial = "low-density-structure";
 
 local computer = "processing-unit";
 
+local fusionMaterial = "tritium-canister";
+
 
 
 if settings.startup["dead-material"].value == "mod-dependant" then
@@ -56,6 +58,7 @@ return {
   boomMaterial = boomMaterial,
   deadMaterial = deadMaterial,
   smallBoomMaterial = smallBoomMaterial,
+  fusionMaterial = fusionMaterial,
   lightMaterial = lightMaterial,
   computer = computer
 };

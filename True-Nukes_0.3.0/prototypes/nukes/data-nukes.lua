@@ -1,7 +1,8 @@
 require("data-radiation")
 local nuke_explosions = require("data-nuke-explosions")
 local nuke_materials = require("data-nukes-material")
-local nuke_warheads = require("data-nukes-warheads")
+require("data-nukes-warheads")
+local nuke_warheads = require("data-nukes-warheads-util")
 
 local rocketIcon = {}
 rocketIcon["small-1"] = "__True-Nukes__/graphics/rockets/small-1-atomic-bomb.png"
