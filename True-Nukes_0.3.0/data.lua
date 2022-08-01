@@ -1,3 +1,9 @@
+require("prototypes.nukes.data-nukes-warheads-create")
+require("prototypes.nukes.data-nukes-warheads-add")
+require("prototypes.thermobarics.data-thermobaric-warheads")
+
+
+
 require("MushroomCloudInBuilt.explosions")
 require("MushroomCloudInBuilt.radiation_noise")
 require("MushroomCloudInBuilt.ground_zero")
@@ -171,8 +177,6 @@ if(settings.startup["enable-menu-backgrounds"].value)then
     require("menu-simulations.nuke-1x1kt")
   end
 end
-
-require("prototypes.nukes.data-nukes-warheads")
 
 
 

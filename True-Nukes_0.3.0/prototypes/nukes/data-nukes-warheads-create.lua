@@ -50,38 +50,6 @@ local function createAppearance(setup)
   }
 end
 
-data:extend({
-  {
-    name = "TN-tiny-nuclear-weapon-cores",
-    type = "item-subgroup",
-    group = "intermediate-products",
-    order = "y1[TN-tiny-cores]"
-  },
-  {
-    name = "TN-small-nuclear-weapon-cores",
-    type = "item-subgroup",
-    group = "intermediate-products",
-    order = "y2[TN-small-cores]"
-  },
-  {
-    name = "TN-medium-nuclear-weapon-cores",
-    type = "item-subgroup",
-    group = "intermediate-products",
-    order = "y3[TN-medium-cores]"
-  },
-  {
-    name = "TN-large-nuclear-weapon-cores",
-    type = "item-subgroup",
-    group = "intermediate-products",
-    order = "y4[TN-large-cores]"
-  },
-  {
-    name = "TN-huge-nuclear-weapon-cores",
-    type = "item-subgroup",
-    group = "intermediate-products",
-    order = "y5[TN-huge-cores]"
-  }
-})
 
 local function createBasicWarhead(setup)
   local item = {
@@ -89,7 +57,7 @@ local function createBasicWarhead(setup)
     name = setup.name,
     icons = setup.appearance.icons,
     pictures = setup.appearance.pictures,
-    subgroup = "TN-" .. setup.size .. "-nuclear-weapon-cores",
+    subgroup = "TN-" .. setup.size .. "-warheads",
     order = setup.order,
     stack_size = setup.stack_size
   }
