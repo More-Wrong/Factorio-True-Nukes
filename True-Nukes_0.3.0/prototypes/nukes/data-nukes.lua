@@ -1,7 +1,182 @@
-
-local fireutil = require("__base__.prototypes.fire-util")
+require("data-radiation")
 local nuke_explosions = require("data-nuke-explosions")
 local nuke_materials = require("data-nukes-material")
+local nuke_warheads = require("data-nukes-warheads")
+
+local rocketIcon = {}
+rocketIcon["small-1"] = "__True-Nukes__/graphics/rockets/small-1-atomic-bomb.png"
+rocketIcon["small-2"] = "__True-Nukes__/graphics/rockets/small-2-atomic-bomb.png"
+rocketIcon["small-3"] = "__True-Nukes__/graphics/rockets/small-3-atomic-bomb.png"
+rocketIcon["big-1"] = "__base__/graphics/icons/atomic-bomb.png"
+rocketIcon["big-2"] = "__True-Nukes__/graphics/rockets/big-2-atomic-bomb.png"
+rocketIcon["big-3"] = "__True-Nukes__/graphics/rockets/big-3-atomic-bomb.png"
+
+local rocketLight = {}
+rocketLight["small-1"] = "__True-Nukes__/graphics/rockets/rocket-light-1.png"
+rocketLight["small-2"] = "__True-Nukes__/graphics/rockets/rocket-light-2.png"
+rocketLight["small-3"] = "__True-Nukes__/graphics/rockets/rocket-light-3.png"
+rocketLight["big-1"] = "__True-Nukes__/graphics/rockets/rocket-light-1.png"
+rocketLight["big-2"] = "__True-Nukes__/graphics/rockets/rocket-light-2.png"
+rocketLight["big-3"] = "__True-Nukes__/graphics/rockets/rocket-light-3.png"
+
+
+local smallRocketSetup = {
+  size = "small",
+  hasProjectile = true,
+  item = table.deepcopy(data.raw.ammo["rocket"]),
+  projectile = table.deepcopy(data.raw.projectile["atomic-rocket"]),
+  recipe = table.deepcopy(data.raw.recipe["atomic-bomb"]),
+  ingredient = "rocket",
+  baseName = "TN-small-rocket",
+  iconTable = {},
+  iconShift = {-4, 0},
+  lightTable = {},
+}
+
+
+smallRocketSetup.iconTable["-atomic-0_1t"] = rocketIcon["small-1"]
+smallRocketSetup.iconTable["-atomic-0_5t"] = rocketIcon["small-1"]
+smallRocketSetup.iconTable["-atomic-2t"] = rocketIcon["small-2"]
+smallRocketSetup.iconTable["-atomic-4t"] = rocketIcon["small-2"]
+smallRocketSetup.iconTable["-atomic-8t"] = rocketIcon["small-2"]
+smallRocketSetup.iconTable["-atomic-20t"] = rocketIcon["big-1"]
+
+smallRocketSetup.lightTable["-atomic-0_1t"] = rocketLight["small-1"]
+smallRocketSetup.lightTable["-atomic-0_5t"] = rocketLight["small-1"]
+smallRocketSetup.lightTable["-atomic-2t"] = rocketLight["small-2"]
+smallRocketSetup.lightTable["-atomic-4t"] = rocketLight["small-2"]
+smallRocketSetup.lightTable["-atomic-8t"] = rocketLight["small-3"]
+smallRocketSetup.lightTable["-atomic-20t"] = rocketLight["big-1"]
+
+
+-- The smaller rockets are targetted at enemies, are high fire rate, low range - >2t inadvisable...
+smallRocketSetup.recipe.enabled = true;
+smallRocketSetup.recipe.energy = 4;
+smallRocketSetup.item.ammo_type.range_modifier = 1.5
+smallRocketSetup.item.ammo_type.cooldown_modifier = 2
+nuke_warheads.createNukesUtil(smallRocketSetup);
+
+
+local ammoSetup = {
+  size = "tiny",
+  hasProjectile = false,
+  item = table.deepcopy(data.raw.ammo["uranium-rounds-magazine"]),
+  recipe = table.deepcopy(data.raw.recipe["uranium-rounds-magazine"]),
+  ingredient = "uranium-rounds-magazine",
+  baseName = "TN-rounds-magazine",
+  iconTable = {},
+  iconShift = {4, 2},
+  coreShift = {-8, -8},
+  lightTable = {},
+}
+
+ammoSetup.iconTable["-atomic-0_1t"] = "__True-Nukes__/graphics/rounds/atomic-rounds-magazine.png"
+ammoSetup.iconTable["-atomic-0_5t"] = "__True-Nukes__/graphics/rounds/big-atomic-rounds-magazine.png"
+ammoSetup.iconTable["-atomic-2t"] = "__True-Nukes__/graphics/rounds/absurd-atomic-rounds-magazine.png"
+
+ammoSetup.lightTable["-atomic-0_1t"] = "__True-Nukes__/graphics/rounds/atomic-rounds-magazine-light.png"
+ammoSetup.lightTable["-atomic-0_5t"] = "__True-Nukes__/graphics/rounds/atomic-rounds-magazine-light.png"
+ammoSetup.lightTable["-atomic-2t"] = "__True-Nukes__/graphics/rounds/atomic-rounds-magazine-light.png"
+
+
+ammoSetup.recipe.enabled = true;
+ammoSetup.recipe.energy = 5;
+ammoSetup.item.ammo_type.range_modifier = 1.5
+ammoSetup.item.ammo_type.cooldown_modifier = 2
+ammoSetup.item.ammo_type.target_type = "position"
+ammoSetup.item.ammo_type.clamp_position = true
+nuke_warheads.createNukesUtil(ammoSetup);
+data.raw.ammo["TN-rounds-magazine-atomic-2t"].ammo_type.cooldown_modifier = 8
+data.raw.ammo["TN-rounds-magazine-atomic-0_5t"].ammo_type.cooldown_modifier = 4
+
+local bigRocketSetup = {
+  size = "medium",
+  minSize = "small",
+  hasProjectile = true,
+  item = table.deepcopy(data.raw.ammo["rocket"]),
+  projectile = table.deepcopy(data.raw.projectile["atomic-rocket"]),
+  recipe = table.deepcopy(data.raw.recipe["atomic-bomb"]),
+  ingredients = {{"rocket", 1}, {"rocket-control-unit", 5}, {"rocket-fuel", 10}},
+  baseName = "TN-big-rocket",
+  iconTable = {},
+  iconShift = {-4, 0},
+  lightTable = {},
+}
+
+bigRocketSetup.iconTable["-atomic-2t"] = rocketIcon["small-2"]
+bigRocketSetup.iconTable["-atomic-4t"] = rocketIcon["small-2"]
+bigRocketSetup.iconTable["-atomic-8t"] = rocketIcon["small-3"]
+bigRocketSetup.iconTable["-atomic-20t"] = rocketIcon["big-1"]
+bigRocketSetup.iconTable["-atomic-500t"] = rocketIcon["big-2"]
+bigRocketSetup.iconTable["-atomic-1kt"] = rocketIcon["big-3"]
+
+bigRocketSetup.lightTable["-atomic-2t"] = rocketLight["small-2"]
+bigRocketSetup.lightTable["-atomic-4t"] = rocketLight["small-2"]
+bigRocketSetup.lightTable["-atomic-8t"] = rocketLight["small-3"]
+bigRocketSetup.lightTable["-atomic-20t"] = rocketLight["big-1"]
+bigRocketSetup.lightTable["-atomic-500t"] = rocketIcon["big-2"]
+bigRocketSetup.lightTable["-atomic-1kt"] = rocketIcon["big-3"]
+
+bigRocketSetup.recipe.enabled = true;
+bigRocketSetup.recipe.energy = 6;
+bigRocketSetup.item.ammo_type.range_modifier = 5
+bigRocketSetup.item.ammo_type.cooldown_modifier = 50
+bigRocketSetup.item.ammo_type.target_type = "position"
+bigRocketSetup.item.ammo_type.action.action_delivery.starting_speed = 0.01
+
+nuke_warheads.createNukesUtil(bigRocketSetup);
+
+--Hack to fix Make Artillery Great Again's removal of the 'chart_picture'... 
+if(not data.raw["artillery-projectile"]["artillery-projectile"].chart_picture) then
+  data.raw["artillery-projectile"]["artillery-projectile"].chart_picture = {
+    filename = "__base__/graphics/entity/artillery-projectile/artillery-shoot-map-visualization.png",
+    flags = { "icon" },
+    frame_count = 1,
+    width = 64,
+    height = 64,
+    priority = "high",
+    scale = 0.25
+  }
+end
+
+local artillerySetup = {
+  size = "large",
+  minSize = "medium",
+  hasProjectile = true,
+  item = table.deepcopy(data.raw.ammo["artillery-shell"]),
+  projectile = table.deepcopy(data.raw["artillery-projectile"]["artillery-projectile"]),
+  recipe = table.deepcopy(data.raw.recipe["artillery-shell"]),
+  ingredient = "artillery-shell",
+  baseName = "TN-artillery",
+  iconTable = {},
+  iconShift = {4, 2},
+  coreShift = {-8, -8},
+  lightTable = {},
+}
+artillerySetup.iconTable["-atomic-20t"] = "__True-Nukes__/graphics/artillery/atomic-artillery-shell-1.png"
+artillerySetup.iconTable["-atomic-500t"] = "__True-Nukes__/graphics/artillery/atomic-artillery-shell-2.png"
+artillerySetup.iconTable["-atomic-1kt"] = "__True-Nukes__/graphics/artillery/atomic-artillery-shell-3.png"
+artillerySetup.iconTable["-atomic-15kt"] = "__True-Nukes__/graphics/artillery/atomic-artillery-shell-4.png"
+artillerySetup.iconTable["-atomic-2-stage-15kt"] = "__True-Nukes__/graphics/artillery/atomic-artillery-shell-4.png"
+artillerySetup.iconTable["-atomic-2-stage-100kt"] = "__True-Nukes__/graphics/artillery/atomic-artillery-shell-5.png"
+
+artillerySetup.lightTable["-atomic-20t"] = "__True-Nukes__/graphics/artillery/atomic-artillery-shell-1-light.png"
+artillerySetup.lightTable["-atomic-500t"] = "__True-Nukes__/graphics/artillery/atomic-artillery-shell-2-light.png"
+artillerySetup.lightTable["-atomic-1kt"] = "__True-Nukes__/graphics/artillery/atomic-artillery-shell-3-light.png"
+artillerySetup.lightTable["-atomic-15kt"] = "__True-Nukes__/graphics/artillery/atomic-artillery-shell-4-light.png"
+artillerySetup.lightTable["-atomic-2-stage-15kt"] = "__True-Nukes__/graphics/artillery/atomic-artillery-shell-4-light.png"
+artillerySetup.lightTable["-atomic-2-stage-100kt"] = "__True-Nukes__/graphics/artillery/atomic-artillery-shell-4-light.png"
+
+artillerySetup.recipe.enabled = true;
+artillerySetup.recipe.energy = 8;
+artillerySetup.item.ammo_type.cooldown_modifier = 10
+
+nuke_warheads.createNukesUtil(artillerySetup);
+
+
+
+
+
 
 if settings.startup["enable-atomic-bomb"].value then
   data.raw.projectile["atomic-rocket"].action =
@@ -41,131 +216,6 @@ atom.pictures.layers[1].filename="__True-Nukes__/graphics/atomic-bomb.png"
 atom.pictures.layers[1].mipmap_count = 4
 atom.pictures.layers[2].filename="__True-Nukes__/graphics/rocket-light-1.png"
 atom.pictures.layers[2].mipmap_count = 4
-
-data:extend({
-  fireutil.add_basic_fire_graphics_and_effects_definitions
-  {
-    type = "fire",
-    name = "nuclear-fire",
-    flags = {"placeable-off-grid", "not-on-map"},
-    damage_per_tick = {amount = 130 / 60, type = "fire"},
-    maximum_damage_multiplier = 6,
-    damage_multiplier_increase_per_added_fuel = 1,
-    damage_multiplier_decrease_per_tick = 0.0005,
-
-    spawn_entity = "fire-flame-on-tree",
-
-    spread_delay = 300,
-    spread_delay_deviation = 180,
-    maximum_spread_count = 100,
-
-    emissions_per_second = 0.005,
-
-    initial_lifetime = 3600,
-    lifetime_increase_by = 150,
-    lifetime_increase_cooldown = 4,
-    maximum_lifetime = 3600,
-    delay_between_initial_flames = 10,
-  --initial_flame_count = 1,
-
-  }})
-
-
-
-local radiation_cloud_vis_dum = table.deepcopy(data.raw["smoke-with-trigger"]["poison-cloud-visual-dummy"])
-radiation_cloud_vis_dum.name="radiation-cloud-visual-dummy"
-radiation_cloud_vis_dum.color = {r = 0.220, g = 0.220, b = 0.220, a = 0.800}
-radiation_cloud_vis_dum.duration=60*60
-
-local radiation_cloud = table.deepcopy(data.raw["smoke-with-trigger"]["poison-cloud"])
-radiation_cloud.name="dangerous-radiation-cloud"
-radiation_cloud.action.action_delivery.target_effects.action.action_delivery.target_effects.damage.amount=20
-radiation_cloud.color = {r = 0.220, g = 0.220, b = 0.220, a = 0.800}
-radiation_cloud.created_effect[1].action_delivery.target_effects[1].entity_name = "radiation-cloud-visual-dummy"
-radiation_cloud.created_effect[2].action_delivery.target_effects[1].entity_name = "radiation-cloud-visual-dummy"
-radiation_cloud.duration=60*60
-
-local fallout =
-  {
-    type = "projectile",
-    name = "fallout",
-    flags = {"not-on-map"},
-    acceleration = 0.005,
-    action =
-    {
-      type = "direct",
-      action_delivery =
-      {
-        type = "instant",
-        target_effects ={
-          {
-            type = "create-entity",
-            entity_name = "dangerous-radiation-cloud"
-          },
-          {
-            type = "create-entity",
-            entity_name = "radiation-cloud"
-          }
-        }
-      }
-    },
-    animation =
-    {
-      filename = "__core__/graphics/empty.png",
-      frame_count = 1,
-      width = 1,
-      height = 1,
-      priority = "high"
-    }
-  }
-
-
-
-local lingering_radiation_cloud_vis_dum = table.deepcopy(data.raw["smoke-with-trigger"]["poison-cloud-visual-dummy"])
-lingering_radiation_cloud_vis_dum.name="lingering-radiation-cloud-visual-dummy"
-lingering_radiation_cloud_vis_dum.color = {r = 0.220, g = 0.220, b = 0.220, a = 0.800}
-lingering_radiation_cloud_vis_dum.duration=60*300
-lingering_radiation_cloud_vis_dum.fade_away_duration = 60 * 60
-
-
-local lingering_radiation_cloud = table.deepcopy(data.raw["smoke-with-trigger"]["poison-cloud"])
-lingering_radiation_cloud.name="lingering-radiation-cloud"
-lingering_radiation_cloud.color = {r = 0.220, g = 0.220, b = 0.220, a = 0.800}
-lingering_radiation_cloud.duration=60*300
-lingering_radiation_cloud.fade_away_duration = 40 * 60
-lingering_radiation_cloud.created_effect[1].action_delivery.target_effects[1].entity_name = "lingering-radiation-cloud-visual-dummy"
-lingering_radiation_cloud.created_effect[2].action_delivery.target_effects[1].entity_name = "lingering-radiation-cloud-visual-dummy"
-
-local lingering_fallout =
-  {
-    type = "projectile",
-    name = "lingering-fallout",
-    flags = {"not-on-map"},
-    acceleration = 0.005,
-    action =
-    {
-      type = "direct",
-      action_delivery =
-      {
-        type = "instant",
-        target_effects =
-        {
-          type = "create-entity",
-          entity_name = "lingering-radiation-cloud"
-        }
-      }
-    },
-    animation =
-    {
-      filename = "__core__/graphics/empty.png",
-      frame_count = 1,
-      width = 1,
-      height = 1,
-      priority = "high"
-    }
-  }
-
-data:extend{radiation_cloud_vis_dum, radiation_cloud, fallout, lingering_radiation_cloud_vis_dum, lingering_radiation_cloud, lingering_fallout}
 
 
 

@@ -4,6 +4,11 @@ local deadMaterial = "uranium-238";
 
 local smallBoomMaterial = "californium";
 
+local lightMaterial = "low-density-structure";
+
+local computer = "processing-unit";
+
+
 
 if settings.startup["dead-material"].value == "mod-dependant" then
 
@@ -33,9 +38,24 @@ elseif settings.startup["small-boom-material"].value == "custom" then
   smallBoomMaterial = settings.startup["small-boom-material-name"].value
 end
 
+if settings.startup["computer-material"].value == "mod-dependant" then
+  if mods["bobelectronics"] then
+    computer = "superior-circuit-board"
+  end
+elseif settings.startup["computer-material"].value == "custom" then
+  computer = settings.startup["computer-material-name"].value
+end
+
+if settings.startup["light-material"].value == "mod-dependant" then
+
+elseif settings.startup["light-material"].value == "custom" then
+  computer = settings.startup["light-material-name"].value
+end
 
 return {
   boomMaterial = boomMaterial,
   deadMaterial = deadMaterial,
   smallBoomMaterial = smallBoomMaterial,
+  lightMaterial = lightMaterial,
+  computer = computer
 };

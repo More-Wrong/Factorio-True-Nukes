@@ -146,6 +146,36 @@ data:extend({
     order = "b5"
   },
   {
+    type = "string-setting",
+    name = "computer-material",
+    setting_type = "startup",
+    default_value = "mod-dependant",
+    allowed_values = {"true-nukes-default", "mod-dependant", "custom"},
+    order = "b6"
+  },
+  {
+    type = "string-setting",
+    name = "computer-material-name",
+    setting_type = "startup",
+    default_value = "processing-unit",
+    order = "b7"
+  },
+  {
+    type = "string-setting",
+    name = "light-material",
+    setting_type = "startup",
+    default_value = "mod-dependant",
+    allowed_values = {"true-nukes-default", "mod-dependant", "custom"},
+    order = "b8"
+  },
+  {
+    type = "string-setting",
+    name = "light-material-name",
+    setting_type = "startup",
+    default_value = "low-density-structure",
+    order = "b9"
+  },
+  {
     type = "bool-setting",
     name = "enable-new-craters",
     setting_type = "startup",
