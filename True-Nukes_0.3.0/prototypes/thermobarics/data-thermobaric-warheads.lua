@@ -1,5 +1,7 @@
 require("__True-Nukes__.prototypes.warhead-system.warheads")
 
+local create_utils = require("__True-Nukes__.prototypes.warhead-system.warhead-creation-utils")
+
 local circuit_type;
 if not mods["bobelectronics"] then
   circuit_type = "advanced-circuit"
@@ -24,28 +26,7 @@ local function createAppearance(setup)
 end
 
 
-local function createBasicWarhead(setup)
-  local item = {
-    type = "item",
-    name = setup.name,
-    icons = setup.appearance.icons,
-    subgroup = "TN-" .. setup.size .. "-warheads",
-    order = setup.order,
-    stack_size = setup.stack_size
-  }
-  local recipe = {
-    type = "recipe",
-    name = setup.name,
-    enabled = true,
-    energy_required = setup.time,
-    ingredients = setup.ingredients,
-    results=
-    {
-      {type="item", name=setup.name, amount = setup.amount or 1}
-    }
-  }
-  data:extend({item, recipe});
-end
+local createBasicWarhead = create_utils.createBasicWarhead
 
 local warheads = {
   {
@@ -96,10 +77,10 @@ local warheads = {
   }
 }
 
-table.insert(nuclearCoreYields, {
+table.insert(warheadResults, {
   name = "TN-thermobaric-1",
   appendName = "-thermobaric-1",
-  order = "d-t-1",
+  orderResult = "d-t-1",
   icon = "__True-Nukes__/graphics/warheads/thermobaric-1.png",
   chart_picture = "__True-Nukes__/graphics/artillery/thermobaric-artillery-map-visualization.png",
   size = "small",
@@ -167,10 +148,10 @@ table.insert(nuclearCoreYields, {
   }
 })
 
-table.insert(nuclearCoreYields, {
+table.insert(warheadResults, {
   name = "TN-thermobaric-2",
   appendName = "-thermobaric-2",
-  order = "d-t-2",
+  orderResult = "d-t-2",
   icon = "__True-Nukes__/graphics/warheads/thermobaric-2.png",
   chart_picture = "__True-Nukes__/graphics/artillery/thermobaric-artillery-map-visualization.png",
   size = "medium",
@@ -234,10 +215,10 @@ table.insert(nuclearCoreYields, {
   }
 })
 
-table.insert(nuclearCoreYields, {
+table.insert(warheadResults, {
   name = "TN-thermobaric-3",
   appendName = "-thermobaric-3",
-  order = "d-t-1",
+  orderResult = "d-t-1",
   icon = "__True-Nukes__/graphics/warheads/thermobaric-3.png",
   chart_picture = "__True-Nukes__/graphics/artillery/thermobaric-artillery-map-visualization.png",
   size = "large",

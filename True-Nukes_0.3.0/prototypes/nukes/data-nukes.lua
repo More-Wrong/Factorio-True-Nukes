@@ -3,8 +3,7 @@ local nuke_explosions = require("data-nuke-explosions")
 local nuke_materials = require("data-nukes-material")
 require("data-nukes-intermediate")
 require("data-nukes-warheads-create")
-require("data-nukes-warheads-add")
-local warheads_util = require("__True-Nukes__.prototypes.warhead-system.warheads")
+local warheads_util = require("__True-Nukes__.prototypes.warhead-system.warhead-use-utils")
 
 
 local rocketIcon = {}
@@ -34,7 +33,7 @@ local smallRocketSetup = {
   projectile = table.deepcopy(data.raw.projectile["atomic-rocket"]),
   recipe = table.deepcopy(data.raw.recipe["atomic-bomb"]),
   ingredient = "rocket",
-  baseName = "TN-small-rocket",
+  baseName = "small-rocket",
   iconTable = {},
   iconShift = {-4, 0},
   lightTable = {},
@@ -45,7 +44,7 @@ smallRocketSetup.iconTable["-atomic-0_1t"] = rocketIcon["small-1"]
 smallRocketSetup.iconTable["-atomic-0_5t"] = rocketIcon["small-1"]
 smallRocketSetup.iconTable["-atomic-2t"] = rocketIcon["small-2"]
 smallRocketSetup.iconTable["-atomic-4t"] = rocketIcon["small-2"]
-smallRocketSetup.iconTable["-atomic-8t"] = rocketIcon["small-2"]
+smallRocketSetup.iconTable["-atomic-8t"] = rocketIcon["small-3"]
 smallRocketSetup.iconTable["-atomic-20t"] = rocketIcon["big-1"]
 smallRocketSetup.iconTable["-thermobaric-1"] = rocketIcon["thermo-1"]
 
@@ -59,8 +58,8 @@ smallRocketSetup.lightTable["-thermobaric-1"] = rocketLight["thermo-1"]
 
 
 -- The smaller rockets are targetted at enemies, are high fire rate, low range - >2t inadvisable...
-smallRocketSetup.recipe.enabled = true;
 smallRocketSetup.recipe.energy_required = 4;
+smallRocketSetup.item.order = "d[rocket-launcher]-d[TN-small]"
 smallRocketSetup.item.ammo_type.range_modifier = 1.5
 smallRocketSetup.item.ammo_type.cooldown_modifier = 2
 warheads_util.createNukesUtil(smallRocketSetup);
@@ -72,7 +71,7 @@ local ammoSetup = {
   item = table.deepcopy(data.raw.ammo["uranium-rounds-magazine"]),
   recipe = table.deepcopy(data.raw.recipe["uranium-rounds-magazine"]),
   ingredient = "uranium-rounds-magazine",
-  baseName = "TN-rounds-magazine",
+  baseName = "rounds-magazine",
   iconTable = {},
   iconShift = {4, 2},
   coreShift = {-8, -8},
@@ -90,13 +89,14 @@ ammoSetup.lightTable["-atomic-2t"] = "__True-Nukes__/graphics/rounds/atomic-roun
 
 ammoSetup.recipe.enabled = true;
 ammoSetup.recipe.energy_required = 5;
+ammoSetup.item.order = "a[basic-clips]-d[TN-rounds]"
 ammoSetup.item.ammo_type.range_modifier = 1.5
 ammoSetup.item.ammo_type.cooldown_modifier = 2
 ammoSetup.item.ammo_type.target_type = "position"
 ammoSetup.item.ammo_type.clamp_position = true
 warheads_util.createNukesUtil(ammoSetup);
-data.raw.ammo["TN-rounds-magazine-atomic-2t"].ammo_type.cooldown_modifier = 8
-data.raw.ammo["TN-rounds-magazine-atomic-0_5t"].ammo_type.cooldown_modifier = 4
+data.raw.ammo["rounds-magazine-atomic-2t"].ammo_type.cooldown_modifier = 8
+data.raw.ammo["rounds-magazine-atomic-0_5t"].ammo_type.cooldown_modifier = 4
 
 local bigRocketSetup = {
   size = "medium",
@@ -106,7 +106,7 @@ local bigRocketSetup = {
   projectile = table.deepcopy(data.raw.projectile["atomic-rocket"]),
   recipe = table.deepcopy(data.raw.recipe["atomic-bomb"]),
   ingredients = {{"rocket", 1}, {"rocket-control-unit", 5}, {"rocket-fuel", 10}},
-  baseName = "TN-big-rocket",
+  baseName = "big-rocket",
   iconTable = {},
   iconShift = {-4, 0},
   lightTable = {},
@@ -130,6 +130,7 @@ bigRocketSetup.lightTable["-thermobaric-2"] = rocketLight["thermo-2"]
 
 bigRocketSetup.recipe.enabled = true;
 bigRocketSetup.recipe.energy_required = 6;
+bigRocketSetup.item.order = "d[rocket-launcher]-e[TN-big]"
 bigRocketSetup.item.ammo_type.range_modifier = 5
 bigRocketSetup.item.ammo_type.cooldown_modifier = 50
 bigRocketSetup.item.ammo_type.target_type = "position"
@@ -137,7 +138,7 @@ bigRocketSetup.item.ammo_type.action.action_delivery.starting_speed = 0.01
 
 warheads_util.createNukesUtil(bigRocketSetup);
 
-data.raw.projectile["TN-big-rocket-atomic-1kt"].created_effect = {
+data.raw.projectile["big-rocket-atomic-1kt"].created_effect = {
   type = "direct",
   action_delivery =
   {
@@ -169,7 +170,7 @@ local artillerySetup = {
   projectile = table.deepcopy(data.raw["artillery-projectile"]["artillery-projectile"]),
   recipe = table.deepcopy(data.raw.recipe["artillery-shell"]),
   ingredient = "artillery-shell",
-  baseName = "TN-artillery",
+  baseName = "artillery-shell",
   iconTable = {},
   iconShift = {4, 2},
   coreShift = {-8, -8},
@@ -193,11 +194,12 @@ artillerySetup.lightTable["-thermobaric-3"] = "__True-Nukes__/graphics/blank-64.
 
 artillerySetup.recipe.enabled = true;
 artillerySetup.recipe.energy_required = 8;
+artillerySetup.item.order = "d[explosive-cannon-shell]-e[TN-artillery]"
 artillerySetup.item.ammo_type.cooldown_modifier = 10
 
 warheads_util.createNukesUtil(artillerySetup);
 
-data.raw["artillery-projectile"]["TN-artillery-atomic-2-stage-15kt"].created_effect = {
+data.raw["artillery-projectile"]["artillery-shell-atomic-2-stage-15kt"].created_effect = {
   type = "direct",
   action_delivery =
   {
@@ -208,7 +210,7 @@ data.raw["artillery-projectile"]["TN-artillery-atomic-2-stage-15kt"].created_eff
     }
   }
 }
-data.raw["artillery-projectile"]["TN-artillery-atomic-15kt"].created_effect = {
+data.raw["artillery-projectile"]["artillery-shell-atomic-15kt"].created_effect = {
   type = "direct",
   action_delivery =
   {
@@ -219,7 +221,7 @@ data.raw["artillery-projectile"]["TN-artillery-atomic-15kt"].created_effect = {
     }
   }
 }
-data.raw["artillery-projectile"]["TN-artillery-atomic-1kt"].created_effect = {
+data.raw["artillery-projectile"]["artillery-shell-atomic-1kt"].created_effect = {
   type = "direct",
   action_delivery =
   {
@@ -239,7 +241,7 @@ local cannonSetup = {
   projectile = table.deepcopy(data.raw["projectile"]["uranium-cannon-projectile"]),
   recipe = table.deepcopy(data.raw.recipe["uranium-cannon-shell"]),
   ingredient = "uranium-cannon-shell",
-  baseName = "TN-cannon",
+  baseName = "cannon-shell",
   iconTable = {},
   iconShift = {4, 2},
   coreShift = {-8, -8},
@@ -263,12 +265,11 @@ cannonSetup.lightTable["-thermobaric-1"] = "__True-Nukes__/graphics/blank-64.png
 
 cannonSetup.recipe.enabled = true;
 cannonSetup.recipe.energy_required = 4;
+cannonSetup.item.order = "d[explosive-cannon-shell]-c[x-TN-shell]"
 cannonSetup.item.ammo_type.cooldown_modifier = 2
 cannonSetup.item.ammo_type.range_modifier = 3
 cannonSetup.item.ammo_type.target_type = "position"
 cannonSetup.item.ammo_type.action.action_delivery.max_range = cannonSetup.item.ammo_type.action.action_delivery.max_range*3
-cannonSetup.item.stack_size = 50
-cannonSetup.projectile.collision_box = {{0, 0}, {0, 0}}
 
 warheads_util.createNukesUtil(cannonSetup);
 
@@ -401,9 +402,9 @@ end
 --  require("data-nukes-californium")
 --end
 
---if(settings.startup["enable-very-big-atomic-artillery"].value or settings.startup["enable-fusion-building"].value or settings.startup["enable-mega-fusion-building"].value) then
---  require("data-nukes-huge")
---end
+if(settings.startup["enable-very-big-atomic-artillery"].value or settings.startup["enable-fusion-building"].value or settings.startup["enable-mega-fusion-building"].value) then
+  require("data-nukes-huge")
+end
 
 
 

@@ -9,66 +9,32 @@ local nuke_materials = require("data-nukes-material")
 
 
 if(settings.startup["enable-very-big-atomic-artillery"].value) then
-  local very_big_atomic_artillery_projectile = table.deepcopy(data.raw["artillery-projectile"]["TN-atomic-artillery-projectile"])
-  very_big_atomic_artillery_projectile.name = "TN-really-huge-atomic-artillery-projectile"
-  very_big_atomic_artillery_projectile.action.action_delivery.target_effects = nuke_explosions.N1Mt_detonation
+  -- These are all just to let us trigger the nukes nicely...
+  local M1_atomic_artillery_projectile = table.deepcopy(data.raw["artillery-projectile"]["artillery-shell-atomic-2-stage-15kt"])
+  M1_atomic_artillery_projectile.name = "TN-artillery-atomic-2-stage-1Mt"
+  M1_atomic_artillery_projectile.action[1].action_delivery.target_effects = nuke_explosions.N1Mt_detonation
 
-  local M5_atomic_artillery_projectile = table.deepcopy(data.raw["artillery-projectile"]["TN-atomic-artillery-projectile"])
-  M5_atomic_artillery_projectile.name = "TN-5Mt-atomic-artillery-projectile"
-  M5_atomic_artillery_projectile.action.action_delivery.target_effects = nuke_explosions.N5Mt_detonation
+  local M5_atomic_artillery_projectile = table.deepcopy(data.raw["artillery-projectile"]["artillery-shell-atomic-2-stage-15kt"])
+  M5_atomic_artillery_projectile.name = "TN-artillery-atomic-2-stage-5Mt"
+  M5_atomic_artillery_projectile.action[1].action_delivery.target_effects = nuke_explosions.N5Mt_detonation
 
-  local M10_atomic_artillery_projectile = table.deepcopy(data.raw["artillery-projectile"]["TN-atomic-artillery-projectile"])
-  M10_atomic_artillery_projectile.name = "TN-10Mt-atomic-artillery-projectile"
-  M10_atomic_artillery_projectile.action.action_delivery.target_effects = nuke_explosions.N10Mt_detonation
+  local M10_atomic_artillery_projectile = table.deepcopy(data.raw["artillery-projectile"]["artillery-shell-atomic-2-stage-15kt"])
+  M10_atomic_artillery_projectile.name = "TN-artillery-atomic-2-stage-10Mt"
+  M10_atomic_artillery_projectile.action[1].action_delivery.target_effects = nuke_explosions.N10Mt_detonation
 
-  local M50_atomic_artillery_projectile = table.deepcopy(data.raw["artillery-projectile"]["TN-atomic-artillery-projectile"])
-  M50_atomic_artillery_projectile.name = "TN-50Mt-atomic-artillery-projectile"
-  M50_atomic_artillery_projectile.action.action_delivery.target_effects = nuke_explosions.N50Mt_detonation
+  local M50_atomic_artillery_projectile = table.deepcopy(data.raw["artillery-projectile"]["artillery-shell-atomic-2-stage-15kt"])
+  M50_atomic_artillery_projectile.name = "TN-artillery-atomic-2-stage-50Mt"
+  M50_atomic_artillery_projectile.action[1].action_delivery.target_effects = nuke_explosions.N50Mt_detonation
 
-  local M100_atomic_artillery_projectile = table.deepcopy(data.raw["artillery-projectile"]["TN-atomic-artillery-projectile"])
-  M100_atomic_artillery_projectile.name = "TN-100Mt-atomic-artillery-projectile"
-  M100_atomic_artillery_projectile.action.action_delivery.target_effects = nuke_explosions.N100Mt_detonation
+  local M100_atomic_artillery_projectile = table.deepcopy(data.raw["artillery-projectile"]["artillery-shell-atomic-2-stage-15kt"])
+  M100_atomic_artillery_projectile.name = "TN-artillery-atomic-2-stage-100Mt"
+  M100_atomic_artillery_projectile.action[1].action_delivery.target_effects = nuke_explosions.N100Mt_detonation
 
-  local G1_atomic_artillery_projectile = table.deepcopy(data.raw["artillery-projectile"]["TN-atomic-artillery-projectile"])
-  G1_atomic_artillery_projectile.name = "TN-1Gt-atomic-artillery-projectile"
-  G1_atomic_artillery_projectile.action.action_delivery.target_effects = nuke_explosions.N1Gt_detonation
+  local G1_atomic_artillery_projectile = table.deepcopy(data.raw["artillery-projectile"]["artillery-shell-atomic-2-stage-15kt"])
+  G1_atomic_artillery_projectile.name = "TN-artillery-atomic-2-stage-1Gt"
+  G1_atomic_artillery_projectile.action[1].action_delivery.target_effects = nuke_explosions.N1Gt_detonation
 
-  data:extend{very_big_atomic_artillery_projectile, M5_atomic_artillery_projectile, M10_atomic_artillery_projectile, M50_atomic_artillery_projectile, M100_atomic_artillery_projectile, G1_atomic_artillery_projectile}
-  data:extend{
-    {
-      type = "item",
-      name = "FOGBANK",
-      icon = "__True-Nukes__/graphics/FOGBANK.png",
-      icon_size = 64, icon_mipmaps = 4,
-      subgroup = "intermediate-product",
-      order = "r[fogbank]",
-      stack_size = 50
-    },
-    {
-      type = "recipe",
-      name = "FOGBANK",
-      category = "chemistry",
-      energy_required = 20,
-      enabled = false,
-      ingredients =
-      {
-        {type="fluid", name="petroleum-gas", amount=20},
-        {type="fluid", name="sulfuric-acid", amount=20},
-        {type="item", name="low-density-structure", amount=10},
-        {type="item", name="plastic-bar", amount=10}
-      },
-      results=
-      {
-        {type="item", name="FOGBANK", amount=1}
-      },
-      crafting_machine_tint =
-      {
-        primary = {r = 0.965, g = 0.482, b = 0.338, a = 1.000}, -- #f67a56ff
-        secondary = {r = 0.831, g = 0.560, b = 0.222, a = 1.000}, -- #d38e38ff
-        tertiary = {r = 0.728, g = 0.818, b = 0.443, a = 1.000}, -- #b9d070ff
-        quaternary = {r = 0.939, g = 0.763, b = 0.191, a = 1.000}, -- #efc230ff
-      }
-    }};
+  data:extend{M1_atomic_artillery_projectile, M5_atomic_artillery_projectile, M10_atomic_artillery_projectile, M50_atomic_artillery_projectile, M100_atomic_artillery_projectile, G1_atomic_artillery_projectile}
 end
 
 data:extend{
@@ -142,7 +108,7 @@ data:extend{{
 if(settings.startup["enable-big-atomic-ammo"].value or settings.startup["enable-big-atomic-cannons"].value
   or settings.startup["enable-big-atomic-bomb"].value or settings.startup["enable-very-big-atomic-bomb"].value
   or settings.startup["enable-big-atomic-artillery"].value or settings.startup["enable-very-big-atomic-artillery"].value) then
-  table.insert(data.raw.technology["fusion-weapons"].prerequisites, "scary-atomic-weapons");
+--  table.insert(data.raw.technology["fusion-weapons"].prerequisites, "scary-atomic-weapons");
 elseif(settings.startup["enable-small-atomic-artillery"].value or settings.startup["enable-atomic-artillery"].value) then
   table.insert(data.raw.technology["fusion-weapons"].prerequisites, "atomic-artillery-shells");
 else
@@ -154,11 +120,11 @@ if(settings.startup["enable-very-big-atomic-artillery"].value) then
       type = "unlock-recipe",
       recipe = "FOGBANK"
     })
-  table.insert(data.raw.technology["fusion-weapons"].effects,
-    {
-      type = "unlock-recipe",
-      recipe = "TN-very-big-atomic-artillery-shell"
-    })
+--  table.insert(data.raw.technology["fusion-weapons"].effects,
+--    {
+--      type = "unlock-recipe",
+--      recipe = "TN-very-big-atomic-artillery-shell"
+--    })
   if(settings.startup["enable-fusion-building"].value or settings.startup["enable-mega-fusion-building"].value) then
     table.insert(data.raw.technology["fusion-weapons"].effects,
       {
@@ -212,6 +178,12 @@ end
 if(settings.startup["enable-mega-fusion-building"].value) then
   data:extend{
     {
+      name = "TN-atomic-detonation",
+      type = "item-subgroup",
+      group = "intermediate-products",
+      order = "z1[TN-atomic-detonation]"
+    },
+    {
       type = "recipe",
       name = "megaton-detonation",
       category = "nuclear-detonation",
@@ -229,7 +201,7 @@ if(settings.startup["enable-mega-fusion-building"].value) then
       icon = "__True-Nukes__/graphics/megaton-detonation.png",
       icon_size = 64, icon_mipmaps = 1,
       enabled = false,
-      subgroup = "ammo",
+      subgroup = "TN-atomic-detonation",
       order = "a[nuke]-ba[1Mt]",
       stack_size = 1
     }}
@@ -253,7 +225,7 @@ if(settings.startup["enable-mega-fusion-building"].value) then
       icon = "__True-Nukes__/graphics/5megaton-detonation.png",
       icon_size = 64, icon_mipmaps = 1,
       enabled = false,
-      subgroup = "ammo",
+      subgroup = "TN-atomic-detonation",
       order = "a[nuke]-bb[5Mt]",
       stack_size = 1
     }}
@@ -277,7 +249,7 @@ if(settings.startup["enable-mega-fusion-building"].value) then
       icon = "__True-Nukes__/graphics/10megaton-detonation.png",
       icon_size = 64, icon_mipmaps = 1,
       enabled = false,
-      subgroup = "ammo",
+      subgroup = "TN-atomic-detonation",
       order = "a[nuke]-bc[10Mt]",
       stack_size = 1
     }}
@@ -301,7 +273,7 @@ if(settings.startup["enable-mega-fusion-building"].value) then
       icon = "__True-Nukes__/graphics/50megaton-detonation.png",
       icon_size = 64, icon_mipmaps = 1,
       enabled = false,
-      subgroup = "ammo",
+      subgroup = "TN-atomic-detonation",
       order = "a[nuke]-bd[50Mt]",
       stack_size = 1
     }}
@@ -325,7 +297,7 @@ if(settings.startup["enable-mega-fusion-building"].value) then
       icon = "__True-Nukes__/graphics/100megaton-detonation.png",
       icon_size = 64, icon_mipmaps = 1,
       enabled = false,
-      subgroup = "ammo",
+      subgroup = "TN-atomic-detonation",
       order = "a[nuke]-be[100Mt]",
       stack_size = 1
     }}
@@ -349,7 +321,7 @@ if(settings.startup["enable-mega-fusion-building"].value) then
       icon = "__True-Nukes__/graphics/1gigaton-detonation.png",
       icon_size = 64, icon_mipmaps = 1,
       enabled = false,
-      subgroup = "ammo",
+      subgroup = "TN-atomic-detonation",
       order = "a[nuke]-bf[1Gt]",
       stack_size = 1
     }}
@@ -363,16 +335,10 @@ if(settings.startup["enable-fusion-building"].value or settings.startup["enable-
       energy_required = 120,
       ingredients =
       {
+        {"TN-warhead-big--1", 1},
         {"steel-plate", 1000},
         {"refined-concrete", 1000},
-        {"processing-unit", 150},
-        {nuke_materials.boomMaterial, 300},
-        {"explosives", 150},
-        {"plastic-bar", 50},
-        {"red-wire", 50},
-        {"green-wire", 50},
         {"advanced-circuit", 25},
-        {"heat-pipe", 25},
         {"accumulator", 10}
       },
       result = "megaton-nuke"
@@ -416,7 +382,7 @@ if(settings.startup["enable-fusion-building"].value or settings.startup["enable-
       icon = "__True-Nukes__/graphics/100kiloton-detonation.png",
       icon_size = 64, icon_mipmaps = 1,
       enabled = false,
-      subgroup = "ammo",
+      subgroup = "TN-atomic-detonation",
       order = "a[nuke]-a[100kt]",
       stack_size = 1
     },
@@ -426,7 +392,7 @@ if(settings.startup["enable-fusion-building"].value or settings.startup["enable-
       icon = "__True-Nukes__/graphics/15kiloton-detonation.png",
       icon_size = 64, icon_mipmaps = 1,
       enabled = false,
-      subgroup = "ammo",
+      subgroup = "TN-atomic-detonation",
       order = "a[nuke]-a[015kt]",
       stack_size = 1
     },

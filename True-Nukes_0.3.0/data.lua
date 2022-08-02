@@ -1,5 +1,7 @@
+require("prototypes.warhead-system.warheads")
+
+
 require("prototypes.nukes.data-nukes-warheads-create")
-require("prototypes.nukes.data-nukes-warheads-add")
 require("prototypes.thermobarics.data-thermobaric-warheads")
 
 
@@ -39,9 +41,9 @@ data:extend({
   --initial_flame_count = 1,
 
   }})
-if(settings.startup["enable-thermobaric-cannons"].value or settings.startup["enable-thermobaric-rockets"].value or settings.startup["enable-thermobaric-artillery"].value) then
-  require("prototypes.thermobarics.data-thermobaric")
-end
+--if(settings.startup["enable-thermobaric-cannons"].value or settings.startup["enable-thermobaric-rockets"].value or settings.startup["enable-thermobaric-artillery"].value) then
+--  require("prototypes.thermobarics.data-thermobaric")
+--end
 if (not settings.startup["keep-atomic-bomb-without-changes"]) and not (settings.startup["enable-atomic-bomb"].value or settings.startup["enable-big-atomic-bomb"].value or settings.startup["enable-very-big-atomic-bomb"].value) then
   table.remove(data.raw.technology["atomic-bomb"].effects, 1)
 end
@@ -147,17 +149,17 @@ function add_mushroom_cloud_effect(effect, prefix)
 
 
 end
-if(settings.startup["enable-thermobaric-rockets"].value) then
-  add_mushroom_cloud_effect(data.raw.projectile["thermobaric-rocket"].action.action_delivery.target_effects, "small-")
-end
-if(settings.startup["enable-thermobaric-artillery"].value) then
-  add_mushroom_cloud_effect(data.raw["artillery-projectile"]["thermobaric-artillery-projectile"].action.action_delivery.target_effects, "")
-end
-if(settings.startup["enable-thermobaric-cannons"].value) then
-  if mods["SchallTankPlatoon"] then
-    add_mushroom_cloud_effect(data.raw.projectile["thermobaric-cannon-H2-projectile"].action.action_delivery.target_effects, "small-")
-  end
-end
+--if(settings.startup["enable-thermobaric-rockets"].value) then
+--  add_mushroom_cloud_effect(data.raw.projectile["thermobaric-rocket"].action.action_delivery.target_effects, "small-")
+--end
+--if(settings.startup["enable-thermobaric-artillery"].value) then
+--  add_mushroom_cloud_effect(data.raw["artillery-projectile"]["thermobaric-artillery-projectile"].action.action_delivery.target_effects, "")
+--end
+--if(settings.startup["enable-thermobaric-cannons"].value) then
+--  if mods["SchallTankPlatoon"] then
+--    add_mushroom_cloud_effect(data.raw.projectile["thermobaric-cannon-H2-projectile"].action.action_delivery.target_effects, "small-")
+--  end
+--end
 
 
 
