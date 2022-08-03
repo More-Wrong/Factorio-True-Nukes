@@ -73,14 +73,14 @@ local function createAppearance(setup)
       filename = textLocation .. "text_" .. setup.yield .. ".png",
       scale = 0.125,
       shift = {0, -0.5},
-      note = "yield"
+      no_shift = true
     })
     table.insert(result.icons,{
       icon_size = 128,
       icon = textLocation .. "text_" .. setup.yield .. ".png",
       scale = 0.25,
       shift = {0, -16},
-      note = "yield"
+      no_shift = true
     })
   end
   if(setup.topTint.l)then
@@ -125,7 +125,7 @@ local function createBasicWarhead(setup)
     name = setup.name,
     icons = setup.appearance.icons,
     pictures = setup.appearance.pictures,
-    subgroup = "TN-" .. setup.size .. "-warheads",
+    subgroup = setup.size .. "-warheads",
     order = setup.order,
     stack_size = setup.stack_size
   }

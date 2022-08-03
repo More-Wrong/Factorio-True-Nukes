@@ -1,34 +1,34 @@
 
 data:extend({
   {
-    name = "TN-tiny-warheads",
+    name = "tiny-warheads",
     type = "item-subgroup",
     group = "intermediate-products",
-    order = "y1[TN-tiny-warheads]"
+    order = "y1[tiny-warheads]"
   },
   {
-    name = "TN-small-warheads",
+    name = "small-warheads",
     type = "item-subgroup",
     group = "intermediate-products",
-    order = "y2[TN-small-warheads]"
+    order = "y2[small-warheads]"
   },
   {
-    name = "TN-medium-warheads",
+    name = "medium-warheads",
     type = "item-subgroup",
     group = "intermediate-products",
-    order = "y3[TN-medium-warheads]"
+    order = "y3[medium-warheads]"
   },
   {
-    name = "TN-large-warheads",
+    name = "large-warheads",
     type = "item-subgroup",
     group = "intermediate-products",
-    order = "y4[TN-large-warheads]"
+    order = "y4[large-warheads]"
   },
   {
-    name = "TN-huge-warheads",
+    name = "huge-warheads",
     type = "item-subgroup",
     group = "intermediate-products",
-    order = "y5[TN-huge-warheads]"
+    order = "y5[huge-warheads]"
   }
 })
 
@@ -42,8 +42,31 @@ data:extend({
 --  preciseSize = 6,
 --  explosion = nuke_explosions.N0_1t_detonation
 --})
-warheadResults = {}
-weaponTypeResults = {}
+
+--all these work in generated names...
+warheads = {}
+weaponTypes = {}
+warheadOverrides = {} -- functions taking the combined result, and changing things - very free form
+warheadWeaponIgnore = {} -- names of things to ignore, mapped to true
+warheadWeaponDoAnyway = {} -- names of things to do anyway, mapped to true - override to sizes
+warheadWeaponNameMap= {} -- map of generated name to use name
 
 
+local sizes = {
+  tiny = 10,
+  small = 20,
+  medium = 30,
+  large = 40,
+  huge = 50,
+  all = 100
+}
+
+local function addOverride(name, override)
+  if not warheadOverrides[name] then
+    warheadOverrides[name] = {}
+  end
+  table.insert(warheadOverrides[name], override)
+end
+
+return {sizes = sizes, addOverride = addOverride}
 

@@ -1,13 +1,7 @@
 -- preciseSize is just a made up number - kinda exponential ish
 -- <=10 is tiny, <=20 is small, <=30 is medium, <=40 is large, <=50 is huge
-local sizes = {
-  tiny = 10,
-  small = 20,
-  medium = 30,
-  large = 40,
-  huge = 50,
-  all = 100
-}
+local sizes = require("warheads")
+
 local function setupWeaponProjectileFor(setup, warhead, explosion)
   local projectile = table.deepcopy(setup.projectile);
   local effect = table.deepcopy(explosion.explosion);
@@ -116,7 +110,7 @@ local function setupIconsFor(item, setup, warhead, explosion)
 
   if(not setup.ignoreCoreIcon)then
     for _,i in pairs(coreIcons) do
-      if(i.note ~= "yield") then
+      if(not i.no_shift) then
         table.insert(item.icons, i)
       end
     end
