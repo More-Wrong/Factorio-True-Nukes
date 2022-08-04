@@ -22,9 +22,9 @@ local function combineAppearances(weapontypeGeneral, weaponAppearance, warheadWe
         i.shift = i.shift or {0, 0}
         i.shift[1] = i.shift[1]+core_icon_shift[1]
         i.shift[2] = i.shift[2]+core_icon_shift[2]
+        i.scale = i.scale or 1
+        i.scale = i.scale/3
       end
-      i.scale = i.scale or 1
-      i.scale = i.scale/3
       table.insert(icons, i)
     end
   end
@@ -48,11 +48,7 @@ local function combineAppearances(weapontypeGeneral, weaponAppearance, warheadWe
   for _,i in pairs(table.deepcopy(warheadWeapon.pictures)) do
     i.shift = i.shift or {0, 0}
     i.scale = i.scale or 1
-    if i.no_shift then
-      i.shift[1] = i.shift[1]*0.01875
-      i.shift[2] = i.shift[2]*0.01875
-      i.scale = i.scale/4.0
-    else
+    if not i.no_shift then
       i.shift[1] = i.shift[1]*0.01875+core_shift[1]
       i.shift[2] = i.shift[2]*0.01875+core_shift[2]
       i.scale = i.scale*2/3.0
@@ -72,6 +68,7 @@ local function combine(weapontype, warheadWeapon)
   local result = {}
 
   local item = {type = "item"}
+
   local name = weapontype.name .. warheadWeapon.appendName
   if(warheadWeaponNameMap[weapontype.name .. warheadWeapon.appendName]) then
     name = warheadWeaponNameMap[name]
@@ -79,11 +76,11 @@ local function combine(weapontype, warheadWeapon)
   item.name = name
   item.order = weapontype.order .. warheadWeapon.appendOrder
 
-  local weaponAppearance = generateAppearance(weapontype.appearances[warheadWeapon.appendName] or weapontype.appearance["default"])
+  local weaponAppearance = generateAppearance(weapontype.appearances[warheadWeapon.appendName] or weapontype.appearances["default"])
 
-  local appearance = combineAppearances(weapontype.appearance, weaponAppearance, warheadWeapon.appearence)
+  local appearance = combineAppearances(weapontype.appearance, weaponAppearance, warheadWeapon.appearance)
   item.icons = appearance.icons
-  item.pictures = appearance.pictures
+  item.pictures = {layers = appearance.pictures}
   item.stack_size = math.min(weapontype.item.stack_size, warheadWeapon.item.stack_size_max)
 
   item.magazine_size = weapontype.item.magazine_size
@@ -92,17 +89,19 @@ local function combine(weapontype, warheadWeapon)
     item.reload_time = weapontype.item.reload_time*warheadWeapon.item.reload_time_modifier
   end
   if (weapontype.type == "projectile" or weapontype.type == "artillery" or weapontype.type == "bullet") then
+    item.type = "ammo"
     item.ammo_type = {}
     item.ammo_type.range_modifier = weapontype.item.range_modifier * warheadWeapon.item.range_modifier
     item.ammo_type.cooldown_modifier = weapontype.item.cooldown_modifier * warheadWeapon.item.cooldown_modifier
     item.ammo_type.target_type = warheadWeapon.item.target_type or weapontype.item.target_type
     item.ammo_type.clamp_position = weapontype.item.clamp_position or warheadWeapon.item.clamp_position
-    item.ammo_type.category = warheadWeapon.item.ammo_category
-    item.ammo_type.action = weapontype.item.action_creator(name, warheadWeapon.projectile.action, warheadWeapon.projectile.created_effect)
+    item.ammo_type.category = weapontype.item.ammo_category or warheadWeapon.item.ammo_category
+    item.ammo_type.action = weapontype.item.action_creator(name, warheadWeapon.projectile.effect, warheadWeapon.projectile.final_effect, warheadWeapon.projectile.created_effect)
   elseif(weapontype.type == "land-mine") then
     item.place_result = name
   elseif(weapontype.type == "capsule") then
-    item.capsule_action = weapontype.item.action_creator(name, warheadWeapon.projectile.action, warheadWeapon.projectile.created_effect)
+    item.type = "capsule"
+    item.capsule_action = weapontype.item.action_creator(name, warheadWeapon.projectile.effect, warheadWeapon.projectile.final_effect, warheadWeapon.projectile.created_effect)
     item.radius_color = weapontype.item.radius_color or warheadWeapon.item.radius_color or weapontype.item.default_radius_color
   end
 
@@ -113,8 +112,8 @@ local function combine(weapontype, warheadWeapon)
   recipe.order = weapontype.order .. warheadWeapon.appendOrder
   recipe.energy_required = weapontype.recipe.energy_required * warheadWeapon.recipe.energy_required_modifier
   recipe.crafting_machine_tint = warheadWeapon.recipe.crafting_machine_tint
-  recipe.ingredients = weapontype.recipe.ingredients
-  table.insert(recipe.ingredients, {warheadWeapon.recipe.warhead_name, amount = weapontype.recipe.warhead_count})
+  recipe.ingredients = table.deepcopy(weapontype.recipe.ingredients)
+  table.insert(recipe.ingredients, {name = warheadWeapon.recipe.warhead_name, amount = weapontype.recipe.warhead_count})
   for _,i in pairs(warheadWeapon.recipe.additional_ingedients) do
     table.insert(recipe.ingredients, i)
   end
@@ -127,7 +126,7 @@ local function combine(weapontype, warheadWeapon)
     table.insert(recipe.results, r)
   end
 
-  result.recipe = result
+  result.recipe = recipe
 
   if (weapontype.type == "projectile" or weapontype.type == "capsule" or weapontype.type == "artillery") then
     local projectile = {}
@@ -138,31 +137,39 @@ local function combine(weapontype, warheadWeapon)
     if (weapontype.type == "projectile" or weapontype.type == "capsule")then
       projectile.type = "projectile"
 
-      projectile.acceleration = weapontype.projectile.acceleration * warheadWeapon.projectile.acceleration_modifier
+      if weapontype.projectile.acceleration then
+        projectile.acceleration = weapontype.projectile.acceleration * warheadWeapon.projectile.acceleration_modifier
+      end
       projectile.animation = weapontype.projectile.animation
       projectile.direction_only = weapontype.projectile.direction_only
       projectile.height = weapontype.projectile.height
       projectile.light = weapontype.projectile.light
-      projectile.max_speed = weapontype.projectile.max_speed * warheadWeapon.projectile.max_speed_modifier
-
-      projectile.piercing_damage = weapontype.projectile.piercing_damage * warheadWeapon.projectile.piercing_damage_modifier + warheadWeapon.projectile.piercing_damage_extra
+      if(weapontype.projectile.max_speed) then
+        projectile.max_speed = weapontype.projectile.max_speed * warheadWeapon.projectile.max_speed_modifier
+      end
+      if(weapontype.projectile.piercing_damage) then
+        projectile.piercing_damage = weapontype.projectile.piercing_damage * warheadWeapon.projectile.piercing_damage_modifier + warheadWeapon.projectile.piercing_damage_extra
+      else
+        projectile.piercing_damage = warheadWeapon.projectile.piercing_damage_extra
+      end
       if not warheadWeapon.projectile.piercing then
         projectile.piercing_damage = 0
       end
 
       projectile.shadow = weapontype.projectile.shadow
       projectile.smoke = weapontype.projectile.smoke
-      projectile.height_from_ground = weapontype.projectile.height_from_ground
+      projectile.height_from_ground = weapontype.projectile.height
 
     else
       projectile.type = "artillery-projectile"
 
+      projectile.map_color = warheadWeapon.projectile.map_color or weapontype.projectile.map_color
       projectile.chart_picture = warheadWeapon.projectile.chart_picture
-      projectile.reveal_map = warheadWeapon.projectile.reveal_map
+      projectile.reveal_map = weapontype.projectile.reveal_map
     end
-    projectile.action = warheadWeapon.projectile.action
-    projectile.final_action = warheadWeapon.projectile.final_action
-    projectile.created_effect = warheadWeapon.projectile.created_effect
+    projectile.action = {type = "direct", action_delivery = {type = "instant", target_effects = warheadWeapon.projectile.effect}}
+    projectile.final_action = {type = "direct", action_delivery = {type = "instant", target_effects = warheadWeapon.projectile.final_effect}}
+    projectile.created_effect = {type = "direct", action_delivery = {type = "instant", target_effects = warheadWeapon.projectile.created_effect}}
     projectile.picture = weapontype.projectile.picture
     projectile.shadow = weapontype.projectile.shadow
 

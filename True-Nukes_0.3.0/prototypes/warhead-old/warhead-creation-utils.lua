@@ -34,41 +34,38 @@ local function createAppearance(setup)
       },
     },
     pictures = {
-      layers =
       {
-        {
-          size = 64,
-          filename = "__True-Nukes__/graphics/warheads/generic-warheads/base.png",
-          scale = 0.25,
-          mipmap_count = 1
-        },
-        {
-          size = 64,
-          filename = "__True-Nukes__/graphics/warheads/generic-warheads/top.png",
-          tint = setup.topTint,
-          scale = 0.25,
-          mipmap_count = 1
-        },
-        {
-          size = 64,
-          filename = "__True-Nukes__/graphics/warheads/generic-warheads/ring-part-1.png",
-          tint = setup.r1Tint,
-          scale = 0.25,
-          mipmap_count = 1
-        },
-        {
-          size = 64,
-          filename = "__True-Nukes__/graphics/warheads/generic-warheads/ring-part-2.png",
-          tint = setup.r2Tint,
-          scale = 0.25,
-          mipmap_count = 1
-        }
+        size = 64,
+        filename = "__True-Nukes__/graphics/warheads/generic-warheads/base.png",
+        scale = 0.25,
+        mipmap_count = 1
+      },
+      {
+        size = 64,
+        filename = "__True-Nukes__/graphics/warheads/generic-warheads/top.png",
+        tint = setup.topTint,
+        scale = 0.25,
+        mipmap_count = 1
+      },
+      {
+        size = 64,
+        filename = "__True-Nukes__/graphics/warheads/generic-warheads/ring-part-1.png",
+        tint = setup.r1Tint,
+        scale = 0.25,
+        mipmap_count = 1
+      },
+      {
+        size = 64,
+        filename = "__True-Nukes__/graphics/warheads/generic-warheads/ring-part-2.png",
+        tint = setup.r2Tint,
+        scale = 0.25,
+        mipmap_count = 1
       }
     }
   }
   if(setup.yield) then
     local textLocation = setup.textLoc or "__True-Nukes__/graphics/warheads/"
-    table.insert(result.pictures.layers,{
+    table.insert(result.pictures,{
       size = 128,
       filename = textLocation .. "text_" .. setup.yield .. ".png",
       scale = 0.125,
@@ -84,7 +81,7 @@ local function createAppearance(setup)
     })
   end
   if(setup.topTint.l)then
-    table.insert(result.pictures.layers,{
+    table.insert(result.pictures,{
       draw_as_light = true,
       flags = {"light"},
       size = 64,
@@ -94,7 +91,7 @@ local function createAppearance(setup)
     })
   end
   if(setup.r1Tint.l)then
-    table.insert(result.pictures.layers,{
+    table.insert(result.pictures,{
       draw_as_light = true,
       flags = {"light"},
       size = 64,
@@ -104,7 +101,7 @@ local function createAppearance(setup)
     })
   end
   if(setup.r2Tint.l)then
-    table.insert(result.pictures.layers,{
+    table.insert(result.pictures,{
       draw_as_light = true,
       flags = {"light"},
       size = 64,

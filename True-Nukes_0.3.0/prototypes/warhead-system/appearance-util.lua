@@ -1,4 +1,7 @@
 local function generateAppearance(thing)
+  --  if not thing then
+  --    return {icons = {}, pictures = {}}
+  --  end
   local icons = nil
   local pictures = nil
   local lights = nil
@@ -47,22 +50,24 @@ local function generateAppearance(thing)
         end
         table.insert(pictures, {filename = i.icon, size = i.icon_size or 64, scale = (i.scale or 1)/4.0, shift = shift})
       end
-      for _,l in pairs(lights) do
-        local lightSetup = {}
-        if(type(l) == "table") then
-          if(l.icon) then
-            local shift = {0, 0}
-            if(l.shift) then
-              shift = {l.shift[1]*0.01875, l.shift[2]*0.01875}
+      if(lights) then
+        for _,l in pairs(lights) do
+          local lightSetup = {}
+          if(type(l) == "table") then
+            if(l.icon) then
+              local shift = {0, 0}
+              if(l.shift) then
+                shift = {l.shift[1]*0.01875, l.shift[2]*0.01875}
+              end
+              lightSetup = {filename = l.icon, size = l.icon_size or l.size or 64, scale = (l.scale or 1)/4.0, shift = shift}
+            else
+              lightSetup = l
             end
-            lightSetup = {filename = l.icon, size = l.icon_size or l.size or 64, scale = (l.scale or 1)/4.0, shift = shift}
           else
-            lightSetup = l
+            lightSetup = {filename = l, size = 64, scale = 0.25}
           end
-        else
-          lightSetup = {filename = l, size = 64, scale = 0.25}
+          table.insert(pictures, lightSetup)
         end
-        table.insert(pictures, lightSetup)
       end
     end
   end
@@ -72,7 +77,7 @@ local function generateAppearance(thing)
         if(p.icon) then
           local shift = {0, 0}
           if(p.shift) then
-            shift = {p.shift[1]*0.01875, l.shift[2]*0.01875}
+            shift = {p.shift[1]*0.01875, p.shift[2]*0.01875}
           end
           table.insert(picturesFinal, {filename = p.icon, size = p.icon_size or p.size or 64, scale = (p.scale or 1)/4.0, shift = shift})
         else

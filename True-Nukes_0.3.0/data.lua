@@ -1,8 +1,13 @@
+require("prototypes.nukes.data-radiation")
+
+
 require("prototypes.warhead-system.warheads")
+require("prototypes.warhead-system.basegame-weapontype-add")
 
 
+require("prototypes.nukes.data-nukes-intermediate")
 require("prototypes.nukes.data-nukes-warheads-create")
-require("prototypes.thermobarics.data-thermobaric-warheads")
+--require("prototypes.thermobarics.data-thermobaric-warheads")
 
 
 
@@ -50,17 +55,17 @@ end
 
 require("prototypes.nukes.data-nuke-terrain")
 
-if(settings.startup["enable-atomic-ammo"].value or settings.startup["enable-big-atomic-ammo"].value
-  or settings.startup["enable-atomic-cannons"].value or settings.startup["enable-big-atomic-cannons"].value
-  or settings.startup["enable-small-atomic-bomb"].value or settings.startup["enable-very-small-atomic-bomb"].value or settings.startup["enable-really-very-small-atomic-bomb"].value
-  or settings.startup["enable-atomic-bomb"].value or settings.startup["enable-big-atomic-bomb"].value or settings.startup["enable-very-big-atomic-bomb"].value
-  or settings.startup["enable-very-small-atomic-artillery"].value or settings.startup["enable-small-atomic-artillery"].value or settings.startup["enable-atomic-artillery"].value
-  or settings.startup["enable-big-atomic-artillery"].value or settings.startup["enable-very-big-atomic-artillery"].value
-  or settings.startup["enable-fusion-building"].value or settings.startup["enable-mega-fusion-building"].value) then
-  require("prototypes.nukes.data-nukes")
-elseif (not(settings.startup["keep-atomic-research-without-weapons"].value or settings.startup["keep-atomic-bomb-without-changes"])) then
-  data.raw.technology["atomic-bomb"] = nil
-end
+--if(settings.startup["enable-atomic-ammo"].value or settings.startup["enable-big-atomic-ammo"].value
+--  or settings.startup["enable-atomic-cannons"].value or settings.startup["enable-big-atomic-cannons"].value
+--  or settings.startup["enable-small-atomic-bomb"].value or settings.startup["enable-very-small-atomic-bomb"].value or settings.startup["enable-really-very-small-atomic-bomb"].value
+--  or settings.startup["enable-atomic-bomb"].value or settings.startup["enable-big-atomic-bomb"].value or settings.startup["enable-very-big-atomic-bomb"].value
+--  or settings.startup["enable-very-small-atomic-artillery"].value or settings.startup["enable-small-atomic-artillery"].value or settings.startup["enable-atomic-artillery"].value
+--  or settings.startup["enable-big-atomic-artillery"].value or settings.startup["enable-very-big-atomic-artillery"].value
+--  or settings.startup["enable-fusion-building"].value or settings.startup["enable-mega-fusion-building"].value) then
+--  require("prototypes.nukes.data-nukes")
+--elseif (not(settings.startup["keep-atomic-research-without-weapons"].value or settings.startup["keep-atomic-bomb-without-changes"])) then
+--  data.raw.technology["atomic-bomb"] = nil
+--end
 
 
 if(settings.startup["enable-fire-shield"].value) then
@@ -179,9 +184,6 @@ if(settings.startup["enable-menu-backgrounds"].value)then
     require("menu-simulations.nuke-1x1kt")
   end
 end
-
-
-
 
 
 

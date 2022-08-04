@@ -32,27 +32,29 @@ data:extend({
   }
 })
 
---The minimal thing in the array looks like this:
---table.insert(nuclearCoreYields, {
---  name = "TN-warhead-0-1--1",
---  appendName = "-atomic-0_1t",
---  order = "n-m-000001-1",
---  chart_picture = "__True-Nukes__/graphics/artillery/atomic-artillery-californium-map-visualization.png",
---  size = "tiny",
---  preciseSize = 6,
---  explosion = nuke_explosions.N0_1t_detonation
---})
-
 --all these work in generated names...
-warheads = {}
-weaponTypes = {}
-warheadOverrides = {} -- functions taking the combined result, and changing things - very free form
-warheadWeaponIgnore = {} -- names of things to ignore, mapped to true
-warheadWeaponDoAnyway = {} -- names of things to do anyway, mapped to true - override to sizes
-warheadWeaponNameMap= {} -- map of generated name to use name
+if not warheads then
+  warheads = {}
+end
+if not weaponTypes then
+  weaponTypes = {}
+end
+if not warheadOverrides then
+  warheadOverrides = {} -- functions taking the combined result, and changing things - very free form
+end
+if not warheadWeaponIgnore then
+  warheadWeaponIgnore = {} -- names of things to ignore, mapped to true
+end
+if not warheadWeaponDoAnyway then
+  warheadWeaponDoAnyway = {} -- names of things to do anyway, mapped to true - override to sizes
+end
+if not warheadWeaponNameMap then
+  warheadWeaponNameMap= {} -- map of generated name to use name
+end
 
 
 local sizes = {
+  none = 0,
   tiny = 10,
   small = 20,
   medium = 30,

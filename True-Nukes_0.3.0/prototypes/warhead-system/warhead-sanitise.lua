@@ -8,24 +8,23 @@ local function sanitseWarhead(warhead)
 
   local appearance = generateAppearance(warhead)
 
-  result.warhead.recipe = {}
-  result.warhead.item = {}
 
-  result.warhead.size = warhead.size
-  result.warhead.preciseSize = warhead.preciseSize
-  if(not result.warhead.preciseSize) then
-    result.warhead.preciseSize = sizes[warhead.size]
+  result.size = warhead.size
+  result.preciseSize = warhead.preciseSize
+  if(not result.preciseSize) then
+    result.preciseSize = sizes[warhead.size]
   end
 
-  if(result.warhead.preciseSize and not result.warhead.size) then
+  if(result.preciseSize and not result.size) then
     local tmpSizeBestDiff = 100
     for s,i in pairs(sizes) do
-      if(math.abs(result.warhead.preciseSize - i)<tmpSizeBestDiff) then
-        tmpSizeBestDiff = math.abs(result.warhead.preciseSize - i)
-        result.warhead.size = s
+      if(math.abs(result.preciseSize - i)<tmpSizeBestDiff) then
+        tmpSizeBestDiff = math.abs(result.preciseSize - i)
+        result.size = s
       end
     end
   end
+  result.warhead.item = {}
 
   result.warhead.item.type = "item"
   result.warhead.item.name = warhead.name
@@ -34,6 +33,8 @@ local function sanitseWarhead(warhead)
   result.warhead.item.stack_size = warhead.stack_size
   result.warhead.item.pictures = {layers = appearance.pictures}
   result.warhead.item.icons = appearance.icons
+
+  result.warhead.recipe = {}
 
   result.warhead.recipe.type = "recipe"
   result.warhead.recipe.name = warhead.name
@@ -50,7 +51,7 @@ local function sanitseWarhead(warhead)
   if warhead.explosions then
     explosions = warhead.explosions
   else
-    explosions = {appendName = "", appendOrder = "", action = warhead.action, final_action = warhead.final_action, created_effect = warhead.created_effect }
+    explosions = {{appendName = "", appendOrder = "", effect = warhead.effect, final_effect = warhead.final_effect, created_effect = warhead.created_effect }}
   end
   local prevExplosionName = nil
   for _,explosion in pairs(explosions) do
@@ -59,7 +60,7 @@ local function sanitseWarhead(warhead)
     weapon.appendOrder = warhead.appendOrder .. explosion.appendOrder
 
     local expAppearance = generateAppearance(explosion)
-    if(#expAppearance.icons >0) then
+    if(expAppearance.icons[1]) then
       weapon.appearance = expAppearance
     else
       weapon.appearance = appearance
@@ -102,13 +103,13 @@ local function sanitseWarhead(warhead)
     end
 
     if(prevExplosionName == nil) then
-      if(warhead.ingredients) then
-        for _,ingredient in pairs(warhead.ingredients) do
+      if(warhead.additional_ingedients) then
+        for _,ingredient in pairs(warhead.additional_ingedients) do
           table.insert(weapon.recipe.additional_ingedients, ingredient)
         end
       end
-      if(warhead.ingredient) then
-        table.insert(weapon.recipe.additional_ingedients, {name = warhead.ingredient, amount = warhead.ingredient_count or 1})
+      if(warhead.additional_ingedients) then
+        table.insert(weapon.recipe.additional_ingedients, {name = warhead.additional_ingedients, amount = warhead.ingredient_count or 1})
       end
     end
 
@@ -143,12 +144,12 @@ local function sanitseWarhead(warhead)
           scale = 0.25
         }
       end
-    elseif(weapon.chart_picture) then
+    elseif(warhead.chart_picture) then
       if(type(explosion.chart_picture)=="table") then
-        weapon.projectile.chart_picture = weapon.chart_picture
+        weapon.projectile.chart_picture = warhead.chart_picture
       else
         weapon.projectile.chart_picture = {
-          filename = weapon.chart_picture,
+          filename = warhead.chart_picture,
           flags = { "icon" },
           frame_count = 1,
           width = 64,
@@ -193,10 +194,11 @@ local function sanitseWarhead(warhead)
     weapon.projectile.acceleration_modifier = explosion.acceleration_modifier or weapon.acceleration_modifier or 1
     weapon.projectile.max_speed_modifier = explosion.max_speed_modifier or weapon.max_speed_modifier or 1
 
-    weapon.projectile.action = explosion.action
-    weapon.projectile.final_action = explosion.final_action
+    weapon.projectile.effect = explosion.effect
+    weapon.projectile.final_effect = explosion.final_effect
     weapon.projectile.created_effect = explosion.created_effect
     weapon.projectile.ammo_category = warhead.ammo_category
+    weapon.projectile.map_color = warhead.map_color
 
     weapon.land_mine = {}
     weapon.land_mine.trigger_radius_modifier = explosion.trigger_radius_modifier or warhead.trigger_radius_modifier or 1
