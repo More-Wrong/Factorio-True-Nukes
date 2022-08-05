@@ -1,4 +1,4 @@
-table.insert(weaponTypes, {
+weaponTypes["rounds-magazine"]= {
   type = "bullet",
   size = "tiny",
   baseName = "rounds-magazine",
@@ -11,8 +11,8 @@ table.insert(weaponTypes, {
   image_base_shift = {4, 2},
   image_warhead_shift = {-8, -8},
   item = table.deepcopy(data.raw.ammo["piercing-rounds-magazine"]),
-})
-table.insert(weaponTypes, {
+}
+weaponTypes["cannon-shell"]= {
   type = "projectile",
   size = "small",
   baseName = "cannon-shell",
@@ -24,8 +24,8 @@ table.insert(weaponTypes, {
   image_base_shift = {-4, 0},
   item = table.deepcopy(data.raw.ammo["cannon-shell"]),
   projectile = table.deepcopy(data.raw.projectile["cannon-projectile"]),
-})
-table.insert(weaponTypes, {
+}
+weaponTypes["small-rocket"]= {
   type = "projectile",
   size = "small",
   baseName = "small-rocket",
@@ -37,11 +37,11 @@ table.insert(weaponTypes, {
   image_base_shift = {-4, 0},
   item = table.deepcopy(data.raw.ammo["rocket"]),
   projectile = table.deepcopy(data.raw.projectile["rocket"]),
-})
-table.insert(weaponTypes, {
+}
+weaponTypes["big-rocket"]= {
   type = "projectile",
   size = "medium",
-  size = "tiny",
+  min_size = "tiny",
   baseName = "big-rocket",
   base_item = "rocket",
   icon = "__base__/graphics/icons/rocket.png",
@@ -52,8 +52,8 @@ table.insert(weaponTypes, {
   image_base_shift = {-4, 0},
   item = table.deepcopy(data.raw.ammo["rocket"]),
   projectile = table.deepcopy(data.raw.projectile["rocket"]),
-})
-table.insert(weaponTypes, {
+}
+weaponTypes["artillery-shell"]= {
   type = "artillery",
   max_size = "large",
   min_size = "medium",
@@ -67,9 +67,9 @@ table.insert(weaponTypes, {
   image_warhead_shift = {-8, -8},
   item = table.deepcopy(data.raw.ammo["artillery-shell"]),
   projectile = table.deepcopy(data.raw["artillery-projectile"]["artillery-projectile"]),
-})
+}
 
-table.insert(weaponTypes, {
+weaponTypes["warhead-util-projectile"]= {
   type = "projectile",
   baseName = "warhead-util-projectile",
   base_item = "infinity-chest",
@@ -81,4 +81,4 @@ table.insert(weaponTypes, {
   image_warhead_shift = {-8, -8},
   acceleration = 1,
   ammo_category = "cannon-shell"
-})
+}

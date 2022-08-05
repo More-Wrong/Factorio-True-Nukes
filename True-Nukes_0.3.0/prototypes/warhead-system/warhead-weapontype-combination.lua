@@ -18,7 +18,7 @@ local function combineAppearances(weapontypeGeneral, weaponAppearance, warheadWe
   if(not weapontypeGeneral.ignore_warhead_image)then
     local core_icon_shift = weapontypeGeneral.image_warhead_shift or {10, -4}
     for _,i in pairs(table.deepcopy(warheadWeapon.icons)) do
-      if(not i.no_shift) then
+      if(not i.special) then
         i.shift = i.shift or {0, 0}
         i.shift[1] = i.shift[1]+core_icon_shift[1]
         i.shift[2] = i.shift[2]+core_icon_shift[2]
@@ -48,7 +48,7 @@ local function combineAppearances(weapontypeGeneral, weaponAppearance, warheadWe
   for _,i in pairs(table.deepcopy(warheadWeapon.pictures)) do
     i.shift = i.shift or {0, 0}
     i.scale = i.scale or 1
-    if not i.no_shift then
+    if not i.special then
       i.shift[1] = i.shift[1]*0.01875+core_shift[1]
       i.shift[2] = i.shift[2]*0.01875+core_shift[2]
       i.scale = i.scale*2/3.0

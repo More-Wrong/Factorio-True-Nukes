@@ -6,9 +6,9 @@ shotgunSetup = {
   ingredient = "uranium-rounds-magazine",
   baseName = "rounds-magazine",
   iconTable = {},
+  lightTable = {},
   iconShift = {4, 2},
   coreShift = {-8, -8},
-  lightTable = {},
 }
 
 ammoSetup = {
@@ -19,9 +19,9 @@ ammoSetup = {
   ingredient = "uranium-rounds-magazine",
   baseName = "rounds-magazine",
   iconTable = {},
+  lightTable = {},
   iconShift = {4, 2},
   coreShift = {-8, -8},
-  lightTable = {},
 }
 
 cannonSetup = {
@@ -33,9 +33,9 @@ cannonSetup = {
   ingredient = "uranium-cannon-shell",
   baseName = "cannon-shell",
   iconTable = {},
+  lightTable = {},
   iconShift = {4, 2},
   coreShift = {-8, -8},
-  lightTable = {},
 }
 cannonSetup.recipe.energy_required = 4;
 cannonSetup.item.order = "d[explosive-cannon-shell]-c[x-shell]"
@@ -44,12 +44,11 @@ smallRocketSetup = {
   hasProjectile = true,
   item = table.deepcopy(data.raw.ammo["rocket"]),
   projectile = table.deepcopy(data.raw.projectile["atomic-rocket"]),
-  recipe = table.deepcopy(data.raw.recipe["atomic-bomb"]),
   ingredient = "rocket",
   baseName = "small-rocket",
   iconTable = {},
-  iconShift = {-4, 0},
   lightTable = {},
+  iconShift = {-4, 0},
 }
 smallRocketSetup.recipe.energy_required = 4;
 smallRocketSetup.item.order = "d[rocket-launcher]-d[small]"
@@ -62,12 +61,11 @@ bigRocketSetup = {
   hasProjectile = true,
   item = table.deepcopy(data.raw.ammo["rocket"]),
   projectile = table.deepcopy(data.raw.projectile["atomic-rocket"]),
-  recipe = table.deepcopy(data.raw.recipe["atomic-bomb"]),
   ingredients = {{"rocket", 1}, {"rocket-control-unit", 5}, {"rocket-fuel", 10}},
   baseName = "big-rocket",
   iconTable = {},
-  iconShift = {-4, 0},
   lightTable = {},
+  iconShift = {-4, 0},
 }
 bigRocketSetup.recipe.energy_required = 6;
 bigRocketSetup.item.order = "d[rocket-launcher]-e[big]"
@@ -85,9 +83,9 @@ artillerySetup = {
   ingredient = "artillery-shell",
   baseName = "artillery-shell",
   iconTable = {},
+  lightTable = {},
   iconShift = {4, 2},
   coreShift = {-8, -8},
-  lightTable = {},
 }
 capsuleSetup = {
   size = "large",
