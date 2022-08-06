@@ -1,12 +1,10 @@
-require("prototypes.nukes.data-radiation")
-
-
 require("prototypes.warhead-system.warheads")
 require("prototypes.warhead-system.basegame-weapontype-add")
 
+require("prototypes.nukes.data-nukes")
 
-require("prototypes.nukes.data-nukes-intermediate")
-require("prototypes.nukes.data-nukes-warheads-create")
+
+
 --require("prototypes.thermobarics.data-thermobaric-warheads")
 
 
@@ -52,8 +50,6 @@ data:extend({
 if (not settings.startup["keep-atomic-bomb-without-changes"]) and not (settings.startup["enable-atomic-bomb"].value or settings.startup["enable-big-atomic-bomb"].value or settings.startup["enable-very-big-atomic-bomb"].value) then
   table.remove(data.raw.technology["atomic-bomb"].effects, 1)
 end
-
-require("prototypes.nukes.data-nuke-terrain")
 
 --if(settings.startup["enable-atomic-ammo"].value or settings.startup["enable-big-atomic-ammo"].value
 --  or settings.startup["enable-atomic-cannons"].value or settings.startup["enable-big-atomic-cannons"].value
