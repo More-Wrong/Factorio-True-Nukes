@@ -1,8 +1,8 @@
 
 local tints = {
   californium = {a=1, b = 0.1, g = 1, r = 0.95, l=true},
-  uraniumLive = {a=1, b = 0.1, g = 1, r = 0.4, l=true},
-  uraniumDead = {a=1, b = 0.1, g = 0.6, r = 0.3},
+  uraniumLive = {a=1, b = 0.1, g = 1, r = 0.3, l=true},
+  uraniumDead = {a=1, b = 0.15, g = 0.4, r = 0.15},
   tritium = {a=1, b = 0.95, g = 0.95, r = 0.15, l=true},
   nothing = {a=1, b = 0.5, g = 0.5, r = 0.5},
   lightNothing = {a=1, b = 0.95, g = 0.95, r = 0.95},
@@ -16,48 +16,51 @@ local sprite_types = {
       base = "__base__/graphics/icons/artillery-shell.png"
     },
     {
-      base = "__True-Nukes__/graphics/artillery/artillery-generic/artillery-shell-base.png",
       sections = {
         "__True-Nukes__/graphics/artillery/artillery-generic/artillery-shell-tip.png",
       },
       lights = {
-        "__True-Nukes__/graphics/artillery/artillery-generic/artillery-shell-tip-light.png",
-      }
+        "__True-Nukes__/graphics/artillery/artillery-generic/artillery-shell-tip.png",
+      },
+      final = "__True-Nukes__/graphics/artillery/artillery-generic/artillery-shell-base.png"
     },
     {
-      base = "__True-Nukes__/graphics/artillery/artillery-generic/artillery-shell-ring-1-base.png",
+      base = "__True-Nukes__/graphics/artillery/artillery-generic/artillery-shell-ring-1-base-left.png",
       sections = {
         "__True-Nukes__/graphics/artillery/artillery-generic/artillery-shell-tip.png",
         "__True-Nukes__/graphics/artillery/artillery-generic/artillery-shell-ring-1.png"
       },
       lights = {
-        "__True-Nukes__/graphics/artillery/artillery-generic/artillery-shell-tip-light.png",
-        "__True-Nukes__/graphics/artillery/artillery-generic/artillery-shell-ring-1-light.png"
-      }
+        "__True-Nukes__/graphics/artillery/artillery-generic/artillery-shell-tip.png",
+        "__True-Nukes__/graphics/artillery/artillery-generic/artillery-shell-ring-1.png"
+      },
+      final = "__True-Nukes__/graphics/artillery/artillery-generic/artillery-shell-ring-1-base-right.png"
     },
     {
-      base = "__True-Nukes__/graphics/artillery/artillery-generic/artillery-shell-ring-2-base.png",
+      base = "__True-Nukes__/graphics/artillery/artillery-generic/artillery-shell-ring-2-base-left.png",
       sections = {
         "__True-Nukes__/graphics/artillery/artillery-generic/artillery-shell-tip.png",
         "__True-Nukes__/graphics/artillery/artillery-generic/artillery-shell-ring-1.png",
         "__True-Nukes__/graphics/artillery/artillery-generic/artillery-shell-ring-2.png"
       },
       lights = {
-        "__True-Nukes__/graphics/artillery/artillery-generic/artillery-shell-tip-light.png",
-        "__True-Nukes__/graphics/artillery/artillery-generic/artillery-shell-ring-1-light.png",
-        "__True-Nukes__/graphics/artillery/artillery-generic/artillery-shell-ring-2-light.png"
-      }
+        "__True-Nukes__/graphics/artillery/artillery-generic/artillery-shell-tip.png",
+        "__True-Nukes__/graphics/artillery/artillery-generic/artillery-shell-ring-1.png",
+        "__True-Nukes__/graphics/artillery/artillery-generic/artillery-shell-ring-2.png"
+      },
+      final = "__True-Nukes__/graphics/artillery/artillery-generic/artillery-shell-ring-2-base-right.png"
     },
     {
-      base = "__True-Nukes__/graphics/artillery/artillery-generic/artillery-shell-ring-fat-base.png",
+      base = "__True-Nukes__/graphics/artillery/artillery-generic/artillery-shell-ring-fat-base-left.png",
       sections = {
         "__True-Nukes__/graphics/artillery/artillery-generic/artillery-shell-tip.png",
         "__True-Nukes__/graphics/artillery/artillery-generic/artillery-shell-ring-fat.png"
       },
       lights = {
-        "__True-Nukes__/graphics/artillery/artillery-generic/artillery-shell-tip-light.png",
-        "__True-Nukes__/graphics/artillery/artillery-generic/artillery-shell-ring-fat-light.png"
-      }
+        "__True-Nukes__/graphics/artillery/artillery-generic/artillery-shell-tip.png",
+        "__True-Nukes__/graphics/artillery/artillery-generic/artillery-shell-ring-fat.png"
+      },
+      final = "__True-Nukes__/graphics/artillery/artillery-generic/artillery-shell-ring-fat-base-right.png",
     },
   },
   cannon = {
@@ -71,7 +74,8 @@ local sprite_types = {
       },
       lights = {
         "__True-Nukes__/graphics/cannon/cannon-shell-tip.png",
-      }
+      },
+      final = "__True-Nukes__/graphics/cannon/cannon-shell-base-top.png"
     },
     {
       base = "__True-Nukes__/graphics/cannon/cannon-shell-base.png",
@@ -80,7 +84,8 @@ local sprite_types = {
       },
       lights = {
         "__True-Nukes__/graphics/cannon/cannon-shell-edge.png",
-      }
+      },
+      final = "__True-Nukes__/graphics/cannon/cannon-shell-base-top.png"
     },
     {
       base = "__True-Nukes__/graphics/cannon/cannon-shell-base.png",
@@ -91,7 +96,8 @@ local sprite_types = {
       lights = {
         "__True-Nukes__/graphics/cannon/cannon-shell-tip.png",
         "__True-Nukes__/graphics/cannon/cannon-shell-edge.png",
-      }
+      },
+      final = "__True-Nukes__/graphics/cannon/cannon-shell-base-top.png"
     },
   },
   rocket = {
@@ -100,69 +106,77 @@ local sprite_types = {
     },
     {
       base = {
-        "__True-Nukes__/graphics/rockets/rockets-generic/rocket-ring-1.png",
-        "__True-Nukes__/graphics/rockets/rockets-generic/rocket-ring-2.png",
-        "__True-Nukes__/graphics/rockets/rockets-generic/rocket-ring-3.png",
         "__True-Nukes__/graphics/rockets/rockets-generic/rocket-fins.png",
-        "__True-Nukes__/graphics/rockets/rockets-generic/rocket-engine.png",
       },
       sections = {
         "__True-Nukes__/graphics/rockets/rockets-generic/rocket-tip.png",
       },
       lights = {
         "__True-Nukes__/graphics/rockets/rockets-generic/rocket-tip-light.png",
-      }
+      },
+      final = {
+        "__True-Nukes__/graphics/rockets/rockets-generic/rocket-ring-1.png",
+        "__True-Nukes__/graphics/rockets/rockets-generic/rocket-ring-2.png",
+        "__True-Nukes__/graphics/rockets/rockets-generic/rocket-ring-3.png",
+        "__True-Nukes__/graphics/rockets/rockets-generic/rocket-engine.png",
+      },
     },
     {
       base = {
-        "__True-Nukes__/graphics/rockets/rockets-generic/rocket-ring-2.png",
-        "__True-Nukes__/graphics/rockets/rockets-generic/rocket-ring-3.png",
         "__True-Nukes__/graphics/rockets/rockets-generic/rocket-fins.png",
-        "__True-Nukes__/graphics/rockets/rockets-generic/rocket-engine.png",
       },
       sections = {
         "__True-Nukes__/graphics/rockets/rockets-generic/rocket-tip.png",
         "__True-Nukes__/graphics/rockets/rockets-generic/rocket-ring-1.png",
-      },
-      lights = {
-        "__True-Nukes__/graphics/rockets/rockets-generic/rocket-tip-light.png",
-        "__True-Nukes__/graphics/rockets/rockets-generic/rocket-ring-1-light.png",
-      }
-    },
-    {
-      base = {
-        "__True-Nukes__/graphics/rockets/rockets-generic/rocket-ring-3.png",
-        "__True-Nukes__/graphics/rockets/rockets-generic/rocket-fins.png",
-        "__True-Nukes__/graphics/rockets/rockets-generic/rocket-engine.png",
-      },
-      sections = {
-        "__True-Nukes__/graphics/rockets/rockets-generic/rocket-tip.png",
-        "__True-Nukes__/graphics/rockets/rockets-generic/rocket-ring-1.png",
-        "__True-Nukes__/graphics/rockets/rockets-generic/rocket-ring-2.png",
       },
       lights = {
         "__True-Nukes__/graphics/rockets/rockets-generic/rocket-tip-light.png",
         "__True-Nukes__/graphics/rockets/rockets-generic/rocket-ring-1-light.png",
-        "__True-Nukes__/graphics/rockets/rockets-generic/rocket-ring-2-light.png",
-      }
+      },
+      final = {
+        "__True-Nukes__/graphics/rockets/rockets-generic/rocket-ring-2.png",
+        "__True-Nukes__/graphics/rockets/rockets-generic/rocket-ring-3.png",
+        "__True-Nukes__/graphics/rockets/rockets-generic/rocket-engine.png",
+      },
     },
     {
       base = {
-        "__True-Nukes__/graphics/rockets/rockets-generic/rocket-ring-3.png",
         "__True-Nukes__/graphics/rockets/rockets-generic/rocket-fins.png",
       },
       sections = {
         "__True-Nukes__/graphics/rockets/rockets-generic/rocket-tip.png",
         "__True-Nukes__/graphics/rockets/rockets-generic/rocket-ring-1.png",
         "__True-Nukes__/graphics/rockets/rockets-generic/rocket-ring-2.png",
-        "__True-Nukes__/graphics/rockets/rockets-generic/rocket-engine.png",
       },
       lights = {
         "__True-Nukes__/graphics/rockets/rockets-generic/rocket-tip-light.png",
         "__True-Nukes__/graphics/rockets/rockets-generic/rocket-ring-1-light.png",
         "__True-Nukes__/graphics/rockets/rockets-generic/rocket-ring-2-light.png",
+      },
+      final = {
+        "__True-Nukes__/graphics/rockets/rockets-generic/rocket-ring-3.png",
         "__True-Nukes__/graphics/rockets/rockets-generic/rocket-engine.png",
-      }
+      },
+    },
+    {
+      base = {
+        "__True-Nukes__/graphics/rockets/rockets-generic/rocket-fins.png",
+      },
+      sections = {
+        "__True-Nukes__/graphics/rockets/rockets-generic/rocket-tip.png",
+        "__True-Nukes__/graphics/rockets/rockets-generic/rocket-ring-1.png",
+        "__True-Nukes__/graphics/rockets/rockets-generic/rocket-ring-2.png",
+        "__True-Nukes__/graphics/rockets/rockets-generic/rocket-engine.png",
+      },
+      lights = {
+        "__True-Nukes__/graphics/rockets/rockets-generic/rocket-tip-light.png",
+        "__True-Nukes__/graphics/rockets/rockets-generic/rocket-ring-1-light.png",
+        "__True-Nukes__/graphics/rockets/rockets-generic/rocket-ring-2-light.png",
+        "__True-Nukes__/graphics/rockets/rockets-generic/rocket-engine.png",
+      },
+      final = {
+        "__True-Nukes__/graphics/rockets/rockets-generic/rocket-ring-3.png",
+      },
     },
     {
       base = "__True-Nukes__/graphics/rockets/rockets-generic/rocket-fins.png",
@@ -227,23 +241,23 @@ local function createAppearance(setup)
   result.lights = {}
   local sprites = setup.sprite_types or sprite_types
   local sprite_type = sprites[setup.type]
-  local version = sprite_type[setup.version or 1]
+  local style = sprite_type[setup.style or 1]
 
   local text_location = setup.text_location or "__True-Nukes__/graphics/warheads/"
 
-  if(version.base) then
-    if(type(version.base) == "table") then
-      for _,s in pairs(version.base) do
+  if(style.base) then
+    if(type(style.base) == "table") then
+      for _,s in pairs(style.base) do
         table.insert(result.icons, s)
       end
     else
-      table.insert(result.icons, version.base)
+      table.insert(result.icons, style.base)
     end
   end
-  if(version.sections) then
-    for i,s in ipairs(version.sections) do
+  if(style.sections) then
+    for i,s in ipairs(style.sections) do
       if(setup.tints[i].l or setup.tints[i].light) then
-        table.insert(result.lights, version.lights[i])
+        table.insert(result.lights, style.lights[i])
       end
       table.insert(result.icons, {
         icon = s,
@@ -279,29 +293,39 @@ local function setupWarheadsForWeapon(setup)
   local text_location = setup.text_location or "__True-Nukes__/graphics/warheads/"
 
   for w,v in pairs(setup.warheads) do
-    local version = sprite_type[v.version or 1]
+    local style = sprite_type[v.style or 1]
     local icons = {}
     local lights = {}
 
-    if(version.base) then
-      if(type(version.base) == "table") then
-        for _,s in pairs(version.base) do
+    if(style.base) then
+      if(type(style.base) == "table") then
+        for _,s in pairs(style.base) do
           table.insert(icons, s)
         end
       else
-        table.insert(icons, version.base)
+        table.insert(icons, style.base)
       end
     end
-    if(version.sections) then
-      for i,s in ipairs(version.sections) do
+    if(style.sections) then
+      for i,s in ipairs(style.sections) do
         if(v.tints[i].l or v.tints[i].light) then
-          table.insert(lights, version.lights[i])
+          table.insert(lights, style.lights[i])
         end
         table.insert(icons, {
           icon = s,
           icon_size = 64,
           tint = v.tints[i]
         })
+      end
+    end
+    
+    if(style.final) then
+      if(type(style.final) == "table") then
+        for _,s in pairs(style.final) do
+          table.insert(icons, s)
+        end
+      else
+        table.insert(icons, style.final)
       end
     end
     if(v.text) then
@@ -326,7 +350,7 @@ local function setupWarheadsForWeapon(setup)
   end
 end
 --{type = "artillery", weapon = "artillery-shell", warheads = {}}
---warheads[a] = {version = 1, tints = {}}
+--warheads[a] = {style = 1, tints = {}}
 
 
 
