@@ -90,7 +90,7 @@ local function sanitseWeapontype(weapontype)
   end
 
   result.item = {}
-
+  result.item.subgroup = weapontype.subgroup or item.subgroup
   result.item.stack_size = weapontype.stack_size or item.stack_size
 
   result.item.magazine_size = weapontype.magazine_size or item.magazine_size or 1
@@ -123,9 +123,12 @@ local function sanitseWeapontype(weapontype)
   -- default action creators
   if not result.item.action_creator then
     if result.type == "projectile" or result.type == "artillery" then
-      result.item.action_creator = function (projectile, target_effects, final_effects, source_effects)
+      result.item.action_creator = function (projectile, range_mult, target_effects, final_effects, source_effects)
         local a = table.deepcopy(item.ammo_type.action)
         a.action_delivery.projectile = projectile
+        if(a.action_delivery.max_range) then
+          a.action_delivery.max_range = range_mult * a.action_delivery.max_range
+        end
         if not a.action_delivery.source_effects then
           a.action_delivery.source_effects = {}
         end
@@ -137,7 +140,7 @@ local function sanitseWeapontype(weapontype)
         return a
       end
     elseif result.type == "land-mine" then
-      result.item.action_creator = function (projectile, target_effects, final_effects, source_effects)
+      result.item.action_creator = function (projectile, range_mult, target_effects, final_effects, source_effects)
         local a = table.deepcopy(item.action)
         if not a.action_delivery.source_effects then
           a.action_delivery.source_effects = {}
@@ -158,11 +161,10 @@ local function sanitseWeapontype(weapontype)
         return a
       end
     elseif result.type == "bullet" then
-      result.item.action_creator = function (projectile, target_effects, final_effects, source_effects)
+      result.item.action_creator = function (projectile, range_mult, target_effects, final_effects, source_effects)
         local a = table.deepcopy(item.ammo_type.action)
         if not a.action_delivery.target_effects then
           a.action_delivery.target_effects = {}
-          a.action_delivery.target_effects[1] = nil -- just there to stop bullet default behaviour getting in the way...
         end
         if target_effects then
           for _,e in pairs(target_effects) do
@@ -188,7 +190,7 @@ local function sanitseWeapontype(weapontype)
 
     elseif result.type == "capsule" then
       --should work on grenades... not sure about much else
-      result.item.action_creator = function (projectile, target_effects, final_effects, source_effects)
+      result.item.action_creator = function (projectile, range_mult, target_effects, final_effects, source_effects)
         local a = table.deepcopy(item.capsule_action)
         if not a.attack_parameters.ammo_type.action[2].action_delivery.source_effects then
           a.attack_parameters.ammo_type.action[2].action_delivery.source_effects = {}

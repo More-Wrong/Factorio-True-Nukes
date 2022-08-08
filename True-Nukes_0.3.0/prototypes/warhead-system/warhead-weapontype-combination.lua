@@ -75,7 +75,8 @@ local function combine(weapontype, warheadWeapon)
   end
   item.name = name
   item.order = weapontype.order .. warheadWeapon.appendOrder
-
+  item.subgroup = weapontype.item.subgroup
+  
   local weaponAppearance = generateAppearance(weapontype.appearances[warheadWeapon.appendName] or weapontype.appearances["default"])
 
   local appearance = combineAppearances(weapontype.appearance, weaponAppearance, warheadWeapon.appearance)
@@ -96,12 +97,12 @@ local function combine(weapontype, warheadWeapon)
     item.ammo_type.target_type = warheadWeapon.item.target_type or weapontype.item.target_type
     item.ammo_type.clamp_position = weapontype.item.clamp_position or warheadWeapon.item.clamp_position
     item.ammo_type.category = weapontype.item.ammo_category or warheadWeapon.item.ammo_category
-    item.ammo_type.action = weapontype.item.action_creator(name, warheadWeapon.projectile.effect, warheadWeapon.projectile.final_effect, warheadWeapon.projectile.created_effect)
+    item.ammo_type.action = weapontype.item.action_creator(name, weapontype.item.range_modifier * warheadWeapon.item.range_modifier, warheadWeapon.projectile.effect, warheadWeapon.projectile.final_effect, warheadWeapon.projectile.created_effect)
   elseif(weapontype.type == "land-mine") then
     item.place_result = name
   elseif(weapontype.type == "capsule") then
     item.type = "capsule"
-    item.capsule_action = weapontype.item.action_creator(name, warheadWeapon.projectile.effect, warheadWeapon.projectile.final_effect, warheadWeapon.projectile.created_effect)
+    item.capsule_action = weapontype.item.action_creator(name, weapontype.item.range_modifier * warheadWeapon.item.range_modifier, warheadWeapon.projectile.effect, warheadWeapon.projectile.final_effect, warheadWeapon.projectile.created_effect)
     item.radius_color = weapontype.item.radius_color or warheadWeapon.item.radius_color or weapontype.item.default_radius_color
   end
 
@@ -109,6 +110,7 @@ local function combine(weapontype, warheadWeapon)
 
   local recipe = {type = "recipe"}
   recipe.name = name
+  recipe.enabled = false
   recipe.order = weapontype.order .. warheadWeapon.appendOrder
   recipe.energy_required = weapontype.recipe.energy_required * warheadWeapon.recipe.energy_required_modifier
   recipe.crafting_machine_tint = warheadWeapon.recipe.crafting_machine_tint
