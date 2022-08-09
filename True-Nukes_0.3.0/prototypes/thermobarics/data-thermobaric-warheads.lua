@@ -1,6 +1,6 @@
 require("__True-Nukes__.prototypes.warhead-system.warheads")
 
-local create_utils = require("__True-Nukes__.prototypes.warhead-system.warhead-creation-utils")
+local create_utils = require("__True-Nukes__.prototypes.warhead-system.sprite-assembly-util")
 
 local circuit_type;
 if not mods["bobelectronics"] then
@@ -26,66 +26,29 @@ local function createAppearance(setup)
 end
 
 
-local createBasicWarhead = create_utils.createBasicWarhead
-
-local warheads = {
-  {
-    name = "TN-thermobaric-1",
-    order = "wa[TN-thermobaric-1]",
-    size = "small",
-    appearance = createAppearance({location = "__True-Nukes__/graphics/warheads/", icon_name = "thermobaric-1"}),
-    stack_size = 100,
-    time = 20,
-    ingredients = {
-      {"explosives", 10},
-      {circuit_type, 5},
-      {fuel_type, 15},
-      {"flamethrower-ammo", 5},
-      {"empty-barrel", 2}
-    }
-  },
-  {
-    name = "TN-thermobaric-2",
-    order = "wa[TN-thermobaric-2]",
-    size = "medium",
-    appearance = createAppearance({location = "__True-Nukes__/graphics/warheads/", icon_name = "thermobaric-2"}),
-    stack_size = 20,
-    time = 30,
-    ingredients = {
-      {"explosives", 20},
-      {circuit_type, 10},
-      {fuel_type, 25},
-      {"flamethrower-ammo", 12},
-      {"empty-barrel", 5}
-    }
-  },
-
-  {
-    name = "TN-thermobaric-3",
-    order = "wa[TN-thermobaric-3]",
-    size = "large",
-    appearance = createAppearance({location = "__True-Nukes__/graphics/warheads/", icon_name = "thermobaric-3"}),
-    stack_size = 5,
-    time = 40,
-    ingredients = {
-      {"explosives", 30},
-      {circuit_type, 15},
-      {fuel_type, 40},
-      {"flamethrower-ammo", 20},
-      {"empty-barrel", 10}
-    }
-  }
-}
-
-table.insert(warheadResults, {
+warheads["TN-thermobaric-1"] = {
   name = "TN-thermobaric-1",
   appendName = "-thermobaric-1",
-  orderResult = "d-t-1",
-  icon = "__True-Nukes__/graphics/warheads/thermobaric-1.png",
-  chart_picture = "__True-Nukes__/graphics/artillery/thermobaric-artillery-map-visualization.png",
+  appendOrder = "d-t-1",
+  target_type = "position",
+
   size = "small",
   preciseSize = 16,
-  explosion = {
+  icon = "__True-Nukes__/graphics/warheads/thermobaric-1.png",
+  chart_picture = "__True-Nukes__/graphics/artillery/thermobaric-artillery-map-visualization.png",
+  range_modifier = 1.5,
+  cooldown_modifier = 3,
+  stack_size = 100,
+  energy_required = 20,
+  clamp_position = true,
+  ingredients = {
+    {"explosives", 10},
+    {circuit_type, 5},
+    {fuel_type, 15},
+    {"flamethrower-ammo", 5},
+    {"empty-barrel", 2}
+  },
+  final_effect = {
     {
       type = "script",
       effect_id = "Thermobaric Weapon hit small"
@@ -146,17 +109,32 @@ table.insert(warheadResults, {
       }
     }
   }
-})
+}
 
-table.insert(warheadResults, {
+
+warheads["TN-thermobaric-2"] = {
   name = "TN-thermobaric-2",
   appendName = "-thermobaric-2",
-  orderResult = "d-t-2",
-  icon = "__True-Nukes__/graphics/warheads/thermobaric-2.png",
-  chart_picture = "__True-Nukes__/graphics/artillery/thermobaric-artillery-map-visualization.png",
+  appendOrder = "d-t-2",
+  target_type = "position",
+
   size = "medium",
   preciseSize = 24,
-  explosion = {
+  icon = "__True-Nukes__/graphics/warheads/thermobaric-2.png",
+  chart_picture = "__True-Nukes__/graphics/artillery/thermobaric-artillery-map-visualization.png",
+  range_modifier = 1.5,
+  cooldown_modifier = 3,
+  stack_size = 20,
+  energy_required = 30,
+  clamp_position = true,
+  ingredients = {
+    {"explosives", 20},
+    {circuit_type, 10},
+    {fuel_type, 25},
+    {"flamethrower-ammo", 12},
+    {"empty-barrel", 5}
+  },
+  final_effect = {
     {
       type = "script",
       effect_id = "Thermobaric Weapon hit medium"
@@ -213,17 +191,32 @@ table.insert(warheadResults, {
       }
     }
   }
-})
+}
 
-table.insert(warheadResults, {
+
+warheads["TN-thermobaric-3"] = {
   name = "TN-thermobaric-3",
   appendName = "-thermobaric-3",
-  orderResult = "d-t-1",
-  icon = "__True-Nukes__/graphics/warheads/thermobaric-3.png",
-  chart_picture = "__True-Nukes__/graphics/artillery/thermobaric-artillery-map-visualization.png",
+  appendOrder = "d-t-3",
+  target_type = "position",
+
   size = "large",
   preciseSize = 32,
-  explosion = {
+  icon = "__True-Nukes__/graphics/warheads/thermobaric-3.png",
+  chart_picture = "__True-Nukes__/graphics/artillery/thermobaric-artillery-map-visualization.png",
+  range_modifier = 1.5,
+  cooldown_modifier = 3,
+  stack_size = 10,
+  energy_required = 40,
+  clamp_position = true,
+  ingredients = {
+    {"explosives", 30},
+    {circuit_type, 15},
+    {fuel_type, 40},
+    {"flamethrower-ammo", 20},
+    {"empty-barrel", 10}
+  },
+  final_effect = {
     {
       type = "script",
       effect_id = "Thermobaric Weapon hit large"
@@ -280,9 +273,4 @@ table.insert(warheadResults, {
       }
     }
   }
-})
-
-for _,setup in pairs(warheads) do
-  createBasicWarhead(setup);
-end
-
+}

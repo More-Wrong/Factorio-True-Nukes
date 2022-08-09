@@ -7,7 +7,7 @@ local tints = {
   nothing = {a=1, b = 0.5, g = 0.5, r = 0.5},
   lightNothing = {a=1, b = 0.95, g = 0.95, r = 0.95},
   explosive = {a=1, b = 0.1, g = 0.1, r = 0.9},
-  flamable = {a=1, b = 0.1, g = 0.8, r = 0.9},
+  flamable = {a=1, b = 0.1, g = 0.7, r = 1},
 }
 
 local sprite_types = {
@@ -266,6 +266,15 @@ local function createAppearance(setup)
       })
     end
   end
+  if(style.final) then
+    if(type(style.final) == "table") then
+      for _,s in pairs(style.final) do
+        table.insert(result.icons, s)
+      end
+    else
+      table.insert(result.icons, style.final)
+    end
+  end
   if(setup.text) then
     table.insert(result.icons, {
       icon_size = 128,
@@ -318,7 +327,7 @@ local function setupWarheadsForWeapon(setup)
         })
       end
     end
-    
+
     if(style.final) then
       if(type(style.final) == "table") then
         for _,s in pairs(style.final) do

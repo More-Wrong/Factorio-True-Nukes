@@ -5,7 +5,7 @@ require("prototypes.nukes.data-nukes")
 
 
 
---require("prototypes.thermobarics.data-thermobaric-warheads")
+require("prototypes.thermobarics.data-thermobaric")
 
 
 
