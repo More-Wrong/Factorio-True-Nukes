@@ -143,6 +143,10 @@ data:extend{
       {
         type = "unlock-recipe",
         recipe = "TN-warhead-20--1"
+      },
+      {
+        type = "unlock-recipe",
+        recipe = "fire-shield-equipment"
       }
     },
     prerequisites = {"military-4", "uranium-processing"},
