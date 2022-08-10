@@ -1,57 +1,60 @@
 local function fire_damage_entity(surface, entity, force, cause, killPlanes)
   if (entity.valid and entity.position and (killPlanes or entity.type ~= "car")) then
-    -- For thermobarics, with the blast wave carrying the fire
-    local type = entity.type
-    if (type == "unit" or type == "car" or type == "spider-vehicle") then
-      local fireShield = nil
-      if entity.grid then
-        for _,e in pairs(entity.grid.equipment) do
-          if(e.name=="fire-shield-equipment" and e.energy>=500000) then
-            fireShield = e;
-            break;
+    if(not (entity.prototype.max_health == 0)) then
+      -- For thermobarics, with the blast wave carrying the fire
+      local type = entity.type
+      if (type == "unit" or type == "car" or type == "spider-vehicle") then
+        local fireShield = nil
+        if entity.grid then
+          for _,e in pairs(entity.grid.equipment) do
+            if(e.name=="fire-shield-equipment" and e.energy>=500000) then
+              fireShield = e;
+              break;
+            end
           end
         end
-      end
-      if fireShield then
-        fireShield.energy = fireShield.energy-500000
-      else
-        surface.create_entity{name="fire-sticker", position=entity.position, target=entity}
-      end
-      if(cause and cause.valid) then
-        entity.damage(20, force, "fire", cause)
-        if(entity.valid)then
-          entity.damage(40, force, "physical", cause)
+        if fireShield then
+          fireShield.energy = fireShield.energy-500000
+        else
+          surface.create_entity{name="fire-sticker", position=entity.position, target=entity}
         end
-        if(entity.valid and entity.type == "car" and (entity.prototype.max_health >= 1000 or fireShield)) then
-          entity.damage(80, force, "fire", cause)
+        if(cause and cause.valid) then
+          entity.damage(20, force, "fire", cause)
+          if(entity.valid)then
+            entity.damage(40, force, "physical", cause)
+          end
+          if(entity.valid and entity.type == "car" and (entity.prototype.max_health >= 1000 or fireShield)) then
+            entity.damage(80, force, "fire", cause)
+          end
+        else
+          entity.damage(20, force, "fire")
+          if(entity.valid)then
+            entity.damage(40, force, "physical")
+          end
+          if(entity.valid and entity.type == "car" and (entity.prototype.max_health >= 1000 or fireShield)) then
+            entity.damage(80, force, "fire")
+          end
         end
-      else
-        entity.damage(20, force, "fire")
-        if(entity.valid)then
-          entity.damage(40, force, "physical")
+      elseif (not (type == "tree")) then
+        if(cause and cause.valid) then
+          entity.damage(100, force, "fire", cause)
+        else
+          entity.damage(100, force, "fire")
         end
-        if(entity.valid and entity.type == "car" and (entity.prototype.max_health >= 1000 or fireShield)) then
-          entity.damage(80, force, "fire")
-        end
-      end
-    elseif (not (type == "tree")) then
-      if(cause and cause.valid) then
-        entity.damage(100, force, "fire", cause)
-      else
-        entity.damage(100, force, "fire")
       end
     end
   end
 end
 
 
-local function damage_entity(surface, position, blastInnerSq, power, blastSq, fire, damage_init, blast_min_damage, killPlanes, efficientDamage, entity, force, cause, corpseMap)
+local function damage_entity(surface, position, blastInnerSq, power, blastSq, fire, damage_init, blast_min_damage, killPlanes, entity, force, cause, corpseMap)
   -- do blast damage - reduced for rails, belts, land mines and flying vehicles, as this makes some sense, and trees in order to leave some alive
-  local xdif = entity.position.x-position.x
-  local ydif = entity.position.y-position.y
+  local ePos = entity.position
+  local eProto = entity.prototype
+  local xdif = ePos.x-position.x
+  local ydif = ePos.y-position.y
   local distSq = xdif*xdif + ydif*ydif
   if((not (entity.prototype.max_health == 0)) and distSq > blastInnerSq and distSq <= blastSq) then
-    local dist = math.sqrt(xdif*xdif + ydif*ydif)
     local damage = power/distSq*damage_init+blast_min_damage
     local t = entity.type
     if(t=="curved-rail") then
@@ -64,21 +67,25 @@ local function damage_entity(surface, position, blastInnerSq, power, blastSq, fi
       damage = damage/10
     elseif(t=="car" or t=="spider-vehicle") then
       if (next(entity.prototype.collision_mask)==nil)then
-        damage = damage/5
+        damage = damage/2
       end
     end
     if(t=="tree") then
+      if entity.tree_stage_index_max then
+        entity.tree_stage_index = entity.tree_stage_index_max
+      end
+      damage = 0
       if(fire) then
-        surface.create_entity{name="fire-flame-on-tree",position=entity.position, initial_ground_flame_count=255}
+        surface.create_entity{name="fire-flame-on-tree",position=ePos, initial_ground_flame_count=255}
       end
       damage = math.random(damage/10, damage)
 
-      if(entity.prototype.resistances and entity.prototype.resistances.explosion) then
-        damage = (damage-entity.prototype.resistances.explosion.decrease)*(1-entity.prototype.resistances.explosion.percent)
+      if(eProto.resistances and eProto.resistances.explosion) then
+        damage = (damage-entity.prototype.resistances.explosion.decrease)*(1-eProto.resistances.explosion.percent)
       end
       -- If a tree is destroyed, don't bother doing particle effects, just destroy it - huge performance savings
       if(entity.health<damage) then
-        local destPos = entity.position
+        local destPos = ePos
         entity.destroy()
         surface.create_entity{name="tree-01-stump",position=destPos}
       else
@@ -87,14 +94,14 @@ local function damage_entity(surface, position, blastInnerSq, power, blastSq, fi
     else
       damage = math.random(damage/2, damage*2)
       local calcDamage = damage;
-      if(efficientDamage and entity.prototype.resistances and entity.prototype.resistances.explosion) then
-        calcDamage = (calcDamage-entity.prototype.resistances.explosion.decrease)*(1-entity.prototype.resistances.explosion.percent)
+      if(eProto.resistances and eProto.resistances.explosion) then
+        calcDamage = (calcDamage-eProto.resistances.explosion.decrease)*(1-eProto.resistances.explosion.percent)
       end
-      if(efficientDamage and (not entity.grid) and entity.health>calcDamage) then
+      if((not entity.grid) and entity.health>calcDamage) then
         entity.health = entity.health-calcDamage
       else
         if((not entity.grid) and corpseMap[entity.name]) then
-          local entityPos = entity.position
+          local entityPos = ePos
           local corpseName = corpseMap[entity.name]
           entity.destroy()
           surface.create_entity{name=corpseName, position=entityPos}
@@ -117,7 +124,6 @@ end
 
 local function move_blast(i,blast,pastEHits, corpseMap)
 
-  local efficientDamage = settings.global["use-efficient-thermal"].value
   -- Compute the number of regions we move the blast in
   local regNum = 8
   if(blast.r<=500 or not blast.doItts) then
@@ -228,7 +234,7 @@ local function move_blast(i,blast,pastEHits, corpseMap)
   local blastSq = blast.r*blast.r
   for _,entity in pairs(entities) do
     if (entity.valid and entity.position) then
-      damage_entity(surface, center, blastInnerSq, blast.pow, blastSq, blast.fire, blast.damage_init, blast.blast_min_damage, true, efficientDamage, entity, blast.force, blast.cause, corpseMap)
+      damage_entity(surface, center, blastInnerSq, blast.pow, blastSq, blast.fire, blast.damage_init, blast.blast_min_damage, true, entity, blast.force, blast.cause, corpseMap)
     end
     if blast.fire then
       fire_damage_entity(surface, entity, blast.force, blast.cause, true)
@@ -278,12 +284,11 @@ local function move_blast(i,blast,pastEHits, corpseMap)
 end
 
 local function chunk_loaded(chunkLoaderStruct, surface_index, originPos, chunkPosAndArea, x, y, killPlanes, blastSq, force, cause, corpseMap)
-  local efficientDamage = settings.global["use-efficient-thermal"].value
   local fireballSq = chunkLoaderStruct.fireball_r*chunkLoaderStruct.fireball_r;
   for _,entity in pairs(game.surfaces[surface_index].find_entities_filtered{area=chunkPosAndArea.area}) do
     -- do blast damage - reduced for rails, belts, land mines and flying vehicles, as this makes some sense, and trees in order to leave some alive
     if (entity.valid and entity.position and entity.position.x>=x and entity.position.x<x+32 and entity.position.y>=y and entity.position.y<y+32 and (killPlanes or entity.type ~= "car")) then
-      damage_entity(game.surfaces[surface_index], originPos, 0, fireballSq, blastSq, false, chunkLoaderStruct.init_blast, chunkLoaderStruct.blast_min_damage, killPlanes, efficientDamage, entity, force, cause, corpseMap)
+      damage_entity(game.surfaces[surface_index], originPos, 0, fireballSq, blastSq, false, chunkLoaderStruct.init_blast, chunkLoaderStruct.blast_min_damage, killPlanes, entity, force, cause, corpseMap)
     end
   end
 end
