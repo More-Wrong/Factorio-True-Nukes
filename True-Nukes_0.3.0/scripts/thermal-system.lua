@@ -127,7 +127,7 @@ local function atomic_thermal_blast_internal(surface_index, position, force, cau
     end
   end
   for _,a in pairs(areas) do
-    for _,v in pairs(game.surfaces[surface_index].find_entities_filtered{area=a}) do
+    for _,v in pairs(game.surfaces[surface_index].find_entities(a) do
       if(v.valid and v.position and v.position.x>=a[1][1] and v.position.x<a[2][1] and v.position.y>=a[1][2] and v.position.y<a[2][2] and v.prototype.max_health ~= 0) then
         damage_entity(surface_index, position, fireballSq, thermSq, initialDamage, thermSq, false, v, force, cause, corpseMap)
       end
@@ -163,12 +163,10 @@ end
 local function chunk_loaded(chunkLoaderStruct, surface_index, originPos, x, y, chunkPosAndArea, killPlanes, force, cause, corpseMap)
   local thermSq = chunkLoaderStruct.thermal_max_r*chunkLoaderStruct.thermal_max_r;
   local fireballSq = chunkLoaderStruct.fireball_r*chunkLoaderStruct.fireball_r;
-
-  for _,v in pairs(game.surfaces[surface_index].find_entities_filtered{area=chunkPosAndArea.area}) do
-    local tmpx = v.position.x
-    local tmpy = v.position.y
-    if (v.valid and v.position and v.prototype.max_health ~= 0 and tmpx>=x and tmpx<x+32 and tmpy>=y and tmpy<y+32 and (killPlanes or v.type ~= "car")) then
-      damage_entity(surface_index, originPos, fireballSq, thermSq, chunkLoaderStruct.init_thermal, thermSq, killPlanes, v, force, cause, corpseMap)
+  local init_thermal = chunkLoaderStruct.init_thermal
+  for _,v in pairs(game.surfaces[surface_index].find_entities(chunkPosAndArea.area)) do
+    if (v.valid and v.position and v.prototype.max_health ~= 0 and v.position.x>=x and v.position.x<x+32 and v.position.y>=y and v.position.y<y+32 and (killPlanes or v.type ~= "car")) then
+      damage_entity(surface_index, originPos, fireballSq, thermSq, init_thermal, thermSq, killPlanes, v, force, cause, corpseMap)
     end
   end
 end

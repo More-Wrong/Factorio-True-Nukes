@@ -47,14 +47,14 @@ local function fire_damage_entity(surface, entity, force, cause, killPlanes)
 end
 
 
-local function damage_entity(surface, position, blastInnerSq, power, blastSq, fire, damage_init, blast_min_damage, killPlanes, entity, force, cause, corpseMap)
+local function damage_entity(surface, cx, cy, blastInnerSq, power, blastSq, fire, damage_init, blast_min_damage, killPlanes, entity, force, cause, corpseMap)
   -- do blast damage - reduced for rails, belts, land mines and flying vehicles, as this makes some sense, and trees in order to leave some alive
   local ePos = entity.position
   local eProto = entity.prototype
-  local xdif = ePos.x-position.x
-  local ydif = ePos.y-position.y
+  local xdif = ePos.x-cx
+  local ydif = ePos.y-cy
   local distSq = xdif*xdif + ydif*ydif
-  if((not (entity.prototype.max_health == 0)) and distSq > blastInnerSq and distSq <= blastSq) then
+  if(distSq <= blastSq and distSq > blastInnerSq and (not (entity.prototype.max_health == 0))) then
     local damage = power/distSq*damage_init+blast_min_damage
     local t = entity.type
 
@@ -134,8 +134,10 @@ local function move_blast(i,blast,pastEHits, corpseMap)
     regNum = 24
   elseif(blast.r<=4000) then
     regNum = 48
-  else
+  elseif(blast.r<=4000) then
     regNum = 96
+  else
+    regNum = 192
   end
   -- Do we need to wait a while (we might need to if the simulated blast is going faster than expected)
   blast.ittframe = blast.ittframe+1
@@ -234,9 +236,11 @@ local function move_blast(i,blast,pastEHits, corpseMap)
   --game.players[1].print(math.floor(blast.itt/6) .. " {" .. area[1][1] .. ", " .. area[1][2] .. "}, {" .. area[2][1] .. ", " .. area[2][2] .. "}")
   local blastInnerSq = (blast.r - blast.speed)*(blast.r - blast.speed)
   local blastSq = blast.r*blast.r
+  local cx = center.x
+  local cy = center.y
   for _,entity in pairs(entities) do
     if (entity.valid and entity.position) then
-      damage_entity(surface, center, blastInnerSq, blast.pow, blastSq, blast.fire, blast.damage_init, blast.blast_min_damage, true, entity, blast.force, blast.cause, corpseMap)
+      damage_entity(surface, cx, cy, blastInnerSq, blast.pow, blastSq, blast.fire, blast.damage_init, blast.blast_min_damage, true, entity, blast.force, blast.cause, corpseMap)
     end
     if blast.fire then
       fire_damage_entity(surface, entity, blast.force, blast.cause, true)
@@ -287,17 +291,21 @@ end
 
 local function chunk_loaded(chunkLoaderStruct, surface_index, originPos, chunkPosAndArea, x, y, killPlanes, blastSq, force, cause, corpseMap)
   local fireballSq = chunkLoaderStruct.fireball_r*chunkLoaderStruct.fireball_r;
-  for _,entity in pairs(game.surfaces[surface_index].find_entities_filtered{area=chunkPosAndArea.area}) do
+  local cx = originPos.x
+  local cy = originPos.y
+  local init_blast = chunkLoaderStruct.init_blast
+  local blast_min_damage = chunkLoaderStruct.blast_min_damage
+  for _,entity in pairs(game.surfaces[surface_index].find_entities(chunkPosAndArea.area)) do
     -- do blast damage - reduced for rails, belts, land mines and flying vehicles, as this makes some sense, and trees in order to leave some alive
     if (entity.valid and entity.position and entity.position.x>=x and entity.position.x<x+32 and entity.position.y>=y and entity.position.y<y+32 and (killPlanes or entity.type ~= "car")) then
-      damage_entity(game.surfaces[surface_index], originPos, 0, fireballSq, blastSq, false, chunkLoaderStruct.init_blast, chunkLoaderStruct.blast_min_damage, killPlanes, entity, force, cause, corpseMap)
+      damage_entity(game.surfaces[surface_index], cx, cy, 0, fireballSq, blastSq, false, init_blast, blast_min_damage, killPlanes, entity, force, cause, corpseMap)
     end
   end
 end
 
 return {
   move_blast = move_blast,
-  chunk_loaded = chunk_loaded,
+  chunk_loaded = chunk_loaded
 }
 
 
