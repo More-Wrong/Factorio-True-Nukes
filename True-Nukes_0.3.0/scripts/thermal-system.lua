@@ -1,64 +1,61 @@
-local function damage_entity(surface_index, position, fireballSq, thermSq, initialDamage, thermSq, killPlanes, v, force, cause, corpseMap)
-  local distSq = (v.position.x-position.x)*(v.position.x-position.x)+(v.position.y-position.y)*(v.position.y-position.y)
-  if(distSq>fireballSq and distSq<=thermSq) then
-    local damage = fireballSq*initialDamage/distSq
-    if(v.type=="tree") then
-      -- efficient tree handling
-      if(math.random(0, 100)<1) then
-        game.surfaces[surface_index].create_entity{name="fire-flame-on-tree", target = v, position=v.position}
-      end
-      local damage = math.random(damage/8, damage)/2
-      if((((not v.prototype.resistances) or not v.prototype.resistances.fire) and v.health<damage) or (v.prototype.resistances and v.prototype.resistances.fire and v.health<(damage-v.prototype.resistances.fire.decrease)*(1-v.prototype.resistances.fire.percent))) then
-        local surface = v.surface
-        local destPos = v.position
-        v.destroy()
-        surface.create_entity{name="tree-01-stump",position=destPos}
+local function damage_entity(surface, distSq, ePos, fireballSq, initialDamage, v, force, cause, corpseMap)
+  local damage = fireballSq*initialDamage/distSq
+  if(v.type=="tree") then
+    -- efficient tree handling
+    if(math.random(0, 100)<1) then
+      surface.create_entity{name="fire-flame-on-tree", target = v, position=ePos}
+    end
+    local damage = math.random(damage/8, damage)/2
+    if((((not v.prototype.resistances) or not v.prototype.resistances.fire) and v.health<damage) or
+      (v.prototype.resistances and v.prototype.resistances.fire and v.health<(damage-v.prototype.resistances.fire.decrease)*(1-v.prototype.resistances.fire.percent))) then
+      local surface = v.surface
+      local destPos = ePos
+      v.destroy()
+      surface.create_entity{name="tree-01-stump",position=destPos}
+    else
+      if((not v.prototype.resistances) or not v.prototype.resistances.fire) then
+        v.health = v.health-damage
       else
-        if((not v.prototype.resistances) or not v.prototype.resistances.fire) then
-          v.health = v.health-damage
+        v.health = v.health-(damage-v.prototype.resistances.fire.decrease)*(1-v.prototype.resistances.fire.percent)
+      end
+    end
+  else
+    local damage = math.random(damage/2, damage*2)
+    if(v.grid) then
+      if(cause and cause.valid) then
+        v.damage(damage, force, "fire", cause)
+      else
+        v.damage(damage, force, "fire")
+      end
+      if(v.valid and(v.type == "unit" or v.type == "car" or v.type == "spider-vehicle")) then
+        local fireShield = nil
+        for _,e in pairs(v.grid.equipment) do
+          if(e.name=="fire-shield-equipment" and e.energy>=1000000) then
+            fireShield = e;
+            break;
+          end
+        end
+        if fireShield then
+          fireShield.energy = fireShield.energy-1000000
         else
-          v.health = v.health-(damage-v.prototype.resistances.fire.decrease)*(1-v.prototype.resistances.fire.percent)
+          surface.create_entity{name="fire-sticker", position=ePos, target=v}
         end
       end
     else
-      local damage = math.random(damage/2, damage*2)
-      if(v.grid) then
-        if(cause and cause.valid) then
-          v.damage(damage, force, "fire", cause)
-        else
-          v.damage(damage, force, "fire")
-        end
-        if(v.valid and(v.type == "unit" or v.type == "car" or v.type == "spider-vehicle")) then
-          local fireShield = nil
-          for _,e in pairs(v.grid.equipment) do
-            if(e.name=="fire-shield-equipment" and e.energy>=1000000) then
-              fireShield = e;
-              break;
-            end
-          end
-          if fireShield then
-            fireShield.energy = fireShield.energy-1000000
-          else
-            game.surfaces[surface_index].create_entity{name="fire-sticker", position=v.position, target=v}
-          end
-        end
+      if(((not v.prototype.resistances) or not v.prototype.resistances.fire) and v.health>damage) then
+        v.health = v.health-damage
+      elseif(v.prototype.resistances and v.prototype.resistances.fire and v.health>(damage-v.prototype.resistances.fire.decrease)*(1-v.prototype.resistances.fire.percent)) then
+        v.health = v.health-(damage-v.prototype.resistances.fire.decrease)*(1-v.prototype.resistances.fire.percent)
       else
-        if(((not v.prototype.resistances) or not v.prototype.resistances.fire) and v.health>damage) then
-          v.health = v.health-damage
-        elseif(v.prototype.resistances and v.prototype.resistances.fire and v.health>(damage-v.prototype.resistances.fire.decrease)*(1-v.prototype.resistances.fire.percent)) then
-          v.health = v.health-(damage-v.prototype.resistances.fire.decrease)*(1-v.prototype.resistances.fire.percent)
+        if(corpseMap[v.name]) then
+          local corpseName = corpseMap[v.name]
+          v.destroy()
+          surface.create_entity{name=corpseName, position=ePos}
         else
-          if(corpseMap[v.name]) then
-            local vPos = v.position
-            local corpseName = corpseMap[v.name]
-            v.destroy()
-            game.surfaces[surface_index].create_entity{name=corpseName, position=vPos}
+          if(cause and cause.valid) then
+            v.damage(damage, force, "fire", cause)
           else
-            if(cause and cause.valid) then
-              v.damage(damage, force, "fire", cause)
-            else
-              v.damage(damage, force, "fire")
-            end
+            v.damage(damage, force, "fire")
           end
         end
       end
@@ -74,6 +71,7 @@ local function atomic_thermal_blast_internal(surface_index, position, force, cau
   -- do thermal heat-wave damage
   local thermSq = thermal_max_r*thermal_max_r;
   local fireballSq = fireball_r*fireball_r;
+  local surface = game.surfaces[surface_index]
   local areas = {}
   local y = -1;
   local x = -1;
@@ -126,10 +124,19 @@ local function atomic_thermal_blast_internal(surface_index, position, force, cau
       end
     end
   end
+  local cx = position.x
+  local cy = position.y
   for _,a in pairs(areas) do
-    for _,v in pairs(game.surfaces[surface_index].find_entities(a) do
-      if(v.valid and v.position and v.position.x>=a[1][1] and v.position.x<a[2][1] and v.position.y>=a[1][2] and v.position.y<a[2][2] and v.prototype.max_health ~= 0) then
-        damage_entity(surface_index, position, fireballSq, thermSq, initialDamage, thermSq, false, v, force, cause, corpseMap)
+    for _,v in pairs(surface.find_entities(a)) do
+      if (v.valid and v.position) then
+        local ePos = v.position
+        local xdif = ePos.x-cx
+        local ydif = ePos.y-cy
+        local distSq = xdif*xdif + ydif*ydif
+        if(distSq <= thermSq and distSq>fireballSq and v.prototype.max_health ~= 0
+          and ePos.x>=a[1][1] and ePos.x<a[2][1] and ePos.y>=a[1][2] and ePos.y<a[2][2]) then
+          damage_entity(surface, distSq, ePos, fireballSq, initialDamage, v, force, cause, corpseMap)
+        end
       end
     end
   end
@@ -161,12 +168,22 @@ local function atomic_thermal_blast_move_along(corpseMap)
 end
 
 local function chunk_loaded(chunkLoaderStruct, surface_index, originPos, x, y, chunkPosAndArea, killPlanes, force, cause, corpseMap)
+  local cx = originPos.x
+  local cy = originPos.y
   local thermSq = chunkLoaderStruct.thermal_max_r*chunkLoaderStruct.thermal_max_r;
   local fireballSq = chunkLoaderStruct.fireball_r*chunkLoaderStruct.fireball_r;
   local init_thermal = chunkLoaderStruct.init_thermal
-  for _,v in pairs(game.surfaces[surface_index].find_entities(chunkPosAndArea.area)) do
-    if (v.valid and v.position and v.prototype.max_health ~= 0 and v.position.x>=x and v.position.x<x+32 and v.position.y>=y and v.position.y<y+32 and (killPlanes or v.type ~= "car")) then
-      damage_entity(surface_index, originPos, fireballSq, thermSq, init_thermal, thermSq, killPlanes, v, force, cause, corpseMap)
+  local surface = game.surfaces[surface_index]
+  for _,v in pairs(surface.find_entities(chunkPosAndArea.area)) do
+    if (v.valid and v.position) then
+      local ePos = v.position
+      local xdif = ePos.x-cx
+      local ydif = ePos.y-cy
+      local distSq = xdif*xdif + ydif*ydif
+      if(distSq <= thermSq and distSq>fireballSq and v.prototype.max_health ~= 0
+        and ePos.x>=x and ePos.x<x+32 and ePos.y>=y and ePos.y<y+32 and (killPlanes or v.type ~= "car")) then
+        damage_entity(surface, distSq, ePos, fireballSq, init_thermal, v, force, cause, corpseMap)
+      end
     end
   end
 end

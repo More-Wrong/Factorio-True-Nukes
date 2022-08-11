@@ -1,4 +1,4 @@
-local Profiler = require('__profiler__/profiler.lua')
+--local Profiler = require('__profiler__/profiler.lua')
 local mushroomFunctions = require("MushroomCloudInBuilt.control")
 
 local water = require("scripts.water-system")
@@ -90,8 +90,8 @@ local function tickHandler(event)
     for i,blast in ipairs(global.blastWaves) do
       blast_system.move_blast(i,blast,0, corpseMap)
     end
-  else
-    Profiler.Stop(false, "")
+--  else
+--    Profiler.Stop(false, "")
   end
 
   if (#global.thermalBlasts>0) then
@@ -223,7 +223,7 @@ end
 
 local function atomic_weapon_hit_optimised(surface_index, source, position, crater_internal_r, crater_external_r, fireball_r, fire_outer_r, blast_max_r, small_fire_max_r, thermal_max_r, load_r, visable_r, polution, flame_proportion, create_small_fires, check_craters)
   -- find forces, positions, etc.
-  Profiler.Start()
+--  Profiler.Start()
   local force
   if(settings.global["nukes-cause-pollution"].value) then
     game.surfaces[surface_index].pollute(position, polution)
@@ -263,7 +263,7 @@ end
 
 local function atomic_weapon_hit(surface_index, source, position, crater_internal_r, crater_external_r, fireball_r, fire_outer_r, blast_max_r, small_fire_max_r, thermal_max_r, load_r, visable_r, polution, flame_proportion, create_small_fires, check_craters)
   -- find forces, positions, etc.
-  Profiler.Start()
+--  Profiler.Start()
   local force
   if(settings.global["nukes-cause-pollution"].value) then
     game.surfaces[surface_index].pollute(position, polution)
@@ -294,7 +294,7 @@ local function atomic_weapon_hit(surface_index, source, position, crater_interna
   if(flame_proportion>0) then
     for _,v in pairs(game.surfaces[surface_index].find_tiles_filtered{position=position, radius=fire_outer_r}) do
       local rand = math.random(0, fire_outer_r)
-      if(math.random(0, flame_proportion)<1 and rand*rand>(v.position.x-position.x)*(v.position.x-position.x)+(v.position.y-position.y)*(v.position.y-position.y)) then
+      if(math.random(0, 1)+flame_proportion/8>1 and rand*rand>(v.position.x-position.x)*(v.position.x-position.x)+(v.position.y-position.y)*(v.position.y-position.y)) then
         if((not(water.waterInCraterGoingOutDepths[v.name] == nil)) and water.waterInCraterGoingOutDepths[v.name] > -10) then
           game.surfaces[surface_index].create_entity{name="thermobaric-wave-fire",position=v.position}
         else
@@ -304,8 +304,8 @@ local function atomic_weapon_hit(surface_index, source, position, crater_interna
     end
   end
   if (settings.global["nuke-random-fires"].value and create_small_fires) then
-    for i=0,(small_fire_max_r*small_fire_max_r/10) do
-      local dist = math.random(0, math.random(0, small_fire_max_r))
+    for i=(fireball_r*fireball_r/10),(small_fire_max_r*small_fire_max_r/10) do
+      local dist = math.random(fireball_r, math.random(fireball_r, small_fire_max_r))
       local angle = math.random()*3.1416*2
       game.surfaces[surface_index].create_entity{name="thermobaric-wave-fire",position={position.x+dist*math.cos(angle), position.y+dist*math.sin(angle)}}
     end
@@ -364,7 +364,7 @@ end
 
 -- calculate polution as 1*tonnage + 1000*uranium input + 100*californium input + 10000*tritium input
 -- polution is capped at 500000
---local function atomic_weapon_hit(surface_index, source_entity, position, crater_internal_r, crater_external_r, fireball_r, fire_outer_r, blast_max_r, tree_fire_max_r, thermal_max_r, load_r, visable_r, polution, flame_proportion, create_small_fires, check_craters, optimise)
+--local function atomic_weapon_hit(surface_index, source_entity, position, crater_internal_r, crater_external_r, fireball_r, fire_outer_r, blast_max_r, tree_fire_max_r, thermal_max_r, load_r, visable_r, polution, flame_proportion, create_small_fires, check_craters)
 script.on_event(defines.events.on_script_trigger_effect, function(event)
   local mult = 25
   local thermal_mult = 30
@@ -382,39 +382,39 @@ script.on_event(defines.events.on_script_trigger_effect, function(event)
   elseif(event.effect_id=="Thermobaric Weapon hit large") then
     thermobaric_weapon_hit(event.surface_index, event.source_entity, position, 9, 120, 100, 120, 100);
   elseif(event.effect_id=="Atomic Weapon hit 0.1t") then
-    atomic_weapon_hit(event.surface_index, event.source_entity, position, 0, 1, 1, 3, mult*1, 15, thermal_mult*1, 15, 15, 300.1, 1, true, true);
+    atomic_weapon_hit(event.surface_index, event.source_entity, position, 0, 1, 1, 3, mult*1, 15, thermal_mult*1, 15, 15, 300.1, 8, true, true);
     createBlastSoundsAndFlash(position, game.surfaces[event.surface_index], 60, 100, 200, 700, 10, 0.06);
   elseif(event.effect_id=="Atomic Weapon hit 0.5t") then
-    atomic_weapon_hit(event.surface_index, event.source_entity, position, 0, 3, 3, 5, mult*3, 25, thermal_mult*3, 30, 20, 700.5, 1, true, true);
+    atomic_weapon_hit(event.surface_index, event.source_entity, position, 0, 3, 3, 5, mult*3, 25, thermal_mult*3, 30, 20, 700.5, 4, true, true);
     createBlastSoundsAndFlash(position, game.surfaces[event.surface_index], 80, 150, 300, 1000, 20, 0.12);
   elseif(event.effect_id=="Atomic Weapon hit 2t") then
-    atomic_weapon_hit(event.surface_index, event.source_entity, position, 0, 5, 5, 15, mult*5, 50, thermal_mult*5, 100, 50, 1302, 2, true, true);
+    atomic_weapon_hit(event.surface_index, event.source_entity, position, 0, 5, 5, 15, mult*5, 50, thermal_mult*5, 100, 50, 1302, 3, true, true);
     createBlastSoundsAndFlash(position, game.surfaces[event.surface_index], 100, 250, 500, 2000, 40, 0.25);
   elseif(event.effect_id=="Atomic Weapon hit 4t") then
-    atomic_weapon_hit(event.surface_index, event.source_entity, position, 1, 6, 7, 20, mult*7, 120, thermal_mult*7, 180, 80, 4004, 1, true, true);
+    atomic_weapon_hit(event.surface_index, event.source_entity, position, 1, 6, 7, 20, mult*7, 120, thermal_mult*7, 180, 80, 4004, 2, true, true);
     createBlastSoundsAndFlash(position, game.surfaces[event.surface_index], 120, 300, 900, 4000, 70, 0.4);
   elseif(event.effect_id=="Atomic Weapon hit 8t") then
     atomic_weapon_hit(event.surface_index, event.source_entity, position, 3, 8, 14, 25, mult*14, 200, thermal_mult*14, 180, 100, 9008, 1, true, true);
     createBlastSoundsAndFlash(position, game.surfaces[event.surface_index], 150, 400, 1250, 10000, 100, 0.6);
   elseif(event.effect_id=="Atomic Weapon hit 20t") then
-    atomic_weapon_hit(event.surface_index, event.source_entity, position, 5, 10, 20, 30, mult*20, 320, thermal_mult*20, 180, 150, 30020, 1, true, true);
+    atomic_weapon_hit(event.surface_index, event.source_entity, position, 5, 10, 20, 30, mult*20, 320, thermal_mult*20, 180, 150, 30020, 0.5, true, true);
     createBlastSoundsAndFlash(position, game.surfaces[event.surface_index], 250, 600, 1800, 15000, 160, 1);
   elseif(event.effect_id=="Atomic Weapon hit 500t") then
-    atomic_weapon_hit(event.surface_index, event.source_entity, position, 10, 20, 40, 35, mult*40, 400, thermal_mult*40, 400, 300, 75500, 1*settings.global["large-nuke-fire-scaledown"].value, true, true);
+    atomic_weapon_hit(event.surface_index, event.source_entity, position, 10, 20, 40, 35, mult*40, 400, thermal_mult*40, 400, 300, 75500, 0.25*settings.global["large-nuke-fire-scaledown"].value, true, true);
     createBlastSoundsAndFlash(position, game.surfaces[event.surface_index], 400, 800, 2500, 25000, 300, 2);
   elseif(event.effect_id=="Atomic Weapon hit 1kt") then
-    atomic_weapon_hit(event.surface_index, event.source_entity, position, 20, 40, 80, 75, mult*80, 800, thermal_mult*80, 800, 300, 101000, 2*settings.global["large-nuke-fire-scaledown"].value, true, true);
+    atomic_weapon_hit(event.surface_index, event.source_entity, position, 20, 40, 80, 75, mult*80, 800, thermal_mult*80, 800, 300, 101000, 0.25*settings.global["large-nuke-fire-scaledown"].value, true, true);
     createBlastSoundsAndFlash(position, game.surfaces[event.surface_index], 600, 1200, 8000, 60000, 600, 4);
   elseif(event.effect_id=="Atomic Weapon hit 15kt") then
-    atomic_weapon_hit(event.surface_index, event.source_entity, position, 50, 100, 200, 150, mult*200/settings.global["large-nuke-blast-range-scaledown"].value, 1000, thermal_mult*200, 1000, 500, 315000, settings.global["huge-nuke-fire-scaledown"].value, false, true);
+    atomic_weapon_hit(event.surface_index, event.source_entity, position, 50, 100, 200, 150, mult*200/settings.global["large-nuke-blast-range-scaledown"].value, 1000, thermal_mult*200, 1000, 500, 315000, 0.125*settings.global["huge-nuke-fire-scaledown"].value, false, true);
     createBlastSoundsAndFlash(position, game.surfaces[event.surface_index], 1500, 3000, 20000, 100000, 1500, 8);
   elseif(event.effect_id=="Atomic Weapon hit 100kt") then
     local blastD = mult*500;
     if not settings.global["optimise-100kt"].value then
       blastD = blastD/settings.global["really-huge-nuke-blast-range-scaledown"].value
-      atomic_weapon_hit(event.surface_index, event.source_entity, position, 90, 180, 500, 400, blastD, 2500, thermal_mult*500, 1500, 1000, 450000, 2*settings.global["really-huge-nuke-fire-scaledown"].value, false, false);
+      atomic_weapon_hit(event.surface_index, event.source_entity, position, 90, 180, 500, 400, blastD, 2500, thermal_mult*500, 1500, 1000, 450000, 0, false, false);
     else
-      atomic_weapon_hit_optimised(event.surface_index, event.source_entity, position, 90, 180, 500, 400, blastD, 2500, thermal_mult*500, 1500, 1000, 450000, 2*settings.global["really-huge-nuke-fire-scaledown"].value, false, false);
+      atomic_weapon_hit_optimised(event.surface_index, event.source_entity, position, 90, 180, 500, 400, blastD, 2500, thermal_mult*500, 1500, 1000, 450000, 0, false, false);
     end
     createBlastSoundsAndFlash(position, game.surfaces[event.surface_index], 2700, 5400, 36000, 200000, 2700, 16);
   elseif(event.effect_id=="Atomic Weapon hit 1Mt") then

@@ -79,7 +79,7 @@ local N0_1t_detonation = {
         target_effects = {
           {
             type = "create-fire",
-            entity_name = "nuclear-fire",
+            entity_name = "thermobaric-wave-fire",
             initial_ground_flame_count = 1
           }
         }
@@ -182,7 +182,7 @@ local N0_5t_detonation = {
         target_effects = {
           {
             type = "create-fire",
-            entity_name = "nuclear-fire",
+            entity_name = "thermobaric-wave-fire",
             initial_ground_flame_count = 1
           }
         }
@@ -296,7 +296,7 @@ local N2t_detonation = {
         target_effects = {
           {
             type = "create-fire",
-            entity_name = "nuclear-fire",
+            entity_name = "thermobaric-wave-fire",
             initial_ground_flame_count = 1
           }
         }
@@ -429,7 +429,7 @@ local N4t_detonation = {
         target_effects = {
           {
             type = "create-fire",
-            entity_name = "nuclear-fire",
+            entity_name = "thermobaric-wave-fire",
             initial_ground_flame_count = 1
           }
         }
@@ -557,7 +557,7 @@ local N8t_detonation = {
         target_effects = {
           {
             type = "create-fire",
-            entity_name = "nuclear-fire",
+            entity_name = "thermobaric-wave-fire",
             initial_ground_flame_count = 1
           }
         }
@@ -668,7 +668,7 @@ local N20t_detonation =
           target_effects = {
             {
               type = "create-fire",
-              entity_name = "nuclear-fire",
+              entity_name = "thermobaric-wave-fire",
               initial_ground_flame_count = 1
             }
           }

@@ -18,7 +18,7 @@ data:extend({
 
     emissions_per_second = 0.005,
 
-    initial_lifetime = 3600,
+    initial_lifetime = 600,
     lifetime_increase_by = 150,
     lifetime_increase_cooldown = 4,
     maximum_lifetime = 3600,
