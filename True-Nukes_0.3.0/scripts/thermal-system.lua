@@ -5,9 +5,9 @@ local function damage_entity(surface_index, position, fireballSq, thermSq, initi
     if(v.type=="tree") then
       -- efficient tree handling
       if(math.random(0, 100)<1) then
-        game.surfaces[surface_index].create_entity{name="fire-flame-on-tree",position=v.position, initial_ground_flame_count=1+math.min(254,thermSq/distSq)}
+        game.surfaces[surface_index].create_entity{name="fire-flame-on-tree", target = v, position=v.position}
       end
-      local damage = math.random(damage/10, damage)
+      local damage = math.random(damage/8, damage)/2
       if((((not v.prototype.resistances) or not v.prototype.resistances.fire) and v.health<damage) or (v.prototype.resistances and v.prototype.resistances.fire and v.health<(damage-v.prototype.resistances.fire.decrease)*(1-v.prototype.resistances.fire.percent))) then
         local surface = v.surface
         local destPos = v.position
@@ -165,7 +165,9 @@ local function chunk_loaded(chunkLoaderStruct, surface_index, originPos, x, y, c
   local fireballSq = chunkLoaderStruct.fireball_r*chunkLoaderStruct.fireball_r;
 
   for _,v in pairs(game.surfaces[surface_index].find_entities_filtered{area=chunkPosAndArea.area}) do
-    if (v.valid and v.position and v.prototype.max_health ~= 0 and v.position.x>=x and v.position.x<x+32 and v.position.y>=y and v.position.y<y+32 and (killPlanes or v.type ~= "car")) then
+    local tmpx = v.position.x
+    local tmpy = v.position.y
+    if (v.valid and v.position and v.prototype.max_health ~= 0 and tmpx>=x and tmpx<x+32 and tmpy>=y and tmpy<y+32 and (killPlanes or v.type ~= "car")) then
       damage_entity(surface_index, originPos, fireballSq, thermSq, chunkLoaderStruct.init_thermal, thermSq, killPlanes, v, force, cause, corpseMap)
     end
   end

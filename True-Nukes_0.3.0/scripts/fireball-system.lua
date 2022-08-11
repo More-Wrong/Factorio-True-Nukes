@@ -124,7 +124,7 @@ local function partial_fireball(surface_index, chunkLoaderStruct, chunkPosAndAre
   local fireballSq = chunkLoaderStruct.fireball_r*chunkLoaderStruct.fireball_r;
   for _,e in pairs(entities) do
     if(e.valid and (not (string.match(e.type, "ghost"))) and ((e.type ~= "resource") and (killPlanes or (e.type ~= "car")))
-      and e.position.x>=x and e.position.x<x+32 and e.position.y>=y and e.position.y<y+32 and
+      and --e.position.x>=x and e.position.x<x+32 and e.position.y>=y and e.position.y<y+32 and
       (e.position.x-originPos.x)*(e.position.x-originPos.x) + (e.position.y-originPos.y)*(e.position.y-originPos.y)<=fireballSq) then
 
       if e.type=="tree" then
@@ -145,7 +145,7 @@ local function partial_fireball(surface_index, chunkLoaderStruct, chunkPosAndAre
   entities = game.surfaces[surface_index].find_entities_filtered{area = chunkPosAndArea.area}
   for _,e in pairs(entities) do
     if(e.valid and (not (string.match(e.type, "ghost"))) and ((e.type ~= "resource")) and (killPlanes or e.type ~= "car")
-      and e.position.x>=x and e.position.x<x+32 and e.position.y>=y and e.position.y<y+32 and
+      and --e.position.x>=x and e.position.x<x+32 and e.position.y>=y and e.position.y<y+32 and
       (e.position.x-originPos.x)*(e.position.x-originPos.x) + (e.position.y-originPos.y)*(e.position.y-originPos.y)<=fireballSq) then
       if e.type=="tree" then
         e.destroy()

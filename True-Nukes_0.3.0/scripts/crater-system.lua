@@ -556,11 +556,11 @@ local function chunk_loaded_outer(surface_index, chunkPosAndArea, chunkLoaderStr
       if((v.position.x-originPos.x)*(v.position.x-originPos.x)+(v.position.y-originPos.y)*(v.position.y-originPos.y)<=fireballSq) then
         local depth = water.waterDepths[v.name]
         if(depth) then
-          if (depth == -2 and (v.position.x == x or v.position.x == x+31))then
+--          if (depth == -2 and (v.position.x == x or v.position.x == x+31))then
           --depth = -3;
-          elseif (depth == -2 and (v.position.y == y or v.position.y == y+31))then
+--          elseif (depth == -2 and (v.position.y == y or v.position.y == y+31))then
           --depth = -3
-          end
+--          end
           table.insert(tileTable, {name = water.depthsForCrater[depth], position = v.position})
         end
       end

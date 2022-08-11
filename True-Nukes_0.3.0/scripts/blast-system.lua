@@ -57,28 +57,12 @@ local function damage_entity(surface, position, blastInnerSq, power, blastSq, fi
   if((not (entity.prototype.max_health == 0)) and distSq > blastInnerSq and distSq <= blastSq) then
     local damage = power/distSq*damage_init+blast_min_damage
     local t = entity.type
-    if(t=="curved-rail") then
-      damage = damage/10
-    elseif (t=="straight-rail") then
-      damage = damage/10
-    elseif (t=="transport-belt") then
-      damage = damage/10
-    elseif (t=="land-mine") then
-      damage = damage/10
-    elseif(t=="car" or t=="spider-vehicle") then
-      if (next(entity.prototype.collision_mask)==nil)then
-        damage = damage/2
-      end
-    end
+
     if(t=="tree") then
-      if entity.tree_stage_index_max then
-        entity.tree_stage_index = entity.tree_stage_index_max
-      end
-      damage = 0
       if(fire) then
-        surface.create_entity{name="fire-flame-on-tree",position=ePos, initial_ground_flame_count=255}
+        surface.create_entity{name="fire-flame-on-tree", target = entity, position=ePos}
       end
-      damage = math.random(damage/10, damage)
+      damage = math.random(damage/8, damage)/2
 
       if(eProto.resistances and eProto.resistances.explosion) then
         damage = (damage-entity.prototype.resistances.explosion.decrease)*(1-eProto.resistances.explosion.percent)
@@ -90,8 +74,26 @@ local function damage_entity(surface, position, blastInnerSq, power, blastSq, fi
         surface.create_entity{name="tree-01-stump",position=destPos}
       else
         entity.health = entity.health-damage
+        if entity.tree_stage_index_max>1 then
+          local damage_level = (1-entity.health/eProto.max_health)*entity.tree_stage_index_max
+          entity.tree_stage_index = math.ceil(damage_level)
+        end
       end
+      return
     else
+      if(t=="curved-rail") then
+        damage = damage/10
+      elseif (t=="straight-rail") then
+        damage = damage/10
+      elseif (t=="transport-belt") then
+        damage = damage/10
+      elseif (t=="land-mine") then
+        damage = damage/10
+      elseif(t=="car" or t=="spider-vehicle") then
+        if (next(entity.prototype.collision_mask)==nil)then
+          damage = damage/2
+        end
+      end
       damage = math.random(damage/2, damage*2)
       local calcDamage = damage;
       if(eProto.resistances and eProto.resistances.explosion) then
