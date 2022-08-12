@@ -13,243 +13,9 @@ table.insert(data.raw.technology["fusion-weapons"].effects,
     type = "unlock-recipe",
     recipe = "fusion-test-site"
   })
-
-local warheads_to_add = {
-  {
-    warhead = "TN-warhead-0-1--1",
-    label = "-1",
-    energy = 10
-  },
-  {
-    warhead = "TN-warhead-0-1--2",
-    label = "-2",
-    energy = 10
-  },
-  {
-    warhead = "TN-warhead-0-5--1",
-    label = "-1",
-    energy = 10
-  },
-  {
-    warhead = "TN-warhead-0-5--2",
-    label = "-2",
-    energy = 10
-  },
-
-  {
-    warhead = "TN-warhead-2--1",
-    label = "-1",
-    energy = 10
-  },
-  {
-    warhead = "TN-warhead-2--2",
-    label = "-2",
-    energy = 10
-  },
-  {
-    warhead = "TN-warhead-2--3",
-    label = "-3",
-    energy = 10
-  },
-
-  {
-    warhead = "TN-warhead-4--1",
-    label = "-1",
-    energy = 10
-  },
-  {
-    warhead = "TN-warhead-4--2",
-    label = "-2",
-    energy = 10
-  },
-  {
-    warhead = "TN-warhead-8--1",
-    label = "-1",
-    energy = 10
-  },
-  {
-    warhead = "TN-warhead-8--2",
-    label = "-2",
-    energy = 10
-  },
-
-  {
-    warhead = "TN-warhead-20--1",
-    label = "-1",
-    energy = 20
-  },
-  {
-    warhead = "TN-warhead-20--2",
-    label = "-2",
-    energy = 20
-  },
-  {
-    warhead = "TN-warhead-20--3",
-    label = "-3",
-    energy = 20
-  },
-
-  {
-    warhead = "TN-warhead-500--1",
-    label = "-1",
-    energy = 30
-  },
-  {
-    warhead = "TN-warhead-500--2",
-    label = "-2",
-    energy = 30
-  },
-  {
-    warhead = "TN-warhead-500--3",
-    label = "-3",
-    energy = 30
-  },
-
-  {
-    warhead = "TN-warhead-1k--1",
-    label = "-1",
-    energy = 30
-  },
-  {
-    warhead = "TN-warhead-1k--2",
-    label = "-2",
-    energy = 30
-  },
-  {
-    warhead = "TN-warhead-1k--3",
-    label = "-3",
-    energy = 30
-  },
-
-  {
-    warhead = "TN-warhead-15k--1",
-    label = "-1",
-    energy = 60
-  },
-  {
-    warhead = "TN-warhead-15k--2",
-    label = "-2",
-    energy = 60
-  },
+local warheads_to_add = require("data-nukes-building-warheads")
 
 
-  {
-    warhead = "TN-warhead-big--1",
-    explosion = 1,
-    label = "-1",
-    fusion = true,
-    icon = "__True-Nukes__/graphics/15kiloton-detonation.png",
-    energy = 60
-  },
-  {
-    warhead = "TN-warhead-big--1",
-    explosion = 2,
-    label = "-1",
-    fusion = true,
-    icon = "__True-Nukes__/graphics/100kiloton-detonation.png",
-    energy = 90
-  },
-  {
-    warhead = "TN-warhead-big--1",
-    explosion = 3,
-    label = "-1",
-    fusion = true,
-    icon = "__True-Nukes__/graphics/megaton-detonation.png",
-    energy = 120
-  },
-  {
-    warhead = "TN-warhead-big--1",
-    explosion = 4,
-    label = "-1",
-    fusion = true,
-    icon = "__True-Nukes__/graphics/5megaton-detonation.png",
-    energy = 120
-  },
-  {
-    warhead = "TN-warhead-big--1",
-    explosion = 5,
-    label = "-1",
-    fusion = true,
-    icon = "__True-Nukes__/graphics/10megaton-detonation.png",
-    energy = 180
-  },
-  {
-    warhead = "TN-warhead-big--1",
-    explosion = 6,
-    label = "-1",
-    fusion = true,
-    icon = "__True-Nukes__/graphics/50megaton-detonation.png",
-    energy = 300
-  },
-  {
-    warhead = "TN-warhead-big--1",
-    explosion = 7,
-    label = "-1",
-    fusion = true,
-    icon = "__True-Nukes__/graphics/100megaton-detonation.png",
-    energy = 480
-  },
-  {
-    warhead = "TN-warhead-big--1",
-    explosion = 8,
-    label = "-1",
-    fusion = true,
-    icon = "__True-Nukes__/graphics/1gigaton-detonation.png",
-    energy = 600
-  },
-
-
-  {
-    warhead = "TN-warhead-big--2",
-    explosion = 1,
-    label = "-2",
-    fusion = true,
-    icon = "__True-Nukes__/graphics/15kiloton-detonation.png",
-    energy = 60
-  },
-  {
-    warhead = "TN-warhead-big--2",
-    explosion = 2,
-    label = "-2",
-    fusion = true,
-    icon = "__True-Nukes__/graphics/100kiloton-detonation.png",
-    energy = 90
-  },
-  {
-    warhead = "TN-warhead-big--2",
-    explosion = 3,
-    label = "-2",
-    fusion = true,
-    icon = "__True-Nukes__/graphics/megaton-detonation.png",
-    energy = 120
-  },
-  {
-    warhead = "TN-warhead-big--2",
-    explosion = 4,
-    label = "-2",
-    fusion = true,
-    icon = "__True-Nukes__/graphics/5megaton-detonation.png",
-    energy = 120
-  },
-
-
-  {
-    warhead = "TN-warhead-big--3",
-    explosion = 1,
-    label = "-3",
-    fusion = true,
-    icon = "__True-Nukes__/graphics/15kiloton-detonation.png",
-    energy = 60
-  },
-  {
-    warhead = "TN-warhead-big--3",
-    explosion = 2,
-    label = "-3",
-    fusion = true,
-    icon = "__True-Nukes__/graphics/100kiloton-detonation.png",
-    energy = 90
-  },
-}
 for _,w in pairs(warheads_to_add) do
   local warhead = warheads[w.warhead]
   local explosion
@@ -288,7 +54,7 @@ for _,w in pairs(warheads_to_add) do
   local item = {
     type = "item",
     name = "detonation" .. warhead.appendName .. explosion.appendName .. w.label,
-    icon = w.icon or "__True-Nukes__/graphics/megaton-detonation.png",
+    icon = w.icon or "__True-Nukes__/graphics/15kiloton-detonation.png",
     icon_size = 64, icon_mipmaps = 1,
     subgroup = "TN-atomic-detonation",
     order = "a[nuke]" ..warhead.appendOrder .. explosion.appendOrder .. w.label,
@@ -376,6 +142,7 @@ data:extend{
   {
     type = "furnace",
     name = "nuclear-test-site",
+    is_military_target = true,
     icon = "__True-Nukes__/graphics/megaton-nuke.png",
     icon_size = 64, icon_mipmaps = 1,
     source_inventory_size = 1,
@@ -523,6 +290,7 @@ data:extend{
   {
     type = "assembling-machine",
     name = "fusion-test-site",
+    is_military_target = true,
     icon = "__True-Nukes__/graphics/megaton-nuke.png",
     icon_size = 64, icon_mipmaps = 1,
     source_inventory_size = 1,

@@ -6,6 +6,7 @@ local blast_system = require("scripts.blast-system")
 local thermal_system = require("scripts.thermal-system")
 local crater_system = require("scripts.crater-system")
 local fireball_system = require("scripts.fireball-system")
+local building_system = require("scripts.building-system")
 
 local createBlastSoundsAndFlash = mushroomFunctions[1]
 script.on_init(function()
@@ -51,29 +52,6 @@ corpseMap["big-worm-turret"] = "big-worm-corpse"
 corpseMap["behemoth-worm-turret"] = "behemoth-worm-corpse"
 
 
-local function nukeBuildingDetonate(building)
-  -- A nuke building just launches an artillery shell at itself, much easier than an entire seperate detonation system
-  if(building.get_recipe().name == "megaton-detonation") then
-    building.surface.create_entity{name="TN-really-huge-atomic-artillery-projectile", position={building.position.x-1, building.position.y}, target=building, speed=100, max_range=1, force=building.force}
-  elseif(building.get_recipe().name == "100kiloton-detonation") then
-    building.surface.create_entity{name="TN-very-big-atomic-artillery-projectile", position={building.position.x-1, building.position.y}, target=building, speed=100, max_range=1, force=building.force}
-  elseif(building.get_recipe().name == "15kiloton-detonation") then
-    building.surface.create_entity{name="TN-big-atomic-artillery-projectile", position={building.position.x-1, building.position.y}, target=building, speed=100, max_range=1, force=building.force}
-
-  elseif(building.get_recipe().name == "5megaton-detonation") then
-    building.surface.create_entity{name="TN-5Mt-atomic-artillery-projectile", position={building.position.x-1, building.position.y}, target=building, speed=100, max_range=1, force=building.force}
-  elseif(building.get_recipe().name == "10megaton-detonation") then
-    building.surface.create_entity{name="TN-10Mt-atomic-artillery-projectile", position={building.position.x-1, building.position.y}, target=building, speed=100, max_range=1, force=building.force}
-  elseif(building.get_recipe().name == "50megaton-detonation") then
-    building.surface.create_entity{name="TN-50Mt-atomic-artillery-projectile", position={building.position.x-1, building.position.y}, target=building, speed=100, max_range=1, force=building.force}
-  elseif(building.get_recipe().name == "100megaton-detonation") then
-    building.surface.create_entity{name="TN-100Mt-atomic-artillery-projectile", position={building.position.x-1, building.position.y}, target=building, speed=100, max_range=1, force=building.force}
-  elseif(building.get_recipe().name == "1gigaton-detonation") then
-    building.surface.create_entity{name="TN-1Gt-atomic-artillery-projectile", position={building.position.x-1, building.position.y}, target=building, speed=100, max_range=1, force=building.force}
-  end
-  building.get_output_inventory().clear();
-  building.destroy();
-end
 
 local function tickHandler(event)
   mushroomFunctions[2](event)
@@ -93,36 +71,12 @@ local function tickHandler(event)
 --  else
 --    Profiler.Stop(false, "")
   end
-
   if (#global.thermalBlasts>0) then
     thermal_system.atomic_thermal_blast_move_along(corpseMap)
   end
-
   water.fastFill(event)
-  if(#global.nukeBuildings>0) then
-    for i,building in ipairs(global.nukeBuildings) do
-      if(building.valid) then
-        if(not building.get_output_inventory().is_empty()) then
-          nukeBuildingDetonate(building)
-        elseif (building.crafting_progress > 0 and building.crafting_progress < 0.01) then
-          -- Force map loading when a nuke is set up
-          if(building.get_recipe().name == "megaton-detonation") then
-            building.surface.request_to_generate_chunks(building.position, 400/32)
-          elseif(building.get_recipe().name == "100kiloton-detonation") then
-            if (not settings.global["optimise-100kt"].value) then
-              building.surface.request_to_generate_chunks(building.position, 1500/32)
-            else
-              building.surface.request_to_generate_chunks(building.position, 200/32)
-            end
-          elseif(building.get_recipe().name == "15kiloton-detonation") then
-            building.surface.request_to_generate_chunks(building.position, 1000/32)
-          end
-        end
-      else
-        table.remove(global.nukeBuildings, i)
-      end
-    end
-  end
+  
+  building_system.checkBuildings()
 end
 script.on_event(defines.events.on_tick, tickHandler);
 
@@ -304,8 +258,8 @@ local function atomic_weapon_hit(surface_index, source, position, crater_interna
     end
   end
   if (settings.global["nuke-random-fires"].value and create_small_fires) then
-    for i=(fireball_r*fireball_r/10),(small_fire_max_r*small_fire_max_r/10) do
-      local dist = math.random(fireball_r, math.random(fireball_r, small_fire_max_r))
+    for i=(fire_outer_r*fire_outer_r/10),(small_fire_max_r*small_fire_max_r/10) do
+      local dist = math.random(fire_outer_r, math.random(fire_outer_r, small_fire_max_r))
       local angle = math.random()*3.1416*2
       game.surfaces[surface_index].create_entity{name="thermobaric-wave-fire",position={position.x+dist*math.cos(angle), position.y+dist*math.sin(angle)}}
     end
@@ -346,18 +300,18 @@ local function nukeFiredScan(event)
   end
   if (entity) then
     local position = event.target_entity.position
-    if(entity.prototype.name == "TN-very-big-atomic-artillery-projectile") then
+    if(string.match(entity.prototype.name, ".*-atomic-2-stage-100kt")) then
       if (not settings.global["optimise-100kt"].value) then
         game.surfaces[event.surface_index].request_to_generate_chunks(position, 1500/32)
       else
         game.surfaces[event.surface_index].request_to_generate_chunks(position, 200/32)
       end
-    elseif(entity.prototype.name == "TN-big-atomic-artillery-projectile") then
+    elseif(string.match(entity.prototype.name, ".*-atomic-15kt") or string.match(entity.prototype.name, ".*-atomic-2-stage-15kt")) then
       game.surfaces[event.surface_index].request_to_generate_chunks(position, 1000/32)
-    elseif(entity.prototype.name == "TN-atomic-artillery-projectile" or entity.prototype.name == "big-atomic-bomb-projectile") then
+    elseif(string.match(entity.prototype.name, ".*-atomic-1kt")) then
       game.surfaces[event.surface_index].request_to_generate_chunks(position, 800/32)
-    elseif(entity.prototype.name == "TN-small-atomic-artillery-projectile" or entity.prototype.name == "very-big-atomic-bomb-projectile") then
-      game.surfaces[event.surface_index].request_to_generate_chunks(position, 400/32)
+    else
+        game.surfaces[event.surface_index].request_to_generate_chunks(position, 400/32)
     end
   end
 end
