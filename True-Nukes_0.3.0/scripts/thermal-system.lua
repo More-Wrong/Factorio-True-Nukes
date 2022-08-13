@@ -1,22 +1,23 @@
 local function damage_entity(surface, distSq, ePos, fireballSq, initialDamage, v, force, cause, corpseMap)
   local damage = fireballSq*initialDamage/distSq
+  local eProto = v.prototype
   if(v.type=="tree") then
     -- efficient tree handling
     if(math.random(0, 100)<1) then
       surface.create_entity{name="fire-flame-on-tree", target = v, position=ePos}
     end
     local damage = math.random(damage/8, damage)/2
-    if((((not v.prototype.resistances) or not v.prototype.resistances.fire) and v.health<damage) or
-      (v.prototype.resistances and v.prototype.resistances.fire and v.health<(damage-v.prototype.resistances.fire.decrease)*(1-v.prototype.resistances.fire.percent))) then
+    if((((not eProto.resistances) or not eProto.resistances.fire) and v.health<damage) or
+      (eProto.resistances and eProto.resistances.fire and v.health<(damage-eProto.resistances.fire.decrease)*(1-eProto.resistances.fire.percent))) then
       local surface = v.surface
       local destPos = ePos
       v.destroy()
       surface.create_entity{name="tree-01-stump",position=destPos}
     else
-      if((not v.prototype.resistances) or not v.prototype.resistances.fire) then
+      if((not eProto.resistances) or not eProto.resistances.fire) then
         v.health = v.health-damage
       else
-        v.health = v.health-(damage-v.prototype.resistances.fire.decrease)*(1-v.prototype.resistances.fire.percent)
+        v.health = v.health-(damage-eProto.resistances.fire.decrease)*(1-eProto.resistances.fire.percent)
       end
     end
   else
@@ -42,15 +43,25 @@ local function damage_entity(surface, distSq, ePos, fireballSq, initialDamage, v
         end
       end
     else
-      if(((not v.prototype.resistances) or not v.prototype.resistances.fire) and v.health>damage) then
+      if(((not eProto.resistances) or not eProto.resistances.fire) and v.health>damage) then
         v.health = v.health-damage
-      elseif(v.prototype.resistances and v.prototype.resistances.fire and v.health>(damage-v.prototype.resistances.fire.decrease)*(1-v.prototype.resistances.fire.percent)) then
-        v.health = v.health-(damage-v.prototype.resistances.fire.decrease)*(1-v.prototype.resistances.fire.percent)
+      elseif(eProto.resistances and eProto.resistances.fire and v.health>(damage-eProto.resistances.fire.decrease)*(1-eProto.resistances.fire.percent)) then
+        v.health = v.health-(damage-eProto.resistances.fire.decrease)*(1-eProto.resistances.fire.percent)
       else
         if(corpseMap[v.name]) then
           local corpseName = corpseMap[v.name]
-          v.destroy()
+          local ghost
+          if(eProto.create_ghost_on_death or eProto.create_ghost_on_death == nil) then
+            ghost = {inner_name = v.name, name = "entity-ghost", direction = v.direction, expires = true, force = v.force, position = v.position}
+            if(v.type == "assembling-machine" and v.get_recipe()) then
+              ghost.recipe = v.get_recipe().name
+            end
+          end
+          v.destroy{raise_destroy = true}
           surface.create_entity{name=corpseName, position=ePos}
+          if(eProto.create_ghost_on_death or eProto.create_ghost_on_death == nil) then
+            surface.create_entity(ghost)
+          end
         else
           if(cause and cause.valid) then
             v.damage(damage, force, "fire", cause)

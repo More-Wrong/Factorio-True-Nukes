@@ -63,7 +63,7 @@ local function full_fireball(surface_index, position, fireball_r, crater_externa
       if v.type=="tree" then
         v.destroy()
       elseif(corpseMap[v.name]) then
-        v.destroy()
+        v.destroy{raise_destroy = true}
       elseif cause and cause.valid then
         if not v.die(force, cause) then
           v.destroy{raise_destroy = true}
@@ -130,7 +130,7 @@ local function partial_fireball(surface_index, chunkLoaderStruct, chunkPosAndAre
       if e.type=="tree" then
         e.destroy()
       elseif(corpseMap[e.name]) then
-        e.destroy()
+        e.destroy{raise_destroy = true}
       elseif(cause ~= nil and cause.valid) then
         if not e.die(force, cause) then
           e.destroy{raise_destroy = true};
@@ -150,7 +150,7 @@ local function partial_fireball(surface_index, chunkLoaderStruct, chunkPosAndAre
       if e.type=="tree" then
         e.destroy()
       elseif(corpseMap[e.name]) then
-        e.destroy()
+          e.destroy{raise_destroy = true}
       elseif(cause ~= nil and cause.valid) then
         if not e.die(force, cause) then
           e.destroy{raise_destroy = true};

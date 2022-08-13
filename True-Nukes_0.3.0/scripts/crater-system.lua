@@ -105,24 +105,12 @@ end
 
 
 local function nukeTileChangesHeightAwareHuge(position, check_craters, surface_index, crater_internal_r, crater_external_r, fireball_r)
-  local buildingForces = {}
-  local tileGhosts = {}
-  local hasBuildings = false
-
   local tileTable = {}
 
-  -- find interested forces
-  for _,ghost in pairs(game.surfaces[surface_index].find_entities_filtered{position = position, radius = crater_external_r*1.1+4, name = "entity-ghost"}) do
-    buildingForces[ghost.force] = 1
-    hasBuildings = true
-  end
   --fireball boils water...
   for _,v in pairs(game.surfaces[surface_index].find_tiles_filtered{position=position, radius=fireball_r+0.5, name=water.waterTypes}) do
     if(water.waterDepths[v.name]) then
       table.insert(tileTable, {name = water.depthsForCrater[water.waterDepths[v.name]], position = v.position})
-      for _,tileGhost in pairs(game.surfaces[surface_index].find_entities_filtered{position = {v.position.x+0.5, v.position.y+0.5}, name = "tile-ghost"}) do
-        table.insert(tileGhosts, {ghost_name = tileGhost.ghost_name, force = tileGhost.force, pos = tileGhost.position})
-      end
     end
     if(#tileTable >=1000) then
       game.surfaces[surface_index].set_tiles(tileTable)
@@ -136,9 +124,6 @@ local function nukeTileChangesHeightAwareHuge(position, check_craters, surface_i
       local tile = game.surfaces[surface_index].get_tile(x, y)
       if not(water.waterDepths[tile.name] == nil) then
         table.insert(tileTable, {name = water.depthsForCrater[water.waterDepths[tile.name]], position = {x = x, y = y}})
-        for _,tileGhost in pairs(game.surfaces[surface_index].find_entities_filtered{position = {x = x+0.5, y = y+0.5}, name = "tile-ghost"}) do
-          table.insert(tileGhosts, {ghost_name = tileGhost.ghost_name, force = tileGhost.force, pos = tileGhost.position})
-        end
       end
     end
     if(#tileTable >=1000) then
@@ -200,25 +185,6 @@ local function nukeTileChangesHeightAwareHuge(position, check_craters, surface_i
     game.surfaces[surface_index].set_hidden_tile(v.position, "nuclear-ground")
   end
 
-  -- re-add tile ghosts, and create them for the interested forces (and deconstruct high nuclear ground for those forces)
-  for _,t in pairs(tileGhosts) do
-    game.surfaces[surface_index].create_entity{name="tile-ghost", position=t.pos, inner_name=t.ghost_name, force=t.force}
-  end
-  if(hasBuildings) then
-    for _,tile in pairs(game.surfaces[surface_index].find_tiles_filtered{position=position, radius=crater_external_r*1.1+4, name= water.waterAndCraterTypes}) do
-      for f,_ in pairs(buildingForces) do
-        if (game.surfaces[surface_index].count_entities_filtered{position={tile.position.x+0.5, tile.position.y+0.5}, force = f, name="tile-ghost"} == 0) then
-          game.surfaces[surface_index].create_entity{name="tile-ghost", position={tile.position.x+0.5, tile.position.y+0.5}, inner_name="landfill", force=f}
-        end
-      end
-    end
-    for _,tile in pairs(game.surfaces[surface_index].find_tiles_filtered{position=position, radius=crater_external_r*1.1+4, name="nuclear-high"}) do
-      for f,_ in pairs(buildingForces) do
-        tile.order_deconstruction(f);
-      end
-    end
-  end
-
   -- setup craters to fill with water
   for xChunkPos = math.floor((position.x-fireball_r*1.1)/8-1),math.floor((position.x+fireball_r*1.1)/8+1) do
     for yChunkPos = math.floor((position.y-fireball_r*1.1)/8-1),math.floor((position.y+fireball_r*1.1)/8+1) do
@@ -253,10 +219,6 @@ end
 
 
 local function nukeTileChangesHeightAware(position, check_craters, surface_index, crater_internal_r, crater_external_r, fireball_r)
-  local buildingForces = {}
-  local tileGhosts = {}
-  local hasBuildings = false
-
   local tileTable = {}
   local noiseTables = {}
   if (crater_internal_r<5) then
@@ -296,14 +258,6 @@ local function nukeTileChangesHeightAware(position, check_craters, surface_index
     circularNoise(noiseTables[2], position, crater_external_r*2/3+crater_internal_r*1/3, noiseLevel, 3)
     circularNoise(noiseTables[1], position, crater_external_r-1, noiseLevel, 3)
   end
-  -- find interested forces
-  local entitiesFound = game.surfaces[surface_index].find_entities_filtered{position = position, radius = crater_external_r*1.1+4, limit=1}
-  while(entitiesFound[1]) do
-    table.insert(buildingForces, entitiesFound[1].force)
-    hasBuildings = true
-    entitiesFound = game.surfaces[surface_index].find_entities_filtered{position = position, radius = crater_external_r*1.1+4, limit=1, force=buildingForces, invert=true}
-  end
-  entitiesFound = {}
   -- do the noise around the craters
   if (crater_external_r>8) then
     local externalNoise = {default = "nuclear-ground"}
@@ -312,19 +266,11 @@ local function nukeTileChangesHeightAware(position, check_craters, surface_index
     end
     tileNoise(game.surfaces[surface_index], tileTable, position, crater_external_r, 1, externalNoise, 3);
   end
-  if(crater_internal_r==0) then
-    for _,tileGhost in pairs(game.surfaces[surface_index].find_entities_filtered{position = position, radius = crater_external_r+1, name = "tile-ghost"}) do
-      table.insert(tileGhosts, {ghost_name = tileGhost.ghost_name, force = tileGhost.force, pos = tileGhost.position})
-    end
-  end
   for _,v in pairs(game.surfaces[surface_index].find_tiles_filtered{position=position, radius=fireball_r+0.5}) do
     local distSq = (v.position.x-position.x)*(v.position.x-position.x)+(v.position.y-position.y)*(v.position.y-position.y)
     if(distSq>crater_external_r*crater_external_r and (noiseTables[1][v.position.x]==nil or noiseTables[1][v.position.x][v.position.y]==nil)) then
       if(water.waterDepths[v.name]) then
         table.insert(tileTable, {name = water.depthsForCrater[water.waterDepths[v.name]], position = v.position})
-        for _,tileGhost in pairs(game.surfaces[surface_index].find_entities_filtered{position = {v.position.x+0.5, v.position.y+0.5}, name = "tile-ghost"}) do
-          table.insert(tileGhosts, {ghost_name = tileGhost.ghost_name, force = tileGhost.force, pos = tileGhost.position})
-        end
       end
     else
       local curr_height = water.waterDepths[v.name]
@@ -411,9 +357,6 @@ local function nukeTileChangesHeightAware(position, check_craters, surface_index
         local tileDepth = water.waterDepths[game.surfaces[surface_index].get_tile(x, y)];
         if not(tileDepth == nil) then
           table.insert(tileTable, {name = water.depthsForCrater[tileDepth], position = {x = x, y = y}})
-          for _,tileGhost in pairs(game.surfaces[surface_index].find_entities_filtered{position = {x = x+0.5, y = y+0.5}, name = "tile-ghost"}) do
-            table.insert(tileGhosts, {ghost_name = tileGhost.ghost_name, force = tileGhost.force, pos = tileGhost.position})
-          end
         end
       end
     end
@@ -423,24 +366,6 @@ local function nukeTileChangesHeightAware(position, check_craters, surface_index
   --make the high ground removable
   for _,v in pairs(game.surfaces[surface_index].find_tiles_filtered{position=position, radius=fireball_r+0.5, name="nuclear-high"}) do
     game.surfaces[surface_index].set_hidden_tile(v.position, "nuclear-ground")
-  end
-  -- re-add tile ghosts, and create them for the interested forces (and deconstruct high nuclear ground for those forces)
-  for _,t in pairs(tileGhosts) do
-    game.surfaces[surface_index].create_entity{name="tile-ghost", position=t.pos, inner_name=t.ghost_name, force=t.force}
-  end
-  if(hasBuildings) then
-    for _,tile in pairs(game.surfaces[surface_index].find_tiles_filtered{position=position, radius=crater_external_r*1.1+4, name=water.waterAndCraterTypes}) do
-      for _,f in pairs(buildingForces) do
-        if (game.surfaces[surface_index].count_entities_filtered{position={tile.position.x+0.5, tile.position.y+0.5}, force = f, name="tile-ghost"} == 0) then
-          game.surfaces[surface_index].create_entity{name="tile-ghost", position={tile.position.x+0.5, tile.position.y+0.5}, inner_name="landfill", force=f}
-        end
-      end
-    end
-    for _,tile in pairs(game.surfaces[surface_index].find_tiles_filtered{position=position, radius=crater_external_r*1.1+4, name="nuclear-high"}) do
-      for _,f in pairs(buildingForces) do
-        tile.order_deconstruction(f);
-      end
-    end
   end
 
   -- setup craters to fill with water
