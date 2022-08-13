@@ -10,6 +10,7 @@ local building_system = require("scripts.building-system")
 
 local createBlastSoundsAndFlash = mushroomFunctions[1]
 script.on_init(function()
+  global.nuclearTests = {}       -- a map of force-index to maps from atomic-test-pack to count...
   global.thermalBlasts = {}				-- a simple array, with elements: {surface_index, position, force, thermal_max_r, initialDamage, fireball_r, x, y}, each as a key of the map
   global.blastWaves = {}					-- a simple array, with elements:
   --{r = currrent explosion radius, pos = centre position, pow = initial blast multiplier (usually initial r*r)

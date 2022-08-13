@@ -1,10 +1,13 @@
 local warheads_added = require("__True-Nukes__.prototypes.nukes.data-nukes-building-warheads")
+local test_system = require("nuclear-test-system")
 
 local function nukeBuildingDetonate(building)
   local result = nil
   for _,w in pairs(warheads_added) do
     if(building.get_output_inventory().get_item_count("detonation" .. w.name .. w.label) ~= 0) then
       result = w.name
+      test_system.testDetonation(building.force, w)
+      break
     end
   end
   building.surface.create_entity{name="warhead-util-projectile" .. result, position={building.position.x-1, building.position.y}, target=building, speed=100, max_range=1, force=building.force}

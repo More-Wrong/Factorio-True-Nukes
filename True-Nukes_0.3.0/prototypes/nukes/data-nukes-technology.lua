@@ -3,7 +3,7 @@ local appearance = require("__True-Nukes__.prototypes.warhead-system.appearance-
 data:extend{
   {
     type = "tool",
-    name = "TN-warhead-20--1-test-pack",
+    name = "test-pack-atomic-20t-1",
     icons = appearance(warheads["TN-warhead-20--1"]).icons,
     subgroup = "science-pack",
     order = "za[atomic-20t-science-pack]",
@@ -14,7 +14,7 @@ data:extend{
   },
   {
     type = "tool",
-    name = "TN-warhead-500--1-test-pack",
+    name = "test-pack-atomic-500t-1",
     icons = appearance(warheads["TN-warhead-500--1"]).icons,
     subgroup = "science-pack",
     order = "zb[atomic-500t-science-pack]",
@@ -25,7 +25,7 @@ data:extend{
   },
   {
     type = "tool",
-    name = "TN-warhead-20--3-test-pack",
+    name = "test-pack-atomic-20t-3",
     icons = appearance(warheads["TN-warhead-20--3"]).icons,
     subgroup = "science-pack",
     order = "zc[atomic-20t-science-pack]",
@@ -36,7 +36,7 @@ data:extend{
   },
   {
     type = "tool",
-    name = "TN-warhead-15k--1-test-pack",
+    name = "test-pack-atomic-15kt-1",
     icons = appearance(warheads["TN-warhead-15k--1"]).icons,
     subgroup = "science-pack",
     order = "zd[atomic-15kt-science-pack]",
@@ -47,7 +47,7 @@ data:extend{
   },
   {
     type = "tool",
-    name = "TN-warhead-big--1-100kt-test-pack",
+    name = "test-pack-atomic-2-stage-100kt-1",
     icons = appearance(warheads["TN-warhead-big--1"].explosions[2]).icons,
     subgroup = "science-pack",
     order = "ze[atomic-100kt-science-pack]",
@@ -129,7 +129,7 @@ table.insert(data.raw.technology["atomic-bomb"].effects,
   })
 
 data.raw.technology["atomic-bomb"].unit.count = 1
-data.raw.technology["atomic-bomb"].unit.ingredients = {{"TN-warhead-20--1-test-pack", 1}}
+data.raw.technology["atomic-bomb"].unit.ingredients = {{"test-pack-atomic-20t-1", 1}}
 data.raw.technology["atomic-bomb"].order = "e-a-c"
 
 data:extend{
@@ -203,7 +203,7 @@ data:extend{
     unit =
     {
       count = 1,
-      ingredients = {{"TN-warhead-500--1-test-pack", 1}},
+      ingredients = {{"test-pack-atomic-500t-1", 1}},
       time = 1
     },
     order = "e-a-f"
@@ -403,7 +403,7 @@ data:extend{
     unit =
     {
       count = 1,
-      ingredients = {{"TN-warhead-15k--1-test-pack", 1}, {"TN-warhead-20--3-test-pack", 1}},
+      ingredients = {{"test-pack-atomic-15kt-1", 1}, {"test-pack-atomic-20t-3", 1}},
       time = 1
     },
     order = "e-a-i"
@@ -490,7 +490,7 @@ data:extend{
     unit =
     {
       count = 1,
-      ingredients = {{"TN-warhead-big--1-100kt-test-pack", 1}},
+      ingredients = {{"test-pack-atomic-2-stage-100kt-1", 1}},
       time = 1
     },
     order = "e-a-k"
