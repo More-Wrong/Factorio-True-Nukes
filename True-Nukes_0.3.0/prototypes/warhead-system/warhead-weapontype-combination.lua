@@ -1,3 +1,4 @@
+local sounds = require ("__base__.prototypes.entity.sounds")
 local sizes = require("warheads")
 local generateAppearance = require("appearance-util")
 
@@ -76,7 +77,7 @@ local function combine(weapontype, warheadWeapon)
   item.name = name
   item.order = weapontype.order .. warheadWeapon.appendOrder
   item.subgroup = weapontype.item.subgroup
-  
+
   local weaponAppearance = generateAppearance(weapontype.appearances[warheadWeapon.appendName] or weapontype.appearances["default"])
 
   local appearance = combineAppearances(weapontype.appearance, weaponAppearance, warheadWeapon.appearance)
@@ -178,7 +179,11 @@ local function combine(weapontype, warheadWeapon)
     result.projectile = projectile
   elseif(weapontype.type == "land-mine") then
     local landmine = {}
-    landmine.ammo_category = warheadWeapon.landmine.ammo_category
+    landmine.name = name
+    landmine.order = weapontype.order .. warheadWeapon.appendOrder
+    landmine.icons = item.icons
+    landmine.type = "land-mine"
+    landmine.ammo_category = (warheadWeapon.landmine or warheadWeapon.item).ammo_category or warheadWeapon.item.ammo_category
     landmine.trigger_radius = weapontype.land_mine.trigger_radius*warheadWeapon.land_mine.trigger_radius_modifier
     landmine.picture_safe = (weapontype.land_mine.pictures[warheadWeapon.appendName] or weapontype.land_mine.pictures["default"]).picture_safe
     landmine.picture_set = (weapontype.land_mine.pictures[warheadWeapon.appendName] or weapontype.land_mine.pictures["default"]).picture_set
@@ -193,7 +198,7 @@ local function combine(weapontype, warheadWeapon)
     landmine.collision_box = weapontype.land_mine.collision_box
     landmine.selection_box = weapontype.land_mine.selection_box
     landmine.damaged_trigger_effect = weapontype.land_mine.damaged_trigger_effect
-    landmine.dying_explosion = warheadWeapon.landmine.dying_explosion or weapontype.land_mine.damaged_trigger_effect
+    landmine.dying_explosion = (warheadWeapon.landmine or {}).dying_explosion or (weapontype.land_mine or {}).dying_explosion
 
     landmine.flags =
       {
@@ -206,6 +211,7 @@ local function combine(weapontype, warheadWeapon)
     landmine.open_sound = sounds.machine_open
     landmine.close_sound = sounds.machine_close
     landmine.mined_sound = { filename = "__core__/sound/deconstruct-small.ogg" }
+    landmine.action = {type = "direct", action_delivery = {type = "instant", target_effects = warheadWeapon.land_mine.action}}
     result.landmine = landmine
   end
   result.valid = true

@@ -203,7 +203,7 @@ local function sanitseWarhead(warhead)
     weapon.land_mine = {}
     weapon.land_mine.trigger_radius_modifier = explosion.trigger_radius_modifier or warhead.trigger_radius_modifier or 1
     weapon.land_mine.max_health_modifier = explosion.max_health_modifier or warhead.max_health_modifier or 1
-    weapon.land_mine.action = explosion.action
+    weapon.land_mine.action = explosion.final_effect
     weapon.land_mine.created_effect = explosion.created_effect
     weapon.land_mine.ammo_category = warhead.ammo_category
     weapon.land_mine.dying_explosion = explosion.dying_explosion or warhead.dying_explosion

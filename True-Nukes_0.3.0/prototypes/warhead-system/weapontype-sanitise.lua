@@ -192,11 +192,14 @@ local function sanitseWeapontype(weapontype)
       --should work on grenades... not sure about much else
       result.item.action_creator = function (projectile, range_mult, target_effects, final_effects, source_effects)
         local a = table.deepcopy(item.capsule_action)
-        if not a.attack_parameters.ammo_type.action[2].action_delivery.source_effects then
-          a.attack_parameters.ammo_type.action[2].action_delivery.source_effects = {}
-        end
-        for _,e in pairs(source_effects) do
-          table.insert(a.attack_parameters.ammo_type.action[2].action_delivery.source_effects, e)
+        a.attack_parameters.range = a.attack_parameters.range*range_mult
+        if source_effects then
+          if not a.attack_parameters.ammo_type.action[2].action_delivery.source_effects then
+            a.attack_parameters.ammo_type.action[2].action_delivery.source_effects = {}
+          end
+          for _,e in pairs(source_effects) do
+            table.insert(a.attack_parameters.ammo_type.action[2].action_delivery.source_effects, e)
+          end
         end
         a.attack_parameters.ammo_type.action[1].action_delivery.projectile = projectile
         return a
@@ -242,7 +245,7 @@ local function sanitseWeapontype(weapontype)
     }
   end
   result.land_mine.minable = {
-    mining_time = weapontype.land_mine_mining_time or (weapontype.landmine or data.raw["land-mine"]["land-mine"]).mining_time,
+    mining_time = weapontype.land_mine_mining_time or (weapontype.landmine or data.raw["land-mine"]["land-mine"]).minable.mining_time,
     mining_particle = weapontype.land_mine_mining_particle or (weapontype.landmine or data.raw["land-mine"]["land-mine"]).mining_particle
   }
 

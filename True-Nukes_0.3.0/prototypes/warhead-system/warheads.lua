@@ -39,6 +39,9 @@ end
 if not weaponTypes then
   weaponTypes = {}
 end
+if not generateWarheadAnyway then
+  generateWarheadAnyway = {} -- names of warheads to generate even if they aren't launched by anything, mapped to true
+end
 if not warheadOverrides then
   warheadOverrides = {} -- functions taking the combined result, and changing things - very free form
 end

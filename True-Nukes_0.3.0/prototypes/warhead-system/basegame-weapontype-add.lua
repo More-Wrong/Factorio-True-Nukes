@@ -74,6 +74,32 @@ weaponTypes["artillery-shell"]= {
   item = table.deepcopy(data.raw.ammo["artillery-shell"]),
   projectile = table.deepcopy(data.raw["artillery-projectile"]["artillery-projectile"]),
 }
+weaponTypes["land-mine"]= {
+  type = "land-mine",
+  max_size = "huge",
+  min_size = "tiny",
+  baseName = "land-mine",
+  base_item = "land-mine",
+  icon = "__base__/graphics/icons/land-mine.png",
+  energy_required = 1,
+  icons = {},
+  lights = {},
+  item = table.deepcopy(data.raw.item["land-mine"]),
+  landmine = table.deepcopy(data.raw["land-mine"]["land-mine"]),
+}
+weaponTypes["capsule"]= {
+  type = "capsule",
+  max_size = "medium",
+  min_size = "tiny",
+  baseName = "capsule",
+  base_item = "grenade",
+  icon = "__base__/graphics/icons/grenade.png",
+  energy_required = 2,
+  icons = {},
+  lights = {},
+  item = table.deepcopy(data.raw.capsule["grenade"]),
+  projectile = table.deepcopy(data.raw["projectile"]["grenade"]),
+}
 
 weaponTypes["warhead-util-projectile"]= {
   type = "projectile",

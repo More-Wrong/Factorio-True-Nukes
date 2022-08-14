@@ -11,9 +11,10 @@ for _,name in pairs(warheadWeaponNameMap) do
     data.raw.recipe[name] = nil
   end
 end
+
 for _,warhead_dirty in pairs(warheads) do
   local warhead = warhead_sanitise(warhead_dirty)
-  data:extend({warhead.warhead.item, warhead.warhead.recipe})
+  local used = false;
   for _,weapon_dirty in pairs(weaponTypes) do
     local weapontype = weapontype_sanitise(weapon_dirty)
     for _,warheadWeapon in pairs(warhead.weapons) do
@@ -22,6 +23,7 @@ for _,warhead_dirty in pairs(warheads) do
         if(combination.valid) then
           --          combination.recipe.enabled = true
           if(not data.raw.recipe[combination.recipe.name]) then
+            used = true
             local results = {combination.item, combination.recipe}
             if(combination.projectile) then
               table.insert(results, combination.projectile)
@@ -33,6 +35,16 @@ for _,warhead_dirty in pairs(warheads) do
           end
         end
       end
+    end
+  end
+  if(used or generateWarheadAnyway[warhead.warhead.item.name]) then
+    data:extend({warhead.warhead.item, warhead.warhead.recipe})
+    if(warhead_dirty.tech) then
+      table.insert(data.raw.technology[warhead_dirty.tech].effects,
+        {
+          type = "unlock-recipe",
+          recipe = warhead.warhead.recipe.name
+        })
     end
   end
 end
