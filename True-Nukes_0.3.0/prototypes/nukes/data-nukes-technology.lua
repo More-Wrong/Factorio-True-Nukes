@@ -58,6 +58,11 @@ data:extend{
   },
 }
 
+generateWarheadAnyway["TN-warhead-20--1"] = true
+generateWarheadAnyway["TN-warhead-500--1"] = true
+generateWarheadAnyway["TN-warhead-20--3"] = true
+generateWarheadAnyway["TN-warhead-15k--1"] = true
+generateWarheadAnyway["TN-warhead-big--1"] = true
 
 local standard = {
   {"automation-science-pack", 1},
@@ -98,23 +103,6 @@ data.raw.technology["atomic-bomb"].prerequisites = {"basic-atomic-weapons", "roc
 table.insert(data.raw.technology["atomic-bomb"].effects,
   {
     type = "unlock-recipe",
-    recipe = "TN-warhead-20--2"
-  })
-table.insert(data.raw.technology["atomic-bomb"].effects,
-  {
-    type = "unlock-recipe",
-    recipe = "TN-warhead-8--1"
-  })
-
-table.insert(data.raw.technology["atomic-bomb"].effects,
-  {
-    type = "unlock-recipe",
-    recipe = "TN-warhead-4--1"
-  })
-
-table.insert(data.raw.technology["atomic-bomb"].effects,
-  {
-    type = "unlock-recipe",
     recipe = "atomic-bomb"
   })
 table.insert(data.raw.technology["atomic-bomb"].effects,
@@ -142,10 +130,6 @@ data:extend{
     {
       {
         type = "unlock-recipe",
-        recipe = "TN-warhead-20--1"
-      },
-      {
-        type = "unlock-recipe",
         recipe = "fire-shield-equipment"
       }
     },
@@ -163,13 +147,7 @@ data:extend{
     name = "expanded-atomics",
     icon_size = 256, icon_mipmaps = 4,
     icon = "__base__/graphics/technology/atomic-bomb.png",
-    effects =
-    {
-      {
-        type = "unlock-recipe",
-        recipe = "TN-warhead-500--1"
-      }
-    },
+    effects = {},
     prerequisites = {"atomic-bomb", "kovarex-enrichment-process", "production-science-pack"},
     unit =
     {
@@ -184,21 +162,7 @@ data:extend{
     name = "full-fission-atomics",
     icon_size = 256, icon_mipmaps = 4,
     icon = "__base__/graphics/technology/atomic-bomb.png",
-    effects =
-    {
-      {
-        type = "unlock-recipe",
-        recipe = "TN-warhead-15k--1"
-      },
-      {
-        type = "unlock-recipe",
-        recipe = "TN-warhead-1k--1"
-      },
-      {
-        type = "unlock-recipe",
-        recipe = "TN-warhead-500--2"
-      }
-    },
+    effects = {},
     prerequisites = {"expanded-atomics"},
     unit =
     {
@@ -273,29 +237,7 @@ data:extend{
     name = "californium-weapons",
     icon_size = 256, icon_mipmaps = 4,
     icon = "__base__/graphics/technology/atomic-bomb.png",
-    effects =
-    {
-      {
-        type = "unlock-recipe",
-        recipe = "TN-warhead-8--2"
-      },
-      {
-        type = "unlock-recipe",
-        recipe = "TN-warhead-4--2"
-      },
-      {
-        type = "unlock-recipe",
-        recipe = "TN-warhead-2--1"
-      },
-      {
-        type = "unlock-recipe",
-        recipe = "TN-warhead-0-5--1"
-      },
-      {
-        type = "unlock-recipe",
-        recipe = "TN-warhead-0-1--1"
-      },
-    },
+    effects = {},
     prerequisites = {"expanded-atomics", "californium-processing"},
     unit =
     {
@@ -310,27 +252,11 @@ data:extend{
     name = "compact-californium-weapons",
     icon_size = 256, icon_mipmaps = 4,
     icon = "__base__/graphics/technology/atomic-bomb.png",
-    effects =
+    effects = 
     {
       {
         type = "unlock-recipe",
-        recipe = "TN-warhead-20--3"
-      },
-      {
-        type = "unlock-recipe",
-        recipe = "TN-warhead-2--2"
-      },
-      {
-        type = "unlock-recipe",
-        recipe = "TN-warhead-2--3"
-      },
-      {
-        type = "unlock-recipe",
-        recipe = "TN-warhead-0-5--2"
-      },
-      {
-        type = "unlock-recipe",
-        recipe = "TN-warhead-0-1--2"
+        recipe = "neutron-reflector"
       },
     },
     prerequisites = {"californium-weapons"},
@@ -370,22 +296,6 @@ data:extend{
     icon = "__base__/graphics/technology/atomic-bomb.png",
     effects =
     {
-      {
-        type = "unlock-recipe",
-        recipe = "TN-warhead-15k--2"
-      },
-      {
-        type = "unlock-recipe",
-        recipe = "TN-warhead-1k--2"
-      },
-      {
-        type = "unlock-recipe",
-        recipe = "TN-warhead-1k--3"
-      },
-      {
-        type = "unlock-recipe",
-        recipe = "TN-warhead-500--3"
-      },
       {
         type = "unlock-recipe",
         recipe = "artillery-shell-atomic-15kt"
@@ -447,10 +357,6 @@ data:extend{
     effects = {
       {
         type = "unlock-recipe",
-        recipe = "TN-warhead-big--1"
-      },
-      {
-        type = "unlock-recipe",
         recipe = "FOGBANK"
       }
     },
@@ -469,14 +375,6 @@ data:extend{
     icon_size = 256, icon_mipmaps = 1,
     icon = "__True-Nukes__/graphics/fusion-bomb.png",
     effects = {
-      {
-        type = "unlock-recipe",
-        recipe = "TN-warhead-big--2"
-      },
-      {
-        type = "unlock-recipe",
-        recipe = "TN-warhead-big--3"
-      },
       {
         type = "unlock-recipe",
         recipe = "artillery-shell-atomic-2-stage-15kt"

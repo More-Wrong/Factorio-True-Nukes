@@ -5,6 +5,7 @@ local dead = nuke_materials.deadMaterial
 local boom = nuke_materials.boomMaterial
 local small = nuke_materials.smallBoomMaterial
 local light = nuke_materials.lightMaterial
+local reflector = nuke_materials.reflector
 local computer = nuke_materials.computer
 local fusionMaterial = nuke_materials.fusionMaterial
 
@@ -21,7 +22,7 @@ warheads["TN-warhead-0-1--1"] = {
   appendOrder = "x-n-a-m-000001-1",
   target_type = "position",
   size = "tiny",
-  preciseSize = 6,
+  preciseSize = 8,
   final_effect = nuke_explosions.N0_1t_detonation,
 
   appearance = createAppearance({type = "nuclear_core", tints = {tints.californium, tints.californium, tints.nothing}, text = "0_1t"}),
@@ -32,9 +33,10 @@ warheads["TN-warhead-0-1--1"] = {
   energy_required = 100,
   clamp_position = true,
   recipe_result_count = 10,
+  tech = "californium-weapons",
   ingredients = {
-    {"steel-plate", 2},
-    {light, 10},
+    {"steel-plate", 5},
+    {light, 5},
     {computer, 2},
     {"explosives", 2},
     {dead, 4},
@@ -47,7 +49,7 @@ warheads["TN-warhead-0-1--2"] = {
   appendOrder = "x-n-a-m-000001-2",
   target_type = "position",
   size = "tiny",
-  preciseSize = 3,
+  preciseSize = 4,
   final_effect = nuke_explosions.N0_1t_detonation,
 
   appearance = createAppearance({type = "nuclear_core", tints = {tints.californium, tints.californium, tints.nothing}, text = "0_1t"}),
@@ -55,15 +57,43 @@ warheads["TN-warhead-0-1--2"] = {
   range_modifier = 2,
   cooldown_modifier = 5,
   stack_size = 200,
-  energy_required = 200,
---  clamp_position = true,
+  energy_required = 100,
+  clamp_position = true,
+  tech = "compact-californium-weapons",
   recipe_result_count = 5,
   ingredients = {
     {light, 10},
     {computer, 2},
+    {reflector, 1},
     {"explosives", 2},
     {dead, 1},
     {small, 8},
+  }
+}
+warheads["TN-warhead-0-1--3"] = {
+  name = "TN-warhead-0-1--3",
+  appendName = "-atomic-0_1t",
+  appendOrder = "x-n-a-m-000001-3",
+  target_type = "position",
+  size = "tiny",
+  preciseSize = 2,
+  final_effect = nuke_explosions.N0_1t_detonation,
+
+  appearance = createAppearance({type = "nuclear_core", tints = {tints.californium, tints.californium, tints.californium}, text = "0_1t"}),
+  chart_picture = "__True-Nukes__/graphics/artillery/atomic-artillery-californium-map-visualization.png",
+  range_modifier = 2,
+  cooldown_modifier = 5,
+  stack_size = 200,
+  energy_required = 80,
+  clamp_position = true,
+  tech = "compact-californium-weapons",
+  recipe_result_count = 2,
+  ingredients = {
+    {light, 3},
+    {computer, 2},
+    {reflector, 2},
+    {"explosives", 1},
+    {small, 4},
   }
 }
 warheads["TN-warhead-0-5--1"] = {
@@ -80,9 +110,10 @@ warheads["TN-warhead-0-5--1"] = {
   range_modifier = 2,
   cooldown_modifier = 5,
   stack_size = 100,
-  energy_required = 150,
+  energy_required = 90,
   clamp_position = true,
-  amount = 6,
+  tech = "californium-weapons",
+  recipe_result_count = 6,
   ingredients = {
     {"steel-plate", 1},
     {light, 12},
@@ -106,15 +137,42 @@ warheads["TN-warhead-0-5--2"] = {
   range_modifier = 2,
   cooldown_modifier = 5,
   stack_size = 100,
-  energy_required = 150,
+  energy_required = 90,
   clamp_position = true,
-  amount = 3,
+  tech = "compact-californium-weapons",
+  recipe_result_count = 3,
   ingredients = {
     {light, 9},
     {computer, 3},
+    {reflector, 1},
     {"explosives", 2},
     {dead, 1},
     {small, 9}
+  }
+}
+warheads["TN-warhead-0-5--3"] = {
+  name = "TN-warhead-0-5--3",
+  appendName = "-atomic-0_5t",
+  appendOrder = "x-n-a-m-000005-3",
+  target_type = "position",
+  size = "tiny",
+  preciseSize = 4,
+  final_effect = nuke_explosions.N0_5t_detonation,
+
+  appearance = createAppearance({type = "nuclear_core", tints = {tints.californium, tints.californium, tints.californium}, text = "0_5t"}),
+  chart_picture = "__True-Nukes__/graphics/artillery/atomic-artillery-californium-map-visualization.png",
+  range_modifier = 2,
+  cooldown_modifier = 5,
+  stack_size = 100,
+  energy_required = 60,
+  clamp_position = true,
+  tech = "compact-californium-weapons",
+  ingredients = {
+    {light, 2},
+    {computer, 1},
+    {reflector, 1},
+    {"explosives", 1},
+    {small, 5}
   }
 }
 warheads["TN-warhead-2--1"] = {
@@ -123,7 +181,7 @@ warheads["TN-warhead-2--1"] = {
   appendOrder = "x-n-a-m-00002-1",
   target_type = "position",
   size = "small",
-  preciseSize = 18,
+  preciseSize = 16,
   final_effect = nuke_explosions.N2t_detonation,
 
   appearance = createAppearance({type = "nuclear_core", tints = {tints.uraniumLive, tints.californium, tints.nothing}, text = "2t"}),
@@ -133,8 +191,9 @@ warheads["TN-warhead-2--1"] = {
   stack_size = 20,
   energy_required = 20,
   clamp_position = true,
+  tech = "californium-weapons",
   ingredients = {
-    {"steel-plate", 2},
+    {"steel-plate", 5},
     {computer, 5},
     {"explosives", 5},
     {dead, 3},
@@ -148,7 +207,7 @@ warheads["TN-warhead-2--2"] = {
   appendOrder = "x-n-a-m-00002-2",
   target_type = "position",
   size = "small",
-  preciseSize = 14,
+  preciseSize = 12,
   final_effect = nuke_explosions.N2t_detonation,
 
   appearance = createAppearance({type = "nuclear_core", tints = {tints.californium, tints.californium, tints.californium}, text = "2t"}),
@@ -158,10 +217,12 @@ warheads["TN-warhead-2--2"] = {
   stack_size = 20,
   energy_required = 60,
   clamp_position = true,
+  tech = "compact-californium-weapons",
   ingredients = {
     {"steel-plate", 1},
     {light, 4},
     {computer, 10},
+    {reflector, 1},
     {"explosives", 4},
     {dead, 2},
     {boom, 1},
@@ -174,7 +235,7 @@ warheads["TN-warhead-2--3"] = {
   appendOrder = "x-n-a-m-00002-3",
   target_type = "position",
   size = "tiny",
-  preciseSize = 10,
+  preciseSize = 8,
   final_effect = nuke_explosions.N2t_detonation,
 
   appearance = createAppearance({type = "nuclear_core", tints = {tints.californium, tints.californium, tints.californium}, text = "2t"}),
@@ -184,9 +245,11 @@ warheads["TN-warhead-2--3"] = {
   stack_size = 20,
   energy_required = 120,
   clamp_position = true,
+  tech = "compact-californium-weapons",
   ingredients = {
     {light, 10},
     {computer, 15},
+    {reflector, 4},
     {"explosives", 2},
     {small, 15}
   }
@@ -197,7 +260,7 @@ warheads["TN-warhead-4--1"] = {
   appendOrder = "x-n-a-m-00004-1",
   target_type = "position",
   size = "medium",
-  preciseSize = 24,
+  preciseSize = 22,
   final_effect = nuke_explosions.N4t_detonation,
 
   appearance = createAppearance({type = "nuclear_core", tints = {tints.uraniumLive, tints.californium, tints.uraniumDead}, text = "4t"}),
@@ -207,8 +270,9 @@ warheads["TN-warhead-4--1"] = {
   stack_size = 10,
   energy_required = 30,
   clamp_position = true,
+  tech = "atomic-bomb",
   ingredients = {
-    {"steel-plate", 4},
+    {"steel-plate", 5},
     {computer, 5},
     {"explosives", 10},
     {dead, 5},
@@ -231,11 +295,37 @@ warheads["TN-warhead-4--2"] = {
   stack_size = 10,
   energy_required = 90,
   clamp_position = true,
+  tech = "californium-weapons",
   ingredients = {
-    {light, 15},
+    {light, 10},
     {computer, 12},
     {"explosives", 5},
     {boom, 2},
+    {small, 10}
+  }
+}
+warheads["TN-warhead-4--3"] = {
+  name = "TN-warhead-4--3",
+  appendName = "-atomic-4t",
+  appendOrder = "x-n-a-m-00004-3",
+  target_type = "position",
+  size = "small",
+  preciseSize = 16,
+  final_effect = nuke_explosions.N4t_detonation,
+
+  appearance = createAppearance({type = "nuclear_core", tints = {tints.uraniumLive, tints.californium, tints.californium}, text = "4t"}),
+  chart_picture = "__True-Nukes__/graphics/artillery/atomic-artillery-californium-map-visualization.png",
+  range_modifier = 2,
+  cooldown_modifier = 5,
+  stack_size = 10,
+  energy_required = 180,
+  clamp_position = true,
+  tech = "compact-californium-weapons",
+  ingredients = {
+    {light, 15},
+    {computer, 20},
+    {reflector, 8},
+    {"explosives", 5},
     {small, 20}
   }
 }
@@ -255,6 +345,7 @@ warheads["TN-warhead-8--1"] = {
   stack_size = 10,
   energy_required = 40,
   clamp_position = true,
+  tech = "atomic-bomb",
   ingredients = {
     {"steel-plate", 6},
     {computer, 5},
@@ -269,7 +360,7 @@ warheads["TN-warhead-8--2"] = {
   appendOrder = "x-n-a-m-00008-2",
   target_type = "position",
   size = "small",
-  preciseSize = 18,
+  preciseSize = 20,
 
   final_effect = nuke_explosions.N8t_detonation,
   appearance = createAppearance({type = "nuclear_core", tints = {tints.uraniumLive, tints.californium, tints.californium}, text = "8t"}),
@@ -277,14 +368,40 @@ warheads["TN-warhead-8--2"] = {
   range_modifier = 2,
   cooldown_modifier = 5,
   stack_size = 10,
-  energy_required = 90,
+  energy_required = 120,
   clamp_position = true,
+  tech = "californium-weapons",
   ingredients = {
-    {light, 20},
-    {computer, 18},
+    {light, 15},
+    {computer, 16},
     {"explosives", 8},
     {boom, 2},
-    {small, 30}
+    {small, 20}
+  }
+}
+warheads["TN-warhead-8--3"] = {
+  name = "TN-warhead-8--3",
+  appendName = "-atomic-8t",
+  appendOrder = "x-n-a-m-00008-3",
+  target_type = "position",
+  size = "small",
+  preciseSize = 15,
+
+  final_effect = nuke_explosions.N8t_detonation,
+  appearance = createAppearance({type = "nuclear_core", tints = {tints.uraniumLive, tints.californium, tints.californium}, text = "8t"}),
+  chart_picture = "__True-Nukes__/graphics/artillery/atomic-artillery-californium-map-visualization.png",
+  range_modifier = 2,
+  cooldown_modifier = 5,
+  stack_size = 10,
+  energy_required = 240,
+  clamp_position = true,
+  tech = "compact-californium-weapons",
+  ingredients = {
+    {light, 20},
+    {computer, 24},
+    {reflector, 12},
+    {"explosives", 10},
+    {small, 35}
   }
 }
 warheads["TN-warhead-20--1"] = {
@@ -302,6 +419,7 @@ warheads["TN-warhead-20--1"] = {
   cooldown_modifier = 5,
   stack_size = 5,
   energy_required = 60,
+  tech = "basic-atomic-weapons",
   ingredients = {
     {"steel-plate", 10},
     {computer, 8},
@@ -324,8 +442,9 @@ warheads["TN-warhead-20--2"] = {
   range_modifier = 2,
   cooldown_modifier = 5,
   stack_size = 5,
-  energy_required = 150,
+  energy_required = 120,
   clamp_position = true,
+  tech = "atomic-bomb",
   ingredients = {
     {light, 20},
     {computer, 20},
@@ -350,11 +469,13 @@ warheads["TN-warhead-20--3"] = {
   range_modifier = 2,
   cooldown_modifier = 5,
   stack_size = 5,
-  energy_required = 360,
+  energy_required = 300,
   clamp_position = true,
+  tech = "compact-californium-weapons",
   ingredients = {
     {light, 50},
     {computer, 40},
+    {reflector, 12},
     {"explosives", 5},
     {boom, 5},
     {small, 45}
@@ -375,6 +496,7 @@ warheads["TN-warhead-500--1"] = {
   cooldown_modifier = 5,
   stack_size = 1,
   energy_required = 90,
+  tech = "expanded-atomics",
   ingredients = {
     {"steel-plate", 20},
     {computer, 10},
@@ -390,7 +512,7 @@ warheads["TN-warhead-500--2"] = {
   target_type = "position",
 
   size = "large",
-  preciseSize = 34,
+  preciseSize = 32,
   final_effect = nuke_explosions.N500t_detonation,
   appearance = createAppearance({type = "nuclear_core", tints = {tints.uraniumLive, tints.uraniumLive, tints.nothing}, text = "500t"}),
   chart_picture = "__True-Nukes__/graphics/artillery/atomic-artillery-map-visualization.png",
@@ -399,6 +521,7 @@ warheads["TN-warhead-500--2"] = {
   stack_size = 1,
   energy_required = 210,
   clamp_position = true,
+  tech = "full-fission-atomics",
   ingredients = {
     {"steel-plate", 5},
     {light, 15},
@@ -415,7 +538,7 @@ warheads["TN-warhead-500--3"] = {
   target_type = "position",
 
   size = "medium",
-  preciseSize = 28,
+  preciseSize = 26,
   final_effect = nuke_explosions.N500t_detonation,
   appearance = createAppearance({type = "nuclear_core", tints = {tints.californium, tints.uraniumLive, tints.uraniumLive}, text = "500t"}),
   chart_picture = "__True-Nukes__/graphics/artillery/atomic-artillery-map-visualization.png",
@@ -424,9 +547,11 @@ warheads["TN-warhead-500--3"] = {
   stack_size = 1,
   energy_required = 360,
   clamp_position = true,
+  tech = "compact-full-fission-weapons",
   ingredients = {
-    {light, 50},
+    {light, 45},
     {computer, 50},
+    {reflector, 15},
     {"explosives", 10},
     {boom, 50},
     {small, 60}
@@ -448,6 +573,7 @@ warheads["TN-warhead-1k--1"] = {
   stack_size = 1,
   energy_required = 120,
   clamp_position = true,
+  tech = "full-fission-atomics",
   ingredients = {
     {"steel-plate", 25},
     {computer, 20},
@@ -463,7 +589,7 @@ warheads["TN-warhead-1k--2"] = {
   target_type = "position",
 
   size = "large",
-  preciseSize = 36,
+  preciseSize = 35,
   final_effect = nuke_explosions.N1kt_detonation,
   appearance = createAppearance({type = "nuclear_core", tints = {tints.uraniumLive, tints.uraniumLive, tints.uraniumDead}, text = "1kt"}),
   chart_picture = "__True-Nukes__/graphics/artillery/atomic-artillery-map-visualization.png",
@@ -472,13 +598,14 @@ warheads["TN-warhead-1k--2"] = {
   stack_size = 1,
   energy_required = 300,
   clamp_position = true,
+  tech = "compact-full-fission-weapons",
   ingredients = {
     {"steel-plate", 8},
     {light, 20},
     {computer, 45},
     {"explosives", 50},
     {dead, 5},
-    {boom, 115},
+    {boom, 120},
   }
 }
 warheads["TN-warhead-1k--3"] = {
@@ -497,10 +624,12 @@ warheads["TN-warhead-1k--3"] = {
   stack_size = 1,
   energy_required = 600,
   clamp_position = true,
+  tech = "compact-full-fission-weapons",
   ingredients = {
-    {light, 75},
+    {light, 60},
     {computer, 100},
     {"red-wire", 20},
+    {reflector, 20},
     {"explosives", 20},
     {boom, 80},
     {small, 80}
@@ -522,9 +651,10 @@ warheads["TN-warhead-15k--1"] = {
   stack_size = 1,
   energy_required = 180,
   clamp_position = true,
+  tech = "full-fission-atomics",
   ingredients = {
     {"steel-plate", 30},
-    {computer, 60},
+    {computer, 40},
     {"red-wire", 5},
     {"green-wire", 5},
     {"explosives", 175},
@@ -548,15 +678,45 @@ warheads["TN-warhead-15k--2"] = {
   stack_size = 1,
   energy_required = 480,
   clamp_position = true,
+  tech = "compact-full-fission-weapons",
   ingredients = {
     {"steel-plate", 10},
     {light, 30},
     {computer, 160},
     {"red-wire", 10},
     {"green-wire", 10},
+    {reflector, 10},
     {"explosives", 130},
     {dead, 25},
     {boom, 325}
+  }
+}
+warheads["TN-warhead-15k--3"] = {
+  name = "TN-warhead-15k--3",
+  appendName = "-atomic-15kt",
+  appendOrder = "x-n-a-m-15-3",
+  target_type = "position",
+
+  size = "large",
+  preciseSize = 33,
+  final_effect = nuke_explosions.N15kt_detonation,
+  appearance = createAppearance({type = "nuclear_core", tints = {tints.uraniumLive, tints.uraniumLive, tints.uraniumLive}, text = "15kt"}),
+  chart_picture = "__True-Nukes__/graphics/artillery/atomic-artillery-map-visualization.png",
+  range_modifier = 2,
+  cooldown_modifier = 5,
+  stack_size = 1,
+  energy_required = 720,
+  clamp_position = true,
+  tech = "compact-full-fission-weapons",
+  ingredients = {
+    {light, 75},
+    {computer, 200},
+    {"red-wire", 20},
+    {"green-wire", 20},
+    {reflector, 50},
+    {"explosives", 100},
+    {boom, 300},
+    {small, 50}
   }
 }
 warheads["TN-warhead-big--1"] = {
@@ -574,6 +734,7 @@ warheads["TN-warhead-big--1"] = {
   stack_size = 1,
   energy_required = 180,
   clamp_position = true,
+  tech = "fusion-weapons",
   ingredients = {
     {"steel-plate", 100},
     {"copper-plate", 100},
@@ -582,6 +743,7 @@ warheads["TN-warhead-big--1"] = {
     {"green-wire", 20},
     {"FOGBANK", 10},
     {"heat-pipe", 10},
+    {reflector, 20},
     {"explosives", 200},
     {dead, 400},
     {boom, 250}
@@ -660,6 +822,7 @@ warheads["TN-warhead-big--2"] = {
   stack_size = 1,
   energy_required = 300,
   clamp_position = true,
+  tech = "compact-fusion-weapons",
   ingredients = {
     {"steel-plate", 50},
     {"copper-plate", 50},
@@ -669,6 +832,7 @@ warheads["TN-warhead-big--2"] = {
     {"green-wire", 40},
     {"FOGBANK", 40},
     {"heat-pipe", 40},
+    {reflector, 40},
     {"explosives", 130},
     {dead, 200},
     {boom, 325}
@@ -718,6 +882,7 @@ warheads["TN-warhead-big--3"] = {
   stack_size = 1,
   energy_required = 720,
   clamp_position = true,
+  tech = "compact-fusion-weapons",
   ingredients = {
     {"copper-plate", 20},
     {light, 150},
@@ -726,6 +891,7 @@ warheads["TN-warhead-big--3"] = {
     {"green-wire", 100},
     {"FOGBANK", 60},
     {"heat-pipe", 60},
+    {reflector, 80},
     {"explosives", 75},
     {dead, 50},
     {boom, 400}

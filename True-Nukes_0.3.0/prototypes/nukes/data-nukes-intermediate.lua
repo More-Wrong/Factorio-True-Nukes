@@ -51,81 +51,81 @@ if(nuke_materials.smallBoomMaterial == "californium") then
   });
 end
 
-if(settings.startup["enable-very-big-atomic-artillery"].value) then
-  data:extend{
+data:extend{
+  {
+    type = "item",
+    name = "FOGBANK",
+    icon = "__True-Nukes__/graphics/FOGBANK.png",
+    icon_size = 64, icon_mipmaps = 4,
+    subgroup = "intermediate-product",
+    order = "r[fogbank]",
+    stack_size = 50
+  },
+  {
+    type = "recipe",
+    name = "FOGBANK",
+    category = "chemistry",
+    energy_required = 20,
+    enabled = false,
+    ingredients =
     {
-      type = "item",
-      name = "FOGBANK",
-      icon = "__True-Nukes__/graphics/FOGBANK.png",
-      icon_size = 64, icon_mipmaps = 4,
-      subgroup = "intermediate-product",
-      order = "r[fogbank]",
-      stack_size = 50
+      {type="fluid", name="petroleum-gas", amount=20},
+      {type="fluid", name="sulfuric-acid", amount=20},
+      {type="item", name="low-density-structure", amount=10},
+      {type="item", name="plastic-bar", amount=10}
     },
+    results=
     {
-      type = "recipe",
-      name = "FOGBANK",
-      category = "chemistry",
-      energy_required = 20,
-      enabled = false,
-      ingredients =
-      {
-        {type="fluid", name="petroleum-gas", amount=20},
-        {type="fluid", name="sulfuric-acid", amount=20},
-        {type="item", name="low-density-structure", amount=10},
-        {type="item", name="plastic-bar", amount=10}
-      },
-      results=
-      {
-        {type="item", name="FOGBANK", amount=1}
-      },
-      crafting_machine_tint =
-      {
-        primary = {r = 0.965, g = 0.482, b = 0.338, a = 1.000}, -- #f67a56ff
-        secondary = {r = 0.831, g = 0.560, b = 0.222, a = 1.000}, -- #d38e38ff
-        tertiary = {r = 0.728, g = 0.818, b = 0.443, a = 1.000}, -- #b9d070ff
-        quaternary = {r = 0.939, g = 0.763, b = 0.191, a = 1.000}, -- #efc230ff
-      }
-    }};
-end
+      {type="item", name="FOGBANK", amount=1}
+    },
+    crafting_machine_tint =
+    {
+      primary = {r = 0.965, g = 0.482, b = 0.338, a = 1.000}, -- #f67a56ff
+      secondary = {r = 0.831, g = 0.560, b = 0.222, a = 1.000}, -- #d38e38ff
+      tertiary = {r = 0.728, g = 0.818, b = 0.443, a = 1.000}, -- #b9d070ff
+      quaternary = {r = 0.939, g = 0.763, b = 0.191, a = 1.000}, -- #efc230ff
+    }
+  }
+};
 
-if(settings.startup["enable-very-big-atomic-artillery"].value) then
-  data:extend{
+data:extend{
+  {
+    type = "item",
+    name = "neutron-reflector",
+    icon = "__True-Nukes__/graphics/neutron-reflector.png",
+    icon_size = 64, icon_mipmaps = 4,
+    subgroup = "intermediate-product",
+    order = "r[neutron-reflector]",
+    stack_size = 50
+  },
+  {
+    type = "recipe",
+    name = "neutron-reflector",
+    category = "chemistry",
+    energy_required = 10,
+    enabled = false,
+    ingredients =
     {
-      type = "item",
-      name = "FOGBANK",
-      icon = "__True-Nukes__/graphics/FOGBANK.png",
-      icon_size = 64, icon_mipmaps = 4,
-      subgroup = "intermediate-product",
-      order = "r[fogbank]",
-      stack_size = 50
+      {type="item", name="low-density-structure", amount=1},
+      {type="fluid", name="petroleum-gas", amount=10},
+      {type="item", name="plastic-bar", amount=10},
+      {type="item", name="iron-plate", amount=5},
+      {type="item", name="sulfur", amount=10}
     },
+    results=
     {
-      type = "recipe",
-      name = "FOGBANK",
-      category = "chemistry",
-      energy_required = 20,
-      enabled = false,
-      ingredients =
-      {
-        {type="fluid", name="petroleum-gas", amount=20},
-        {type="fluid", name="sulfuric-acid", amount=20},
-        {type="item", name="low-density-structure", amount=10},
-        {type="item", name="plastic-bar", amount=10}
-      },
-      results=
-      {
-        {type="item", name="FOGBANK", amount=1}
-      },
-      crafting_machine_tint =
-      {
-        primary = {r = 0.965, g = 0.482, b = 0.338, a = 1.000}, -- #f67a56ff
-        secondary = {r = 0.831, g = 0.560, b = 0.222, a = 1.000}, -- #d38e38ff
-        tertiary = {r = 0.728, g = 0.818, b = 0.443, a = 1.000}, -- #b9d070ff
-        quaternary = {r = 0.939, g = 0.763, b = 0.191, a = 1.000}, -- #efc230ff
-      }
-    }};
-end
+      {type="item", name="neutron-reflector", amount=1}
+    },
+    crafting_machine_tint =
+    {
+      primary = {r = 0.965, g = 0.482, b = 0.338, a = 1.000}, -- #f67a56ff
+      secondary = {r = 0.831, g = 0.560, b = 0.222, a = 1.000}, -- #d38e38ff
+      tertiary = {r = 0.728, g = 0.818, b = 0.443, a = 1.000}, -- #b9d070ff
+      quaternary = {r = 0.939, g = 0.763, b = 0.191, a = 1.000}, -- #efc230ff
+    }
+  }
+};
+
 if(nuke_materials.fusionMaterial == "tritium-canister") then
   data:extend({
     {

@@ -10,6 +10,7 @@ local computer = "processing-unit";
 
 local fusionMaterial = "tritium-canister";
 
+local reflector = "neutron-reflector";
 
 
 if settings.startup["dead-material"].value == "mod-dependant" then
@@ -60,5 +61,6 @@ return {
   smallBoomMaterial = smallBoomMaterial,
   fusionMaterial = fusionMaterial,
   lightMaterial = lightMaterial,
-  computer = computer
+  computer = computer,
+  reflector = reflector
 };

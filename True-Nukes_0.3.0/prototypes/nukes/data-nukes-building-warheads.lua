@@ -270,5 +270,4 @@ local warheads_to_add = {
     energy = 90
   },
 }
-
 return warheads_to_add

@@ -57,7 +57,3 @@ thermobaric_tech.icon = "__True-Nukes__/graphics/thermobaric-tech.png"
 thermobaric_tech.icon_mipmaps = 1
 thermobaric_tech.unit.count=250
 data:extend{thermobaric_tech}
-
-if (settings.startup["enable-thermobaric-cannons"].value and mods["SchallTankPlatoon"]) then
-  require("data-thermobaric-schall")
-end
