@@ -93,13 +93,13 @@ local function sanitseWarhead(warhead)
     weapon.recipe.crafting_machine_tint = explosion.weapon_creation_tint or warhead.weapon_creation_tint
     weapon.recipe.warhead_name = warhead.name
     weapon.recipe.additional_ingedients = {}
-    if(explosion.ingredients) then
-      for _,ingredient in pairs(explosion.ingredients) do
+    if(explosion.additional_ingedients) then
+      for _,ingredient in pairs(explosion.additional_ingedients) do
         table.insert(weapon.recipe.additional_ingedients, ingredient)
       end
     end
-    if(explosion.ingredient) then
-      table.insert(weapon.recipe.additional_ingedients, {name = explosion.ingredient, amount = explosion.ingredient_count or 1})
+    if(explosion.additional_ingedient) then
+      table.insert(weapon.recipe.additional_ingedients, {name = explosion.additional_ingedient, amount = explosion.ingredient_count or 1})
     end
 
     if(prevExplosionName == nil) then
@@ -108,14 +108,14 @@ local function sanitseWarhead(warhead)
           table.insert(weapon.recipe.additional_ingedients, ingredient)
         end
       end
-      if(warhead.additional_ingedients) then
-        table.insert(weapon.recipe.additional_ingedients, {name = warhead.additional_ingedients, amount = warhead.ingredient_count or 1})
+      if(warhead.additional_ingedient) then
+        table.insert(weapon.recipe.additional_ingedients, {name = warhead.additional_ingedient, amount = warhead.ingredient_count or 1})
       end
     end
 
     if(warhead.progressiveRecipe) then
       if(prevExplosionName ~= nil) then
-        table.insert(weapon.recipe.additional_ingedients, {name = prevExplosionName, amount = explosion.built_up_ingredient_amount or 1})
+        weapon.recipe.build_up_ingredient = {name = prevExplosionName, amount = explosion.built_up_ingredient_amount or 1}
       end
       if(warhead.progressiveRecipe == "from-first")then
         if(prevExplosionName == nil) then

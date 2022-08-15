@@ -748,6 +748,7 @@ warheads["TN-warhead-big--1"] = {
     {dead, 400},
     {boom, 250}
   },
+  progressiveRecipe = "from-first",
   explosions = {
     {
       additional_ingedients = {},
@@ -837,9 +838,10 @@ warheads["TN-warhead-big--2"] = {
     {dead, 200},
     {boom, 325}
   },
+  progressiveRecipe = "from-first",
   explosions = {
     {
-      ingedients = {},
+      additional_ingedients = {},
       appendName = "-15kt",
       appearance = createAppearance({type = "nuclear_core", tints = {tints.uraniumLive, tints.tritium, tints.tritium}, text = "15kt"}),
       appendOrder = "-0-015",
@@ -896,9 +898,10 @@ warheads["TN-warhead-big--3"] = {
     {dead, 50},
     {boom, 400}
   },
+  progressiveRecipe = "from-first",
   explosions = {
     {
-      ingedients = {},
+      additional_ingedients = {},
       appendName = "-15kt",
       appearance = createAppearance({type = "nuclear_core", tints = {tints.uraniumLive, tints.tritium, tints.uraniumLive}, text = "15kt"}),
       appendOrder = "-0-015",

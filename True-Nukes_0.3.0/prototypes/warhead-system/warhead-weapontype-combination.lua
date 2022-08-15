@@ -116,7 +116,16 @@ local function combine(weapontype, warheadWeapon)
   recipe.energy_required = weapontype.recipe.energy_required * warheadWeapon.recipe.energy_required_modifier
   recipe.crafting_machine_tint = warheadWeapon.recipe.crafting_machine_tint
   recipe.ingredients = table.deepcopy(weapontype.recipe.ingredients)
-  table.insert(recipe.ingredients, {name = warheadWeapon.recipe.warhead_name, amount = weapontype.recipe.warhead_count})
+  if(warheadWeapon.recipe.build_up_ingredient) then
+    recipe.ingredients = {}
+    local buildUpName = weapontype.name .. warheadWeapon.recipe.build_up_ingredient.name
+    if(warheadWeaponNameMap[buildUpName]) then
+      buildUpName = warheadWeaponNameMap[buildUpName]
+    end
+    table.insert(recipe.ingredients, {name = buildUpName, amount = warheadWeapon.recipe.build_up_ingredient.amount})
+  else
+    table.insert(recipe.ingredients, {name = warheadWeapon.recipe.warhead_name, amount = weapontype.recipe.warhead_count})
+  end
   for _,i in pairs(warheadWeapon.recipe.additional_ingedients) do
     table.insert(recipe.ingredients, i)
   end
