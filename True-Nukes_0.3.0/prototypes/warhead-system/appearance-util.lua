@@ -45,13 +45,7 @@ local function generateAppearance(thing)
     if(not pictures) then
       pictures = {}
       for _,i in pairs(iconsFinal) do
-        if not i.special then
-          local shift = {0, 0}
-          if(i.shift) then
-            shift = {i.shift[1]*0.01875, i.shift[2]*0.01875}
-          end
-          table.insert(pictures, {filename = i.icon, size = i.icon_size or 64, scale = (i.scale or 1)/4.0, shift = shift, tint = i.tint})
-        end
+          table.insert(pictures, i)
       end
       if(lights) then
         for _,l in pairs(lights) do
@@ -62,7 +56,7 @@ local function generateAppearance(thing)
               if(l.shift) then
                 shift = {l.shift[1]*0.01875, l.shift[2]*0.01875}
               end
-              lightSetup = {filename = l.icon, size = l.icon_size or l.size or 64, scale = (l.scale or 1)/4.0, shift = shift, draw_as_light = true, flags = {"light"}, tint = i.tint}
+              lightSetup = {filename = l.icon, size = l.icon_size or l.size or 64, scale = (l.scale or 1)*16.0/(l.icon_size or 64), shift = shift, draw_as_light = true, flags = {"light"}, tint = i.tint}
             else
               lightSetup = l
             end
@@ -82,7 +76,7 @@ local function generateAppearance(thing)
           if(p.shift) then
             shift = {p.shift[1]*0.01875, p.shift[2]*0.01875}
           end
-          table.insert(picturesFinal, {filename = p.icon, size = p.icon_size or p.size or 64, scale = (p.scale or 1)/4.0, shift = shift, tint = p.tint})
+          table.insert(picturesFinal, {filename = p.icon, size = p.icon_size or p.size or 64, scale = (p.scale or 1)*16.0/(p.icon_size or 64), shift = shift, tint = p.tint})
         else
           table.insert(picturesFinal, p)
         end

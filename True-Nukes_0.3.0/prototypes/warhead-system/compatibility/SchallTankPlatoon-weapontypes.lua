@@ -5,10 +5,8 @@ weaponTypes["Schall-sniper-magazine"]= {
   baseOrder = "a[basic-clips]-s[sniper-rifle]-d",
   base_item = "Schall-sniper-piercing-rounds-magazine",
   ammo_category = "Schall-sniper-bullet",
-  icons = {
-    {icon = "__base__/graphics/icons/piercing-rounds-magazine.png", icon_size = 64, icon_mipmaps = 4},
-    {icon = "__SchallTankPlatoon__/graphics/icons/sniper-bullet.png", icon_size = 128, icon_mipmaps = 3}
-  },
+  icons = {{icon = "__base__/graphics/icons/piercing-rounds-magazine.png", icon_size = 64, icon_mipmaps = 4}},
+  addon_icon = {icon = "__SchallTankPlatoon__/graphics/icons/sniper-bullet.png", icon_size = 128, icon_mipmaps = 3},
   energy_required = 1,
   warhead_count = 10,
   icons = {},
