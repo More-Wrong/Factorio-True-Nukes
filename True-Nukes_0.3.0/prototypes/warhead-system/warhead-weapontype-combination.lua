@@ -71,9 +71,11 @@ local function combine(weapontype, warheadWeapon)
   local item = {type = "item"}
 
   local name = weapontype.name .. warheadWeapon.appendName
+  result.rawName = name
   if(warheadWeaponNameMap[weapontype.name .. warheadWeapon.appendName]) then
     name = warheadWeaponNameMap[name]
   end
+  
   item.name = name
   item.order = weapontype.order .. warheadWeapon.appendOrder
   item.subgroup = weapontype.item.subgroup

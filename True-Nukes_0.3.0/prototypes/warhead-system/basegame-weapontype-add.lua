@@ -114,3 +114,4 @@ weaponTypes["warhead-util-projectile"]= {
   acceleration = 1,
   ammo_category = "cannon-shell"
 }
+weaponNoTech["warhead-util-projectile"] = true

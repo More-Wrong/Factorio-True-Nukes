@@ -28,7 +28,7 @@ local function sanitseWarhead(warhead)
 
   result.warhead.item.type = "item"
   result.warhead.item.name = warhead.name
-  result.warhead.item.order = warhead.order or appendOrder
+  result.warhead.item.order = warhead.order or warhead.appendOrder
   result.warhead.item.subgroup = warhead.size .. "-warheads"
   result.warhead.item.stack_size = warhead.stack_size
   result.warhead.item.pictures = {layers = appearance.pictures}

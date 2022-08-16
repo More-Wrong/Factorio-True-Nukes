@@ -310,7 +310,7 @@ warheads["TN-warhead-4--3"] = {
   appendOrder = "x-n-a-m-00004-3",
   target_type = "position",
   size = "small",
-  preciseSize = 16,
+  preciseSize = 12,
   final_effect = nuke_explosions.N4t_detonation,
 
   appearance = createAppearance({type = "nuclear_core", tints = {tints.uraniumLive, tints.californium, tints.californium}, text = "4t"}),
@@ -815,7 +815,7 @@ warheads["TN-warhead-big--2"] = {
   appendOrder = "x-n-a-t",
   target_type = "position",
   size = "huge",
-  preciseSize = 46,
+  preciseSize = 48,
   appearance = createAppearance({type = "nuclear_core", tints = {tints.uraniumLive, tints.tritium, tints.tritium}, text = "15kt+"}),
   chart_picture = "__True-Nukes__/graphics/artillery/atomic-artillery-fusion-map-visualization.png",
   range_modifier = 2,

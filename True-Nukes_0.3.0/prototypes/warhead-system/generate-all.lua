@@ -32,6 +32,21 @@ for _,warhead_dirty in pairs(warheads) do
               table.insert(results, combination.landmine)
             end
             data:extend(results)
+
+            local tech = warhead_dirty.tech
+            if weaponNoTech[weapontype.name] then
+              tech = nil
+            end
+            if specialTechForWarheadWeapon[combination.rawName] ~= nil then
+              tech = specialTechForWarheadWeapon[combination.rawName]
+            end
+            if tech then
+              table.insert(data.raw.technology[tech].effects,
+                {
+                  type = "unlock-recipe",
+                  recipe = combination.recipe.name
+                })
+            end
           end
         end
       end
@@ -40,7 +55,7 @@ for _,warhead_dirty in pairs(warheads) do
   if(used or generateWarheadAnyway[warhead.warhead.item.name]) then
     data:extend({warhead.warhead.item, warhead.warhead.recipe})
     if(warhead_dirty.tech) then
-      table.insert(data.raw.technology[warhead_dirty.tech].effects,
+      table.insert(data.raw.technology[warhead_dirty.tech].effects, 1,
         {
           type = "unlock-recipe",
           recipe = warhead.warhead.recipe.name

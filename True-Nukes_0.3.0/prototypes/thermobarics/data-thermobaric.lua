@@ -3,48 +3,7 @@ require("data-thermobaric-warheads-weapon-appearance")
 
 local thermobaric_tech = table.deepcopy(data.raw["technology"]["military-3"])
 thermobaric_tech.name = "thermobaric-weaponry"
-thermobaric_tech.effects = {
-  {
-    type = "unlock-recipe",
-    recipe = "TN-thermobaric-1"
-  },
-  {
-    type = "unlock-recipe",
-    recipe = "TN-thermobaric-2"
-  },
-  {
-    type = "unlock-recipe",
-    recipe = "TN-thermobaric-3"
-  },
-  {
-    type = "unlock-recipe",
-    recipe = "cannon-shell-thermobaric-1"
-  },
-  {
-    type = "unlock-recipe",
-    recipe = "small-rocket-thermobaric-1"
-  },
-  {
-    type = "unlock-recipe",
-    recipe = "big-rocket-thermobaric-1"
-  },
-  {
-    type = "unlock-recipe",
-    recipe = "big-rocket-thermobaric-2"
-  },
-  {
-    type = "unlock-recipe",
-    recipe = "artillery-shell-thermobaric-2"
-  },
-  {
-    type = "unlock-recipe",
-    recipe = "artillery-shell-thermobaric-3"
-  },
-  {
-    type = "unlock-recipe",
-    recipe = "fire-shield-equipment"
-  }
-}
+thermobaric_tech.effects = {}
   
 
 if not mods["bobplates"] then

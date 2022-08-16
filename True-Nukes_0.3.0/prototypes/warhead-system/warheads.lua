@@ -42,6 +42,12 @@ end
 if not generateWarheadAnyway then
   generateWarheadAnyway = {} -- names of warheads to generate even if they aren't launched by anything, mapped to true
 end
+if not specialTechForWarheadWeapon then
+  specialTechForWarheadWeapon = {} -- names of warhead-weapons not to generate automatic tech for, mapped to the name of the tech (0 or false for no tech)
+end
+if not weaponNoTech then
+  weaponNoTech = {} -- names of weapons not to generate tech for, overrides the default, but not special techs, mapped to true
+end
 if not warheadOverrides then
   warheadOverrides = {} -- functions taking the combined result, and changing things - very free form
 end

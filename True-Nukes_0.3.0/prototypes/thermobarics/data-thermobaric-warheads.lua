@@ -41,6 +41,7 @@ warheads["TN-thermobaric-1"] = {
   stack_size = 100,
   energy_required = 20,
   clamp_position = true,
+  tech = "thermobaric-weaponry",
   ingredients = {
     {"explosives", 10},
     {circuit_type, 5},
@@ -127,6 +128,7 @@ warheads["TN-thermobaric-2"] = {
   stack_size = 20,
   energy_required = 30,
   clamp_position = true,
+  tech = "thermobaric-weaponry",
   ingredients = {
     {"explosives", 20},
     {circuit_type, 10},
@@ -209,6 +211,7 @@ warheads["TN-thermobaric-3"] = {
   stack_size = 10,
   energy_required = 40,
   clamp_position = true,
+  tech = "thermobaric-weaponry",
   ingredients = {
     {"explosives", 30},
     {circuit_type, 15},

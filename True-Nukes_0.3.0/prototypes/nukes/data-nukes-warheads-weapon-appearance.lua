@@ -9,6 +9,11 @@ weaponTypes["rounds-magazine"].icons["-atomic-0_1t"] = { "__True-Nukes__/graphic
 weaponTypes["rounds-magazine"].icons["-atomic-0_5t"] = { "__True-Nukes__/graphics/rounds/yg-atomic-rounds-magazine.png"}
 weaponTypes["rounds-magazine"].icons["-atomic-2t"] = { "__True-Nukes__/graphics/rounds/gg-atomic-rounds-magazine.png"}
 
+weaponTypes["Schall-sniper-magazine"].icons["-atomic-0_1t"] = { "__True-Nukes__/graphics/rounds/yy-atomic-rounds-magazine.png"}
+weaponTypes["Schall-sniper-magazine"].icons["-atomic-0_5t"] = { "__True-Nukes__/graphics/rounds/yy-atomic-rounds-magazine.png"}
+weaponTypes["Schall-sniper-magazine"].icons["-atomic-2t"] = { "__True-Nukes__/graphics/rounds/yg-atomic-rounds-magazine.png"}
+weaponTypes["Schall-sniper-magazine"].icons["-atomic-4t"] = { "__True-Nukes__/graphics/rounds/gg-atomic-rounds-magazine.png"}
+
 
 local setupForCannon = {
   type = "cannon",

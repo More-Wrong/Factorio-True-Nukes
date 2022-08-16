@@ -1,5 +1,13 @@
 local appearance = require("__True-Nukes__.prototypes.warhead-system.appearance-util")
 
+specialTechForWarheadWeapon["artillery-shell-atomic-4t"] = "artillery-atomics"
+specialTechForWarheadWeapon["artillery-shell-atomic-8t"] = "artillery-atomics"
+specialTechForWarheadWeapon["artillery-shell-atomic-20t"] = "artillery-atomics"
+specialTechForWarheadWeapon["artillery-shell-atomic-500t"] = "artillery-atomics"
+specialTechForWarheadWeapon["artillery-shell-atomic-1kt"] = "artillery-atomics"
+
+specialTechForWarheadWeapon["land-mine-atomic-20t"] = "atomic-bomb"
+
 data:extend{
   {
     type = "tool",
@@ -100,21 +108,6 @@ local space = {
 data.raw.technology["atomic-bomb"].effects[1] = nil
 data.raw.technology["atomic-bomb"].prerequisites = {"basic-atomic-weapons", "rocket-control-unit", "rocket-fuel", "rocketry"}
 
-table.insert(data.raw.technology["atomic-bomb"].effects,
-  {
-    type = "unlock-recipe",
-    recipe = "atomic-bomb"
-  })
-table.insert(data.raw.technology["atomic-bomb"].effects,
-  {
-    type = "unlock-recipe",
-    recipe = "big-rocket-atomic-8t"
-  })
-table.insert(data.raw.technology["atomic-bomb"].effects,
-  {
-    type = "unlock-recipe",
-    recipe = "big-rocket-atomic-4t"
-  })
 
 data.raw.technology["atomic-bomb"].unit.count = 1
 data.raw.technology["atomic-bomb"].unit.ingredients = {{"test-pack-atomic-20t-1", 1}}
@@ -177,21 +170,7 @@ data:extend{
     name = "artillery-atomics",
     icon_size = 256, icon_mipmaps = 4,
     icon = "__base__/graphics/technology/atomic-bomb.png",
-    effects =
-    {
-      {
-        type = "unlock-recipe",
-        recipe = "artillery-shell-atomic-20t"
-      },
-      {
-        type = "unlock-recipe",
-        recipe = "artillery-shell-atomic-500t"
-      },
-      {
-        type = "unlock-recipe",
-        recipe = "artillery-shell-atomic-1kt"
-      }
-    },
+    effects = {},
     prerequisites = {"expanded-atomics"},
     unit =
     {
@@ -269,23 +248,6 @@ data:extend{
     order = "e-a-h"
   },
 }
-for _,warhead in pairs({"-atomic-2t", "-atomic-0_5t"}) do
-  table.insert(data.raw.technology["californium-weapons"].effects, {type = "unlock-recipe", recipe = "big-rocket" .. warhead})
-end
-for _,warhead in pairs({"-atomic-8t", "-atomic-4t", "-atomic-2t", "-atomic-0_5t", "-atomic-0_1t"}) do
-  table.insert(data.raw.technology["californium-weapons"].effects, {type = "unlock-recipe", recipe = "small-rocket" .. warhead})
-end
-for _,warhead in pairs({"-atomic-8t", "-atomic-4t", "-atomic-2t", "-atomic-0_5t", "-atomic-0_1t"}) do
-  table.insert(data.raw.technology["californium-weapons"].effects, {type = "unlock-recipe", recipe = "cannon-shell" .. warhead})
-end
-table.insert(data.raw.technology["californium-weapons"].effects, {type = "unlock-recipe", recipe = "rounds-magazine-atomic-0_1t"})
-
-table.insert(data.raw.technology["compact-californium-weapons"].effects, {type = "unlock-recipe", recipe = "rounds-magazine-atomic-2t"})
-table.insert(data.raw.technology["compact-californium-weapons"].effects, {type = "unlock-recipe", recipe = "rounds-magazine-atomic-0_5t"})
-
-table.insert(data.raw.technology["compact-californium-weapons"].effects, {type = "unlock-recipe", recipe = "small-rocket-atomic-20t"})
-table.insert(data.raw.technology["compact-californium-weapons"].effects, {type = "unlock-recipe", recipe = "cannon-shell-atomic-20t"})
-
 
 
 data:extend{
@@ -294,21 +256,7 @@ data:extend{
     name = "compact-full-fission-weapons",
     icon_size = 256, icon_mipmaps = 4,
     icon = "__base__/graphics/technology/atomic-bomb.png",
-    effects =
-    {
-      {
-        type = "unlock-recipe",
-        recipe = "artillery-shell-atomic-15kt"
-      },
-      {
-        type = "unlock-recipe",
-        recipe = "big-rocket-atomic-1kt"
-      },
-      {
-        type = "unlock-recipe",
-        recipe = "big-rocket-atomic-500t"
-      },
-    },
+    effects = {},
     prerequisites = {"full-fission-atomics", "artillery-atomics", "compact-californium-weapons"},
     unit =
     {
@@ -374,16 +322,7 @@ data:extend{
     name = "compact-fusion-weapons",
     icon_size = 256, icon_mipmaps = 1,
     icon = "__True-Nukes__/graphics/fusion-bomb.png",
-    effects = {
-      {
-        type = "unlock-recipe",
-        recipe = "artillery-shell-atomic-2-stage-15kt"
-      },
-      {
-        type = "unlock-recipe",
-        recipe = "artillery-shell-atomic-2-stage-100kt"
-      }
-    },
+    effects = {},
     prerequisites = {"fusion-weapons"},
     unit =
     {
