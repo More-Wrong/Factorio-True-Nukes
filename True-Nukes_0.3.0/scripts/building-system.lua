@@ -4,7 +4,7 @@ local test_system = require("nuclear-test-system")
 local function nukeBuildingDetonate(building)
   local result = nil
   for _,w in pairs(warheads_added) do
-    if(building.get_output_inventory().get_item_count("detonation" .. w.name .. w.label) ~= 0) then
+    if(game.item_prototypes[w.warhead] and building.get_output_inventory().get_item_count("detonation" .. w.name .. w.label) ~= 0) then
       result = w.name
       test_system.testDetonation(building.force, w)
       break

@@ -12,6 +12,12 @@ local warheads_to_add = {
     energy = 10
   },
   {
+    warhead = "TN-warhead-0-1--3",
+    name = "-atomic-0_1t",
+    label = "-3",
+    energy = 10
+  },
+  {
     warhead = "TN-warhead-0-5--1",
     name = "-atomic-0_5t",
     label = "-1",
@@ -21,6 +27,12 @@ local warheads_to_add = {
     warhead = "TN-warhead-0-5--2",
     name = "-atomic-0_5t",
     label = "-2",
+    energy = 10
+  },
+  {
+    warhead = "TN-warhead-0-5--3",
+    name = "-atomic-0_5t",
+    label = "-3",
     energy = 10
   },
 
@@ -56,6 +68,12 @@ local warheads_to_add = {
     energy = 10
   },
   {
+    warhead = "TN-warhead-4--3",
+    name = "-atomic-4t",
+    label = "-3",
+    energy = 10
+  },
+  {
     warhead = "TN-warhead-8--1",
     name = "-atomic-8t",
     label = "-1",
@@ -65,6 +83,12 @@ local warheads_to_add = {
     warhead = "TN-warhead-8--2",
     name = "-atomic-8t",
     label = "-2",
+    energy = 10
+  },
+  {
+    warhead = "TN-warhead-8--3",
+    name = "-atomic-8t",
+    label = "-3",
     energy = 10
   },
 
@@ -135,6 +159,12 @@ local warheads_to_add = {
     warhead = "TN-warhead-15k--2",
     name = "-atomic-15kt",
     label = "-2",
+    energy = 60
+  },
+  {
+    warhead = "TN-warhead-15k--3",
+    name = "-atomic-15kt",
+    label = "-3",
     energy = 60
   },
 
