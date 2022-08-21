@@ -246,7 +246,7 @@ local function createAppearance(setup)
   local text_location = setup.text_location or "__True-Nukes__/graphics/warheads/"
 
   if(style.base) then
-    if(type(style.base) == "table") then
+    if(type(style.base) == "table" and not style.base.icon) then
       for _,s in pairs(style.base) do
         table.insert(result.icons, s)
       end
@@ -257,17 +257,28 @@ local function createAppearance(setup)
   if(style.sections) then
     for i,s in ipairs(style.sections) do
       if(setup.tints[i].l or setup.tints[i].light) then
-        table.insert(result.lights, style.lights[i])
+        if(type(style.lights[i]) == "table") then
+          local section = table.deepcopy(style.lights[i])
+          table.insert(result.lights, section)
+        else
+          table.insert(result.lights, style.lights[i])
+        end
       end
-      table.insert(result.icons, {
-        icon = s,
-        icon_size = 64,
-        tint = setup.tints[i]
-      })
+      if(type(s) == "table") then
+        local section = table.deepcopy(s)
+        section.tint = setup.tints[i]
+        table.insert(result.icons, section)
+      else
+        table.insert(result.icons, {
+          icon = s,
+          icon_size = 64,
+          tint = setup.tints[i]
+        })
+      end
     end
   end
   if(style.final) then
-    if(type(style.final) == "table") then
+    if(type(style.final) == "table" and not style.final.icon) then
       for _,s in pairs(style.final) do
         table.insert(result.icons, s)
       end
@@ -307,7 +318,7 @@ local function setupWarheadsForWeapon(setup)
     local lights = {}
 
     if(style.base) then
-      if(type(style.base) == "table") then
+      if(type(style.base) == "table" and not style.base.icon) then
         for _,s in pairs(style.base) do
           table.insert(icons, s)
         end
@@ -318,18 +329,29 @@ local function setupWarheadsForWeapon(setup)
     if(style.sections) then
       for i,s in ipairs(style.sections) do
         if(v.tints[i].l or v.tints[i].light) then
-          table.insert(lights, style.lights[i])
+          if(type(s) == "table") then
+            local section = table.deepcopy(s)
+            table.insert(lights, section)
+          else
+            table.insert(lights, style.lights[i])
+          end
         end
-        table.insert(icons, {
-          icon = s,
-          icon_size = 64,
-          tint = v.tints[i]
-        })
+        if(type(s) == "table") then
+          local section = table.deepcopy(s)
+          section.tint = v.tints[i]
+          table.insert(icons, section)
+        else
+          table.insert(icons, {
+            icon = s,
+            icon_size = 64,
+            tint = v.tints[i]
+          })
+        end
       end
     end
 
     if(style.final) then
-      if(type(style.final) == "table") then
+      if(type(style.final) == "table" and not style.final.icon) then
         for _,s in pairs(style.final) do
           table.insert(icons, s)
         end

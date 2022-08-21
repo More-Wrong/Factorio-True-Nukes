@@ -21,13 +21,23 @@ local setupForCannon = {
   weapon = "cannon-shell",
   warheads = {}
 }
-setupForCannon.warheads["-atomic-0_1t"] = {style = 2, tints = {tints.californium}}
+setupForCannon.warheads["-atomic-0_1t"] = {style = 3, tints = {tints.californium}}
 setupForCannon.warheads["-atomic-0_5t"] = {style = 3, tints = {tints.californium}}
-setupForCannon.warheads["-atomic-2t"] = {style = 4, tints = {tints.californium, tints.californium}}
-setupForCannon.warheads["-atomic-4t"] = {style = 4, tints = {tints.uraniumLive, tints.californium}}
+setupForCannon.warheads["-atomic-2t"] = {style = 2, tints = {tints.californium}}
+setupForCannon.warheads["-atomic-4t"] = {style = 4, tints = {tints.californium, tints.californium}}
 setupForCannon.warheads["-atomic-8t"] = {style = 4, tints = {tints.californium, tints.uraniumLive}}
-setupForCannon.warheads["-atomic-20t"] = {style = 4, tints = {tints.uraniumLive, tints.uraniumLive}}
+setupForCannon.warheads["-atomic-20t"] = {style = 4, tints = {tints.uraniumLive, tints.californium}}
+
+setupForCannon.warheads["-atomic-500t"] = {style = 4, tints = {tints.uraniumLive, tints.uraniumLive}}
 setupWarheadsForWeapon(setupForCannon)
+
+if mods["SchallTankPlatoon"] then
+  setupForCannon.weapon = "cannon-H1-shell"
+  setupWarheadsForWeapon(setupForCannon)
+  setupForCannon.weapon = "cannon-H2-shell"
+  setupWarheadsForWeapon(setupForCannon)
+end
+
 
 local setupForRocket = {
   type = "rocket",

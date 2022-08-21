@@ -3,6 +3,11 @@ require("prototypes.warhead-system.basegame-weapontype-add")
 
 if mods["SchallTankPlatoon"] then
   require("prototypes.warhead-system.compatibility.SchallTankPlatoon-weapontypes")
+  require("prototypes.warhead-system.compatibility.SchallTankPlatoon-warheads")
+end
+if mods["space-exploration"] then
+  require("prototypes.warhead-system.compatibility.SE-weapontypes")
+  require("prototypes.warhead-system.compatibility.SE-warheads")
 end
 require("prototypes.nukes.data-nukes")
 

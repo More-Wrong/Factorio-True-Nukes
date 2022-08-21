@@ -37,8 +37,8 @@ local function combineAppearances(weapontypeGeneral, weaponAppearance, warheadWe
     local icon_shift = {weapontypeGeneral.image_base_shift[1]*0.01875, weapontypeGeneral.image_base_shift[2]*0.01875}
     for _,i in pairs(pictures) do
       i.shift = i.shift or {0, 0}
-      i.shift[1] = i.shift[1]*0.01875+icon_shift[1]
-      i.shift[2] = i.shift[2]*0.01875+icon_shift[2]
+      i.shift[1] = i.shift[1]+icon_shift[1]
+      i.shift[2] = i.shift[2]+icon_shift[2]
     end
   end
 
@@ -50,8 +50,8 @@ local function combineAppearances(weapontypeGeneral, weaponAppearance, warheadWe
     i.shift = i.shift or {0, 0}
     i.scale = i.scale or 1
     if not i.special then
-      i.shift[1] = i.shift[1]*0.01875+core_shift[1]
-      i.shift[2] = i.shift[2]*0.01875+core_shift[2]
+      i.shift[1] = i.shift[1]+core_shift[1]
+      i.shift[2] = i.shift[2]+core_shift[2]
       i.scale = i.scale*2/3.0
     end
     table.insert(pictures, i)
@@ -67,6 +67,19 @@ end
 
 local function combine(weapontype, warheadWeapon)
   local result = {}
+  
+  if(weapontype.override) then
+    result =  weapontype.override(weapontype, warheadWeapon)
+    if(warheadWeaponIgnore[weapontype.name .. warheadWeapon.appendName]) then
+      result.valid = false
+    end
+    if(warheadOverrides[weapontype.name .. warheadWeapon.appendName]) then
+      for _,override in pairs(warheadOverrides[weapontype.name .. warheadWeapon.appendName]) do
+        override(result)
+      end
+    end
+    return result
+  end
 
   local item = {type = "item"}
 
@@ -181,9 +194,9 @@ local function combine(weapontype, warheadWeapon)
       projectile.chart_picture = warheadWeapon.projectile.chart_picture
       projectile.reveal_map = weapontype.projectile.reveal_map
     end
-    projectile.action = {type = "direct", action_delivery = {type = "instant", target_effects = warheadWeapon.projectile.effect}}
-    projectile.final_action = {type = "direct", action_delivery = {type = "instant", target_effects = warheadWeapon.projectile.final_effect}}
-    projectile.created_effect = {type = "direct", action_delivery = {type = "instant", target_effects = warheadWeapon.projectile.created_effect}}
+    projectile.action = warheadWeapon.projectile.action
+    projectile.final_action = warheadWeapon.projectile.final_action
+    projectile.created_effect = warheadWeapon.projectile.created_action
     projectile.picture = weapontype.projectile.picture
     projectile.shadow = weapontype.projectile.shadow
 
@@ -222,7 +235,7 @@ local function combine(weapontype, warheadWeapon)
     landmine.open_sound = sounds.machine_open
     landmine.close_sound = sounds.machine_close
     landmine.mined_sound = { filename = "__core__/sound/deconstruct-small.ogg" }
-    landmine.action = {type = "direct", action_delivery = {type = "instant", target_effects = warheadWeapon.land_mine.action}}
+    landmine.action = warheadWeapon.land_mine.action
     result.landmine = landmine
   end
   result.valid = true

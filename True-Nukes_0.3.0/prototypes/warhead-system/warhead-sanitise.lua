@@ -36,6 +36,7 @@ local function sanitseWarhead(warhead)
 
   result.warhead.recipe = {}
 
+  result.warhead.recipe.category = warhead.recipe_category or "crafting"
   result.warhead.recipe.type = "recipe"
   result.warhead.recipe.name = warhead.name
   result.warhead.recipe.enabled = false
@@ -51,7 +52,8 @@ local function sanitseWarhead(warhead)
   if warhead.explosions then
     explosions = warhead.explosions
   else
-    explosions = {{appendName = "", appendOrder = "", effect = warhead.effect, final_effect = warhead.final_effect, created_effect = warhead.created_effect }}
+    explosions = {{appendName = "", appendOrder = "", effect = warhead.effect, final_effect = warhead.final_effect, created_effect = warhead.created_effect ,
+      action = warhead.action, final_action = warhead.final_action, created_action = warhead.created_action}}
   end
   local prevExplosionName = nil
   for _,explosion in pairs(explosions) do
@@ -193,18 +195,24 @@ local function sanitseWarhead(warhead)
     weapon.projectile.piercing_damage_modifier = explosion.piercing_damage_modifier or weapon.piercing_damage_modifier or 1
     weapon.projectile.acceleration_modifier = explosion.acceleration_modifier or weapon.acceleration_modifier or 1
     weapon.projectile.max_speed_modifier = explosion.max_speed_modifier or weapon.max_speed_modifier or 1
-
-    weapon.projectile.effect = explosion.effect
-    weapon.projectile.final_effect = explosion.final_effect
-    weapon.projectile.created_effect = explosion.created_effect
+    if explosion.action or explosion.effect then
+      weapon.projectile.action = explosion.action or {type = "direct", action_delivery = {type = "instant", target_effects = explosion.effect}}
+    end
+    if explosion.final_action or explosion.final_effect then
+      weapon.projectile.final_action = explosion.final_action or {type = "direct", action_delivery = {type = "instant", target_effects = explosion.final_effect}}
+    end
+    if explosion.created_action or explosion.created_effect then
+      weapon.projectile.created_action = explosion.created_action or {type = "direct", action_delivery = {type = "instant", target_effects = explosion.created_effect}}
+    end
     weapon.projectile.ammo_category = warhead.ammo_category
     weapon.projectile.map_color = warhead.map_color
 
     weapon.land_mine = {}
     weapon.land_mine.trigger_radius_modifier = explosion.trigger_radius_modifier or warhead.trigger_radius_modifier or 1
     weapon.land_mine.max_health_modifier = explosion.max_health_modifier or warhead.max_health_modifier or 1
-    weapon.land_mine.action = explosion.final_effect
-    weapon.land_mine.created_effect = explosion.created_effect
+
+    weapon.land_mine.action = explosion.final_action or {type = "direct", action_delivery = {type = "instant", target_effects = explosion.final_effect}}
+    weapon.land_mine.created_action = explosion.created_action or {type = "direct", action_delivery = {type = "instant", target_effects = explosion.created_effect}}
     weapon.land_mine.ammo_category = warhead.ammo_category
     weapon.land_mine.dying_explosion = explosion.dying_explosion or warhead.dying_explosion
     table.insert(result.weapons, weapon)

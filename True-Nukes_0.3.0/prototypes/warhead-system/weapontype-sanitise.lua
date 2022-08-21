@@ -25,6 +25,10 @@ local function sanitseWeapontype(weapontype)
   else
     result.size.min = result.size.min or util.sizes["none"]
   end
+  if(weapontype.override) then
+    result.override = weapontype.override
+    return result
+  end
 
 
   result.appearance = {}
@@ -303,6 +307,10 @@ local function sanitseWeapontype(weapontype)
     end
   end
   result.recipe.energy_required = weapontype.energy_required
+  result.recipe.energy_required = weapontype.energy_required
+  result.recipe.category = weapontype.recipe_category
+  result.recipe.subgroup = weapontype.recipe_subgroup
+  result.recipe.hide_from_player_crafting = weapontype.hide_from_player_crafting
   result.recipe.warhead_count = weapontype.warhead_count or 1
 
   result.land_mine = {}
