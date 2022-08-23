@@ -1,3 +1,67 @@
+weaponTypes["shotgun-shell-birdshot"]= {
+  type = "projectile",
+  size = 1,
+  baseName = "shotgun-shell-birdshot",
+  baseOrder = "b[shotgun]-f",
+  base_item = "piercing-shotgun-shell",
+  icon = "__base__/graphics/icons/piercing-shotgun-shell.png",
+  energy_required = 1,
+  warhead_count = 20*10,
+  icons = {},
+  lights = {},
+  image_base_shift = {4, 2},
+  image_warhead_shift = {-8, -8},
+  item = table.deepcopy(data.raw.ammo["piercing-shotgun-shell"]),
+  projectile = table.deepcopy(data.raw.projectile["piercing-shotgun-pellet"]),
+}
+weaponTypes["shotgun-shell-birdshot"].item.ammo_type.action[2].repeat_count = 20
+weaponTypes["shotgun-shell-birdshot"].item.ammo_type.action[2].action_delivery = {
+  type = "projectile",
+  projectile = "piercing-shotgun-pellet",
+  starting_speed = 1,
+  starting_speed_deviation = 0.3,
+  direction_deviation = 0.4,
+  range_deviation = 0.5,
+  max_range = 12
+}
+
+weaponTypes["shotgun-shell-buckshot"]= {
+  type = "projectile",
+  size = 4,
+  baseName = "shotgun-shell-buckshot",
+  baseOrder = "b[shotgun]-e",
+  base_item = "piercing-shotgun-shell",
+  icon = "__base__/graphics/icons/piercing-shotgun-shell.png",
+  energy_required = 1,
+  warhead_count = 6*10,
+  icons = {},
+  lights = {},
+  image_base_shift = {4, 2},
+  image_warhead_shift = {-8, -8},
+  item = table.deepcopy(data.raw.ammo["piercing-shotgun-shell"]),
+  projectile = table.deepcopy(data.raw.projectile["piercing-shotgun-pellet"]),
+}
+weaponTypes["shotgun-shell-buckshot"].item.ammo_type.action[2].repeat_count = 6
+
+weaponTypes["shotgun-shell-slug"]= {
+  type = "projectile",
+  size = 14,
+  baseName = "shotgun-shell-slug",
+  baseOrder = "b[shotgun]-d",
+  base_item = "piercing-shotgun-shell",
+  icon = "__base__/graphics/icons/piercing-shotgun-shell.png",
+  energy_required = 1,
+  warhead_count = 10,
+  icons = {},
+  lights = {},
+  image_base_shift = {4, 2},
+  image_warhead_shift = {-8, -8},
+  item = table.deepcopy(data.raw.ammo["piercing-shotgun-shell"]),
+  projectile = table.deepcopy(data.raw.projectile["piercing-shotgun-pellet"]),
+}
+weaponTypes["shotgun-shell-slug"].item.ammo_type.action[2].repeat_count = 1
+weaponTypes["shotgun-shell-slug"].item.ammo_type.action[2].action_delivery.direction_deviation = 0
+
 weaponTypes["rounds-magazine"]= {
   type = "bullet",
   size = "tiny",

@@ -210,16 +210,20 @@ local function sanitseWeapontype(weapontype)
     if result.type == "projectile" or result.type == "artillery" then
       result.item.action_creator = function (projectile, range_mult, target_effects, final_effects, source_effects)
         local a = table.deepcopy(item.ammo_type.action)
-        a.action_delivery.projectile = projectile
-        if(a.action_delivery.max_range) then
-          a.action_delivery.max_range = range_mult * a.action_delivery.max_range
+        local to_use = a.action_delivery or a[1].action_delivery
+        if not to_use.projectile then
+          to_use = a[2].action_delivery
         end
-        if not a.action_delivery.source_effects then
-          a.action_delivery.source_effects = {}
+        to_use.projectile = projectile
+        if(to_use.max_range) then
+          to_use.max_range = range_mult * to_use.max_range
         end
         if source_effects then
+          if not to_use.source_effects then
+            to_use.source_effects = {}
+          end
           for _,e in pairs(source_effects) do
-            table.insert(a.action_delivery.source_effects, e)
+            table.insert(to_use.source_effects, e)
           end
         end
         return a

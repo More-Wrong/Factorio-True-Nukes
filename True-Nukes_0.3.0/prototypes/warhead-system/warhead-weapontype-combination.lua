@@ -67,7 +67,7 @@ end
 
 local function combine(weapontype, warheadWeapon)
   local result = {}
-  
+
   if(weapontype.override) then
     result =  weapontype.override(weapontype, warheadWeapon)
     if(warheadWeaponIgnore[weapontype.name .. warheadWeapon.appendName]) then
@@ -88,7 +88,7 @@ local function combine(weapontype, warheadWeapon)
   if(warheadWeaponNameMap[weapontype.name .. warheadWeapon.appendName]) then
     name = warheadWeaponNameMap[name]
   end
-  
+
   item.name = name
   item.order = weapontype.order .. warheadWeapon.appendOrder
   item.subgroup = weapontype.item.subgroup
@@ -125,6 +125,7 @@ local function combine(weapontype, warheadWeapon)
   result.item = item
 
   local recipe = {type = "recipe"}
+  local warheadsUsed = 0
   recipe.name = name
   recipe.enabled = false
   recipe.order = weapontype.order .. warheadWeapon.appendOrder
@@ -140,6 +141,7 @@ local function combine(weapontype, warheadWeapon)
     table.insert(recipe.ingredients, {name = buildUpName, amount = warheadWeapon.recipe.build_up_ingredient.amount})
   else
     table.insert(recipe.ingredients, {name = warheadWeapon.recipe.warhead_name, amount = weapontype.recipe.warhead_count})
+    warheadsUsed = weapontype.recipe.warhead_count
   end
   for _,i in pairs(warheadWeapon.recipe.additional_ingedients) do
     table.insert(recipe.ingredients, i)
@@ -153,6 +155,28 @@ local function combine(weapontype, warheadWeapon)
     table.insert(recipe.results, r)
   end
 
+  if(warheadsUsed ~= 0 and warheadWeapon.recipe.warhead_count_per_item ~= 1) then
+    local batch_size = 1
+    for i = 1,warheadWeapon.recipe.warhead_count_per_item do
+      if ((i*warheadsUsed) % warheadWeapon.recipe.warhead_count_per_item == 0) then
+        batch_size = i
+        break
+      end
+    end
+    for _,i in pairs(recipe.ingredients) do
+      if((i.name or i[1]) == warheadWeapon.recipe.warhead_name) then
+        i.amount = (i.amount or i[2])*batch_size/warheadWeapon.recipe.warhead_count_per_item
+        i[2] = nil
+      else
+        i.amount = (i.amount or i[2])*batch_size
+        i[2] = nil
+      end
+    end
+    for _,r in pairs(recipe.results) do
+        r.amount = (r.amount or r[2])*batch_size
+        r[2] = nil
+    end
+  end
   result.recipe = recipe
 
   if (weapontype.type == "projectile" or weapontype.type == "capsule" or weapontype.type == "artillery") then

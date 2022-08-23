@@ -90,6 +90,7 @@ local function sanitseWarhead(warhead)
     weapon.item.ammo_category = warhead.ammo_category
 
     weapon.recipe = {}
+    weapon.recipe.warhead_count_per_item = warhead.warhead_count_per_item or 1
 
     weapon.recipe.energy_required_modifier = explosion.energy_required_modifier or warhead.energy_required_modifier or 1
     weapon.recipe.crafting_machine_tint = explosion.weapon_creation_tint or warhead.weapon_creation_tint
