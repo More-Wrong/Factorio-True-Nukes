@@ -296,6 +296,15 @@ local sprite_types = {
   }
 }
 
+local function isolatePointer(thing)
+  if(type(thing) == "table") then
+    local section = table.deepcopy(thing)
+    return section
+  else
+    return thing
+  end
+end
+
 local function createAppearance(setup)
   local result = {}
   result.icons = {}
@@ -309,22 +318,17 @@ local function createAppearance(setup)
   if(style.base) then
     if(type(style.base) == "table" and not style.base.icon) then
       for _,s in pairs(style.base) do
-        table.insert(result.icons, s)
+        table.insert(result.icons, isolatePointer(s))
       end
     else
-      table.insert(result.icons, style.base)
+      table.insert(result.icons, isolatePointer(style.base))
     end
   end
   if(style.sections) then
     local styleLights = style.lights or style.sections
     for i,s in ipairs(style.sections) do
       if(setup.tints[i].l or setup.tints[i].light) then
-        if(type(styleLights[i]) == "table") then
-          local section = table.deepcopy(styleLights[i])
-          table.insert(result.lights, section)
-        else
-          table.insert(result.lights, styleLights[i])
-        end
+        table.insert(result.lights, isolatePointer(styleLights[i]))
       end
       if(type(s) == "table") then
         local section = table.deepcopy(s)
@@ -342,10 +346,10 @@ local function createAppearance(setup)
   if(style.final) then
     if(type(style.final) == "table" and not style.final.icon) then
       for _,s in pairs(style.final) do
-        table.insert(result.icons, s)
+        table.insert(result.icons, isolatePointer(s))
       end
     else
-      table.insert(result.icons, style.final)
+      table.insert(result.icons, isolatePointer(style.final))
     end
   end
   if(setup.text) then
@@ -375,71 +379,11 @@ local function setupWarheadsForWeapon(setup)
   local text_location = setup.text_location or "__True-Nukes__/graphics/warheads/"
 
   for w,v in pairs(setup.warheads) do
+    
     local style = sprite_type[v.style or 1]
-    local icons = {}
-    local lights = {}
-
-    if(style.base) then
-      if(type(style.base) == "table" and not style.base.icon) then
-        for _,s in pairs(style.base) do
-          table.insert(icons, s)
-        end
-      else
-        table.insert(icons, style.base)
-      end
-    end
-    if(style.sections) then
-      for i,s in ipairs(style.sections) do
-        if(v.tints[i].l or v.tints[i].light) then
-          if(type(s) == "table") then
-            local section = table.deepcopy(s)
-            table.insert(lights, section)
-          else
-            table.insert(lights, style.lights[i])
-          end
-        end
-        if(type(s) == "table") then
-          local section = table.deepcopy(s)
-          section.tint = v.tints[i]
-          table.insert(icons, section)
-        else
-          table.insert(icons, {
-            icon = s,
-            icon_size = 64,
-            tint = v.tints[i]
-          })
-        end
-      end
-    end
-
-    if(style.final) then
-      if(type(style.final) == "table" and not style.final.icon) then
-        for _,s in pairs(style.final) do
-          table.insert(icons, s)
-        end
-      else
-        table.insert(icons, style.final)
-      end
-    end
-    if(v.text) then
-      table.insert(icons, {
-        icon_size = 128,
-        icon = text_location .. "text_" .. v.text .. ".png",
-        scale = 0.25,
-        shift = {0, -16},
-        special = true
-      })
-      -- not a light, but kind of treated like one
-      table.insert(lights, {
-        size = 128,
-        filename = text_location .. "text_" .. v.text .. ".png",
-        scale = 0.125,
-        shift = {0, -0.5},
-        special = true
-      })
-    end
-    weaponTypes[weapontype].icons[w] = icons
-    weaponTypes[weapontype].lights[w] = lights
+    local result = createAppearance({sprite_types = sprites, type = setup.type, style = v.style, tints = v.tints, text = v.text})
+    weaponTypes[weapontype].icons[w] = result.icons
+    weaponTypes[weapontype].lights[w] = result.lights
   end
 end
 --{type = "artillery", weapon = "artillery-shell", warheads = {}}
