@@ -9,3 +9,5 @@ data.raw.recipe["neutron-reflector"].ingredients = {
       {type="item", name="plastic-bar", amount=10},
       {type="item", name="iron-plate", amount=5},
 }
+
+se_delivery_cannon_recipes["atomic-bomb"] = nil

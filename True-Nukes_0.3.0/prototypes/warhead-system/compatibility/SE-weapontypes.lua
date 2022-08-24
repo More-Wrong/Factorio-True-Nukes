@@ -60,5 +60,4 @@ weaponTypes["se-delivery-cannon-weapon"]= {
     }
   end
 }
-
  
