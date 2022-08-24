@@ -208,7 +208,7 @@ local function sanitseWeapontype(weapontype)
   -- default action creators
   if not result.item.action_creator then
     if result.type == "projectile" or result.type == "artillery" then
-      result.item.action_creator = function (projectile, range_mult, target_effects, final_effects, source_effects)
+      result.item.action_creator = function (projectile, range_mult, target_action, final_action, source_action)
         local a = table.deepcopy(item.ammo_type.action)
         local to_use = a.action_delivery or a[1].action_delivery
         if not to_use.projectile then
@@ -218,60 +218,57 @@ local function sanitseWeapontype(weapontype)
         if(to_use.max_range) then
           to_use.max_range = range_mult * to_use.max_range
         end
-        if source_effects then
+        if source_action then
           if not to_use.source_effects then
             to_use.source_effects = {}
           end
-          for _,e in pairs(source_effects) do
-            table.insert(to_use.source_effects, e)
-          end
+          table.insert(to_use.source_effects, {type = "nested-result", action = source_action})
         end
         return a
       end
     elseif result.type == "land-mine" then
-      result.item.action_creator = function (projectile, range_mult, target_effects, final_effects, source_effects)
+      result.item.action_creator = function (projectile, range_mult, target_action, final_action, source_action)
         local a = table.deepcopy(item.action)
-        if not a.action_delivery.source_effects then
-          a.action_delivery.source_effects = {}
-        end
-        if source_effects then
-          for _,e in pairs(source_effects) do
-            table.insert(a.action_delivery.source_effects, e)
+        if source_action then
+          if not a.action_delivery.source_effects then
+            a.action_delivery.source_effects = {}
           end
+          table.insert(a.action_delivery.source_effects, {type = "nested-result", action = source_action})
         end
-        if not a.action_delivery.target_effects then
-          a.action_delivery.target_effects = {}
-        end
-        if target_effects then
-          for _,e in pairs(target_effects) do
-            table.insert(a.action_delivery.target_effects, e)
+        if final_action then
+          if not a.action_delivery.target_effects then
+            a.action_delivery.target_effects = {}
           end
+          table.insert(a.action_delivery.target_effects, {type = "nested-result", action = final_action})
+        end
+        if target_action then
+          if not a.action_delivery.target_effects then
+            a.action_delivery.target_effects = {}
+          end
+          table.insert(a.action_delivery.target_effects, {type = "nested-result", action = target_action})
         end
         return a
       end
     elseif result.type == "bullet" then
-      result.item.action_creator = function (projectile, range_mult, target_effects, final_effects, source_effects)
+      result.item.action_creator = function (projectile, range_mult, target_action, final_action, source_action)
         local a = table.deepcopy(item.ammo_type.action)
-        if not a.action_delivery.target_effects then
-          a.action_delivery.target_effects = {}
-        end
-        if target_effects then
-          for _,e in pairs(target_effects) do
-            table.insert(a.action_delivery.target_effects, e)
+        if target_action then
+          if not a.action_delivery.target_effects then
+            a.action_delivery.target_effects = {}
           end
+          table.insert(a.action_delivery.target_effects, {type = "nested-result", action = target_action})
         end
-        if final_effects then
-          for _,e in pairs(final_effects) do
-            table.insert(a.action_delivery.target_effects, e)
+        if final_action then
+          if not a.action_delivery.target_effects then
+            a.action_delivery.target_effects = {}
           end
+          table.insert(a.action_delivery.target_effects, {type = "nested-result", action = final_action})
         end
-        if not a.action_delivery.source_effects then
-          a.action_delivery.source_effects = {}
-        end
-        if source_effects then
-          for _,e in pairs(source_effects) do
-            table.insert(a.action_delivery.source_effects, e)
+        if source_action then
+          if not a.action_delivery.source_effects then
+            a.action_delivery.source_effects = {}
           end
+          table.insert(a.action_delivery.source_effects, {type = "nested-result", action = source_action})
         end
         return a
 
@@ -279,16 +276,14 @@ local function sanitseWeapontype(weapontype)
 
     elseif result.type == "capsule" then
       --should work on grenades... not sure about much else
-      result.item.action_creator = function (projectile, range_mult, target_effects, final_effects, source_effects)
+      result.item.action_creator = function (projectile, range_mult, target_action, final_action, source_action)
         local a = table.deepcopy(item.capsule_action)
         a.attack_parameters.range = a.attack_parameters.range*range_mult
-        if source_effects then
+        if source_action then
           if not a.attack_parameters.ammo_type.action[2].action_delivery.source_effects then
             a.attack_parameters.ammo_type.action[2].action_delivery.source_effects = {}
           end
-          for _,e in pairs(source_effects) do
-            table.insert(a.attack_parameters.ammo_type.action[2].action_delivery.source_effects, e)
-          end
+          table.insert(to_use.source_effects, {type = "nested-result", action = source_action})
         end
         a.attack_parameters.ammo_type.action[1].action_delivery.projectile = projectile
         return a
@@ -315,7 +310,7 @@ local function sanitseWeapontype(weapontype)
   result.recipe.category = weapontype.recipe_category
   result.recipe.subgroup = weapontype.recipe_subgroup
   result.recipe.hide_from_player_crafting = weapontype.hide_from_player_crafting
-  result.recipe.warhead_count = weapontype.warhead_count or 1
+  result.recipe.warhead_count = weapontype.warhead_count or result.item.magazine_size
 
   result.land_mine = {}
   result.land_mine.corpse = weapontype.land_mine_corpse  or (weapontype.landmine or data.raw["land-mine"]["land-mine"]).corpse
@@ -351,10 +346,12 @@ local function sanitseWeapontype(weapontype)
     result.projectile.light = weapontype.light  or weapontype.projectile.light
     result.projectile.animation = weapontype.animation or weapontype.picture or weapontype.projectile.animation or weapontype.projectile.picture
     result.projectile.max_speed = weapontype.max_speed  or weapontype.projectile.max_speed
+    result.projectile.collision_box = weapontype.collision_box or weapontype.projectile.collision_box
 
     result.projectile.height = weapontype.height or weapontype.height_from_ground or weapontype.projectile.height or weapontype.projectile.height_from_ground
 
     result.projectile.direction_only = weapontype.direction_only
+    result.projectile.collide_anyway = weapontype.collide_anyway
 
     if(weapontype.direction_only == nil) then
       result.projectile.direction_only =  weapontype.projectile.direction_only
@@ -377,10 +374,12 @@ local function sanitseWeapontype(weapontype)
     result.projectile.light = weapontype.light
     result.projectile.animation = weapontype.animation
     result.projectile.max_speed = weapontype.max_speed
+    result.projectile.collision_box = weapontype.collision_box or {{0, 0}, {0, 0}}
 
     result.projectile.height = weapontype.height or weapontype.height_from_ground
 
     result.projectile.direction_only = weapontype.direction_only
+    result.projectile.collide_anyway = weapontype.collide_anyway
 
     result.projectile.turn_speed = weapontype.turn_speed
 

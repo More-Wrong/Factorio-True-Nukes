@@ -113,12 +113,12 @@ local function combine(weapontype, warheadWeapon)
     item.ammo_type.target_type = warheadWeapon.item.target_type or weapontype.item.target_type
     item.ammo_type.clamp_position = weapontype.item.clamp_position or warheadWeapon.item.clamp_position
     item.ammo_type.category = weapontype.item.ammo_category or warheadWeapon.item.ammo_category
-    item.ammo_type.action = weapontype.item.action_creator(name, weapontype.item.range_modifier * warheadWeapon.item.range_modifier, warheadWeapon.projectile.effect, warheadWeapon.projectile.final_effect, warheadWeapon.projectile.created_effect)
+    item.ammo_type.action = weapontype.item.action_creator(name, weapontype.item.range_modifier * warheadWeapon.item.range_modifier, warheadWeapon.projectile.action, warheadWeapon.projectile.final_action, warheadWeapon.projectile.created_action)
   elseif(weapontype.type == "land-mine") then
     item.place_result = name
   elseif(weapontype.type == "capsule") then
     item.type = "capsule"
-    item.capsule_action = weapontype.item.action_creator(name, weapontype.item.range_modifier * warheadWeapon.item.range_modifier, warheadWeapon.projectile.effect, warheadWeapon.projectile.final_effect, warheadWeapon.projectile.created_effect)
+    item.capsule_action = weapontype.item.action_creator(name, weapontype.item.range_modifier * warheadWeapon.item.range_modifier, warheadWeapon.projectile.action, warheadWeapon.projectile.final_action, warheadWeapon.projectile.created_action)
     item.radius_color = weapontype.item.radius_color or warheadWeapon.item.radius_color or weapontype.item.default_radius_color
   end
 
@@ -210,7 +210,10 @@ local function combine(weapontype, warheadWeapon)
       projectile.shadow = weapontype.projectile.shadow
       projectile.smoke = weapontype.projectile.smoke
       projectile.height_from_ground = weapontype.projectile.height
-
+      projectile.collision_box = weapontype.projectile.collision_box
+      if((not warheadWeapon.projectile.collisions) and (not weapontype.projectile.collide_anyway)) then
+        projectile.collision_box = nil
+      end
     else
       projectile.type = "artillery-projectile"
 

@@ -186,7 +186,15 @@ local function sanitseWarhead(warhead)
         }
       end
     end
-
+    weapon.projectile.collisions = true
+    if(explosion.collisions ~= nil) then
+      weapon.projectile.collisions = explosion.collisions
+    elseif(warhead.collisions ~= nil) then
+      weapon.projectile.collisions = warhead.collisions
+    end
+    
+    
+    weapon.projectile.piercing = weapon.projectile.collisions
     if(explosion.piercing ~= nil) then
       weapon.projectile.piercing = explosion.piercing
     elseif(warhead.piercing ~= nil) then
