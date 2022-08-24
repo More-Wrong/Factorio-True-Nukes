@@ -2,6 +2,10 @@ require("__True-Nukes__.prototypes.warhead-system.warheads")
 
 local create_utils = require("__True-Nukes__.prototypes.warhead-system.sprite-assembly-util")
 
+
+local createAppearance = create_utils.createAppearance
+local tints = create_utils.tints
+
 local circuit_type;
 if not mods["bobelectronics"] then
   circuit_type = "advanced-circuit"
@@ -14,7 +18,7 @@ if not mods["bobplates"] then
 else
   fuel_type = "enriched-fuel"
 end
-local function createAppearance(setup)
+local function createAppearanceSimple(setup)
   return {
     icons = {
       {
@@ -34,7 +38,7 @@ warheads["TN-thermobaric-1"] = {
 
   size = "small",
   preciseSize = 16,
-  icon = "__True-Nukes__/graphics/warheads/thermobaric-1.png",
+  appearance = createAppearance({type = "can_1", style = 4, tints = {tints.explosive, tints.explosive}}),
   chart_picture = "__True-Nukes__/graphics/artillery/thermobaric-artillery-map-visualization.png",
   range_modifier = 1.5,
   cooldown_modifier = 3,
@@ -121,7 +125,7 @@ warheads["TN-thermobaric-2"] = {
 
   size = "medium",
   preciseSize = 24,
-  icon = "__True-Nukes__/graphics/warheads/thermobaric-2.png",
+  appearance = createAppearance({type = "can_2", style = 2, tints = {tints.explosive}}),
   chart_picture = "__True-Nukes__/graphics/artillery/thermobaric-artillery-map-visualization.png",
   range_modifier = 1.5,
   cooldown_modifier = 3,
@@ -204,7 +208,7 @@ warheads["TN-thermobaric-3"] = {
 
   size = "large",
   preciseSize = 32,
-  icon = "__True-Nukes__/graphics/warheads/thermobaric-3.png",
+  appearance = createAppearance({type = "can_3", tints = {tints.explosive}}),
   chart_picture = "__True-Nukes__/graphics/artillery/thermobaric-artillery-map-visualization.png",
   range_modifier = 1.5,
   cooldown_modifier = 3,

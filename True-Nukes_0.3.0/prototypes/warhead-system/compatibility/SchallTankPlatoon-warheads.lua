@@ -1,4 +1,10 @@
 
+local create_utils = require("__True-Nukes__.prototypes.warhead-system.sprite-assembly-util")
+
+
+local createAppearance = create_utils.createAppearance
+local tints = create_utils.tints
+
 warheads["STP-incendiary-small"] = {
   name = "STP-incendiary-small",
   appendName = "-incendiary-STP-small",
@@ -7,7 +13,7 @@ warheads["STP-incendiary-small"] = {
   preciseSize = 13,
   final_effect = data.raw.projectile["incendiary-autocannon-projectile"].action[1].action_delivery.target_effects,
 
-  icon = "__True-Nukes__/graphics/warheads/flame-1.png",
+  appearance = createAppearance({type = "can_1", style = 4, tints = {tints.flamable, tints.flamable}}),
   range_modifier = 1.2,
   cooldown_modifier = 1.6,
   stack_size = 100,
@@ -31,7 +37,7 @@ warheads["STP-incendiary-mid"] = {
   preciseSize = 18,
   final_effect = data.raw.projectile["Schall-incendiary-rocket"].action[1].action_delivery.target_effects,
 
-  icon = "__True-Nukes__/graphics/warheads/flame-2.png",
+  appearance = createAppearance({type = "can_2", style = 2, tints = {tints.flamable}}),
   range_modifier = 1.2,
   cooldown_modifier = 1.6,
   stack_size = 100,
@@ -53,7 +59,7 @@ warheads["STP-napalm-mid"] = {
   preciseSize = 26,
   final_effect = data.raw.projectile["Schall-napalm-rocket"].action[1].action_delivery.target_effects,
 
-  icon = "__True-Nukes__/graphics/warheads/flame-3.png",
+  appearance = createAppearance({type = "can_3", tints = {tints.flamable}}),
   range_modifier = 1.5,
   cooldown_modifier = 2,
   stack_size = 10,

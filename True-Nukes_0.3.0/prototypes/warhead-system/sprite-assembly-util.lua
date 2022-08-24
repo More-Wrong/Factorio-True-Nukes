@@ -7,7 +7,7 @@ local tints = {
   nothing = {a=1, b = 0.5, g = 0.5, r = 0.5},
   lightNothing = {a=1, b = 0.95, g = 0.95, r = 0.95},
   explosive = {a=1, b = 0.1, g = 0.1, r = 0.9},
-  flamable = {a=1, b = 0.1, g = 0.7, r = 1},
+  flamable = {a=1, b = 0.1, g = 0.4, r = 0.9},
 }
 
 local sprite_types = {
@@ -220,18 +220,79 @@ local sprite_types = {
   },
   nuclear_core = {
     {
-      base = "__True-Nukes__/graphics/warheads/generic-warheads/base.png",
+      base = "__True-Nukes__/graphics/warheads/generic-warheads/sphere-1-base.png",
       sections = {
-        "__True-Nukes__/graphics/warheads/generic-warheads/top.png",
-        "__True-Nukes__/graphics/warheads/generic-warheads/ring-part-1.png",
-        "__True-Nukes__/graphics/warheads/generic-warheads/ring-part-2.png",
+        "__True-Nukes__/graphics/warheads/generic-warheads/sphere-1-top.png",
+        "__True-Nukes__/graphics/warheads/generic-warheads/sphere-1-ring-part-1.png",
+        "__True-Nukes__/graphics/warheads/generic-warheads/sphere-1-ring-part-2.png",
       },
       lights = {
-        "__True-Nukes__/graphics/warheads/generic-warheads/top-light.png",
-        "__True-Nukes__/graphics/warheads/generic-warheads/ring-part-1-light.png",
-        "__True-Nukes__/graphics/warheads/generic-warheads/ring-part-2-light.png",
+        "__True-Nukes__/graphics/warheads/generic-warheads/sphere-1-top-light.png",
+        "__True-Nukes__/graphics/warheads/generic-warheads/sphere-1-ring-part-1-light.png",
+        "__True-Nukes__/graphics/warheads/generic-warheads/sphere-1-ring-part-2-light.png",
       }
     }
+  },
+  can_1 = {
+    {
+      base = "__True-Nukes__/graphics/warheads/generic-warheads/can-1-body-1.png",
+    },
+    {
+      base = "__True-Nukes__/graphics/warheads/generic-warheads/can-1-body-2.png",
+      sections = {
+        "__True-Nukes__/graphics/warheads/generic-warheads/can-1-body-2.png",
+        "__True-Nukes__/graphics/warheads/generic-warheads/can-1-top.png"
+      },
+    },
+    {
+      base = "__True-Nukes__/graphics/warheads/generic-warheads/can-1-body-3.png",
+      sections = {
+        "__True-Nukes__/graphics/warheads/generic-warheads/can-1-ring-1.png"
+      },
+    },
+    {
+      base = "__True-Nukes__/graphics/warheads/generic-warheads/can-1-body-4.png",
+      sections = {
+        "__True-Nukes__/graphics/warheads/generic-warheads/can-1-top.png",
+        "__True-Nukes__/graphics/warheads/generic-warheads/can-1-ring-1.png"
+      },
+    },
+    {
+      base = "__True-Nukes__/graphics/warheads/generic-warheads/can-1-body-5.png",
+      sections = {
+        "__True-Nukes__/graphics/warheads/generic-warheads/can-1-ring-1.png",
+        "__True-Nukes__/graphics/warheads/generic-warheads/can-1-ring-2.png"
+      },
+    },
+    {
+      base = "__True-Nukes__/graphics/warheads/generic-warheads/can-1-body-6.png",
+      sections = {
+        "__True-Nukes__/graphics/warheads/generic-warheads/can-1-top.png",
+        "__True-Nukes__/graphics/warheads/generic-warheads/can-1-ring-1.png",
+        "__True-Nukes__/graphics/warheads/generic-warheads/can-1-ring-2.png"
+      },
+    },
+  },
+  can_2 = {
+    {
+      base = "__True-Nukes__/graphics/warheads/generic-warheads/can-2-body-1.png"
+    },
+    {
+      base = "__True-Nukes__/graphics/warheads/generic-warheads/can-2-body-1.png",
+      sections = {
+        "__True-Nukes__/graphics/warheads/generic-warheads/can-2-ring-1.png"
+      },
+      final = "__True-Nukes__/graphics/warheads/generic-warheads/can-2-body-final.png",
+    },
+  },
+  can_3 = {
+    {
+      base = "__True-Nukes__/graphics/warheads/generic-warheads/can-3-body.png",
+      sections = {
+        "__True-Nukes__/graphics/warheads/generic-warheads/can-3-ring.png"
+      },
+      final = "__True-Nukes__/graphics/warheads/generic-warheads/can-3-final.png",
+    },
   }
 }
 
@@ -255,13 +316,14 @@ local function createAppearance(setup)
     end
   end
   if(style.sections) then
+    local styleLights = style.lights or style.sections
     for i,s in ipairs(style.sections) do
       if(setup.tints[i].l or setup.tints[i].light) then
-        if(type(style.lights[i]) == "table") then
-          local section = table.deepcopy(style.lights[i])
+        if(type(styleLights[i]) == "table") then
+          local section = table.deepcopy(styleLights[i])
           table.insert(result.lights, section)
         else
-          table.insert(result.lights, style.lights[i])
+          table.insert(result.lights, styleLights[i])
         end
       end
       if(type(s) == "table") then
