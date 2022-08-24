@@ -8,3 +8,6 @@ require("data-nukes-technology")
 if mods["space-exploration"] then
   require("compatibility.SE")
 end
+if mods["Krastorio2"] then
+  require("compatibility.K2")
+end
