@@ -210,7 +210,32 @@ local function sanitseWeapontype(weapontype)
     if result.type == "projectile" or result.type == "artillery" then
       result.item.action_creator = function (projectile, range_mult, target_action, final_action, source_action)
         local a = table.deepcopy(item.ammo_type.action)
-        local to_use = a.action_delivery or a[1].action_delivery
+        local to_use = nil
+
+        for _,act in pairs(a) do
+          local action = act
+          if(a.action_delivery)then
+            action = a
+          end
+          if(action.action_delivery.projectile) then
+            to_use = action.action_delivery
+          else
+            for _,del in pairs(action.action_delivery) do
+              if (del.projectile) then
+                to_use = del
+              end
+            end
+          end
+          if(to_use) then
+            break
+          end
+        end
+        if(not to_use) then
+          log("ERROR: Cannot find projectile field")
+          log("NAME: " .. item.name)
+          local ERROR_No_projectile_field_on_item____PLEASE_REPORT_AS_BUG_ON_MOD_PAGE = nil
+          log(ERROR_No_projectile_field_on_item____PLEASE_REPORT_AS_BUG_ON_MOD_PAGE.a)
+        end
         if not to_use.projectile then
           to_use = a[2].action_delivery
         end
