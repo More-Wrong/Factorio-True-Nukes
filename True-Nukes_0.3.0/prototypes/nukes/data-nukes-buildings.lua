@@ -1,7 +1,7 @@
 local hit_effects = require ("__base__.prototypes.entity.hit-effects")
 local sounds = require("__base__.prototypes.entity.sounds")
 
-require("__True-Nukes__.prototypes.warhead-system.warheads")
+require("__Warheads__.prototypes.warheads")
 
 table.insert(data.raw.technology["basic-atomic-weapons"].effects,
   {

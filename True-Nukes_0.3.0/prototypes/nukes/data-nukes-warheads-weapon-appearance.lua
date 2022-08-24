@@ -1,4 +1,4 @@
-local create_utils = require("__True-Nukes__.prototypes.warhead-system.sprite-assembly-util")
+local create_utils = require("__Warheads__.prototypes.sprite-assembly-util")
 
 
 local setupWarheadsForWeapon = create_utils.setupWarheadsForWeapon

@@ -1,0 +1,17 @@
+{
+	"name": "Warheads",
+	"version": "0.0.1",
+	"title": "Warheads",
+	"author": "BicycleEater",
+	"description": "Acts as a super-cross mod for weapons, allowing mods adding warheads to avoid working to support every different mod.",
+	"homepage": "https://github.com/More-Wrong/Factorio-True-Nukes",
+	"factorio_version": "1.1",
+	"dependencies": [
+		"? SchallTankPlatoon",
+		"? bobwarfare",
+		"? Clowns-AngelBob-Nuclear",
+		"? space-exploration",
+		"? Krastorio2"
+	]
+}
+

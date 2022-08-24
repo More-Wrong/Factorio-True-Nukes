@@ -1,4 +1,4 @@
-local appearance = require("__True-Nukes__.prototypes.warhead-system.appearance-util")
+local appearance = require("__Warheads__.prototypes.appearance-util")
 
 specialTechForWarheadWeapon["artillery-shell-atomic-4t"] = "artillery-atomics"
 specialTechForWarheadWeapon["artillery-shell-atomic-8t"] = "artillery-atomics"
@@ -336,7 +336,7 @@ data:extend{
     type = "technology",
     name = "dense-neutron-flux",
     icons = {
-      {icon = "__True-Nukes__/graphics/blank-64.png", icon_size = 64, scale = 1, shift = {0, -0}},
+      {icon = "__Warheads__/graphics/blank-64.png", icon_size = 64, scale = 1, shift = {0, -0}},
       {icon = "__True-Nukes__/graphics/californium-processing-tech.png", icon_size = 256, scale = 0.125, shift = {12, -12}, icon_mipmaps = 4},
       {icon = "__base__/graphics/technology/kovarex-enrichment-process.png", icon_size = 256, scale = 0.125, shift = {-12, -12}, icon_mipmaps = 4},
       {icon = "__True-Nukes__/graphics/tritium-processing.png", icon_size = 256, scale = 0.125, shift = {0, 16}, icon_mipmaps = 4},

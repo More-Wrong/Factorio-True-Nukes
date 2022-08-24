@@ -1,6 +1,6 @@
-require("__True-Nukes__.prototypes.warhead-system.warheads")
+require("__Warheads__.prototypes.warheads")
 
-local create_utils = require("__True-Nukes__.prototypes.warhead-system.sprite-assembly-util")
+local create_utils = require("__Warheads__.prototypes.sprite-assembly-util")
 
 
 local createAppearance = create_utils.createAppearance

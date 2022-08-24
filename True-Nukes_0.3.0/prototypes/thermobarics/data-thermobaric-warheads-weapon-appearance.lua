@@ -1,4 +1,4 @@
-local create_utils = require("__True-Nukes__.prototypes.warhead-system.sprite-assembly-util")
+local create_utils = require("__Warheads__.prototypes.sprite-assembly-util")
 
 
 local createAppearance = create_utils.createAppearance
@@ -18,7 +18,7 @@ weaponTypes["artillery-shell"].icons["-thermobaric-3"] = createAppearance({type 
 
 
 if mods["SchallTankPlatoon"] then
-  local STP_sprites = require("__True-Nukes__.prototypes.warhead-system.compatibility.SchallTankPlatoon-sprites")
+  local STP_sprites = require("__Warheads__.prototypes.compatibility.SchallTankPlatoon-sprites")
   weaponTypes["autocannon-shell"].icons["-thermobaric-1"] = createAppearance({sprite_types = STP_sprites, type = "autocannon", style = 3, tints = {tints.explosive, tints.explosive, tints.explosive}}).icons
   weaponTypes["cannon-H1-shell"].icons["-thermobaric-1"] = createAppearance({type = "cannon", style = 3, tints = {tints.explosive}}).icons
   weaponTypes["cannon-H1-shell"].icons["-thermobaric-2"] = createAppearance({type = "cannon", style = 4, tints = {tints.explosive, tints.explosive}}).icons
