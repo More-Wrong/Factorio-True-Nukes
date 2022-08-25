@@ -34,6 +34,7 @@ local function sanitseWarhead(warhead)
   result.warhead.item.pictures = {layers = appearance.pictures}
   result.warhead.item.icons = appearance.icons
 
+
   result.warhead.recipe = {}
 
   result.warhead.recipe.category = warhead.recipe_category or "crafting"

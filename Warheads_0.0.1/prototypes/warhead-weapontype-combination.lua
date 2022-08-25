@@ -122,6 +122,8 @@ local function combine(weapontype, warheadWeapon)
     item.radius_color = weapontype.item.radius_color or warheadWeapon.item.radius_color or weapontype.item.default_radius_color
   end
 
+  item.localised_name = {"weapontype-name." .. weapontype.name, {"warhead-name." .. warheadWeapon.appendName}}
+  item.localised_description = {"weapontype-description." .. weapontype.name, {"warhead-description." .. warheadWeapon.appendName}}
   result.item = item
 
   local recipe = {type = "recipe"}
