@@ -20,7 +20,7 @@ warheads["STP-incendiary-small"] = {
   energy_required = 8,
   clamp_position = true,
   recipe_result_count = 10,
-  tech = "californium-weapons",
+  tech = "flammables",
   recipe_category = "crafting-with-fluid",
   ingredients = {
     {type="item", name="steel-plate", amount=2},
@@ -41,8 +41,9 @@ warheads["STP-incendiary-mid"] = {
   range_modifier = 1.2,
   cooldown_modifier = 1.6,
   stack_size = 100,
+  clamp_position = true,
   energy_required = 40,
-  tech = "californium-weapons",
+  tech = "flammables",
   recipe_category = "crafting-with-fluid",
   ingredients = {
     {type="item", name="steel-plate", amount=1},
@@ -56,6 +57,7 @@ warheads["STP-napalm-mid"] = {
   appendName = "-napalm-STP-mid",
   appendOrder = "p-n-a-m-50",
   size = "medium",
+  target = "position",
   preciseSize = 26,
   final_effect = data.raw.projectile["Schall-napalm-rocket"].action[1].action_delivery.target_effects,
 
@@ -65,7 +67,7 @@ warheads["STP-napalm-mid"] = {
   stack_size = 10,
   energy_required = 40,
   clamp_position = true,
-  tech = "californium-weapons",
+  tech = "flammables",
   recipe_category = "crafting-with-fluid",
   ingredients = {
     {type="item", name="advanced-circuit", amount=20},

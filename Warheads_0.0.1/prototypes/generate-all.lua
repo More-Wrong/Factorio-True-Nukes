@@ -41,6 +41,9 @@ for _,warhead_dirty in pairs(warheads) do
               tech = specialTechForWarheadWeapon[combination.rawName]
             end
             if tech then
+              if not data.raw.technology[tech].effects then
+                data.raw.technology[tech].effects = {}
+              end
               table.insert(data.raw.technology[tech].effects,
                 {
                   type = "unlock-recipe",
