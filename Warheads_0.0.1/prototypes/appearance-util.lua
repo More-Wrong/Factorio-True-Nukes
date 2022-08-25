@@ -58,7 +58,7 @@ local function generateAppearance(thing)
               if(l.shift) then
                 shift = {l.shift[1]*0.01875, l.shift[2]*0.01875}
               end
-              lightSetup = {filename = l.icon, size = l.icon_size or l.size or 64, scale = (l.scale or 1)*16.0/(l.icon_size or l.size or 64), shift = shift, draw_as_light = true, flags = {"light"}, tint = l.tint}
+              lightSetup = {filename = l.icon, size = l.icon_size or l.size or 64, scale = (l.scale or 32/(l.icon_size or l.size or 64))*32.0/(l.icon_size or l.size or 64), shift = shift, draw_as_light = true, flags = {"light"}, tint = l.tint}
             else
               lightSetup = l
             end
@@ -78,7 +78,7 @@ local function generateAppearance(thing)
           if(p.shift) then
             shift = {p.shift[1]*0.01875, p.shift[2]*0.01875}
           end
-          table.insert(picturesFinal, {filename = p.icon, size = p.icon_size or p.size or 64, scale = (p.scale or 1)*16.0/(p.icon_size or p.size or 64), shift = shift, tint = p.tint, special = p.special})
+          table.insert(picturesFinal, {filename = p.icon, size = p.icon_size or p.size or 64, scale = (p.scale or 32/(p.icon_size or p.size or 64))*32.0/(p.icon_size or p.size or 64), shift = shift, tint = p.tint, special = p.special})
         else
           table.insert(picturesFinal, p)
         end
@@ -87,7 +87,7 @@ local function generateAppearance(thing)
       end
     end
   end
-  return {icons = iconsFinal, pictures = picturesFinal}
+  return {icons = table.deepcopy(iconsFinal), pictures = table.deepcopy(picturesFinal)}
 end
 
 

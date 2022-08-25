@@ -32,6 +32,7 @@ warheads["TN-warhead-0-1--1"] = {
   stack_size = 100,
   energy_required = 100,
   clamp_position = true,
+  collisions = false,
   recipe_result_count = 10,
   tech = "californium-weapons",
   ingredients = {
@@ -59,6 +60,7 @@ warheads["TN-warhead-0-1--2"] = {
   stack_size = 200,
   energy_required = 100,
   clamp_position = true,
+  collisions = false,
   tech = "compact-californium-weapons",
   recipe_result_count = 5,
   ingredients = {
@@ -86,6 +88,7 @@ warheads["TN-warhead-0-1--3"] = {
   stack_size = 200,
   energy_required = 80,
   clamp_position = true,
+  collisions = false,
   tech = "compact-californium-weapons",
   recipe_result_count = 2,
   ingredients = {
@@ -112,6 +115,7 @@ warheads["TN-warhead-0-5--1"] = {
   stack_size = 100,
   energy_required = 90,
   clamp_position = true,
+  collisions = false,
   tech = "californium-weapons",
   recipe_result_count = 6,
   ingredients = {
@@ -139,6 +143,7 @@ warheads["TN-warhead-0-5--2"] = {
   stack_size = 100,
   energy_required = 90,
   clamp_position = true,
+  collisions = false,
   tech = "compact-californium-weapons",
   recipe_result_count = 3,
   ingredients = {
@@ -166,6 +171,7 @@ warheads["TN-warhead-0-5--3"] = {
   stack_size = 100,
   energy_required = 60,
   clamp_position = true,
+  collisions = false,
   tech = "compact-californium-weapons",
   ingredients = {
     {light, 2},
@@ -191,6 +197,7 @@ warheads["TN-warhead-2--1"] = {
   stack_size = 20,
   energy_required = 20,
   clamp_position = true,
+  collisions = false,
   tech = "californium-weapons",
   ingredients = {
     {"steel-plate", 5},
@@ -217,6 +224,7 @@ warheads["TN-warhead-2--2"] = {
   stack_size = 20,
   energy_required = 60,
   clamp_position = true,
+  collisions = false,
   tech = "compact-californium-weapons",
   ingredients = {
     {"steel-plate", 1},
@@ -245,6 +253,7 @@ warheads["TN-warhead-2--3"] = {
   stack_size = 20,
   energy_required = 120,
   clamp_position = true,
+  collisions = false,
   tech = "compact-californium-weapons",
   ingredients = {
     {light, 10},
@@ -270,6 +279,7 @@ warheads["TN-warhead-4--1"] = {
   stack_size = 10,
   energy_required = 30,
   clamp_position = true,
+  collisions = false,
   tech = "atomic-bomb",
   ingredients = {
     {"steel-plate", 5},
@@ -295,6 +305,7 @@ warheads["TN-warhead-4--2"] = {
   stack_size = 10,
   energy_required = 90,
   clamp_position = true,
+  collisions = false,
   tech = "californium-weapons",
   ingredients = {
     {light, 10},
@@ -320,6 +331,7 @@ warheads["TN-warhead-4--3"] = {
   stack_size = 10,
   energy_required = 180,
   clamp_position = true,
+  collisions = false,
   tech = "compact-californium-weapons",
   ingredients = {
     {light, 15},
@@ -345,6 +357,7 @@ warheads["TN-warhead-8--1"] = {
   stack_size = 10,
   energy_required = 40,
   clamp_position = true,
+  collisions = false,
   tech = "atomic-bomb",
   ingredients = {
     {"steel-plate", 6},
@@ -370,6 +383,7 @@ warheads["TN-warhead-8--2"] = {
   stack_size = 10,
   energy_required = 120,
   clamp_position = true,
+  collisions = false,
   tech = "californium-weapons",
   ingredients = {
     {light, 15},
@@ -395,6 +409,7 @@ warheads["TN-warhead-8--3"] = {
   stack_size = 10,
   energy_required = 240,
   clamp_position = true,
+  collisions = false,
   tech = "compact-californium-weapons",
   ingredients = {
     {light, 20},
@@ -419,6 +434,7 @@ warheads["TN-warhead-20--1"] = {
   cooldown_modifier = 5,
   stack_size = 5,
   energy_required = 60,
+  collisions = false,
   tech = "basic-atomic-weapons",
   ingredients = {
     {"steel-plate", 10},
@@ -444,6 +460,7 @@ warheads["TN-warhead-20--2"] = {
   stack_size = 5,
   energy_required = 120,
   clamp_position = true,
+  collisions = false,
   tech = "atomic-bomb",
   ingredients = {
     {light, 20},
@@ -471,6 +488,7 @@ warheads["TN-warhead-20--3"] = {
   stack_size = 5,
   energy_required = 300,
   clamp_position = true,
+  collisions = false,
   tech = "compact-californium-weapons",
   ingredients = {
     {light, 50},
@@ -496,6 +514,7 @@ warheads["TN-warhead-500--1"] = {
   cooldown_modifier = 5,
   stack_size = 1,
   energy_required = 90,
+  collisions = false,
   tech = "expanded-atomics",
   ingredients = {
     {"steel-plate", 20},
@@ -521,6 +540,7 @@ warheads["TN-warhead-500--2"] = {
   stack_size = 1,
   energy_required = 210,
   clamp_position = true,
+  collisions = false,
   tech = "full-fission-atomics",
   ingredients = {
     {"steel-plate", 5},
@@ -547,6 +567,7 @@ warheads["TN-warhead-500--3"] = {
   stack_size = 1,
   energy_required = 360,
   clamp_position = true,
+  collisions = false,
   tech = "compact-full-fission-weapons",
   ingredients = {
     {light, 45},
@@ -573,6 +594,7 @@ warheads["TN-warhead-1k--1"] = {
   stack_size = 1,
   energy_required = 120,
   clamp_position = true,
+  collisions = false,
   tech = "full-fission-atomics",
   ingredients = {
     {"steel-plate", 25},
@@ -598,6 +620,7 @@ warheads["TN-warhead-1k--2"] = {
   stack_size = 1,
   energy_required = 300,
   clamp_position = true,
+  collisions = false,
   tech = "compact-full-fission-weapons",
   ingredients = {
     {"steel-plate", 8},
@@ -624,6 +647,7 @@ warheads["TN-warhead-1k--3"] = {
   stack_size = 1,
   energy_required = 600,
   clamp_position = true,
+  collisions = false,
   tech = "compact-full-fission-weapons",
   ingredients = {
     {light, 60},
@@ -651,6 +675,7 @@ warheads["TN-warhead-15k--1"] = {
   stack_size = 1,
   energy_required = 180,
   clamp_position = true,
+  collisions = false,
   tech = "full-fission-atomics",
   ingredients = {
     {"steel-plate", 30},
@@ -678,6 +703,7 @@ warheads["TN-warhead-15k--2"] = {
   stack_size = 1,
   energy_required = 480,
   clamp_position = true,
+  collisions = false,
   tech = "compact-full-fission-weapons",
   ingredients = {
     {"steel-plate", 10},
@@ -707,6 +733,7 @@ warheads["TN-warhead-15k--3"] = {
   stack_size = 1,
   energy_required = 720,
   clamp_position = true,
+  collisions = false,
   tech = "compact-full-fission-weapons",
   ingredients = {
     {light, 75},
@@ -734,6 +761,7 @@ warheads["TN-warhead-big--1"] = {
   stack_size = 1,
   energy_required = 180,
   clamp_position = true,
+  collisions = false,
   tech = "fusion-weapons",
   ingredients = {
     {"steel-plate", 100},
@@ -823,6 +851,7 @@ warheads["TN-warhead-big--2"] = {
   stack_size = 1,
   energy_required = 300,
   clamp_position = true,
+  collisions = false,
   tech = "compact-fusion-weapons",
   ingredients = {
     {"steel-plate", 50},
@@ -884,6 +913,7 @@ warheads["TN-warhead-big--3"] = {
   stack_size = 1,
   energy_required = 720,
   clamp_position = true,
+  collisions = false,
   tech = "compact-fusion-weapons",
   ingredients = {
     {"copper-plate", 20},

@@ -48,7 +48,31 @@ local function sanitseWeapontype(weapontype)
   result.appearance.ignore_warhead_image = weapontype.ignore_warhead_image
 
   result.appearances = {}
-  result.appearances["default"] = {}
+
+  if(weapontype.icon) then
+    if not result.appearances["default"] then
+      result.appearances["default"] = {}
+    end
+    if not result.appearances["default"].icons then
+      result.appearances["default"].icons = {weapontype.icon}
+    end
+  end
+  if(weapontype.picture) then
+    if not result.appearances["default"] then
+      result.appearances["default"] = {}
+    end
+    if not result.appearances["default"].pictures then
+      result.appearances["default"].pictures = {weapontype.picture}
+    end
+  end
+  if(weapontype.light) then
+    if not result.appearances["default"] then
+      result.appearances["default"] = {}
+    end
+    if not result.appearances["default"].lights then
+      result.appearances["default"].lights = {weapontype.light}
+    end
+  end
 
   for _,fallback in pairs(appearance_fallbacks) do
     local startContents = table.deepcopy(result.appearances)
@@ -123,7 +147,6 @@ local function sanitseWeapontype(weapontype)
     end
   end
 
-
   for w, m in pairs(result.appearances) do
     if (weapontype.addon_icons) then
       if not m.icons then
@@ -170,23 +193,9 @@ local function sanitseWeapontype(weapontype)
       table.insert(m.pictures, weapontype.addon_light)
     end
   end
-  if(weapontype.icon) then
-    if not result.appearances["default"].icons then
-      result.appearances["default"].icons = {}
-    end
-    table.insert(result.appearances["default"].icons, weapontype.icon)
-  end
-  if(weapontype.picture) then
-    if not result.appearances["default"].pictures then
-      result.appearances["default"].pictures = {}
-    end
-    table.insert(result.appearances["default"].pictures, weapontype.picture)
-  end
-  if(weapontype.light) then
-    if not result.appearances["default"].lights then
-      result.appearances["default"].icons = {}
-    end
-    table.insert(result.appearances["default"].lights, weapontype.light)
+
+  if not result.appearances["default"] then
+    result.appearances["default"] = {}
   end
   if (result.appearances["default"].icons == nil) then
     if(item.icon) then
@@ -195,7 +204,7 @@ local function sanitseWeapontype(weapontype)
       result.appearances["default"].icons = item.icons
     end
   end
-
+  
   result.item = {}
   result.item.subgroup = weapontype.subgroup or item.subgroup
   result.item.stack_size = weapontype.stack_size or item.stack_size

@@ -11,3 +11,6 @@ end
 if mods["Krastorio2"] then
   require("compatibility.K2")
 end
+if mods["SchallTankPlatoon"] then
+  require("compatibility.STP")
+end
