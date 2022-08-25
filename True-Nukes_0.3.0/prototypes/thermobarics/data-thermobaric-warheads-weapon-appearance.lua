@@ -6,6 +6,7 @@ local tints = create_utils.tints
 
 
 weaponTypes["cannon-shell"].icons["-thermobaric-1"] = createAppearance({type = "cannon", style = 3, tints = {tints.explosive}}).icons
+weaponTypes["cannon-shell"].icons["-thermobaric-2"] = createAppearance({type = "cannon", style = 4, tints = {tints.explosive, tints.explosive}}).icons
 weaponTypes["small-rocket"].icons["-thermobaric-1"] = createAppearance({type = "rocket", style = 3, tints = {tints.explosive, tints.explosive}}).icons
 
 
@@ -20,8 +21,4 @@ weaponTypes["artillery-shell"].icons["-thermobaric-3"] = createAppearance({type 
 if mods["SchallTankPlatoon"] then
   local STP_sprites = require("__Warheads__.prototypes.compatibility.SchallTankPlatoon-sprites")
   weaponTypes["autocannon-shell"].icons["-thermobaric-1"] = createAppearance({sprite_types = STP_sprites, type = "autocannon", style = 3, tints = {tints.explosive, tints.explosive, tints.explosive}}).icons
-  weaponTypes["cannon-H1-shell"].icons["-thermobaric-1"] = createAppearance({type = "cannon", style = 3, tints = {tints.explosive}}).icons
-  weaponTypes["cannon-H1-shell"].icons["-thermobaric-2"] = createAppearance({type = "cannon", style = 4, tints = {tints.explosive, tints.explosive}}).icons
-  weaponTypes["cannon-H2-shell"].icons["-thermobaric-1"] = createAppearance({type = "cannon", style = 3, tints = {tints.explosive}}).icons
-  weaponTypes["cannon-H2-shell"].icons["-thermobaric-2"] = createAppearance({type = "cannon", style = 4, tints = {tints.explosive, tints.explosive}}).icons
 end

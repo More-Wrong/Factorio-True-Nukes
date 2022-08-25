@@ -9,6 +9,7 @@ weaponTypes["Schall-sniper-magazine"]= {
   addon_icon = {icon = "__SchallTankPlatoon__/graphics/icons/sniper-bullet.png", icon_size = 128, icon_mipmaps = 3},
   energy_required = 1,
   warhead_count = 10,
+  appearance_fallback = "rounds-magazine",
   icons = {},
   lights = {},
   image_base_shift = {4, 2},
@@ -29,16 +30,25 @@ weaponTypes["autocannon-shell"]= {
   item = table.deepcopy(data.raw.ammo["explosive-autocannon-shell"]),
   projectile = table.deepcopy(data.raw.projectile["explosive-autocannon-projectile"]),
 }
-weaponTypes["cannon-H1-shell"]= {
+weaponTypes["cannon-shell-75"]= weaponTypes["cannon-shell"]
+
+weaponTypes["cannon-shell-75"].baseName = "cannon-shell-75"
+
+weaponTypes["cannon-shell-75"].appearance_fallback = "cannon-shell"
+
+weaponTypes["cannon-shell"].ignore = true
+
+weaponTypes["cannon-shell-88"]= {
   type = "projectile",
   size = 24,
-  baseName = "cannon-H1-shell",
-  baseOrder = "d[cannon-shell]-d[atomic]-1",
+  baseName = "cannon-shell-88",
+  baseOrder = "d[cannon-shell]-d",
   base_item = "cannon-H1-shell",
   ammo_category = "cannon-H1-shell",
   icon = "__base__/graphics/icons/cannon-shell.png",
   addon_icon = {icon = "__SchallTankPlatoon__/graphics/icons/H1.png", icon_size = 128, icon_mipmaps = 3},
   energy_required = 1,
+  appearance_fallback = "cannon-shell",
   icons = {},
   lights = {},
   image_base_shift = {-4, 0},
@@ -46,16 +56,17 @@ weaponTypes["cannon-H1-shell"]= {
   item = table.deepcopy(data.raw.ammo["cannon-H1-shell"]),
   projectile = table.deepcopy(data.raw.projectile["cannon-H1-projectile"]),
 }
-weaponTypes["cannon-H2-shell"]= {
+weaponTypes["cannon-shell-128"]= {
   type = "projectile",
   size = 27,
-  baseName = "cannon-H2-shell",
-  baseOrder = "d[cannon-shell]-d[atomic]-2",
+  baseName = "cannon-shell-128",
+  baseOrder = "d[cannon-shell]-d",
   base_item = "cannon-H2-shell",
   ammo_category = "cannon-H2-shell",
   icon = "__base__/graphics/icons/cannon-shell.png",
   addon_icon = {icon = "__SchallTankPlatoon__/graphics/icons/H2.png", icon_size = 128, icon_mipmaps = 3},
   energy_required = 1,
+  appearance_fallback = "cannon-shell",
   icons = {},
   lights = {},
   image_base_shift = {-4, 0},

@@ -1,6 +1,7 @@
 local sounds = require ("__base__.prototypes.entity.sounds")
 local sizes = require("warheads")
 local generateAppearance = require("appearance-util")
+local weapontype_sanitise = require("__Warheads__.prototypes.weapontype-sanitise")
 
 local function combineAppearances(weapontypeGeneral, weaponAppearance, warheadWeapon)
 
@@ -93,7 +94,14 @@ local function combine(weapontype, warheadWeapon)
   item.order = weapontype.order .. warheadWeapon.appendOrder
   item.subgroup = weapontype.item.subgroup
 
-  local weaponAppearance = generateAppearance(weapontype.appearances[warheadWeapon.appendName] or weapontype.appearances["default"])
+
+  local weaponAppearance
+
+  if weapontype.appearances[warheadWeapon.appendName] then
+    weaponAppearance = generateAppearance(weapontype.appearances[warheadWeapon.appendName])
+  else
+    weaponAppearance = generateAppearance(weapontype.appearances["default"])
+  end
 
   local appearance = combineAppearances(weapontype.appearance, weaponAppearance, warheadWeapon.appearance)
   item.icons = appearance.icons
@@ -175,8 +183,8 @@ local function combine(weapontype, warheadWeapon)
       end
     end
     for _,r in pairs(recipe.results) do
-        r.amount = (r.amount or r[2])*batch_size
-        r[2] = nil
+      r.amount = (r.amount or r[2])*batch_size
+      r[2] = nil
     end
   end
   result.recipe = recipe

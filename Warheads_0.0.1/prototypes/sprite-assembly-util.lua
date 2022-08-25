@@ -379,11 +379,12 @@ local function setupWarheadsForWeapon(setup)
   local text_location = setup.text_location or "__Warheads__/graphics/warheads/"
 
   for w,v in pairs(setup.warheads) do
-    
-    local style = sprite_type[v.style or 1]
-    local result = createAppearance({sprite_types = sprites, type = setup.type, style = v.style, tints = v.tints, text = v.text})
-    weaponTypes[weapontype].icons[w] = result.icons
-    weaponTypes[weapontype].lights[w] = result.lights
+    if(weaponTypes[weapontype]) then
+      local style = sprite_type[v.style or 1]
+      local result = createAppearance({sprite_types = sprites, type = setup.type, style = v.style, tints = v.tints, text = v.text})
+      weaponTypes[weapontype].icons[w] = result.icons
+      weaponTypes[weapontype].lights[w] = result.lights
+    end
   end
 end
 --{type = "artillery", weapon = "artillery-shell", warheads = {}}

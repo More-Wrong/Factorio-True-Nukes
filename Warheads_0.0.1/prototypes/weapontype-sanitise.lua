@@ -30,6 +30,17 @@ local function sanitseWeapontype(weapontype)
     return result
   end
 
+  local appearance_fallbacks_tmp = table.deepcopy(weapontype.appearance_fallbacks) or {}
+
+  if(weapontype.appearance_fallback) then
+    table.insert(appearance_fallbacks_tmp, weapontype.appearance_fallback)
+  end
+  local appearance_fallbacks = {weapontype}
+  for _,f in pairs(appearance_fallbacks_tmp) do
+    if(weaponTypes[f]) then
+      table.insert(appearance_fallbacks, weaponTypes[f])
+    end
+  end
 
   result.appearance = {}
   result.appearance.image_base_shift = weapontype.image_base_shift
@@ -39,69 +50,80 @@ local function sanitseWeapontype(weapontype)
   result.appearances = {}
   result.appearances["default"] = {}
 
-  if (weapontype.icons) then
-    for w, e in pairs(weapontype.icons) do
-      local index = w
-      if type(w) == "number" then
-        index = "default"
-      end
-      if not result.appearances[index] then
-        result.appearances[index] = {}
-      end
-      if not result.appearances[index].icons then
-        result.appearances[index].icons = {}
-      end
-      if(type(e) == "table" and e.filename == nil and e.icon == nil) then
-        for _,i in pairs(e) do
-          table.insert(result.appearances[index].icons, i)
+  for _,fallback in pairs(appearance_fallbacks) do
+    local startContents = table.deepcopy(result.appearances)
+    if (fallback.icons) then
+      for w, e in pairs(fallback.icons) do
+        local index = w
+        if type(w) == "number" then
+          index = "default"
         end
-      else
-        table.insert(result.appearances[index].icons, e)
+        if(not startContents[w]) then
+          if not result.appearances[index] then
+            result.appearances[index] = {}
+          end
+          if not result.appearances[index].icons then
+            result.appearances[index].icons = {}
+          end
+          if(type(e) == "table" and e.filename == nil and e.icon == nil) then
+            for _,i in pairs(e) do
+              table.insert(result.appearances[index].icons, i)
+            end
+          else
+            table.insert(result.appearances[index].icons, e)
+          end
+        end
+      end
+    end
+    if (fallback.pictures) then
+      for w, e in pairs(fallback.pictures) do
+        local index = w
+        if type(w) == "number" then
+          index = "default"
+        end
+        if(not startContents[w]) then
+          if not result.appearances[index] then
+            result.appearances[index] = {}
+          end
+          if not result.appearances[index].pictures then
+            result.appearances[index].pictures = {}
+          end
+          if(type(e) == "table" and e.filename == nil and e.icon == nil) then
+            for _,p in pairs(e) do
+              table.insert(result.appearances[index].pictures, p)
+            end
+          else
+            table.insert(result.appearances[index].pictures, e)
+          end
+        end
+      end
+    end
+    if (fallback.lights) then
+      for w, e in pairs(fallback.lights) do
+        local index = w
+        if type(w) == "number" then
+          index = "default"
+        end
+        if(not startContents[w]) then
+          if not result.appearances[index] then
+            result.appearances[index] = {}
+          end
+          if not result.appearances[index].lights then
+            result.appearances[index].lights = {}
+          end
+          if(type(e) == "table" and e.filename == nil and e.icon == nil) then
+            for _,l in pairs(e) do
+              table.insert(result.appearances[index].lights, l)
+            end
+          else
+            table.insert(result.appearances[index].lights, e)
+          end
+        end
       end
     end
   end
-  if (weapontype.pictures) then
-    for w, e in pairs(weapontype.pictures) do
-      local index = w
-      if type(w) == "number" then
-        index = "default"
-      end
-      if not result.appearances[index] then
-        result.appearances[index] = {}
-      end
-      if not result.appearances[index].pictures then
-        result.appearances[index].pictures = {}
-      end
-      if(type(e) == "table" and e.filename == nil and e.icon == nil) then
-        for _,p in pairs(e) do
-          table.insert(result.appearances[index].pictures, p)
-        end
-      else
-        table.insert(result.appearances[index].pictures, e)
-      end
-    end
-  end
-  if (weapontype.lights) then
-    for w, e in pairs(weapontype.lights) do
-      local index = w
-      if type(w) == "number" then
-        index = "default"
-      end
-      if not result.appearances[index] then
-        result.appearances[index] = {}
-      end
-      if not result.appearances[index].lights then
-        result.appearances[index].lights = {}
-      end
-      if(type(e) == "table" and e.filename == nil and e.icon == nil) then
-        for _,l in pairs(e) do
-          table.insert(result.appearances[index].lights, l)
-        end
-      else
-        table.insert(result.appearances[index].lights, e)
-      end
-    end
-  end
+
+
   for w, m in pairs(result.appearances) do
     if (weapontype.addon_icons) then
       if not m.icons then
