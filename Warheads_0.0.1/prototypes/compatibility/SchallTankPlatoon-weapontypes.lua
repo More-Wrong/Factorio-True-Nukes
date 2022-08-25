@@ -23,7 +23,6 @@ weaponTypes["autocannon-shell"]= {
   baseOrder = "d[autocannon-shell]-d[atomic]-1",
   base_item = "explosive-autocannon-shell",
   ammo_category = "autocannon-shell",
-  icon = "__base__/graphics/icons/cannon-shell.png",
   energy_required = 1,
   icons = {},
   lights = {},

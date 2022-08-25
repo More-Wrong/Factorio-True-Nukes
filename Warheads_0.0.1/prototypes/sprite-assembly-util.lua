@@ -166,16 +166,119 @@ local sprite_types = {
         "__Warheads__/graphics/rockets/rocket-tip.png",
         "__Warheads__/graphics/rockets/rocket-ring-1.png",
         "__Warheads__/graphics/rockets/rocket-ring-2.png",
+        "__Warheads__/graphics/rockets/rocket-ring-3.png",
+      },
+      lights = {
+        "__Warheads__/graphics/rockets/rocket-tip-light.png",
+        "__Warheads__/graphics/rockets/rocket-ring-1-light.png",
+        "__Warheads__/graphics/rockets/rocket-ring-2-light.png",
+        "__Warheads__/graphics/rockets/rocket-ring-3.png",
+      },
+      final = {
+        "__Warheads__/graphics/rockets/rocket-engine.png",
+      },
+    },
+    {
+      base = "__Warheads__/graphics/rockets/rocket-fins.png",
+      sections = {
+        "__Warheads__/graphics/rockets/rocket-tip.png",
+        "__Warheads__/graphics/rockets/rocket-ring-1.png",
+        "__Warheads__/graphics/rockets/rocket-ring-2.png",
+        "__Warheads__/graphics/rockets/rocket-ring-3.png",
         "__Warheads__/graphics/rockets/rocket-engine.png",
       },
       lights = {
         "__Warheads__/graphics/rockets/rocket-tip-light.png",
         "__Warheads__/graphics/rockets/rocket-ring-1-light.png",
         "__Warheads__/graphics/rockets/rocket-ring-2-light.png",
+        "__Warheads__/graphics/rockets/rocket-ring-3.png",
         "__Warheads__/graphics/rockets/rocket-engine.png",
+      }
+    },
+  },
+  rocket_big = {
+    {
+      base = {
+        "__Warheads__/graphics/rockets/rocket-fins.png",
+        {icon = "__Warheads__/graphics/rockets/rocket-tip.png", size = 64, tint = tints.nothing},
+        {icon = "__Warheads__/graphics/rockets/rocket-ring-1.png", size = 64, tint = tints.nothing},
+        {icon = "__Warheads__/graphics/rockets/rocket-ring-2.png", size = 64, tint = tints.nothing},
+        {icon = "__Warheads__/graphics/rockets/rocket-ring-3.png", size = 64, tint = tints.nothing},
+        {icon = "__Warheads__/graphics/rockets/rocket-engine.png", size = 64, tint = tints.explosive}
+      }
+    },
+    {
+      base = {
+        "__Warheads__/graphics/rockets/rocket-fins.png",
+      },
+      sections = {
+        "__Warheads__/graphics/rockets/rocket-tip.png",
+      },
+      lights = {
+        "__Warheads__/graphics/rockets/rocket-tip-light.png",
       },
       final = {
+        {icon = "__Warheads__/graphics/rockets/rocket-ring-1.png", size = 64, tint = tints.nothing},
+        {icon = "__Warheads__/graphics/rockets/rocket-ring-2.png", size = 64, tint = tints.nothing},
+        {icon = "__Warheads__/graphics/rockets/rocket-ring-3.png", size = 64, tint = tints.nothing},
+        {icon = "__Warheads__/graphics/rockets/rocket-engine.png", size = 64, tint = tints.explosive}
+      },
+    },
+    {
+      base = {
+        "__Warheads__/graphics/rockets/rocket-fins.png",
+      },
+      sections = {
+        "__Warheads__/graphics/rockets/rocket-tip.png",
+        "__Warheads__/graphics/rockets/rocket-ring-1.png",
+      },
+      lights = {
+        "__Warheads__/graphics/rockets/rocket-tip-light.png",
+        "__Warheads__/graphics/rockets/rocket-ring-1-light.png",
+      },
+      final = {
+        {icon = "__Warheads__/graphics/rockets/rocket-ring-2.png", size = 64, tint = tints.nothing},
+        {icon = "__Warheads__/graphics/rockets/rocket-ring-3.png", size = 64, tint = tints.nothing},
+        {icon = "__Warheads__/graphics/rockets/rocket-engine.png", size = 64, tint = tints.explosive}
+      },
+    },
+    {
+      base = {
+        "__Warheads__/graphics/rockets/rocket-fins.png",
+      },
+      sections = {
+        "__Warheads__/graphics/rockets/rocket-tip.png",
+        "__Warheads__/graphics/rockets/rocket-ring-1.png",
+        "__Warheads__/graphics/rockets/rocket-ring-2.png",
+      },
+      lights = {
+        "__Warheads__/graphics/rockets/rocket-tip-light.png",
+        "__Warheads__/graphics/rockets/rocket-ring-1-light.png",
+        "__Warheads__/graphics/rockets/rocket-ring-2-light.png",
+      },
+      final = {
+        {icon = "__Warheads__/graphics/rockets/rocket-ring-3.png", size = 64, tint = tints.nothing},
+        {icon = "__Warheads__/graphics/rockets/rocket-engine.png", size = 64, tint = tints.explosive}
+      },
+    },
+    {
+      base = {
+        "__Warheads__/graphics/rockets/rocket-fins.png",
+      },
+      sections = {
+        "__Warheads__/graphics/rockets/rocket-tip.png",
+        "__Warheads__/graphics/rockets/rocket-ring-1.png",
+        "__Warheads__/graphics/rockets/rocket-ring-2.png",
         "__Warheads__/graphics/rockets/rocket-ring-3.png",
+      },
+      lights = {
+        "__Warheads__/graphics/rockets/rocket-tip-light.png",
+        "__Warheads__/graphics/rockets/rocket-ring-1-light.png",
+        "__Warheads__/graphics/rockets/rocket-ring-2-light.png",
+        "__Warheads__/graphics/rockets/rocket-ring-3.png",
+      },
+      final = {
+        {icon = "__Warheads__/graphics/rockets/rocket-engine.png", size = 64, tint = tints.explosive}
       },
     },
     {
