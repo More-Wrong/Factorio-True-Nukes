@@ -172,7 +172,7 @@ data:extend{
     icon_size = 256, icon_mipmaps = 4,
     icon = "__True-Nukes__/graphics/atomic-artillery-tech.png",
     effects = {},
-    prerequisites = {"expanded-atomics"},
+    prerequisites = {"expanded-atomics", "artillery"},
     unit =
     {
       count = 1000,
