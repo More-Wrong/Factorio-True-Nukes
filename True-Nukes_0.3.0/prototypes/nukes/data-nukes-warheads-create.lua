@@ -667,7 +667,7 @@ warheads["TN-warhead-15k--1"] = {
 
   size = "huge",
   preciseSize = 44,
-  final_effect = nuke_explosions.N1kt_detonation,
+  final_effect = nuke_explosions.N15kt_detonation,
   appearance = createAppearance({type = "nuclear_core", tints = {tints.uraniumLive, tints.uraniumLive, tints.uraniumLive}, text_location = "__True-Nukes__/graphics/text/", text = "15kt"}),
   chart_picture = "__True-Nukes__/graphics/artillery/atomic-artillery-map-visualization.png",
   range_modifier = 2,

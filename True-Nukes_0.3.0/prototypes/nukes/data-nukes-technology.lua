@@ -112,13 +112,14 @@ data.raw.technology["atomic-bomb"].prerequisites = {"basic-atomic-weapons", "roc
 data.raw.technology["atomic-bomb"].unit.count = 1
 data.raw.technology["atomic-bomb"].unit.ingredients = {{"test-pack-atomic-20t-1", 1}}
 data.raw.technology["atomic-bomb"].order = "e-a-c"
+data.raw.technology["atomic-bomb"].icon = "__True-Nukes__/graphics/nuke-tech.png"
 
 data:extend{
   {
     type = "technology",
     name = "basic-atomic-weapons",
     icon_size = 256, icon_mipmaps = 4,
-    icon = "__base__/graphics/technology/atomic-bomb.png",
+    icon = "__True-Nukes__/graphics/nuke-tech-basic.png",
     effects =
     {
       {
@@ -169,7 +170,7 @@ data:extend{
     type = "technology",
     name = "artillery-atomics",
     icon_size = 256, icon_mipmaps = 4,
-    icon = "__base__/graphics/technology/atomic-bomb.png",
+    icon = "__True-Nukes__/graphics/atomic-artillery-tech.png",
     effects = {},
     prerequisites = {"expanded-atomics"},
     unit =
@@ -215,7 +216,7 @@ data:extend{
     type = "technology",
     name = "californium-weapons",
     icon_size = 256, icon_mipmaps = 4,
-    icon = "__base__/graphics/technology/atomic-bomb.png",
+    icon = "__True-Nukes__/graphics/small-atomic-tech.png",
     effects = {},
     prerequisites = {"expanded-atomics", "californium-processing"},
     unit =
@@ -230,7 +231,7 @@ data:extend{
     type = "technology",
     name = "compact-californium-weapons",
     icon_size = 256, icon_mipmaps = 4,
-    icon = "__base__/graphics/technology/atomic-bomb.png",
+    icon = "__True-Nukes__/graphics/many-small-atomic-tech.png",
     effects =
     {
       {
@@ -255,7 +256,7 @@ data:extend{
     type = "technology",
     name = "compact-full-fission-weapons",
     icon_size = 256, icon_mipmaps = 4,
-    icon = "__base__/graphics/technology/atomic-bomb.png",
+    icon = "__True-Nukes__/graphics/many-atomic-tech.png",
     effects = {},
     prerequisites = {"full-fission-atomics", "artillery-atomics", "compact-californium-weapons"},
     unit =
