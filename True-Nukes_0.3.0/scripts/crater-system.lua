@@ -1,108 +1,9 @@
-local water = require("scripts.water-system")
+local water = require("water-system")
+local util = require("crater-util")
 
-
-local function circularNoise(tableTarget, position, radius, depthMult, sliceCount)
-  if (settings.global["nuke-crater-noise"].value) then
-    for num=0,sliceCount do
-      local slice_w = (math.floor(radius*depthMult/50)+1)
-      for ang=0,math.ceil(3.1416*2*radius*slice_w*4/(num*num+1)) do
-        local dist = math.floor(num*slice_w+slice_w*math.random())
-        local offset = math.random()
-
-        local noise_pos = {x = math.floor(position.x+(dist+radius-1)*math.sin(ang+offset)+0.5), y = math.floor(position.y+(dist+radius-1)*math.cos(ang+offset)+0.5)}
-        if((position.x-noise_pos.x)*(position.x-noise_pos.x)+(position.y-noise_pos.y)*(position.y-noise_pos.y)<=radius*radius) then
-        --Do nothing - used to remove rounding errors and prevent hitting the same tile twice
-        else
-          if(tableTarget[noise_pos.x]==nil) then
-            tableTarget[noise_pos.x] = {}
-          end
-          tableTarget[noise_pos.x][noise_pos.y] = 1;
-        end
-      end
-    end
-  end
-end
-
-local function tileNoise(surface, tableTarget, position, radius, depthMult, tileMap, sliceCount)
-  if (settings.global["nuke-crater-noise"].value) then
-    local defaultOnly = true
-    for k,v in pairs (tileMap) do
-      if(k~="default") then
-        defaultOnly=false;
-        break;
-      end
-    end
-    for num=0,sliceCount do
-      local slice_w = (math.floor(radius*depthMult/50)+1)
-      for ang=0,math.ceil(3.1416*2*radius*slice_w*4/(num*num+1)) do
-        local dist = math.floor(math.random(num*slice_w, slice_w+num*slice_w))
-        local offset = math.random()
-
-        local noise_pos = {x = math.floor(position.x+(dist+radius-1)*math.sin(ang+offset)+0.5), y = math.floor(position.y+(dist+radius-1)*math.cos(ang+offset)+0.5)}
-        local cur_tile = defaultOnly or surface.get_tile(noise_pos)
-        if((position.x-noise_pos.x)*(position.x-noise_pos.x)+(position.y-noise_pos.y)*(position.y-noise_pos.y)<=radius+0.5) then
-        --Do nothing - used to remove rounding errors and prevent hitting the same tile twice
-        elseif (defaultOnly or tileMap[cur_tile.name] == nil) then
-          if(not(tileMap["default"] ==nil)) then
-            table.insert(tableTarget, {name = tileMap["default"], position = noise_pos})
-          end
-        else
-          table.insert(tableTarget, {name = tileMap[cur_tile.name], position = noise_pos})
-        end
-      end
-    end
-  end
-end
-
-
-local function tileNoiseLimited(surface, tableTarget, position, radius, depthMult, tileMap, sliceCount, lesserAngle, greaterAngle, minR, maxR, boundaryBox)
-  if (settings.global["nuke-crater-noise"].value) then
-    local defaultOnly = true
-    for k,v in pairs (tileMap) do
-      if(k~="default") then
-        defaultOnly=false;
-        break;
-      end
-    end
-    local startAngle = lesserAngle
-    local endAngle = greaterAngle
-    local angleDiff = (endAngle-startAngle)
-    if(angleDiff>5) then
-      angleDiff = 6.283185307-angleDiff
-      local tmp = startAngle;
-      startAngle = endAngle;
-      endAngle = tmp+6.283185307;
-    end
-    local slice_w = (math.floor(radius*depthMult/50)+1)
-    for num=0,sliceCount do
-      if(minR<=slice_w+num*slice_w+radius and maxR>=num*slice_w+radius-1) then
-        for ang=0,math.ceil(angleDiff*radius*slice_w*4/(num*num+1)) do
-          local dist = math.floor(math.random(num*slice_w, slice_w+num*slice_w))
-          local offset = math.random()+sliceCount
-          local angle = (ang+offset)%angleDiff+startAngle
-          local noise_pos = {x = math.floor(position.x+(dist+radius-1)*math.cos(angle)+0.5), y = math.floor(position.y+(dist+radius-1)*math.sin(angle)+0.5)}
-          if(boundaryBox.left_top.x<=noise_pos.x and boundaryBox.right_bottom.x>=noise_pos.x
-            and boundaryBox.left_top.y<=noise_pos.y and boundaryBox.right_bottom.y>=noise_pos.y) then
-            local cur_tile = defaultOnly or surface.get_tile(noise_pos)
-            if(defaultOnly or cur_tile.valid) then
-              if((position.x-noise_pos.x)*(position.x-noise_pos.x)+(position.y-noise_pos.y)*(position.y-noise_pos.y)<=radius+0.5) then
-              --Do nothing - used to remove rounding errors and prevent hitting the same tile twice
-              elseif (defaultOnly or tileMap[cur_tile.name] == nil) then
-                if(not(tileMap["default"] == nil)) then
-                  table.insert(tableTarget, {name = tileMap["default"], position = noise_pos})
-                end
-              else
-                table.insert(tableTarget, {name = tileMap[cur_tile.name], position = noise_pos})
-              end
-            end
-          end
-        end
-      end
-    end
-  end
-end
-
-
+local  circularNoise = util.circularNoise
+local  tileNoise = util.tileNoise
+local  tileNoiseLimited = util.tileNoiseLimited
 
 local function nukeTileChangesHeightAwareHuge(position, check_craters, surface_index, crater_internal_r, crater_external_r, fireball_r)
   local tileTable = {}
@@ -481,11 +382,11 @@ local function chunk_loaded_outer(surface_index, chunkPosAndArea, chunkLoaderStr
       if((v.position.x-originPos.x)*(v.position.x-originPos.x)+(v.position.y-originPos.y)*(v.position.y-originPos.y)<=fireballSq) then
         local depth = water.waterDepths[v.name]
         if(depth) then
---          if (depth == -2 and (v.position.x == x or v.position.x == x+31))then
+          --          if (depth == -2 and (v.position.x == x or v.position.x == x+31))then
           --depth = -3;
---          elseif (depth == -2 and (v.position.y == y or v.position.y == y+31))then
+          --          elseif (depth == -2 and (v.position.y == y or v.position.y == y+31))then
           --depth = -3
---          end
+          --          end
           table.insert(tileTable, {name = water.depthsForCrater[depth], position = v.position})
         end
       end
@@ -507,4 +408,5 @@ return {
   nukeTileChangesHeightAwareHuge = nukeTileChangesHeightAwareHuge,
   chunk_loaded = chunk_loaded,
   chunk_loaded_outer = chunk_loaded_outer,
+  use_fires = trues
 }

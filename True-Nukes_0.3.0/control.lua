@@ -5,6 +5,7 @@ local water = require("scripts.water-system")
 local blast_system = require("scripts.blast-system")
 local thermal_system = require("scripts.thermal-system")
 local crater_system = require("scripts.crater-system")
+local crater_system_se = require("scripts.crater-system-se")
 local fireball_system = require("scripts.fireball-system")
 local building_system = require("scripts.building-system")
 
@@ -76,14 +77,14 @@ local function tickHandler(event)
     for i,blast in ipairs(global.blastWaves) do
       blast_system.move_blast(i,blast,0, corpseMap)
     end
---  else
---    Profiler.Stop(false, "")
+    --  else
+    --    Profiler.Stop(false, "")
   end
   if (#global.thermalBlasts>0) then
     thermal_system.atomic_thermal_blast_move_along(corpseMap)
   end
   water.fastFill(event)
-  
+
   building_system.checkBuildings()
 end
 script.on_event(defines.events.on_tick, tickHandler);
@@ -169,13 +170,17 @@ local function optimisedChunkLoadHandler(chunkPosAndArea, chunkLoaderStruct, kil
         ang4 = ang4+6.283185307
       end
     end
+    local crater_system_to_use = crater_system
+    if(game.surfaces[surface_index].find_tiles_filtered{position = originPos, name = crater_system_se.interesting_tiles}) then
+      crater_system_to_use = crater_system_se
+    end
     -- crater
     if((minR<chunkLoaderStruct.fireball_r*1.1+4) and (maxR>chunkLoaderStruct.crater_external_r-4) ) then
-      crater_system.chunk_loaded_outer(surface_index, chunkPosAndArea, chunkLoaderStruct, originPos, x, y, ang1, ang2, ang3, ang4, minR, maxR)
+      crater_system_to_use.chunk_loaded_outer(surface_index, chunkPosAndArea, chunkLoaderStruct, originPos, x, y, ang1, ang2, ang3, ang4, minR, maxR)
     end
 
     if(minR<chunkLoaderStruct.crater_external_r*1.1+4) then
-      crater_system.chunk_loaded(surface_index, chunkPosAndArea, chunkLoaderStruct, originPos, x, y, ang1, ang2, ang3, ang4, minR, maxR)
+      crater_system_to_use.chunk_loaded(surface_index, chunkPosAndArea, chunkLoaderStruct, originPos, x, y, ang1, ang2, ang3, ang4, minR, maxR)
     end
     water.check_fill(surface_index, chunkPosAndArea, x, y)
   end
@@ -185,7 +190,7 @@ end
 
 local function atomic_weapon_hit_optimised(surface_index, source, position, crater_internal_r, crater_external_r, fireball_r, fire_outer_r, blast_max_r, small_fire_max_r, thermal_max_r, load_r, visable_r, polution, flame_proportion, create_small_fires, check_craters)
   -- find forces, positions, etc.
---  Profiler.Start()
+  --  Profiler.Start()
   local force
   if(settings.global["nukes-cause-pollution"].value) then
     game.surfaces[surface_index].pollute(position, polution)
@@ -225,7 +230,7 @@ end
 
 local function atomic_weapon_hit(surface_index, source, position, crater_internal_r, crater_external_r, fireball_r, fire_outer_r, blast_max_r, small_fire_max_r, thermal_max_r, load_r, visable_r, polution, flame_proportion, create_small_fires, check_craters)
   -- find forces, positions, etc.
---  Profiler.Start()
+  --  Profiler.Start()
   local force
   if(settings.global["nukes-cause-pollution"].value) then
     game.surfaces[surface_index].pollute(position, polution)
@@ -247,13 +252,17 @@ local function atomic_weapon_hit(surface_index, source, position, crater_interna
 
   fireball_system.full_fireball(surface_index, position, fireball_r, crater_external_r, force, cause, corpseMap)
 
+  local crater_system_to_use = crater_system
+  if(game.surfaces[surface_index].find_tiles_filtered{position = position, name = crater_system_se.interesting_tiles}) then
+    crater_system_to_use = crater_system_se
+  end
   if(crater_external_r>150) then --use efficient crater generator (ignores height for lakes)
-    crater_system.nukeTileChangesHeightAwareHuge(position, check_craters, surface_index, crater_internal_r, crater_external_r, fireball_r)
+    crater_system_to_use.nukeTileChangesHeightAwareHuge(position, check_craters, surface_index, crater_internal_r, crater_external_r, fireball_r)
   else
-    crater_system.nukeTileChangesHeightAware(position, check_craters, surface_index, crater_internal_r, crater_external_r, fireball_r)
+    crater_system_to_use.nukeTileChangesHeightAware(position, check_craters, surface_index, crater_internal_r, crater_external_r, fireball_r)
   end
   -- light fires as nessesary
-  if(flame_proportion>0) then
+  if(flame_proportion>0 and crater_system_to_use.use_fires) then
     for _,v in pairs(game.surfaces[surface_index].find_tiles_filtered{position=position, radius=fire_outer_r}) do
       local rand = math.random(0, fire_outer_r)
       if(math.random(0, 1)+flame_proportion/8>1 and rand*rand>(v.position.x-position.x)*(v.position.x-position.x)+(v.position.y-position.y)*(v.position.y-position.y)) then
@@ -265,7 +274,7 @@ local function atomic_weapon_hit(surface_index, source, position, crater_interna
       end
     end
   end
-  if (settings.global["nuke-random-fires"].value and create_small_fires) then
+  if (settings.global["nuke-random-fires"].value and create_small_fires and crater_system_to_use.use_fires) then
     for i=(fire_outer_r*fire_outer_r/10),(small_fire_max_r*small_fire_max_r/10) do
       local dist = math.random(fire_outer_r, math.random(fire_outer_r, small_fire_max_r))
       local angle = math.random()*3.1416*2
@@ -319,7 +328,7 @@ local function nukeFiredScan(event)
     elseif(string.match(entity.prototype.name, ".*-atomic-1kt")) then
       game.surfaces[event.surface_index].request_to_generate_chunks(position, 800/32)
     else
-        game.surfaces[event.surface_index].request_to_generate_chunks(position, 400/32)
+      game.surfaces[event.surface_index].request_to_generate_chunks(position, 400/32)
     end
   end
 end
