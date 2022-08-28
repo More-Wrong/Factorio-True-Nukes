@@ -17,7 +17,7 @@ for _,warhead_dirty in pairs(warheads) do
   local used = false;
   for _,weapon_dirty in pairs(weaponTypes) do
     local weapontype = weapontype_sanitise(weapon_dirty)
-    if(not weapontype.ignore) then
+    if(not weapon_dirty.ignore) then
       for _,warheadWeapon in pairs(warhead.weapons) do
         if((warhead.preciseSize <= weapontype.size.max and warhead.preciseSize > weapontype.size.min) or warheadWeaponDoAnyway[weapontype.name .. warheadWeapon.appendName]) then
           local combination = combine(table.deepcopy(weapontype), table.deepcopy(warheadWeapon))

@@ -7,6 +7,15 @@ if mods["SchallTankPlatoon"] then
 end
 if mods["space-exploration"] then
   require("prototypes.compatibility.SE-weapontypes")
-  --require("prototypes.compatibility.SE-warheads")
+end
+
+
+if mods["bobwarfare"] then
+  require("prototypes.compatibility.bobs-weapontypes")
+end
+
+
+if mods["Krastorio2"] then
+  require("prototypes.compatibility.K2-weapontypes")
 end
 

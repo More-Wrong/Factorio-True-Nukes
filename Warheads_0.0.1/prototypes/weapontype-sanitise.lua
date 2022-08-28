@@ -199,7 +199,7 @@ local function sanitseWeapontype(weapontype)
   end
   if (result.appearances["default"].icons == nil) then
     if(item.icon) then
-      result.appearances["default"].icons = {item.icon}
+      result.appearances["default"].icons = {{icon = item.icon, icon_size = item.icon_size}}
     else
       result.appearances["default"].icons = item.icons
     end
@@ -267,9 +267,6 @@ local function sanitseWeapontype(weapontype)
           local ERROR_No_projectile_field_on_item____PLEASE_REPORT_AS_BUG_ON_MOD_PAGE = nil
           log(ERROR_No_projectile_field_on_item____PLEASE_REPORT_AS_BUG_ON_MOD_PAGE.a)
         end
-        if not to_use.projectile then
-          to_use = a[2].action_delivery
-        end
         to_use.projectile = projectile
         if(to_use.max_range) then
           to_use.max_range = range_mult * to_use.max_range
@@ -308,23 +305,50 @@ local function sanitseWeapontype(weapontype)
     elseif result.type == "bullet" then
       result.item.action_creator = function (projectile, range_mult, target_action, final_action, source_action)
         local a = table.deepcopy(item.ammo_type.action)
-        if target_action then
-          if not a.action_delivery.target_effects then
-            a.action_delivery.target_effects = {}
+        local to_use = nil
+
+        for _,act in pairs(a) do
+          local action = act
+          if(a.action_delivery)then
+            action = a
           end
-          table.insert(a.action_delivery.target_effects, {type = "nested-result", action = target_action})
+          if(action.action_delivery.type == "instant") then
+            to_use = action.action_delivery
+          else
+            for _,del in pairs(action.action_delivery) do
+              if (del.type == "instant") then
+                to_use = del
+              end
+            end
+          end
+          if(to_use) then
+            break
+          end
+        end
+        if(not to_use) then
+          log("ERROR: Cannot find target_action field")
+          log("NAME: " .. item.name)
+          local ERROR_No_target_action_field_on_item____PLEASE_REPORT_AS_BUG_ON_MOD_PAGE = nil
+          log(ERROR_No_target_action_field_on_item____PLEASE_REPORT_AS_BUG_ON_MOD_PAGE.a)
+        end
+        
+        if target_action then
+          if not to_use.target_effects then
+            to_use.target_effects = {}
+          end
+          table.insert(to_use.target_effects, {type = "nested-result", action = target_action})
         end
         if final_action then
-          if not a.action_delivery.target_effects then
-            a.action_delivery.target_effects = {}
+          if not to_use.target_effects then
+            to_use.target_effects = {}
           end
-          table.insert(a.action_delivery.target_effects, {type = "nested-result", action = final_action})
+          table.insert(to_use.target_effects, {type = "nested-result", action = final_action})
         end
         if source_action then
-          if not a.action_delivery.source_effects then
-            a.action_delivery.source_effects = {}
+          if not to_use.source_effects then
+            to_use.source_effects = {}
           end
-          table.insert(a.action_delivery.source_effects, {type = "nested-result", action = source_action})
+          table.insert(to_use.source_effects, {type = "nested-result", action = source_action})
         end
         return a
 
