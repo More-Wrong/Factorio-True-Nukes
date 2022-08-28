@@ -40,7 +40,8 @@ weaponTypes["se-delivery-cannon-weapon"]= {
         flags = {"hidden"},
         subgroup = "delivery-cannon-capsules",
         stack_size = 1,
-        localised_name = {"item-name.se-delivery-cannon-weapon-capsule-packed", {"item-name." .. warheadWeapon.appendName}}
+        localised_name = {"weapontype-name.weapon-delivery-capsule", {"warhead-name." .. warheadWeapon.appendName}},
+        localised_description= {"weapontype-description.weapon-delivery-capsule", {"warhead-description." .. warheadWeapon.appendName}}
       },
       recipe = {
         type = "recipe",
@@ -54,7 +55,8 @@ weaponTypes["se-delivery-cannon-weapon"]= {
         always_show_made_in = false,
         category = "delivery-cannon-weapon",
         hide_from_player_crafting = true,
-        localised_name = {"item-name.se-delivery-cannon-weapon-capsule-packed", {"item-name." .. warheadWeapon.appendName}},
+        localised_name = {"weapontype-name.weapon-delivery-capsule", {"warhead-name." .. warheadWeapon.appendName}},
+        localised_description= {"weapontype-description.weapon-delivery-capsule", {"warhead-description." .. warheadWeapon.appendName}},
         allow_decomposition = false
       }
     }
