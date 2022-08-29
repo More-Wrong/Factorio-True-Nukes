@@ -1,4 +1,4 @@
-local sizes = require("warheads")
+local sizes = require("warheads").sizes
 local generateAppearance = require("appearance-util")
 
 local function sanitseWarhead(key, warhead)
@@ -18,7 +18,7 @@ local function sanitseWarhead(key, warhead)
   if(result.preciseSize and not result.size) then
     local tmpSizeBestDiff = 100
     for s,i in pairs(sizes) do
-      if(math.abs(result.preciseSize - i)<tmpSizeBestDiff) then
+      if(i > result.preciseSize  and math.abs(result.preciseSize - i)<tmpSizeBestDiff) then
         tmpSizeBestDiff = math.abs(result.preciseSize - i)
         result.size = s
       end
@@ -193,8 +193,8 @@ local function sanitseWarhead(key, warhead)
     elseif(warhead.collisions ~= nil) then
       weapon.projectile.collisions = warhead.collisions
     end
-    
-    
+
+
     weapon.projectile.piercing = weapon.projectile.collisions
     if(explosion.piercing ~= nil) then
       weapon.projectile.piercing = explosion.piercing
