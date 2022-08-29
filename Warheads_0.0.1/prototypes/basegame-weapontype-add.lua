@@ -220,7 +220,7 @@ weaponTypes["warhead-util-projectile"]= {
   projectile = table.deepcopy(data.raw["artillery-projectile"]["artillery-projectile"]),
   image_base_shift = {4, 2},
   image_warhead_shift = {-8, -8},
-  acceleration = 1,
+  projectile_acceleration = 1,
   ammo_category = "cannon-shell"
 }
 weaponNoTech["warhead-util-projectile"] = true

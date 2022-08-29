@@ -224,7 +224,6 @@ local function combine(weapontype, warheadWeapon)
       projectile.height_from_ground = weapontype.projectile.height
       projectile.collision_box = weapontype.projectile.collision_box
       
-      projectile.map_color = warheadWeapon.projectile.map_color or weapontype.projectile.map_color
       
       if((not warheadWeapon.projectile.collisions) and (not weapontype.projectile.collide_anyway)) then
         projectile.collision_box = nil
@@ -234,6 +233,7 @@ local function combine(weapontype, warheadWeapon)
 
       projectile.chart_picture = warheadWeapon.projectile.chart_picture
       projectile.reveal_map = weapontype.projectile.reveal_map
+      projectile.map_color = warheadWeapon.projectile.map_color or weapontype.projectile.map_color
     end
     projectile.action = warheadWeapon.projectile.action
     projectile.final_action = warheadWeapon.projectile.final_action
