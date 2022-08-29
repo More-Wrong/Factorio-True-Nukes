@@ -1,13 +1,6 @@
 data:extend({
   {
     type = "bool-setting",
-    name = "crater-water-filling",
-    setting_type = "runtime-global",
-    default_value = true,
-    order = "a0"
-  },
-  {
-    type = "bool-setting",
     name = "nuke-random-fires",
     setting_type = "runtime-global",
     default_value = true,
@@ -19,13 +12,6 @@ data:extend({
     setting_type = "runtime-global",
     default_value = true,
     order = "a2"
-  },
-  {
-    type = "bool-setting",
-    name = "use-height-for-craters",
-    setting_type = "runtime-global",
-    default_value = true,
-    order = "a3"
   },
   {
     type = "bool-setting",
@@ -85,13 +71,6 @@ data:extend({
     maximum_value = 2,
     default_value = 2,
     order = "c1"
-  },
-  {
-    type = "bool-setting",
-    name = "use-efficient-thermal",
-    setting_type = "runtime-global",
-    default_value = false,
-    order = "c3"
   },
   {
     type = "bool-setting",
@@ -175,13 +154,6 @@ data:extend({
     default_value = "low-density-structure",
     order = "b9"
   },
-  {
-    type = "bool-setting",
-    name = "enable-new-craters",
-    setting_type = "startup",
-    default_value = true,
-    order = "d0"
-  },
 
   {
     type = "bool-setting",
@@ -193,21 +165,21 @@ data:extend({
 
   {
     type = "bool-setting",
-    name = "enable-thermobaric-cannons",
+    name = "enable-small-thermobarics",
     setting_type = "startup",
     default_value = true,
     order = "f0"
   },
   {
     type = "bool-setting",
-    name = "enable-thermobaric-rockets",
+    name = "enable-medium-thermobarics",
     setting_type = "startup",
     default_value = true,
     order = "f1"
   },
   {
     type = "bool-setting",
-    name = "enable-thermobaric-artillery",
+    name = "enable-large-thermobarics",
     setting_type = "startup",
     default_value = true,
     order = "f2"
@@ -215,14 +187,14 @@ data:extend({
 
   {
     type = "bool-setting",
-    name = "enable-atomic-ammo",
+    name = "enable-small-atomics",
     setting_type = "startup",
     default_value = true,
     order = "f3"
   },
   {
     type = "bool-setting",
-    name = "enable-big-atomic-ammo",
+    name = "enable-compact-small-atomics",
     setting_type = "startup",
     default_value = true,
     order = "f4"
@@ -230,14 +202,14 @@ data:extend({
 
   {
     type = "bool-setting",
-    name = "enable-atomic-cannons",
+    name = "enable-medium-atomics",
     setting_type = "startup",
     default_value = true,
     order = "f5"
   },
   {
     type = "bool-setting",
-    name = "enable-big-atomic-cannons",
+    name = "enable-compact-medium-atomics",
     setting_type = "startup",
     default_value = true,
     order = "f6"
@@ -245,23 +217,7 @@ data:extend({
 
   {
     type = "bool-setting",
-    name = "enable-small-atomic-bomb",
-    setting_type = "startup",
-    default_value = true,
-    order = "f9"
-  },
-
-  {
-    type = "bool-setting",
-    name = "enable-very-small-atomic-bomb",
-    setting_type = "startup",
-    default_value = true,
-    order = "f8"
-  },
-
-  {
-    type = "bool-setting",
-    name = "enable-really-very-small-atomic-bomb",
+    name = "enable-large-atomics",
     setting_type = "startup",
     default_value = true,
     order = "f7"
@@ -269,21 +225,28 @@ data:extend({
 
   {
     type = "bool-setting",
-    name = "enable-atomic-bomb",
+    name = "enable-compact-large-atomics",
+    setting_type = "startup",
+    default_value = true,
+    order = "f8"
+  },
+  {
+    type = "bool-setting",
+    name = "enable-15kt",
+    setting_type = "startup",
+    default_value = true,
+    order = "f9"
+  },
+  {
+    type = "bool-setting",
+    name = "enable-compact-15kt",
     setting_type = "startup",
     default_value = true,
     order = "fa"
   },
   {
     type = "bool-setting",
-    name = "enable-big-atomic-bomb",
-    setting_type = "startup",
-    default_value = true,
-    order = "fb"
-  },
-  {
-    type = "bool-setting",
-    name = "enable-very-big-atomic-bomb",
+    name = "enable-fusion",
     setting_type = "startup",
     default_value = true,
     order = "fc"
@@ -291,53 +254,31 @@ data:extend({
 
   {
     type = "bool-setting",
-    name = "enable-very-small-atomic-artillery",
+    name = "enable-compact-fusion",
     setting_type = "startup",
     default_value = true,
     order = "fd"
   },
   {
     type = "bool-setting",
-    name = "enable-small-atomic-artillery",
-    setting_type = "startup",
-    default_value = true,
-    order = "fe"
-  },
-  {
-    type = "bool-setting",
-    name = "enable-atomic-artillery",
+    name = "enable-big-fusion-weapons",
     setting_type = "startup",
     default_value = true,
     order = "fh"
   },
   {
     type = "bool-setting",
-    name = "enable-big-atomic-artillery",
+    name = "enable-nuclear-tests",
     setting_type = "startup",
     default_value = true,
-    order = "fi"
+    order = "fg"
   },
-  {
-    type = "bool-setting",
-    name = "enable-very-big-atomic-artillery",
-    setting_type = "startup",
-    default_value = true,
-    order = "fj"
-  },
-
   {
     type = "bool-setting",
     name = "enable-fusion-building",
     setting_type = "startup",
     default_value = true,
     order = "fk"
-  },
-  {
-    type = "bool-setting",
-    name = "enable-mega-fusion-building",
-    setting_type = "startup",
-    default_value = true,
-    order = "fl"
   },
 
   {
@@ -348,13 +289,6 @@ data:extend({
     order = "fm"
   },
 
-  {
-    type = "bool-setting",
-    name = "keep-atomic-research-without-weapons",
-    setting_type = "startup",
-    default_value = false,
-    order = "fn"
-  },
   {
     type = "bool-setting",
     name = "keep-atomic-bomb-without-changes",

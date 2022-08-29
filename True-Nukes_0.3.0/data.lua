@@ -2,7 +2,9 @@ require("prototypes.nukes.data-nukes")
 
 
 
-require("prototypes.thermobarics.data-thermobaric")
+if(settings.startup["enable-small-thermobarics"].value or settings.startup["enable-medium-thermobarics"].value or settings.startup["enable-large-thermobarics"].value) then
+  require("prototypes.thermobarics.data-thermobaric")
+end
 
 
 
@@ -41,24 +43,8 @@ data:extend({
   --initial_flame_count = 1,
 
   }})
---if(settings.startup["enable-thermobaric-cannons"].value or settings.startup["enable-thermobaric-rockets"].value or settings.startup["enable-thermobaric-artillery"].value) then
---  require("prototypes.thermobarics.data-thermobaric")
---end
-if (not settings.startup["keep-atomic-bomb-without-changes"]) and not (settings.startup["enable-atomic-bomb"].value or settings.startup["enable-big-atomic-bomb"].value or settings.startup["enable-very-big-atomic-bomb"].value) then
-  table.remove(data.raw.technology["atomic-bomb"].effects, 1)
-end
 
---if(settings.startup["enable-atomic-ammo"].value or settings.startup["enable-big-atomic-ammo"].value
---  or settings.startup["enable-atomic-cannons"].value or settings.startup["enable-big-atomic-cannons"].value
---  or settings.startup["enable-small-atomic-bomb"].value or settings.startup["enable-very-small-atomic-bomb"].value or settings.startup["enable-really-very-small-atomic-bomb"].value
---  or settings.startup["enable-atomic-bomb"].value or settings.startup["enable-big-atomic-bomb"].value or settings.startup["enable-very-big-atomic-bomb"].value
---  or settings.startup["enable-very-small-atomic-artillery"].value or settings.startup["enable-small-atomic-artillery"].value or settings.startup["enable-atomic-artillery"].value
---  or settings.startup["enable-big-atomic-artillery"].value or settings.startup["enable-very-big-atomic-artillery"].value
---  or settings.startup["enable-fusion-building"].value or settings.startup["enable-mega-fusion-building"].value) then
---  require("prototypes.nukes.data-nukes")
---elseif (not(settings.startup["keep-atomic-research-without-weapons"].value or settings.startup["keep-atomic-bomb-without-changes"])) then
---  data.raw.technology["atomic-bomb"] = nil
---end
+
 
 
 if(settings.startup["enable-fire-shield"].value) then
@@ -143,37 +129,20 @@ function add_mushroom_cloud_effect(effect, prefix)
     entity_name = "nuclear-scorchmark",
     check_buildability = true
   })
-
-
-
 end
---if(settings.startup["enable-thermobaric-rockets"].value) then
---  add_mushroom_cloud_effect(data.raw.projectile["thermobaric-rocket"].action.action_delivery.target_effects, "small-")
---end
---if(settings.startup["enable-thermobaric-artillery"].value) then
---  add_mushroom_cloud_effect(data.raw["artillery-projectile"]["thermobaric-artillery-projectile"].action.action_delivery.target_effects, "")
---end
---if(settings.startup["enable-thermobaric-cannons"].value) then
---  if mods["SchallTankPlatoon"] then
---    add_mushroom_cloud_effect(data.raw.projectile["thermobaric-cannon-H2-projectile"].action.action_delivery.target_effects, "small-")
---  end
---end
-
-
-
 
 
 
 if(settings.startup["enable-menu-backgrounds"].value)then
-  if(settings.startup["enable-atomic-bomb"].value or settings.startup["enable-big-atomic-bomb"].value or settings.startup["enable-very-big-atomic-bomb"].value) then
+  if(settings.startup["enable-compact-medium-atomics"].value) then
     require("menu-simulations.nuke-1x20t")
   end
 
-  if(settings.startup["enable-atomic-cannons"].value or settings.startup["enable-big-atomic-cannons"].value) then
+  if(settings.startup["enable-compact-medium-atomics"].value) then
     require("menu-simulations.nuke-2x2t")
   end
 
-  if(settings.startup["enable-atomic-artillery"].value or settings.startup["enable-big-atomic-artillery"].value or settings.startup["enable-very-big-atomic-artillery"].value) then
+  if(settings.startup["enable-large-atomics"].value) then
     require("menu-simulations.nuke-1x1kt")
   end
 end

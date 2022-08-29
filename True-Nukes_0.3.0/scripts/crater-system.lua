@@ -408,5 +408,5 @@ return {
   nukeTileChangesHeightAwareHuge = nukeTileChangesHeightAwareHuge,
   chunk_loaded = chunk_loaded,
   chunk_loaded_outer = chunk_loaded_outer,
-  use_fires = trues
+  use_fires = true
 }
