@@ -12,8 +12,8 @@ for _,name in pairs(warheadWeaponNameMap) do
   end
 end
 
-for _,warhead_dirty in pairs(warheads) do
-  local warhead = warhead_sanitise(warhead_dirty)
+for name,warhead_dirty in pairs(warheads) do
+  local warhead = warhead_sanitise(name, warhead_dirty)
   local used = false;
   for _,weapon_dirty in pairs(weaponTypes) do
     local weapontype = weapontype_sanitise(weapon_dirty)

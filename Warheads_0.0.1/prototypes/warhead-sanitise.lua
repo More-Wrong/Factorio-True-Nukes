@@ -1,7 +1,7 @@
 local sizes = require("warheads")
 local generateAppearance = require("appearance-util")
 
-local function sanitseWarhead(warhead)
+local function sanitseWarhead(key, warhead)
   local result = {}
   result.warhead = {}
   result.weapons = {}
@@ -27,9 +27,9 @@ local function sanitseWarhead(warhead)
   result.warhead.item = {}
 
   result.warhead.item.type = "item"
-  result.warhead.item.name = warhead.name
+  result.warhead.item.name = key
   result.warhead.item.order = warhead.order or warhead.appendOrder
-  result.warhead.item.subgroup = warhead.size .. "-warheads"
+  result.warhead.item.subgroup = result.size .. "-warheads"
   result.warhead.item.stack_size = warhead.stack_size
   result.warhead.item.pictures = {layers = appearance.pictures}
   result.warhead.item.icons = appearance.icons
@@ -39,11 +39,11 @@ local function sanitseWarhead(warhead)
 
   result.warhead.recipe.category = warhead.recipe_category or "crafting"
   result.warhead.recipe.type = "recipe"
-  result.warhead.recipe.name = warhead.name
+  result.warhead.recipe.name = key
   result.warhead.recipe.enabled = false
   result.warhead.recipe.energy_required = warhead.energy_required
   result.warhead.recipe.ingredients = warhead.ingredients
-  result.warhead.recipe.results = {{type="item", name=warhead.name, amount = warhead.recipe_result_count or 1}}
+  result.warhead.recipe.results = {{type="item", name=key, amount = warhead.recipe_result_count or 1}}
 
   if warhead.tint then
     result.warhead.recipe.crafting_machine_tint = warhead.tint
@@ -79,7 +79,7 @@ local function sanitseWarhead(warhead)
 
     weapon.item.range_modifier = explosion.range_modifier or warhead.range_modifier or 1
 
-    weapon.item.radius_color = explosion.radius_color or explosion.radius_color
+    weapon.item.radius_color = explosion.radius_color or warhead.radius_color
 
     if(explosion.clamp_position ~= nil) then
       weapon.item.clamp_position = explosion.clamp_position
@@ -95,7 +95,7 @@ local function sanitseWarhead(warhead)
 
     weapon.recipe.energy_required_modifier = explosion.energy_required_modifier or warhead.energy_required_modifier or 1
     weapon.recipe.crafting_machine_tint = explosion.weapon_creation_tint or warhead.weapon_creation_tint
-    weapon.recipe.warhead_name = warhead.name
+    weapon.recipe.warhead_name = key
     weapon.recipe.additional_ingedients = {}
     if(explosion.additional_ingedients) then
       for _,ingredient in pairs(explosion.additional_ingedients) do
@@ -129,7 +129,7 @@ local function sanitseWarhead(warhead)
         prevExplosionName = warhead.appendName .. explosion.appendName
       end
     end
-    weapon.recipe.additional_results = explosion.additional_results or {}
+    weapon.recipe.additional_results = explosion.additional_results or warhead.additional_results or {}
 
 
     weapon.projectile = {}

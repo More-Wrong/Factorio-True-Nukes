@@ -17,7 +17,6 @@ local tints = create_utils.tints
 
 
 warheads["TN-warhead-0-1--1"] = {
-  name = "TN-warhead-0-1--1",
   appendName = "-atomic-0_1t",
   appendOrder = "x-n-a-m-000001-1",
   target_type = "position",
@@ -45,7 +44,6 @@ warheads["TN-warhead-0-1--1"] = {
   },
 }
 warheads["TN-warhead-0-1--2"] = {
-  name = "TN-warhead-0-1--2",
   appendName = "-atomic-0_1t",
   appendOrder = "x-n-a-m-000001-2",
   target_type = "position",
@@ -73,7 +71,6 @@ warheads["TN-warhead-0-1--2"] = {
   }
 }
 warheads["TN-warhead-0-1--3"] = {
-  name = "TN-warhead-0-1--3",
   appendName = "-atomic-0_1t",
   appendOrder = "x-n-a-m-000001-3",
   target_type = "position",
@@ -100,7 +97,6 @@ warheads["TN-warhead-0-1--3"] = {
   }
 }
 warheads["TN-warhead-0-5--1"] = {
-  name = "TN-warhead-0-5--1",
   appendName = "-atomic-0_5t",
   appendOrder = "x-n-a-m-000005-1",
   target_type = "position",
@@ -128,7 +124,6 @@ warheads["TN-warhead-0-5--1"] = {
   }
 }
 warheads["TN-warhead-0-5--2"] = {
-  name = "TN-warhead-0-5--2",
   appendName = "-atomic-0_5t",
   appendOrder = "x-n-a-m-000005-2",
   target_type = "position",
@@ -156,7 +151,6 @@ warheads["TN-warhead-0-5--2"] = {
   }
 }
 warheads["TN-warhead-0-5--3"] = {
-  name = "TN-warhead-0-5--3",
   appendName = "-atomic-0_5t",
   appendOrder = "x-n-a-m-000005-3",
   target_type = "position",
@@ -182,7 +176,6 @@ warheads["TN-warhead-0-5--3"] = {
   }
 }
 warheads["TN-warhead-2--1"] = {
-  name = "TN-warhead-2--1",
   appendName = "-atomic-2t",
   appendOrder = "x-n-a-m-00002-1",
   target_type = "position",
@@ -209,7 +202,6 @@ warheads["TN-warhead-2--1"] = {
   }
 }
 warheads["TN-warhead-2--2"] = {
-  name = "TN-warhead-2--2",
   appendName = "-atomic-2t",
   appendOrder = "x-n-a-m-00002-2",
   target_type = "position",
@@ -238,7 +230,6 @@ warheads["TN-warhead-2--2"] = {
   }
 }
 warheads["TN-warhead-2--3"] = {
-  name = "TN-warhead-2--3",
   appendName = "-atomic-2t",
   appendOrder = "x-n-a-m-00002-3",
   target_type = "position",
@@ -264,7 +255,6 @@ warheads["TN-warhead-2--3"] = {
   }
 }
 warheads["TN-warhead-4--1"] = {
-  name = "TN-warhead-4--1",
   appendName = "-atomic-4t",
   appendOrder = "x-n-a-m-00004-1",
   target_type = "position",
@@ -290,7 +280,6 @@ warheads["TN-warhead-4--1"] = {
   }
 }
 warheads["TN-warhead-4--2"] = {
-  name = "TN-warhead-4--2",
   appendName = "-atomic-4t",
   appendOrder = "x-n-a-m-00004-2",
   target_type = "position",
@@ -316,7 +305,6 @@ warheads["TN-warhead-4--2"] = {
   }
 }
 warheads["TN-warhead-4--3"] = {
-  name = "TN-warhead-4--3",
   appendName = "-atomic-4t",
   appendOrder = "x-n-a-m-00004-3",
   target_type = "position",
@@ -342,7 +330,6 @@ warheads["TN-warhead-4--3"] = {
   }
 }
 warheads["TN-warhead-8--1"] = {
-  name = "TN-warhead-8--1",
   appendName = "-atomic-8t",
   appendOrder = "x-n-a-m-00008-1",
   target_type = "position",
@@ -368,7 +355,6 @@ warheads["TN-warhead-8--1"] = {
   }
 }
 warheads["TN-warhead-8--2"] = {
-  name = "TN-warhead-8--2",
   appendName = "-atomic-8t",
   appendOrder = "x-n-a-m-00008-2",
   target_type = "position",
@@ -394,7 +380,6 @@ warheads["TN-warhead-8--2"] = {
   }
 }
 warheads["TN-warhead-8--3"] = {
-  name = "TN-warhead-8--3",
   appendName = "-atomic-8t",
   appendOrder = "x-n-a-m-00008-3",
   target_type = "position",
@@ -420,7 +405,6 @@ warheads["TN-warhead-8--3"] = {
   }
 }
 warheads["TN-warhead-20--1"] = {
-  name = "TN-warhead-20--1",
   appendName = "-atomic-20t",
   appendOrder = "x-n-a-m-00020-1",
   target_type = "position",
@@ -445,7 +429,6 @@ warheads["TN-warhead-20--1"] = {
   }
 }
 warheads["TN-warhead-20--2"] = {
-  name = "TN-warhead-20--2",
   appendName = "-atomic-20t",
   appendOrder = "x-n-a-m-00020-2",
   target_type = "position",
@@ -473,7 +456,6 @@ warheads["TN-warhead-20--2"] = {
 warheadWeaponNameMap["big-rocket-atomic-20t"] = "atomic-bomb"
 
 warheads["TN-warhead-20--3"] = {
-  name = "TN-warhead-20--3",
   appendName = "-atomic-20t",
   appendOrder = "x-n-a-m-00020-3",
   target_type = "position",
@@ -500,7 +482,6 @@ warheads["TN-warhead-20--3"] = {
   }
 }
 warheads["TN-warhead-500--1"] = {
-  name = "TN-warhead-500--1",
   appendName = "-atomic-500t",
   appendOrder = "x-n-a-m-005-1",
   target_type = "position",
@@ -525,7 +506,6 @@ warheads["TN-warhead-500--1"] = {
   }
 }
 warheads["TN-warhead-500--2"] = {
-  name = "TN-warhead-500--2",
   appendName = "-atomic-500t",
   appendOrder = "x-n-a-m-005-2",
   target_type = "position",
@@ -552,7 +532,6 @@ warheads["TN-warhead-500--2"] = {
   }
 }
 warheads["TN-warhead-500--3"] = {
-  name = "TN-warhead-500--3",
   appendName = "-atomic-500t",
   appendOrder = "x-n-a-m-005-3",
   target_type = "position",
@@ -579,7 +558,6 @@ warheads["TN-warhead-500--3"] = {
   }
 }
 warheads["TN-warhead-1k--1"] = {
-  name = "TN-warhead-1k--1",
   appendName = "-atomic-1kt",
   appendOrder = "x-n-a-m-01-1",
   target_type = "position",
@@ -605,7 +583,6 @@ warheads["TN-warhead-1k--1"] = {
   }
 }
 warheads["TN-warhead-1k--2"] = {
-  name = "TN-warhead-1k--2",
   appendName = "-atomic-1kt",
   appendOrder = "x-n-a-m-01-2",
   target_type = "position",
@@ -632,7 +609,6 @@ warheads["TN-warhead-1k--2"] = {
   }
 }
 warheads["TN-warhead-1k--3"] = {
-  name = "TN-warhead-1k--3",
   appendName = "-atomic-1kt",
   appendOrder = "x-n-a-m-01-3",
   target_type = "position",
@@ -660,7 +636,6 @@ warheads["TN-warhead-1k--3"] = {
   }
 }
 warheads["TN-warhead-15k--1"] = {
-  name = "TN-warhead-15k--1",
   appendName = "-atomic-15kt",
   appendOrder = "x-n-a-m-15-1",
   target_type = "position",
@@ -688,7 +663,6 @@ warheads["TN-warhead-15k--1"] = {
   }
 }
 warheads["TN-warhead-15k--2"] = {
-  name = "TN-warhead-15k--2",
   appendName = "-atomic-15kt",
   appendOrder = "x-n-a-m-15-2",
   target_type = "position",
@@ -718,7 +692,6 @@ warheads["TN-warhead-15k--2"] = {
   }
 }
 warheads["TN-warhead-15k--3"] = {
-  name = "TN-warhead-15k--3",
   appendName = "-atomic-15kt",
   appendOrder = "x-n-a-m-15-3",
   target_type = "position",
@@ -747,7 +720,6 @@ warheads["TN-warhead-15k--3"] = {
   }
 }
 warheads["TN-warhead-big--1"] = {
-  name = "TN-warhead-big--1",
   appendName = "-atomic-2-stage",
   appendOrder = "x-n-a-t",
   target_type = "position",
@@ -838,7 +810,6 @@ warheads["TN-warhead-big--1"] = {
 }
 
 warheads["TN-warhead-big--2"] = {
-  name = "TN-warhead-big--2",
   appendName = "-atomic-2-stage",
   appendOrder = "x-n-a-t",
   target_type = "position",
@@ -900,7 +871,6 @@ warheads["TN-warhead-big--2"] = {
   }
 }
 warheads["TN-warhead-big--3"] = {
-  name = "TN-warhead-big--3",
   appendName = "-atomic-2-stage",
   appendOrder = "x-n-a-t",
   target_type = "position",
