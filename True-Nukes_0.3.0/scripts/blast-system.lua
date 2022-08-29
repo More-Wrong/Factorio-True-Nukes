@@ -35,7 +35,7 @@ local function fire_damage_entity(surface, entity, force, cause, killPlanes)
             entity.damage(80, force, "fire")
           end
         end
-      elseif (not (type == "tree")) then
+      elseif (type ~= "tree") then
         if(cause and cause.valid) then
           entity.damage(100, force, "fire", cause)
         else
@@ -132,9 +132,9 @@ local function move_blast(i,blast,pastEHits, corpseMap)
   local regNum = 8
   if(blast.r<=500 or not blast.doItts) then
     regNum = 8
-  elseif(blast.r<=2000) then
+  elseif(blast.r<=1000) then
     regNum = 24
-  elseif(blast.r<=4000) then
+  elseif(blast.r<=2000) then
     regNum = 48
   elseif(blast.r<=4000) then
     regNum = 96
@@ -250,10 +250,10 @@ local function move_blast(i,blast,pastEHits, corpseMap)
         and ePos.x>=area[1][1] and ePos.x<area[2][1] and ePos.y>=area[1][2] and ePos.y<area[2][2]) then
 
         damage_entity(surface, distSq, ePos, blast.pow, blast.fire, blast.damage_init, blast.blast_min_damage, entity, blast.force, blast.cause, corpseMap)
+        if blast.fire then
+          fire_damage_entity(surface, entity, blast.force, blast.cause, true)
+        end
       end
-    end
-    if blast.fire then
-      fire_damage_entity(surface, entity, blast.force, blast.cause, true)
     end
   end
 
@@ -265,8 +265,8 @@ local function move_blast(i,blast,pastEHits, corpseMap)
       local xdif = tile.position.x-center.x
       local ydif = tile.position.y-center.y
       local distSq = xdif*xdif + ydif*ydif
-      if(distSq > (blast["r"] - blast.speed)*(blast["r"] - blast.speed) and distSq <= blast["r"]*blast["r"]) then
-        if (blast.fire_rad >= blast.r) then
+      if(distSq > (blast.r - blast.speed)*(blast.r - blast.speed) and distSq <= blast.r*blast.r) then
+        if (blast.r <= blast.fire_rad) then
           local chance = math.random(0, blast.fire_rad)
           if(chance*chance>distSq) then
             surface.create_entity{name="fire-flame",position=tile.position}
@@ -282,21 +282,23 @@ local function move_blast(i,blast,pastEHits, corpseMap)
       end
     end
   end
-  -- We want to do more regions this frame if the ones we have covered contain very few entities (such as it they are unloaded)
-  if (blast.ittframe>=8) then
-    if(blast.itt == regNum) then
-      blast.r = blast.r + blast.speed
-      blast.itt = 1
-    else
-      blast.itt = blast.itt+1
-      if(not blast.doItts or eHits<4000) then
-        move_blast(i, blast,eHits, corpseMap)
-      end
+  local hasEnded = false
+  -- We want to do more regions this frame if the ones we have covered contain very few entities (such as if they are unloaded)
+  if(blast.itt == regNum and blast.ittframe>=8) then
+    blast.r = blast.r + blast.speed
+    blast.itt = 1
+    blast.ittframe = 1
+  elseif blast.itt ~= regNum then
+    blast.itt = blast.itt+1
+    if((not blast.doItts) or eHits<4000) then
+      hasEnded = move_blast(i, blast,eHits, corpseMap)
     end
   end
-  if(blast.r>blast.max) then
-    table.remove(global.blastWaves, i)
+  if(blast.r>blast.max and not hasEnded) then
+    global.blastWaves[i] = nil
+    return true
   end
+  return hasEnded
 end
 
 
