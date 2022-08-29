@@ -321,6 +321,31 @@ local sprite_types = {
       }
     }
   },
+  shotgun = {
+    {
+      sections = {
+        "__Warheads__/graphics/shotgun/shotgun-shell.png",
+      },
+      final = "__Warheads__/graphics/shotgun/shotgun-base.png",
+    },
+    {
+      sections = {
+        "__Warheads__/graphics/shotgun/piercing-shotgun-shell.png",
+        "__Warheads__/graphics/shotgun/piercing-top.png",
+      },
+      final = {
+        "__Warheads__/graphics/shotgun/shotgun-under.png",
+        "__Warheads__/graphics/shotgun/shotgun-base.png",
+      },
+    },
+    {
+      sections = {
+        "__Warheads__/graphics/shotgun/piercing-shotgun-shell.png",
+        "__Warheads__/graphics/shotgun/frag-top.png",
+      },
+      final = "__Warheads__/graphics/shotgun/shotgun-base.png",
+    }
+  },
   nuclear_core = {
     {
       base = "__Warheads__/graphics/warheads/sphere-1-base.png",

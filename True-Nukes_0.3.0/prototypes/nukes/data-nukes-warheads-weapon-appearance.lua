@@ -16,6 +16,32 @@ if weaponTypes["Schall-sniper-magazine"] then
   weaponTypes["Schall-sniper-magazine"].icons["-atomic-4t"] = { "__True-Nukes__/graphics/rounds/gg-atomic-rounds-magazine.png"}
 end
 
+local setupForShotgun = {
+  type = "shotgun",
+  weapon = "shotgun-shell",
+  warheads = {}
+}
+setupForShotgun.warheads["-atomic-0_1t"] = {style = 1, tints = {tints.californium}}
+setupForShotgun.warheads["-atomic-0_5t"] = {style = 2, tints = {tints.californium, tints.nothing}}
+setupForShotgun.warheads["-atomic-2t"] = {style = 2, tints = {tints.californium, tints.californium}}
+setupForShotgun.warheads["-atomic-4t"] = {style = 2, tints = {tints.californium, tints.uraniumLive}}
+setupForShotgun.warheads["-atomic-8t"] = {style = 2, tints = {tints.uraniumLive, tints.californium}}
+setupForShotgun.warheads["-atomic-20t"] = {style = 2, tints = {tints.uraniumLive, tints.uraniumLive}}
+
+setupWarheadsForWeapon(setupForShotgun)
+
+local setupForShotgunBuck = {
+  type = "shotgun",
+  weapon = "shotgun-shell-buckshot",
+  warheads = {}
+}
+setupForShotgunBuck.warheads["-atomic-0_1t"] = {style = 3, tints = {tints.nothing, tints.californium}}
+setupForShotgunBuck.warheads["-atomic-0_5t"] = {style = 3, tints = {tints.californium, tints.californium}}
+setupForShotgunBuck.warheads["-atomic-2t"] = {style = 3, tints = {tints.californium, tints.uraniumLive}}
+
+setupWarheadsForWeapon(setupForShotgunBuck)
+
+
 local setupForCannon = {
   type = "cannon",
   weapon = "cannon-shell",
