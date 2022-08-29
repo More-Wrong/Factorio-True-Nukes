@@ -1,3 +1,5 @@
+General
+===
 A warhead is a weapon deployable - e.g. an explosive warhead, a nuclear warhead, etc.
 A given warhead has a size, which specifies what kind of weapon that warhead can be used in - you can't fit an artillery shell into a machine gun.
 A warhead is specified by an entry in the global `warheads` table, these entries take the following form:
@@ -220,7 +222,7 @@ The appearance to use if this warhead is fitted to an artillery shell. Default: 
 
 `chart_tint`
 ---
-The tint to apply to the `chart_picture`. Default: none.
+The tint to apply to the blank chart picture. Default: none.
 
 `collisions`
 ---

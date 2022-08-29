@@ -3,9 +3,8 @@ local util = require("warheads")
 
 
 local function sanitseWeapontype(weapontype)
-  local item = weapontype.item
-  local projectile = weapontype.projectile
-
+  local item = weapontype.item or {}
+  
   local result = {}
   result.type = weapontype.type -- projectile, artillery, land-mine, bullet, capsule, other...
 
@@ -386,7 +385,6 @@ local function sanitseWeapontype(weapontype)
     end
   end
   result.recipe.energy_required = weapontype.energy_required
-  result.recipe.energy_required = weapontype.energy_required
   result.recipe.category = weapontype.recipe_category
   result.recipe.subgroup = weapontype.recipe_subgroup
   result.recipe.hide_from_player_crafting = weapontype.hide_from_player_crafting
@@ -419,12 +417,12 @@ local function sanitseWeapontype(weapontype)
 
   result.projectile = {}
   if weapontype.projectile then
-    result.projectile.acceleration = weapontype.acceleration or weapontype.projectile.acceleration
-    result.projectile.picture = weapontype.picture or weapontype.animation or weapontype.projectile.picture or weapontype.projectile.animation
-    result.projectile.shadow = weapontype.shadow  or weapontype.projectile.shadow
-    result.projectile.smoke = weapontype.smoke  or weapontype.projectile.smoke
-    result.projectile.light = weapontype.light  or weapontype.projectile.light
-    result.projectile.animation = weapontype.animation or weapontype.picture or weapontype.projectile.animation or weapontype.projectile.picture
+    result.projectile.acceleration = weapontype.projectile_acceleration or weapontype.projectile.acceleration
+    result.projectile.picture = weapontype.projectile_picture or weapontype.animation or weapontype.projectile.picture or weapontype.projectile.animation
+    result.projectile.shadow = weapontype.projectile_shadow  or weapontype.projectile.shadow
+    result.projectile.smoke = weapontype.projectile_smoke  or weapontype.projectile.smoke
+    result.projectile.light = weapontype.projectile_light  or weapontype.projectile.light
+    result.projectile.animation = weapontype.projectile_animation or weapontype.picture or weapontype.projectile.animation or weapontype.projectile.picture
     result.projectile.max_speed = weapontype.max_speed  or weapontype.projectile.max_speed
     result.projectile.collision_box = weapontype.collision_box or weapontype.projectile.collision_box
 
@@ -436,23 +434,23 @@ local function sanitseWeapontype(weapontype)
     if(weapontype.direction_only == nil) then
       result.projectile.direction_only =  weapontype.projectile.direction_only
     end
-    result.projectile.turn_speed = weapontype.turn_speed  or weapontype.projectile.turn_speed
+    result.projectile.turn_speed = weapontype.turn_speed or weapontype.projectile.turn_speed
 
     result.projectile.reveal_map = weapontype.reveal_map
-    if(weapontype.reveal_map == nil) then
+    if(result.projectile.reveal_map == nil) then
       result.projectile.reveal_map =  weapontype.projectile.reveal_map
     end
-    if(weapontype.reveal_map == nil) then
+    if(result.projectile.reveal_map == nil) then
       result.projectile.reveal_map =  true
     end
     result.projectile.map_color = weapontype.map_color or weapontype.projectile.map_color
   else
-    result.projectile.acceleration = weapontype.acceleration
-    result.projectile.picture = weapontype.picture
-    result.projectile.shadow = weapontype.shadow
-    result.projectile.smoke = weapontype.smoke
-    result.projectile.light = weapontype.light
-    result.projectile.animation = weapontype.animation
+    result.projectile.acceleration = weapontype.projectile_acceleration
+    result.projectile.picture = weapontype.projectile_picture
+    result.projectile.shadow = weapontype.projectile_shadow
+    result.projectile.smoke = weapontype.projectile_smoke
+    result.projectile.light = weapontype.projectile_light
+    result.projectile.animation = weapontype.projectile_animation
     result.projectile.max_speed = weapontype.max_speed
     result.projectile.collision_box = weapontype.collision_box or {{0, 0}, {0, 0}}
 
@@ -464,6 +462,8 @@ local function sanitseWeapontype(weapontype)
     result.projectile.turn_speed = weapontype.turn_speed
 
     result.projectile.reveal_map = weapontype.reveal_map
+    
+    result.projectile.map_color = weapontype.map_color
   end
   return result
 end

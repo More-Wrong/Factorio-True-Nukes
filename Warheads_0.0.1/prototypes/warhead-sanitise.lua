@@ -166,7 +166,7 @@ local function sanitseWarhead(key, warhead)
     if not weapon.projectile.chart_picture then
       if explosion.chart_tint or weapon.chart_tint then
         weapon.projectile.chart_picture = {
-          filename = "__True-Nukes__/graphics/artillery/artillery-generic/artillery-map.png",
+          filename = "__Warheads__/graphics/artillery/artillery-map.png",
           flags = { "icon" },
           frame_count = 1,
           width = 64,

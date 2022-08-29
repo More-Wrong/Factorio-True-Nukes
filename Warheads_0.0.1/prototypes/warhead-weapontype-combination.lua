@@ -120,7 +120,7 @@ local function combine(weapontype, warheadWeapon)
     item.ammo_type.cooldown_modifier = weapontype.item.cooldown_modifier * warheadWeapon.item.cooldown_modifier
     item.ammo_type.target_type = warheadWeapon.item.target_type or weapontype.item.target_type
     item.ammo_type.clamp_position = weapontype.item.clamp_position or warheadWeapon.item.clamp_position
-    item.ammo_type.category = weapontype.item.ammo_category or warheadWeapon.item.ammo_category
+    item.ammo_type.category = warheadWeapon.item.ammo_category or weapontype.item.ammo_category
     item.ammo_type.action = weapontype.item.action_creator(name, weapontype.item.range_modifier * warheadWeapon.item.range_modifier, warheadWeapon.projectile.action, warheadWeapon.projectile.final_action, warheadWeapon.projectile.created_action)
   elseif(weapontype.type == "land-mine") then
     item.place_result = name
@@ -139,6 +139,8 @@ local function combine(weapontype, warheadWeapon)
   recipe.name = name
   recipe.enabled = false
   recipe.order = weapontype.order .. warheadWeapon.appendOrder
+  recipe.category = weapontype.recipe.category
+  recipe.subgroup = weapontype.recipe.subgroup
   recipe.energy_required = weapontype.recipe.energy_required * warheadWeapon.recipe.energy_required_modifier
   recipe.crafting_machine_tint = warheadWeapon.recipe.crafting_machine_tint
   recipe.ingredients = table.deepcopy(weapontype.recipe.ingredients)
@@ -221,13 +223,15 @@ local function combine(weapontype, warheadWeapon)
       projectile.smoke = weapontype.projectile.smoke
       projectile.height_from_ground = weapontype.projectile.height
       projectile.collision_box = weapontype.projectile.collision_box
+      
+      projectile.map_color = warheadWeapon.projectile.map_color or weapontype.projectile.map_color
+      
       if((not warheadWeapon.projectile.collisions) and (not weapontype.projectile.collide_anyway)) then
         projectile.collision_box = nil
       end
     else
       projectile.type = "artillery-projectile"
 
-      projectile.map_color = warheadWeapon.projectile.map_color or weapontype.projectile.map_color
       projectile.chart_picture = warheadWeapon.projectile.chart_picture
       projectile.reveal_map = weapontype.projectile.reveal_map
     end
@@ -244,7 +248,7 @@ local function combine(weapontype, warheadWeapon)
     landmine.order = weapontype.order .. warheadWeapon.appendOrder
     landmine.icons = item.icons
     landmine.type = "land-mine"
-    landmine.ammo_category = (warheadWeapon.landmine or warheadWeapon.item).ammo_category or warheadWeapon.item.ammo_category
+    landmine.ammo_category = (warheadWeapon.landmine or warheadWeapon.item).ammo_category or (warheadWeapon.land_mine or warheadWeapon.item).ammo_category
     landmine.trigger_radius = weapontype.land_mine.trigger_radius*warheadWeapon.land_mine.trigger_radius_modifier
     landmine.picture_safe = (weapontype.land_mine.pictures[warheadWeapon.appendName] or weapontype.land_mine.pictures["default"]).picture_safe
     landmine.picture_set = (weapontype.land_mine.pictures[warheadWeapon.appendName] or weapontype.land_mine.pictures["default"]).picture_set
@@ -252,7 +256,6 @@ local function combine(weapontype, warheadWeapon)
     landmine.max_health = weapontype.land_mine.max_health*warheadWeapon.land_mine.max_health_modifier
     landmine.selection_box = weapontype.land_mine.selection_box
     landmine.created_effect = warheadWeapon.land_mine.created_effect
-    landmine.ammo_category = warheadWeapon.land_mine.ammo_category
     landmine.minable = table.deepcopy(weapontype.land_mine.minable)
     landmine.minable.result = item.name
     landmine.corpse = weapontype.land_mine.corpse
