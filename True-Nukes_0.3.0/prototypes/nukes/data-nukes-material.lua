@@ -1,4 +1,6 @@
 local boomMaterial = "uranium-235";
+local UBoomMaterial = "uranium-235";
+
 
 local deadMaterial = "uranium-238";
 
@@ -29,6 +31,9 @@ if settings.startup["boom-material"].value == "mod-dependant" then
   if mods["Nuclear Fuel"] then
     boomMaterial = "plutonium";
   end
+  if mods["PlutoniumEnergy"] then
+    boomMaterial = "plutonium-239";
+  end
 elseif settings.startup["boom-material"].value == "custom" then
   boomMaterial = settings.startup["boom-material-name"].value
 end
@@ -56,6 +61,7 @@ elseif settings.startup["light-material"].value == "custom" then
 end
 
 return {
+  UBoomMaterial = UBoomMaterial,
   boomMaterial = boomMaterial,
   deadMaterial = deadMaterial,
   smallBoomMaterial = smallBoomMaterial,

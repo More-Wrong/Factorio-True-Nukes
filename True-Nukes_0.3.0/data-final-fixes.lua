@@ -1,6 +1,4 @@
-if mods["bobwarfare"] then
-  data.raw.technology["bob-atomic-artillery-shell"] = nil
-end
+
 if(settings.startup["enable-new-craters"].value) then
   table.insert(water_tile_type_names, "nuclear-shallow")
   table.insert(water_tile_type_names, "nuclear-crater")

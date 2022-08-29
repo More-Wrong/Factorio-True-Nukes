@@ -14,3 +14,19 @@ end
 if mods["SchallTankPlatoon"] then
   require("compatibility.STP")
 end
+
+if mods["Nuclear Fuel"] then
+  require("compatibility.nuclear-fuel")
+end
+if mods["PlutoniumEnergy"] then
+  require("compatibility.plutonium-energy")
+end
+if mods["Clowns-Nuclear"] then
+  require("compatibility.clowns-nuclear")
+end
+if mods["apm_nuclear_ldinc"] then
+  require("compatibility.apm-nuclear")
+end
+if mods["bobwarfare"] then
+  data.raw.technology["bob-atomic-artillery-shell"] = nil
+end

@@ -269,7 +269,7 @@ data:extend{
   },
   {
     type = "technology",
-    name = "tritium-proccessing",
+    name = "tritium-processing",
     icon_size = 256, icon_mipmaps = 1,
     icon = "__True-Nukes__/graphics/tritium-processing.png",
     effects =
@@ -309,7 +309,7 @@ data:extend{
         recipe = "FOGBANK"
       }
     },
-    prerequisites = {"compact-full-fission-weapons", "tritium-proccessing"},
+    prerequisites = {"compact-full-fission-weapons", "tritium-processing"},
     unit =
     {
       count = 2000,
@@ -362,7 +362,7 @@ data:extend{
         recipe = "advanced-tritium-extraction"
       },
     },
-    prerequisites = {"compact-californium-weapons"},
+    prerequisites = {"compact-californium-weapons", "tritium-processing"},
     unit =
     {
       count = 1000,
