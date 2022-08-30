@@ -124,7 +124,7 @@ data:extend{
   {
     type = "item",
     name = "nuclear-test-site",
-    icon = "__True-Nukes__/graphics/megaton-nuke.png",
+    icon = "__True-Nukes__/graphics/nuclear-test-building.png",
     icon_size = 64, icon_mipmaps = 1,
     subgroup = "defensive-structure",
     order = "e[nuke]-a[nuclear-test-site]",
@@ -134,7 +134,7 @@ data:extend{
   {
     type = "item",
     name = "fusion-test-site",
-    icon = "__True-Nukes__/graphics/megaton-nuke.png",
+    icon = "__True-Nukes__/graphics/fusion-test-building.png",
     icon_size = 64, icon_mipmaps = 1,
     subgroup = "defensive-structure",
     order = "e[nuke]-b[fusion-test-site]",
@@ -145,7 +145,7 @@ data:extend{
     type = "furnace",
     name = "nuclear-test-site",
     is_military_target = true,
-    icon = "__True-Nukes__/graphics/megaton-nuke.png",
+    icon = "__True-Nukes__/graphics/nuclear-test-building.png",
     icon_size = 64, icon_mipmaps = 1,
     source_inventory_size = 1,
     result_inventory_size = 1,
@@ -161,8 +161,8 @@ data:extend{
         percent = 70
       }
     },
-    collision_box = {{-1.90, -1.40}, {1.90, 1.40}},
-    selection_box = {{-2, -1.5}, {2, 1.5}},
+    collision_box = {{-1.40, -1.40}, {1.40, 1.40}},
+    selection_box = {{-1.5, -1.5}, {1.5, 1.5}},
     damaged_trigger_effect = hit_effects.entity(),
     alert_icon_shift = util.by_pixel(-3, -12),
     map_color = {r = 0, g = 1, b = 0, a = 1},
@@ -293,7 +293,7 @@ data:extend{
     type = "assembling-machine",
     name = "fusion-test-site",
     is_military_target = true,
-    icon = "__True-Nukes__/graphics/megaton-nuke.png",
+    icon = "__True-Nukes__/graphics/fusion-test-building.png",
     icon_size = 64, icon_mipmaps = 1,
     source_inventory_size = 1,
     result_inventory_size = 1,
@@ -309,8 +309,8 @@ data:extend{
         percent = 70
       }
     },
-    collision_box = {{-1.90, -1.40}, {1.90, 1.40}},
-    selection_box = {{-2, -1.5}, {2, 1.5}},
+    collision_box = {{-1.40, -1.40}, {1.40, 1.40}},
+    selection_box = {{-1.5, -1.5}, {1.5, 1.5}},
     damaged_trigger_effect = hit_effects.entity(),
     alert_icon_shift = util.by_pixel(-3, -12),
     map_color = {r = 0, g = 1, b = 0, a = 1},
