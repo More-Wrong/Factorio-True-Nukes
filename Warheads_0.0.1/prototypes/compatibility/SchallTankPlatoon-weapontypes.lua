@@ -29,13 +29,13 @@ weaponTypes["autocannon-shell"]= {
   item = table.deepcopy(data.raw.ammo["explosive-autocannon-shell"]),
   projectile = table.deepcopy(data.raw.projectile["explosive-autocannon-projectile"]),
 }
-weaponTypes["cannon-shell-75"]= weaponTypes["cannon-shell"]
-
-weaponTypes["cannon-shell-75"].baseName = "cannon-shell-75"
-
-weaponTypes["cannon-shell-75"].appearance_fallback = "cannon-shell"
-
-weaponTypes["cannon-shell"].ignore = true
+--weaponTypes["cannon-shell-75"]= weaponTypes["cannon-shell"]
+--
+--weaponTypes["cannon-shell-75"].baseName = "cannon-shell-75"
+--
+--weaponTypes["cannon-shell-75"].appearance_fallback = "cannon-shell"
+--
+--weaponTypes["cannon-shell"].ignore = true
 
 weaponTypes["cannon-shell-88"]= {
   type = "projectile",

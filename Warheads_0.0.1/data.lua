@@ -19,5 +19,10 @@ if mods["Krastorio2"] then
   require("prototypes.compatibility.K2-weapontypes")
 end
 
+if mods["IndustrialRevolution"] then
+  require("prototypes.compatibility.IR2-tmp-patch")
+end
+
+
 
 

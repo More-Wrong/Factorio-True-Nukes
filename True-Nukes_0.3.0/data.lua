@@ -133,19 +133,19 @@ end
 
 
 
-if(settings.startup["enable-menu-backgrounds"].value)then
-  if(settings.startup["enable-compact-medium-atomics"].value) then
-    require("menu-simulations.nuke-1x20t")
-  end
-
-  if(settings.startup["enable-compact-medium-atomics"].value) then
-    require("menu-simulations.nuke-2x2t")
-  end
-
-  if(settings.startup["enable-large-atomics"].value) then
-    require("menu-simulations.nuke-1x1kt")
-  end
-end
+--if(settings.startup["enable-menu-backgrounds"].value)then
+--  if(settings.startup["enable-compact-medium-atomics"].value) then
+--    require("menu-simulations.nuke-1x20t")
+--  end
+--
+--  if(settings.startup["enable-compact-medium-atomics"].value) then
+--    require("menu-simulations.nuke-2x2t")
+--  end
+--
+--  if(settings.startup["enable-large-atomics"].value) then
+--    require("menu-simulations.nuke-1x1kt")
+--  end
+--end
 
 
 
