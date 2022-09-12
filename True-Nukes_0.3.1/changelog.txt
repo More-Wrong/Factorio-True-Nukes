@@ -1,6 +1,11 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.3.1
+Date: 2022-09-12
+  Bugfixes:
+    - Fixed issue with migrations causing crash
+---------------------------------------------------------------------------------------------------
 Version: 0.3.0
-Date: 2022-08-29
+Date: 2022-09-11
   Features:
     - Moved to Warhead based system
     - Added more support for nuclear fuel cycle mods
