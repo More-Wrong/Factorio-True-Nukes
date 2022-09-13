@@ -240,6 +240,8 @@ local function combine(weapontype, warheadWeapon)
     projectile.created_effect = warheadWeapon.projectile.created_action
     projectile.picture = weapontype.projectile.picture
     projectile.shadow = weapontype.projectile.shadow
+    projectile.localised_name = {"weapontype-name." .. weapontype.name, {"warhead-name." .. warheadWeapon.appendName}}
+    projectile.localised_description = {"weapontype-description." .. weapontype.name, {"warhead-description." .. warheadWeapon.appendName}}
 
     result.projectile = projectile
   elseif(weapontype.type == "land-mine") then
@@ -272,6 +274,8 @@ local function combine(weapontype, warheadWeapon)
         "placeable-off-grid",
         "not-on-map"
       }
+    landmine.localised_name = {"weapontype-name." .. weapontype.name, {"warhead-name." .. warheadWeapon.appendName}}
+    landmine.localised_description = {"weapontype-description." .. weapontype.name, {"warhead-description." .. warheadWeapon.appendName}}
     landmine.open_sound = sounds.machine_open
     landmine.close_sound = sounds.machine_close
     landmine.mined_sound = { filename = "__core__/sound/deconstruct-small.ogg" }
