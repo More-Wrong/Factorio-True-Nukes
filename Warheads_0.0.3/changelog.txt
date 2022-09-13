@@ -1,4 +1,8 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.0.3
+  Bugfixes:
+    - Fixed missing localisation for landmines (and projectiles).
+---------------------------------------------------------------------------------------------------
 Version: 0.0.2
   Bugfixes:
     - Fixed incompatibility with K2 and IR2 enabled.
