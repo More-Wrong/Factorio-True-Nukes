@@ -1,4 +1,10 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.0.4
+  Bugfixes:
+    - Fixed unknown incompatibility crash.
+  Features:
+    - Support for Ironclad and Rampant mortars.
+---------------------------------------------------------------------------------------------------
 Version: 0.0.3
   Bugfixes:
     - Fixed missing localisation for landmines (and projectiles).
