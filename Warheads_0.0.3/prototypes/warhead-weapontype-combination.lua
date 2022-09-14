@@ -113,7 +113,7 @@ local function combine(weapontype, warheadWeapon)
   if (weapontype.item.reload_time) then
     item.reload_time = weapontype.item.reload_time*warheadWeapon.item.reload_time_modifier
   end
-  if (weapontype.type == "projectile" or weapontype.type == "artillery" or weapontype.type == "bullet") then
+  if (weapontype.type == "projectile" or weapontype.type == "stream" or weapontype.type == "artillery" or weapontype.type == "bullet") then
     item.type = "ammo"
     item.ammo_type = {}
     item.ammo_type.range_modifier = weapontype.item.range_modifier * warheadWeapon.item.range_modifier
@@ -191,8 +191,11 @@ local function combine(weapontype, warheadWeapon)
   end
   result.recipe = recipe
 
-  if (weapontype.type == "projectile" or weapontype.type == "capsule" or weapontype.type == "artillery") then
+  if (weapontype.type == "projectile" or weapontype.type == "stream" or weapontype.type == "capsule" or weapontype.type == "artillery") then
     local projectile = {}
+    if(weapontype.type == "stream")then
+      projectile = weapontype.stream;
+    end
     projectile.name = name
     projectile.order = weapontype.order .. warheadWeapon.appendOrder
     projectile.icons = appearance.icons
@@ -223,12 +226,12 @@ local function combine(weapontype, warheadWeapon)
       projectile.smoke = weapontype.projectile.smoke
       projectile.height_from_ground = weapontype.projectile.height
       projectile.collision_box = weapontype.projectile.collision_box
-      
-      
+
+
       if((not warheadWeapon.projectile.collisions) and (not weapontype.projectile.collide_anyway)) then
         projectile.collision_box = nil
       end
-    else
+    elseif (weapontype.type == "artillery") then
       projectile.type = "artillery-projectile"
 
       projectile.chart_picture = warheadWeapon.projectile.chart_picture

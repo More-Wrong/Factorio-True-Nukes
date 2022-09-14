@@ -4,7 +4,7 @@ local util = require("warheads")
 
 local function sanitseWeapontype(weapontype)
   local item = weapontype.item or {}
-  
+
   local result = {}
   result.type = weapontype.type -- projectile, artillery, land-mine, bullet, capsule, other...
 
@@ -203,10 +203,10 @@ local function sanitseWeapontype(weapontype)
       result.appearances["default"].icons = item.icons
     end
   end
-  
+
   result.item = {}
   result.item.subgroup = weapontype.subgroup or item.subgroup
-  result.item.stack_size = weapontype.stack_size or item.stack_size
+  result.item.stack_size = weapontype.stack_size or item.stack_size or 200
 
   result.item.magazine_size = weapontype.magazine_size or item.magazine_size or 1
   result.item.reload_time = weapontype.reload_time or item.reload_time or 0
@@ -278,6 +278,44 @@ local function sanitseWeapontype(weapontype)
         end
         return a
       end
+    elseif result.type == "stream" then
+      result.item.action_creator = function (projectile, range_mult, target_action, final_action, source_action)
+        local a = table.deepcopy(item.ammo_type.action)
+        local to_use = nil
+
+        for _,act in pairs(a) do
+          local action = act
+          if(a.action_delivery)then
+            action = a
+          end
+          if(action.action_delivery.stream) then
+            to_use = action.action_delivery
+          else
+            for _,del in pairs(action.action_delivery) do
+              if (del.stream) then
+                to_use = del
+              end
+            end
+          end
+          if(to_use) then
+            break
+          end
+        end
+        if(not to_use) then
+          log("ERROR: Cannot find projectile field")
+          log("NAME: " .. item.name)
+          local ERROR_No_projectile_field_on_item____PLEASE_REPORT_AS_BUG_ON_MOD_PAGE = nil
+          log(ERROR_No_projectile_field_on_item____PLEASE_REPORT_AS_BUG_ON_MOD_PAGE.a)
+        end
+        to_use.stream = projectile
+        if source_action then
+          if not to_use.source_effects then
+            to_use.source_effects = {}
+          end
+          table.insert(to_use.source_effects, {type = "nested-result", action = source_action})
+        end
+        return a
+      end
     elseif result.type == "land-mine" then
       result.item.action_creator = function (projectile, range_mult, target_action, final_action, source_action)
         local a = table.deepcopy(item.action)
@@ -330,7 +368,7 @@ local function sanitseWeapontype(weapontype)
           local ERROR_No_target_action_field_on_item____PLEASE_REPORT_AS_BUG_ON_MOD_PAGE = nil
           log(ERROR_No_target_action_field_on_item____PLEASE_REPORT_AS_BUG_ON_MOD_PAGE.a)
         end
-        
+
         if target_action then
           if not to_use.target_effects then
             to_use.target_effects = {}
@@ -415,6 +453,11 @@ local function sanitseWeapontype(weapontype)
     mining_particle = weapontype.land_mine_mining_particle or (weapontype.landmine or data.raw["land-mine"]["land-mine"]).mining_particle
   }
 
+  --TODO: do this nicely
+  if(weapontype.stream) then
+    result.stream = weapontype.stream
+    weapontype.projectile = weapontype.projectile or weapontype.stream
+  end
   result.projectile = {}
   if weapontype.projectile then
     result.projectile.acceleration = weapontype.projectile_acceleration or weapontype.projectile.acceleration
@@ -462,9 +505,10 @@ local function sanitseWeapontype(weapontype)
     result.projectile.turn_speed = weapontype.turn_speed
 
     result.projectile.reveal_map = weapontype.reveal_map
-    
+
     result.projectile.map_color = weapontype.map_color
   end
+
   return result
 end
 

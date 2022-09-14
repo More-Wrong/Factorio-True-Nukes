@@ -22,6 +22,12 @@ end
 if mods["IndustrialRevolution"] then
   require("prototypes.compatibility.IR2-tmp-patch")
 end
+if mods["aai-vehicles-ironclad"] then
+  require("prototypes.compatibility.aai-ironclad")
+end
+if mods["RampantArsenal"] then
+  require("prototypes.compatibility.rampant-arsenal")
+end
 
 
 

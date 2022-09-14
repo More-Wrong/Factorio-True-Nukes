@@ -199,7 +199,6 @@ weaponTypes["land-mine"]= {
 weaponTypes["capsule"]= {
   type = "capsule",
   max_size = "medium",
-  min_size = "tiny",
   baseName = "capsule",
   base_item = "grenade",
   icon = "__base__/graphics/icons/grenade.png",
