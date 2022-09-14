@@ -349,7 +349,7 @@ local function sanitseWeapontype(weapontype)
           if(a.action_delivery)then
             action = a
           end
-          if(action.action_delivery.type) then
+          if(action.action_delivery.type == "instant") then
             to_use = action.action_delivery
           else
             for _,del in pairs(action.action_delivery) do
