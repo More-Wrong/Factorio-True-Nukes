@@ -1,4 +1,8 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.0.5
+  Bugfixes:
+    - Fixed incompatibility with K2 when realistic combat off.
+---------------------------------------------------------------------------------------------------
 Version: 0.0.4
   Bugfixes:
     - Fixed unknown incompatibility crash.
