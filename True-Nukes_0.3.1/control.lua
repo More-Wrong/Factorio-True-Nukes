@@ -171,7 +171,7 @@ local function optimisedChunkLoadHandler(chunkPosAndArea, chunkLoaderStruct, kil
       end
     end
     local crater_system_to_use = crater_system
-    if(game.surfaces[surface_index].find_tiles_filtered{position = originPos, name = crater_system_se.interesting_tiles}) then
+    if(game.surfaces[surface_index].count_tiles_filtered{position = originPos, name = crater_system_se.interesting_tiles, limit=1} ~= 0) then
       crater_system_to_use = crater_system_se
     end
     -- crater

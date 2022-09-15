@@ -360,6 +360,7 @@ for i = 0,100 do
     table.insert(data.raw.module["productivity-module-" .. i].limitation, "advanced-tritium-breeder-fuel-cell")
     table.insert(data.raw.module["productivity-module-" .. i].limitation, "tritium-extraction")
     table.insert(data.raw.module["productivity-module-" .. i].limitation, "advanced-tritium-extraction")
+    table.insert(data.raw.module["productivity-module-" .. i].limitation, "advanced-kovarex-enrichment-process")
     table.insert(data.raw.module["productivity-module-" .. i].limitation, "FOGBANK")
     table.insert(data.raw.module["productivity-module-" .. i].limitation, "neutron-reflector")
   end
@@ -371,6 +372,7 @@ if(data.raw.module["productivity-module"] and data.raw.module["productivity-modu
   table.insert(data.raw.module["productivity-module"].limitation, "advanced-tritium-breeder-fuel-cell")
   table.insert(data.raw.module["productivity-module"].limitation, "tritium-extraction")
   table.insert(data.raw.module["productivity-module"].limitation, "advanced-tritium-extraction")
+  table.insert(data.raw.module["productivity-module"].limitation, "advanced-kovarex-enrichment-process")
   table.insert(data.raw.module["productivity-module"].limitation, "FOGBANK")
   table.insert(data.raw.module["productivity-module"].limitation, "neutron-reflector")
 end

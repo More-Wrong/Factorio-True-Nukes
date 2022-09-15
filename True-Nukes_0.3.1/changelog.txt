@@ -1,4 +1,10 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.3.2
+Date: 2022-09-15
+  Bugfixes:
+    - Fixed issue with SE tiles being detected where there aren't any
+    - Allowed productivity modules to be used on advanced enrichment
+---------------------------------------------------------------------------------------------------
 Version: 0.3.1
 Date: 2022-09-12
   Bugfixes:
