@@ -194,7 +194,7 @@ local function combine(weapontype, warheadWeapon)
   if (weapontype.type == "projectile" or weapontype.type == "stream" or weapontype.type == "capsule" or weapontype.type == "artillery") then
     local projectile = {}
     if(weapontype.type == "stream")then
-      projectile = weapontype.stream;
+      projectile = table.deepcopy(weapontype.stream);
     end
     projectile.name = name
     projectile.order = weapontype.order .. warheadWeapon.appendOrder

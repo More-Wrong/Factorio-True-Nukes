@@ -279,7 +279,7 @@ local function sanitseWeapontype(weapontype)
         return a
       end
     elseif result.type == "stream" then
-      result.item.action_creator = function (projectile, range_mult, target_action, final_action, source_action)
+      result.item.action_creator = function (stream, range_mult, target_action, final_action, source_action)
         local a = table.deepcopy(item.ammo_type.action)
         local to_use = nil
 
@@ -302,12 +302,12 @@ local function sanitseWeapontype(weapontype)
           end
         end
         if(not to_use) then
-          log("ERROR: Cannot find projectile field")
+          log("ERROR: Cannot find stream field")
           log("NAME: " .. item.name)
           local ERROR_No_projectile_field_on_item____PLEASE_REPORT_AS_BUG_ON_MOD_PAGE = nil
           log(ERROR_No_projectile_field_on_item____PLEASE_REPORT_AS_BUG_ON_MOD_PAGE.a)
         end
-        to_use.stream = projectile
+        to_use.stream = stream
         if source_action then
           if not to_use.source_effects then
             to_use.source_effects = {}
@@ -349,7 +349,7 @@ local function sanitseWeapontype(weapontype)
           if(a.action_delivery)then
             action = a
           end
-          if(action.action_delivery.type == "instant") then
+          if(action.action_delivery.type) then
             to_use = action.action_delivery
           else
             for _,del in pairs(action.action_delivery) do
