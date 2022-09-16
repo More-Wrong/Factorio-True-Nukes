@@ -1,4 +1,8 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.0.7
+  Bugfixes:
+    - Fixed stream type weapons (such as mortars)
+---------------------------------------------------------------------------------------------------
 Version: 0.0.6
   Bugfixes:
     - Fixed incompatibility with K2 when realistic combat on.
