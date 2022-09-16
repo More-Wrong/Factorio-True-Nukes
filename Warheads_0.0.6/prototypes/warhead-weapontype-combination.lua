@@ -246,6 +246,25 @@ local function combine(weapontype, warheadWeapon)
     projectile.localised_name = {"weapontype-name." .. weapontype.name, {"warhead-name." .. warheadWeapon.appendName}}
     projectile.localised_description = {"weapontype-description." .. weapontype.name, {"warhead-description." .. warheadWeapon.appendName}}
 
+    if(weapontype.type == "stream")then
+      projectile.action = {
+        type = "direct",
+        action_delivery = {
+          type = "instant",
+          target_effects = {
+            {
+              type = "nested-result",
+              action =projectile.action
+            },
+            {
+              type = "nested-result",
+              action =projectile.final_action
+            }
+          }
+        }
+      }
+
+    end
     result.projectile = projectile
   elseif(weapontype.type == "land-mine") then
     local landmine = {}
