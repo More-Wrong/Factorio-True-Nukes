@@ -53,12 +53,13 @@ corpseMap["medium-worm-turret"] = "medium-worm-corpse"
 corpseMap["big-worm-turret"] = "big-worm-corpse"
 corpseMap["behemoth-worm-turret"] = "behemoth-worm-corpse"
 
-corpseMap["solar-panel"] = "solar-panel-remnants"
-corpseMap["accumulator"] = "accumulator-remnants"
-corpseMap["transport-belt"] = "transport-belt-remnants"
-corpseMap["fast-transport-belt"] = "fast-transport-belt-remnants"
-corpseMap["express-transport-belt"] = "express-transport-belt-remnants"
-corpseMap["stone-wall"] = "wall-remnants"
+--not sure this saves THAT much, particularly considering the complexity...Disabled temporarily...
+--corpseMap["solar-panel"] = "solar-panel-remnants"
+--corpseMap["accumulator"] = "accumulator-remnants"
+--corpseMap["transport-belt"] = "transport-belt-remnants"
+--corpseMap["fast-transport-belt"] = "fast-transport-belt-remnants"
+--corpseMap["express-transport-belt"] = "express-transport-belt-remnants"
+--corpseMap["stone-wall"] = "wall-remnants"
 
 
 
