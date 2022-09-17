@@ -57,6 +57,8 @@ data.raw.technology["basic-atomic-weapons"].unit.ingredients = basic
 
 if(settings.startup["enable-medium-atomics"].value and settings.startup["enable-nuclear-tests"].value) then
   data.raw.technology["atomic-bomb"].unit.ingredients = {{"test-pack-atomic-20t-1", 1}}
+  data.raw.technology["atomic-bomb"].unit.count = 1
+  data.raw.technology["atomic-bomb"].unit.time = 1
 else
   data.raw.technology["atomic-bomb"].unit.ingredients = basic
 end
@@ -75,9 +77,6 @@ if(settings.startup["enable-large-atomics"].value) then
     ingredients = space,
     time = 45
   }
-  if(data.raw.technology["kovarex-enrichment-process"]) then
-    table.insert(data.raw.technology["full-fission-atomics"].prerequisites, "kovarex-enrichment-process")
-  end
   if(settings.startup["enable-nuclear-tests"].value) then
     data.raw.technology["full-fission-atomics"].unit =
       {
