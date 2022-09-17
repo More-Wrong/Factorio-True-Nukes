@@ -75,6 +75,9 @@ if(settings.startup["enable-large-atomics"].value) then
     ingredients = space,
     time = 45
   }
+  if(data.raw.technology["kovarex-enrichment-process"]) then
+    table.insert(data.raw.technology["full-fission-atomics"].prerequisites, "kovarex-enrichment-process")
+  end
   if(settings.startup["enable-nuclear-tests"].value) then
     data.raw.technology["full-fission-atomics"].unit =
       {
