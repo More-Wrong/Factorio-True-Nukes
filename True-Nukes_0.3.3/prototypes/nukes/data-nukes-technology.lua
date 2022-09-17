@@ -367,7 +367,7 @@ if(settings.startup["enable-compact-15kt"].value or settings.startup["enable-com
       })
   end
 
-  if not next(data.raw.technology["compact-full-fission-weapons"].unit.ingredients) then
+  if not next(data.raw.technology["compact-full-fission-weapons"].unit.ingredients[1]) then
     data.raw.technology["compact-full-fission-weapons"].unit = {
       count = 500,
       ingredients = space,

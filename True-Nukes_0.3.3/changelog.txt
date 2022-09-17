@@ -1,4 +1,11 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.3.4
+Date: 2022-09-17
+  Features:
+    - Set up researches for SE to be more reasonable/attainable.
+  Bugfixes:
+    - Fixed possible issues when nuclear tests are disabled
+---------------------------------------------------------------------------------------------------
 Version: 0.3.3
 Date: 2022-09-16
   Bugfixes:
