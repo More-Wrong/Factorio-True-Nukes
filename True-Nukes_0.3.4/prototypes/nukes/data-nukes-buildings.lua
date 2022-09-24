@@ -298,7 +298,7 @@ data:extend{
     source_inventory_size = 1,
     result_inventory_size = 1,
     flags = {"placeable-neutral", "placeable-player", "player-creation"},
-    minable = {mining_time = 10, result = "nuclear-test-site"},
+    minable = {mining_time = 10, result = "fusion-test-site"},
     max_health = 5000,
     corpse = "assembling-machine-1-remnants",
     dying_explosion = "massive-explosion",
