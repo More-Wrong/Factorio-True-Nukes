@@ -1,5 +1,6 @@
 local warheads_added = require("__True-Nukes__.prototypes.nukes.data-nukes-building-warheads")
 local test_system = require("nuclear-test-system")
+local achievement_system = require("achievement-system")
 
 local function nukeBuildingDetonate(building)
   local result = nil
@@ -7,12 +8,12 @@ local function nukeBuildingDetonate(building)
     if(game.item_prototypes[w.warhead] and building.get_output_inventory().get_item_count("detonation" .. w.name .. w.label) ~= 0) then
       result = w.name
       test_system.testDetonation(building.force, w)
+      achievement_system.building_detonated(building, w)
       break
     end
   end
-  building.surface.create_entity{name="warhead-util-projectile" .. result, position={building.position.x-1, building.position.y}, target=building, speed=100, max_range=1, force=building.force}
+  building.surface.create_entity{name="warhead-util-projectile" .. result, position={building.position.x-1, building.position.y}, target=building, speed=100, max_range=1, force=building.force, source=building}
   building.get_output_inventory().clear();
-  building.destroy();
 end
 
 local function checkBuildings()

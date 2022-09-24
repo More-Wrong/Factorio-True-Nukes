@@ -1,3 +1,4 @@
+local achievement_system = require("achievement-system")
 
 local decorativeMap = {}
 decorativeMap["brown-asterisk"] = {"rock-tiny", 1/4}
@@ -62,6 +63,15 @@ local function full_fireball(surface_index, position, fireball_r, crater_externa
     if(v.valid and (not (string.match(v.type, "ghost"))) and (not (v.type == "resource"))) then
       if v.type=="tree" then
         v.destroy()
+      elseif v.type == "character" then
+        if(v.force == force and v.player) then
+          achievement_system.nukedSelf(v.player);
+        end
+        if(cause and cause.valid) then
+          v.die(force, cause)
+        else
+          v.die(force)
+        end
       elseif(corpseMap[v.name]) then
         v.destroy{raise_destroy = true}
       elseif cause and cause.valid then
@@ -105,7 +115,16 @@ local function full_fireball(surface_index, position, fireball_r, crater_externa
   -- make sure everything is dead in the fireball
   for _,v in pairs(game.surfaces[surface_index].find_entities_filtered{position=position, radius=fireball_r}) do
     if(v.valid and (not (string.match(v.type, "ghost"))) and (not (v.type == "resource"))) then
-      if(cause and cause.valid) then
+      if v.type == "character" then
+        if(v.force == force and v.player) then
+          achievement_system.nukedSelf(v.player);
+        end
+        if(cause and cause.valid) then
+          v.die(force, cause)
+        else
+          v.die(force)
+        end
+      elseif(cause and cause.valid) then
         if not v.die(force, cause) then
           v.destroy{raise_destroy = true};
         end
@@ -129,6 +148,15 @@ local function partial_fireball(surface_index, chunkLoaderStruct, chunkPosAndAre
 
       if e.type=="tree" then
         e.destroy()
+      elseif e.type == "character" then
+        if(e.force == force and e.player) then
+          achievement_system.nukedSelf(e.player);
+        end
+        if(cause and cause.valid) then
+          e.die(force, cause)
+        else
+          e.die(force)
+        end
       elseif(corpseMap[e.name]) then
         e.destroy{raise_destroy = true}
       elseif(cause ~= nil and cause.valid) then
@@ -149,8 +177,17 @@ local function partial_fireball(surface_index, chunkLoaderStruct, chunkPosAndAre
       (e.position.x-originPos.x)*(e.position.x-originPos.x) + (e.position.y-originPos.y)*(e.position.y-originPos.y)<=fireballSq) then
       if e.type=="tree" then
         e.destroy()
+      elseif e.type == "character" then
+        if(e.force == force and e.player) then
+          achievement_system.nukedSelf(e.player);
+        end
+        if(cause and cause.valid) then
+          e.die(force, cause)
+        else
+          e.die(force)
+        end
       elseif(corpseMap[e.name]) then
-          e.destroy{raise_destroy = true}
+        e.destroy{raise_destroy = true}
       elseif(cause ~= nil and cause.valid) then
         if not e.die(force, cause) then
           e.destroy{raise_destroy = true};

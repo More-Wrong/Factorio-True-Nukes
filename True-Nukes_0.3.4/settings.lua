@@ -56,21 +56,30 @@ data:extend({
   },
   {
     type = "double-setting",
-    name = "large-nuke-blast-range-scaledown",
+    name = "large-nuke-range-scaledown",
     setting_type = "runtime-global",
     minimum_value = 1,
-    maximum_value = 2,
+    maximum_value = 4,
     default_value = 1.5,
     order = "c0"
   },
   {
     type = "double-setting",
-    name = "really-huge-nuke-blast-range-scaledown",
+    name = "huge-nuke-range-scaledown",
     setting_type = "runtime-global",
     minimum_value = 1,
-    maximum_value = 2,
-    default_value = 2,
+    maximum_value = 4,
+    default_value = 1.5,
     order = "c1"
+  },
+  {
+    type = "double-setting",
+    name = "really-huge-nuke-range-scaledown",
+    setting_type = "runtime-global",
+    minimum_value = 1,
+    maximum_value = 4,
+    default_value = 1.5,
+    order = "c2"
   },
   {
     type = "bool-setting",

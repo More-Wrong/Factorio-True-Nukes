@@ -4,6 +4,7 @@ require("data-nukes-intermediate")
 require("data-nukes-warheads-create")
 require("data-nukes-warheads-weapon-appearance")
 require("data-nukes-technology")
+require("data-nukes-achievements")
 
 if mods["space-exploration"] then
   require("compatibility.SE")
