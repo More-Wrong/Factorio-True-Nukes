@@ -38,7 +38,7 @@ local function tileNoise(surface, tableTarget, position, radius, depthMult, tile
 
         local noise_pos = {x = math.floor(position.x+(dist+radius-1)*math.sin(ang+offset)+0.5), y = math.floor(position.y+(dist+radius-1)*math.cos(ang+offset)+0.5)}
         local cur_tile = defaultOnly or surface.get_tile(noise_pos)
-        if((position.x-noise_pos.x)*(position.x-noise_pos.x)+(position.y-noise_pos.y)*(position.y-noise_pos.y)<=radius+0.5) then
+        if((not defaultOnly and cur_tile.name == "out-of-map") or (position.x-noise_pos.x)*(position.x-noise_pos.x)+(position.y-noise_pos.y)*(position.y-noise_pos.y)<=radius+0.5) then
         --Do nothing - used to remove rounding errors and prevent hitting the same tile twice
         elseif (defaultOnly or tileMap[cur_tile.name] == nil) then
           if(not(tileMap["default"] ==nil)) then
@@ -82,7 +82,7 @@ local function tileNoiseLimited(surface, tableTarget, position, radius, depthMul
           if(boundaryBox.left_top.x<=noise_pos.x and boundaryBox.right_bottom.x>=noise_pos.x
             and boundaryBox.left_top.y<=noise_pos.y and boundaryBox.right_bottom.y>=noise_pos.y) then
             local cur_tile = defaultOnly or surface.get_tile(noise_pos)
-            if(defaultOnly or cur_tile.valid) then
+            if(defaultOnly or (cur_tile.valid and cur_tile.name~="out-of-map")) then
               if((position.x-noise_pos.x)*(position.x-noise_pos.x)+(position.y-noise_pos.y)*(position.y-noise_pos.y)<=radius+0.5) then
               --Do nothing - used to remove rounding errors and prevent hitting the same tile twice
               elseif (defaultOnly or tileMap[cur_tile.name] == nil) then

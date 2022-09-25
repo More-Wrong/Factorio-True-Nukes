@@ -169,7 +169,8 @@ local function nukeTileChangesHeightAware(position, check_craters, surface_index
   end
   for _,v in pairs(game.surfaces[surface_index].find_tiles_filtered{position=position, radius=fireball_r+0.5}) do
     local distSq = (v.position.x-position.x)*(v.position.x-position.x)+(v.position.y-position.y)*(v.position.y-position.y)
-    if(distSq>crater_external_r*crater_external_r and (noiseTables[1][v.position.x]==nil or noiseTables[1][v.position.x][v.position.y]==nil)) then
+    if(v.name == "out-of-map")then
+    elseif(distSq>crater_external_r*crater_external_r and (noiseTables[1][v.position.x]==nil or noiseTables[1][v.position.x][v.position.y]==nil)) then
       if(water.waterDepths[v.name]) then
         table.insert(tileTable, {name = water.depthsForCrater[water.waterDepths[v.name]], position = v.position})
       end
@@ -255,9 +256,12 @@ local function nukeTileChangesHeightAware(position, check_craters, surface_index
     circularNoise(groundNoise, position, fireball_r, 1, 3)
     for x,xtiles in pairs(groundNoise) do
       for y,_ in pairs(xtiles) do
-        local tileDepth = water.waterDepths[game.surfaces[surface_index].get_tile(x, y)];
-        if not(tileDepth == nil) then
-          table.insert(tileTable, {name = water.depthsForCrater[tileDepth], position = {x = x, y = y}})
+        local tile = game.surfaces[surface_index].get_tile(x, y)
+        if(tile ~= "out-of-map")then
+          local tileDepth = water.waterDepths[tile.name];
+          if not(tileDepth == nil) then
+            table.insert(tileTable, {name = water.depthsForCrater[tileDepth], position = {x = x, y = y}})
+          end
         end
       end
     end
