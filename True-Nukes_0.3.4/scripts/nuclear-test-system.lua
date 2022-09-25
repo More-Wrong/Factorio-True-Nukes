@@ -19,15 +19,21 @@ local function reevaluateResearch(force)
     for _,i in pairs(force.current_research.research_unit_ingredients) do
       matchCount = matchCount + math.min(global.nuclearTests[force.index][i.name] or 0, i.amount*force.current_research.research_unit_count)
     end
-    if(matchCount ~= 0) then -- just to really make sure we don't mess up any other mods...
+    if(ingCount ~= 0) then -- just to really make sure we don't mess up any other mods...
       if(matchCount == ingCount) then
-        force.current_research.researched = true
+        force.current_research.researched = true;
     else
       force.research_progress = (matchCount + 0.0)/ingCount
+      for _,i in pairs(force.current_research.research_unit_ingredients) do
+        if((global.nuclearTests[force.index][i.name] or 0)<i.amount*force.current_research.research_unit_count) then
+          force.print({"script-text.required-tests", (i.amount*force.current_research.research_unit_count-(global.nuclearTests[force.index][i.name] or 0)), game.item_prototypes[i.name].localised_name})
+        end
+      end
     end
     end
   end
 end
+
 local function testDetonation(force, warhead)
   local packName = "test-pack" .. warhead.name .. warhead.label
   if not global.nuclearTests then
