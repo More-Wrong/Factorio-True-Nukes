@@ -86,7 +86,7 @@ weaponTypes["shotgun-shell"]= { -- DO NOT USE, ONLY HERE AS FALLBACK...
   image_warhead_shift = {-8, -8},
   item = table.deepcopy(data.raw.ammo["piercing-shotgun-shell"]),
   projectile = table.deepcopy(data.raw.projectile["piercing-shotgun-pellet"]),
-} 
+}
 
 
 weaponTypes["rounds-magazine"]= {
@@ -113,6 +113,7 @@ weaponTypes["cannon-shell"]= {
   energy_required = 1,
   icons = {},
   lights = {},
+  range_modifier = 3,
   image_base_shift = {-4, 0},
   item = table.deepcopy(data.raw.ammo["cannon-shell"]),
   projectile = table.deepcopy(data.raw.projectile["cannon-projectile"]),

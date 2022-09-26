@@ -10,7 +10,7 @@ local function checkAllowAchievements()
   if(global.allowAchievements)then
     for _,player in pairs(game.players) do
       if(player.cheat_mode) then
-        --        global.allowAchievements = false;
+        global.allowAchievements = false;
         game.print("Warning, cheat mode detected - achievements disabled for True-Nukes")
       end
     end

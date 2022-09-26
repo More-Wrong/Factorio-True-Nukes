@@ -207,7 +207,7 @@ local function combine(weapontype, warheadWeapon)
         projectile.acceleration = weapontype.projectile.acceleration * warheadWeapon.projectile.acceleration_modifier
       end
       projectile.animation = weapontype.projectile.animation
-      projectile.direction_only = weapontype.projectile.direction_only
+      projectile.direction_only = warheadWeapon.projectile.collisions and weapontype.projectile.direction_only
       projectile.height = weapontype.projectile.height
       projectile.light = weapontype.projectile.light
       if(weapontype.projectile.max_speed) then
