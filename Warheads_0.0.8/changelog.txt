@@ -1,4 +1,9 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.0.8
+Date: 2022-09-26
+  Bugfixes:
+    - Fixed issues with ranges on weapons, and tank shells not firing where you want
+---------------------------------------------------------------------------------------------------
 Version: 0.0.7
   Bugfixes:
     - Fixed stream type weapons (such as mortars)

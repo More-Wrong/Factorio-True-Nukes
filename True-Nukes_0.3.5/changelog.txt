@@ -1,4 +1,16 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.3.5
+Date: 2022-09-26
+  Features:
+    - Achievements!!!
+    - Mod now tells you what tests need to be done when research is selected
+  Bugfixes:
+    - Lots of cases where void tiles are turned to craters
+    - Range related issues fixed
+    - Wrong pickup for fusion test building
+    - Optimisations if SE isn't there
+    - Added missing odds and ends from migrations
+---------------------------------------------------------------------------------------------------
 Version: 0.3.4
 Date: 2022-09-17
   Features:
