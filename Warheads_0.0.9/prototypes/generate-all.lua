@@ -41,7 +41,7 @@ for name,warhead_dirty in pairs(warheads) do
               if specialTechForWarheadWeapon[combination.rawName] ~= nil then
                 tech = specialTechForWarheadWeapon[combination.rawName]
               end
-              if tech then
+              if tech and data.raw.technology[tech] then
                 if not data.raw.technology[tech].effects then
                   data.raw.technology[tech].effects = {}
                 end
@@ -59,7 +59,7 @@ for name,warhead_dirty in pairs(warheads) do
   end
   if(used or generateWarheadAnyway[warhead.warhead.item.name]) then
     data:extend({warhead.warhead.item, warhead.warhead.recipe})
-    if(warhead_dirty.tech) then
+    if(warhead_dirty.tech and data.raw.technology[warhead_dirty.tech]) then
       table.insert(data.raw.technology[warhead_dirty.tech].effects, 1,
         {
           type = "unlock-recipe",

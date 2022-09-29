@@ -10,7 +10,7 @@ specialTechForWarheadWeapon["land-mine-atomic-20t"] = "atomic-bomb"
 
 if(settings.startup["enable-nuclear-tests"].value) then
 
-  if(warheads["TN-warhead-20--1"].value) then
+  if(warheads["TN-warhead-20--1"]) then
     data:extend{
       {
         type = "tool",
@@ -27,7 +27,7 @@ if(settings.startup["enable-nuclear-tests"].value) then
     generateWarheadAnyway["TN-warhead-20--1"] = true
   end
     
-  if(warheads["TN-warhead-500--1"].value) then
+  if(warheads["TN-warhead-500--1"]) then
     data:extend{
       {
         type = "tool",
@@ -44,7 +44,7 @@ if(settings.startup["enable-nuclear-tests"].value) then
     generateWarheadAnyway["TN-warhead-500--1"] = true
   end
     
-  if(warheads["TN-warhead-20--3"].value) then
+  if(warheads["TN-warhead-20--3"]) then
     data:extend{
       {
         type = "tool",
@@ -61,7 +61,7 @@ if(settings.startup["enable-nuclear-tests"].value) then
     generateWarheadAnyway["TN-warhead-20--3"] = true
   end
     
-  if(warheads["TN-warhead-15k--1"].value) then
+  if(warheads["TN-warhead-15k--1"]) then
     data:extend{
       {
         type = "tool",
@@ -78,7 +78,7 @@ if(settings.startup["enable-nuclear-tests"].value) then
     generateWarheadAnyway["TN-warhead-15k--1"] = true
   end
     
-  if(warheads["TN-warhead-big--1"].value) then
+  if(warheads["TN-warhead-big--1"]) then
     data:extend{
       {
         type = "tool",
@@ -441,7 +441,7 @@ if(settings.startup["enable-fusion"].value) then
           recipe = "FOGBANK"
         }
       },
-      prerequisites = {"compact-full-fission-weapons", "tritium-processing"},
+      prerequisites = {"tritium-processing"},
       unit =
       {
         count = 2000,
@@ -449,8 +449,18 @@ if(settings.startup["enable-fusion"].value) then
         time = 45
       },
       order = "e-a-j"
-    },
+    }
   }
+  if(settings.startup["enable-compact-15kt"].value or settings.startup["enable-compact-large-atomics"].value) then
+      table.insert(data.raw.technology["fusion-weapons"].prerequisites, "compact-full-fission-weapons")
+  else
+    if (settings.startup["enable-compact-medium-atomics"].value or settings.startup["enable-compact-small-atomics"].value) then
+      table.insert(data.raw.technology["fusion-weapons"].prerequisites, "compact-californium-weapons")
+    end
+    if (settings.startup["enable-large-atomics"].value) then
+      table.insert(data.raw.technology["fusion-weapons"].prerequisites, "full-fission-atomics")
+    end
+  end
 end
 if(settings.startup["enable-compact-fusion"].value) then
   data:extend{
