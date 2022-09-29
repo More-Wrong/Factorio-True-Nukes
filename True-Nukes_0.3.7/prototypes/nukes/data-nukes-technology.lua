@@ -9,69 +9,91 @@ specialTechForWarheadWeapon["artillery-shell-atomic-1kt"] = "artillery-atomics"
 specialTechForWarheadWeapon["land-mine-atomic-20t"] = "atomic-bomb"
 
 if(settings.startup["enable-nuclear-tests"].value) then
-  data:extend{
-    {
-      type = "tool",
-      name = "test-pack-atomic-20t-1",
-      icons = appearance(warheads["TN-warhead-20--1"]).icons,
-      subgroup = "science-pack",
-      order = "za[atomic-20t-science-pack]",
-      stack_size = 200,
-      durability = 1,
-      durability_description_key = "description.science-pack-remaining-amount-key",
-      durability_description_value = "description.science-pack-remaining-amount-value"
-    },
-    {
-      type = "tool",
-      name = "test-pack-atomic-500t-1",
-      icons = appearance(warheads["TN-warhead-500--1"]).icons,
-      subgroup = "science-pack",
-      order = "zb[atomic-500t-science-pack]",
-      stack_size = 200,
-      durability = 1,
-      durability_description_key = "description.science-pack-remaining-amount-key",
-      durability_description_value = "description.science-pack-remaining-amount-value"
-    },
-    {
-      type = "tool",
-      name = "test-pack-atomic-20t-3",
-      icons = appearance(warheads["TN-warhead-20--3"]).icons,
-      subgroup = "science-pack",
-      order = "zc[atomic-20t-science-pack]",
-      stack_size = 200,
-      durability = 1,
-      durability_description_key = "description.science-pack-remaining-amount-key",
-      durability_description_value = "description.science-pack-remaining-amount-value"
-    },
-    {
-      type = "tool",
-      name = "test-pack-atomic-15kt-1",
-      icons = appearance(warheads["TN-warhead-15k--1"]).icons,
-      subgroup = "science-pack",
-      order = "zd[atomic-15kt-science-pack]",
-      stack_size = 200,
-      durability = 1,
-      durability_description_key = "description.science-pack-remaining-amount-key",
-      durability_description_value = "description.science-pack-remaining-amount-value"
-    },
-    {
-      type = "tool",
-      name = "test-pack-atomic-2-stage-100kt-1",
-      icons = appearance(warheads["TN-warhead-big--1"].explosions[2]).icons,
-      subgroup = "science-pack",
-      order = "ze[atomic-100kt-science-pack]",
-      stack_size = 200,
-      durability = 1,
-      durability_description_key = "description.science-pack-remaining-amount-key",
-      durability_description_value = "description.science-pack-remaining-amount-value"
-    },
-  }
-  generateWarheadAnyway["TN-warhead-20--1"] = true
-  generateWarheadAnyway["TN-warhead-500--1"] = true
-  generateWarheadAnyway["TN-warhead-20--3"] = true
-  generateWarheadAnyway["TN-warhead-15k--1"] = true
-  generateWarheadAnyway["TN-warhead-big--1"] = true
 
+  if(warheads["TN-warhead-20--1"].value) then
+    data:extend{
+      {
+        type = "tool",
+        name = "test-pack-atomic-20t-1",
+        icons = appearance(warheads["TN-warhead-20--1"]).icons,
+        subgroup = "science-pack",
+        order = "za[atomic-20t-science-pack]",
+        stack_size = 200,
+        durability = 1,
+        durability_description_key = "description.science-pack-remaining-amount-key",
+        durability_description_value = "description.science-pack-remaining-amount-value"
+      }
+    }
+    generateWarheadAnyway["TN-warhead-20--1"] = true
+  end
+    
+  if(warheads["TN-warhead-500--1"].value) then
+    data:extend{
+      {
+        type = "tool",
+        name = "test-pack-atomic-500t-1",
+        icons = appearance(warheads["TN-warhead-500--1"]).icons,
+        subgroup = "science-pack",
+        order = "zb[atomic-500t-science-pack]",
+        stack_size = 200,
+        durability = 1,
+        durability_description_key = "description.science-pack-remaining-amount-key",
+        durability_description_value = "description.science-pack-remaining-amount-value"
+      }
+    }
+    generateWarheadAnyway["TN-warhead-500--1"] = true
+  end
+    
+  if(warheads["TN-warhead-20--3"].value) then
+    data:extend{
+      {
+        type = "tool",
+        name = "test-pack-atomic-20t-3",
+        icons = appearance(warheads["TN-warhead-20--3"]).icons,
+        subgroup = "science-pack",
+        order = "zc[atomic-20t-science-pack]",
+        stack_size = 200,
+        durability = 1,
+        durability_description_key = "description.science-pack-remaining-amount-key",
+        durability_description_value = "description.science-pack-remaining-amount-value"
+      }
+    }
+    generateWarheadAnyway["TN-warhead-20--3"] = true
+  end
+    
+  if(warheads["TN-warhead-15k--1"].value) then
+    data:extend{
+      {
+        type = "tool",
+        name = "test-pack-atomic-15kt-1",
+        icons = appearance(warheads["TN-warhead-15k--1"]).icons,
+        subgroup = "science-pack",
+        order = "zd[atomic-15kt-science-pack]",
+        stack_size = 200,
+        durability = 1,
+        durability_description_key = "description.science-pack-remaining-amount-key",
+        durability_description_value = "description.science-pack-remaining-amount-value"
+      }
+    }
+    generateWarheadAnyway["TN-warhead-15k--1"] = true
+  end
+    
+  if(warheads["TN-warhead-big--1"].value) then
+    data:extend{
+      {
+        type = "tool",
+        name = "test-pack-atomic-2-stage-100kt-1",
+        icons = appearance(warheads["TN-warhead-big--1"].explosions[2]).icons,
+        subgroup = "science-pack",
+        order = "ze[atomic-100kt-science-pack]",
+        stack_size = 200,
+        durability = 1,
+        durability_description_key = "description.science-pack-remaining-amount-key",
+        durability_description_value = "description.science-pack-remaining-amount-value"
+      }
+    }
+    generateWarheadAnyway["TN-warhead-big--1"] = true
+  end
 end
 
 local standard = {

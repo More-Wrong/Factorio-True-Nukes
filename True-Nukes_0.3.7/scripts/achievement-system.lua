@@ -102,11 +102,13 @@ end
 
 local function checkInvForNukes(event)
   local player = game.players[event.player_index]
+  if(player.get_main_inventory()) then
   for name,count in pairs(player.get_main_inventory().get_contents()) do
     if(string.match(name, "TN-warhead.*") or string.match(name, ".*-atomic-.*")) then
       player.unlock_achievement("lose-nuke")
       return;
     end
+  end
   end
 end
 script.on_event(defines.events.on_pre_player_died, checkInvForNukes)
