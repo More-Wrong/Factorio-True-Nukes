@@ -145,6 +145,12 @@ local space = {
   {"space-science-pack", 1},
 }
 
+if mods["apm_nuclear_ldinc"] then
+  table.insert(standard, {"apm_nuclear_science_pack", 1});
+  table.insert(no_prod, {"apm_nuclear_science_pack", 1});
+  table.insert(no_util, {"apm_nuclear_science_pack", 1});
+  table.insert(space, {"apm_nuclear_science_pack", 1});
+end
 
 if (not settings.startup["keep-atomic-bomb-without-changes"]) and
   (not settings.startup["enable-compact-medium-atomics"].value) and

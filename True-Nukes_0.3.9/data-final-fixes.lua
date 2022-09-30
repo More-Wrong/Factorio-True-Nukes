@@ -9,3 +9,7 @@ table.insert(water_tile_type_names, "nuclear-deep-fill")
 if mods["space-exploration"] then
   require("compatibility.SE-final-fixes")
 end
+
+if mods["apm_nuclear_ldinc"] then
+  require("compatibility.APM-final-fixes")
+end
