@@ -60,6 +60,23 @@ if(settings.startup["enable-nuclear-tests"].value) then
     }
     generateWarheadAnyway["TN-warhead-20--3"] = true
   end
+  
+  if(warheads["TN-warhead-1k--1"]) then
+    data:extend{
+      {
+        type = "tool",
+        name = "test-pack-atomic-1kt-1",
+        icons = appearance(warheads["TN-warhead-1k--1"]).icons,
+        subgroup = "science-pack",
+        order = "ze[atomic-1kt-science-pack]",
+        stack_size = 200,
+        durability = 1,
+        durability_description_key = "description.science-pack-remaining-amount-key",
+        durability_description_value = "description.science-pack-remaining-amount-value"
+      }
+    }
+    generateWarheadAnyway["TN-warhead-1k--1"] = true
+  end
     
   if(warheads["TN-warhead-15k--1"]) then
     data:extend{
@@ -361,17 +378,20 @@ if(settings.startup["enable-compact-15kt"].value or settings.startup["enable-com
       order = "e-a-i"
     },
   }
+  local canDoTest = true
   if(settings.startup["enable-nuclear-tests"].value) then
     if(settings.startup["enable-15kt"].value) then
       table.insert(data.raw.technology["compact-full-fission-weapons"].unit.ingredients, {"test-pack-atomic-15kt-1", 1})
-    else
+    elseif(settings.startup["enable-large-atomics"].value)then
       table.insert(data.raw.technology["compact-full-fission-weapons"].unit.ingredients, {"test-pack-atomic-1kt-1", 1})
+    else
+      canDoTest = false
     end
   end
   if(settings.startup["enable-compact-medium-atomics"].value or settings.startup["enable-compact-small-atomics"].value) then
     table.insert(data.raw.technology["compact-full-fission-weapons"].prerequisites, "compact-californium-weapons")
 
-    if(settings.startup["enable-nuclear-tests"].value) then
+    if(settings.startup["enable-nuclear-tests"].value and canDoTest) then
       table.insert(data.raw.technology["compact-full-fission-weapons"].unit.ingredients, {"test-pack-atomic-20t-3", 1})
     end
   elseif(settings.startup["enable-compact-medium-atomics"].value or settings.startup["enable-compact-small-atomics"].value or settings.startup["enable-compact-large-atomics"].value) then
@@ -397,7 +417,7 @@ if(settings.startup["enable-compact-15kt"].value or settings.startup["enable-com
     }
   end
 end
-if(settings.startup["enable-fusion"].value) then
+if(settings.startup["enable-fusion"].value or settings.startup["enable-fusion-building"].value) then
   data:extend{
     {
       type = "technology",

@@ -9,24 +9,28 @@ local computer = nuke_materials.computer
 local fusionMaterial = nuke_materials.fusionMaterial
 
 
-
-data:extend{
-  {
-    type = "recipe",
-    name = "TN-warhead-20--1-uranium",
-    order = "x-n-a-m-00020-1z",
-    energy_required = 90,
-    enabled = false,
-    subgroup = "large-warheads",
-    ingredients = {
-      {"steel-plate", 10},
-      {computer, 8},
-      {"explosives", 30},
-      {dead, 15},
-      {boom, 30}
-    },
-    result = "TN-warhead-20--1"
-  },
+if(data.raw.recipe["TN-warhead-20--1"]) then
+  data:extend{
+    {
+      type = "recipe",
+      name = "TN-warhead-20--1-uranium",
+      order = "x-n-a-m-00020-1z",
+      energy_required = 90,
+      enabled = false,
+      subgroup = "large-warheads",
+      ingredients = {
+        {"steel-plate", 10},
+        {computer, 8},
+        {"explosives", 30},
+        {dead, 15},
+        {boom, 30}
+      },
+      result = "TN-warhead-20--1"
+    }
+  }
+end
+if(data.raw.recipe["TN-warhead-20--2"]) then
+  data:extend{
   {
     type = "recipe",
     name = "TN-warhead-20--2-uranium",
@@ -42,7 +46,10 @@ data:extend{
       {boom, 50}
     },
     result = "TN-warhead-20--2"
-  },
+  }
+  }
+end
+if(data.raw.recipe["TN-warhead-8--1"]) then
   {
     type = "recipe",
     name = "TN-warhead-8--1-uranium",
@@ -58,7 +65,10 @@ data:extend{
       {boom, 15}
     },
     result = "TN-warhead-8--1"
-  },
+  }
+  }
+end
+if(data.raw.recipe["TN-warhead-4--1"]) then
   {
     type = "recipe",
     name = "TN-warhead-4--1-uranium",
@@ -75,10 +85,11 @@ data:extend{
     },
     result = "TN-warhead-4--1"
   }
-
-}
-table.insert(data.raw.technology["basic-atomic-weapons"].effects, 1, {type = "unlock-recipe", recipe = "TN-warhead-20--1-uranium"})
-
+  }
+end
+if(data.raw.technology["basic-atomic-weapons"]) then
+  table.insert(data.raw.technology["basic-atomic-weapons"].effects, 1, {type = "unlock-recipe", recipe = "TN-warhead-20--1-uranium"})
+end
 table.insert(data.raw.technology["atomic-bomb"].effects, 1, {type = "unlock-recipe", recipe = "TN-warhead-4--1-uranium"})
 table.insert(data.raw.technology["atomic-bomb"].effects, 1, {type = "unlock-recipe", recipe = "TN-warhead-8--1-uranium"})
 table.insert(data.raw.technology["atomic-bomb"].effects, 1, {type = "unlock-recipe", recipe = "TN-warhead-20--2-uranium"})
