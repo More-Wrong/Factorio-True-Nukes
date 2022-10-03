@@ -176,13 +176,15 @@ local function optimisedChunkLoadHandler(chunkPosAndArea, chunkLoaderStruct, kil
     if((game.active_mods["space-exploration"]) and (game.surfaces[surface_index].count_tiles_filtered{position = originPos, radius=2, name = crater_system_se.interesting_tiles, limit=1} ~= 0)) then
       crater_system_to_use = crater_system_se
     end
-    -- crater
-    if((minR<chunkLoaderStruct.fireball_r*1.1+4) and (maxR>chunkLoaderStruct.crater_external_r-4) ) then
-      crater_system_to_use.chunk_loaded_outer(surface_index, chunkPosAndArea, chunkLoaderStruct, originPos, x, y, ang1, ang2, ang3, ang4, minR, maxR)
-    end
+    if(settings.global["actually-generate-crater"].value) then
+      -- crater
+      if((minR<chunkLoaderStruct.fireball_r*1.1+4) and (maxR>chunkLoaderStruct.crater_external_r-4) ) then
+        crater_system_to_use.chunk_loaded_outer(surface_index, chunkPosAndArea, chunkLoaderStruct, originPos, x, y, ang1, ang2, ang3, ang4, minR, maxR)
+      end
 
-    if(minR<chunkLoaderStruct.crater_external_r*1.1+4) then
-      crater_system_to_use.chunk_loaded(surface_index, chunkPosAndArea, chunkLoaderStruct, originPos, x, y, ang1, ang2, ang3, ang4, minR, maxR)
+      if(minR<chunkLoaderStruct.crater_external_r*1.1+4) then
+        crater_system_to_use.chunk_loaded(surface_index, chunkPosAndArea, chunkLoaderStruct, originPos, x, y, ang1, ang2, ang3, ang4, minR, maxR)
+      end
     end
     water.check_fill(surface_index, chunkPosAndArea, x, y)
   end
@@ -275,10 +277,12 @@ local function atomic_weapon_hit(surface_index, source, position, crater_interna
     if((game.active_mods["space-exploration"]) and (game.surfaces[surface_index].count_tiles_filtered{position = originPos, radius=2, name = crater_system_se.interesting_tiles, limit=1} ~= 0)) then
     crater_system_to_use = crater_system_se
   end
-  if(crater_external_r>150) then --use efficient crater generator (ignores height for lakes)
-    crater_system_to_use.nukeTileChangesHeightAwareHuge(position, check_craters, surface_index, crater_internal_r, crater_external_r, fireball_r)
-  else
-    crater_system_to_use.nukeTileChangesHeightAware(position, check_craters, surface_index, crater_internal_r, crater_external_r, fireball_r)
+  if(settings.global["actually-generate-crater"].value) then
+    if(crater_external_r>150) then --use efficient crater generator (ignores height for lakes)
+      crater_system_to_use.nukeTileChangesHeightAwareHuge(position, check_craters, surface_index, crater_internal_r, crater_external_r, fireball_r)
+    else
+      crater_system_to_use.nukeTileChangesHeightAware(position, check_craters, surface_index, crater_internal_r, crater_external_r, fireball_r)
+    end
   end
   -- light fires as nessesary
   if(flame_proportion>0 and crater_system_to_use.use_fires) then

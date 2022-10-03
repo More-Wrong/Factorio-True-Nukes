@@ -89,6 +89,15 @@ data:extend({
     order = "c4"
   },
   {
+    type = "bool-setting",
+    name = "actually-generate-crater",
+    setting_type = "runtime-global",
+    default_value = true,
+    order = "c5"
+  },
+  
+  
+  {
     type = "string-setting",
     name = "small-boom-material",
     setting_type = "startup",
