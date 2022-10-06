@@ -1,10 +1,10 @@
 require("add-basic-uranium-nukes")
 
 if (data.raw.technology["expanded-atomics"]) then
-	table.insert(data.raw.technology["expanded-atomics"].prerequisites, "plutonium-breeding")
+	data.raw.technology["expanded-atomics"].prerequisites[1] = "plutonium-breeding"
 end
 if (data.raw.technology["californium-processing"]) then
-	table.insert(data.raw.technology["californium-processing"].prerequisites, "plutonium-breeding")
+	data.raw.technology["californium-processing"].prerequisites[1] = "plutonium-breeding"
 end
 
 if (data.raw.technology["dense-neutron-flux"]) then
