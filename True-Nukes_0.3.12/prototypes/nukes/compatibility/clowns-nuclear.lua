@@ -10,7 +10,7 @@ data.raw.technology["thermonuclear-bomb"] = nil
 
 if (data.raw.technology["expanded-atomics"]) then
   if(mods["Clowns-AngelBob-Nuclear"]) then
-    data.raw.technology["expanded-atomics"].prerequisites[1] = "nuclear-fuel-reprocessing-2"
+    data.raw.technology["expanded-atomics"].prerequisites[2] = "nuclear-fuel-reprocessing-2"
   end
 end
 if (data.raw.technology["californium-processing"]) then
