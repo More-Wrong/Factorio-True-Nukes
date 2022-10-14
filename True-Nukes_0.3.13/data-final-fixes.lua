@@ -6,6 +6,10 @@ table.insert(water_tile_type_names, "nuclear-crater-shallow-fill")
 table.insert(water_tile_type_names, "nuclear-deep-shallow-fill")
 table.insert(water_tile_type_names, "nuclear-deep-fill")
 
+if mods["Krastorio2"] then
+  require("compatibility.K2-final-fixes")
+end
+
 if mods["space-exploration"] then
   require("compatibility.SE-final-fixes")
 end
