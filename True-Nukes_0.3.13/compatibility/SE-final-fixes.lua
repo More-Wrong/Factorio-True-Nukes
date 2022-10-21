@@ -88,9 +88,9 @@ if(settings.startup["enable-large-atomics"].value) then
 end
 if(settings.startup["enable-medium-atomics"].value or settings.startup["enable-large-atomics"].value or settings.startup["enable-compact-15kt"].value) then
   data.raw.technology["artillery-atomics"].unit.ingredients = no_util
-  if(data.raw.technology["kovarex-enrichment-process"]) then
-    table.insert(data.raw.technology["artillery-atomics"].prerequisites, "kovarex-enrichment-process")
-  end
+  -- if(data.raw.technology["kovarex-enrichment-process"]) then
+  --   table.insert(data.raw.technology["artillery-atomics"].prerequisites, "kovarex-enrichment-process")
+  -- end
 end
 if(settings.startup["enable-small-atomics"].value or settings.startup["enable-compact-medium-atomics"].value or settings.startup["enable-compact-large-atomics"].value) then
   data.raw.technology["californium-processing"].unit.ingredients = {
