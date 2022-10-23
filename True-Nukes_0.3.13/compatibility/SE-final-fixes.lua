@@ -88,7 +88,7 @@ if(settings.startup["enable-large-atomics"].value) then
 end
 if(settings.startup["enable-medium-atomics"].value or settings.startup["enable-large-atomics"].value or settings.startup["enable-compact-15kt"].value) then
   data.raw.technology["artillery-atomics"].unit.ingredients = no_util
-  if(data.raw.technology["kovarex-enrichment-process"]) then
+  if(data.raw.technology["kovarex-enrichment-process"] and data.raw.technology["kovarex-enrichment-process"].enabled) then
     table.insert(data.raw.technology["artillery-atomics"].prerequisites, "kovarex-enrichment-process")
   end
 end
