@@ -66,7 +66,7 @@ end
 
 if(settings.startup["enable-large-atomics"].value) then
   data.raw.technology["expanded-atomics"].unit.ingredients = space
-  if(data.raw.technology["kovarex-enrichment-process"]) then
+  if(data.raw.technology["kovarex-enrichment-process"] and data.raw.technology["kovarex-enrichment-process"].enabled) then
     data.raw.technology["expanded-atomics"].prerequisites = {"atomic-bomb", "nuclear-fuel-reprocessing", "space-science-pack"}
   end
 end
