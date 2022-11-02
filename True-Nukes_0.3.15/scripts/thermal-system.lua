@@ -50,18 +50,18 @@ local function damage_entity(surface, distSq, ePos, fireballSq, initialDamage, v
       else
         if(corpseMap[v.name]) then
           local corpseName = corpseMap[v.name]
-          local ghost
-          if(eProto.create_ghost_on_death or eProto.create_ghost_on_death == nil) then
-            ghost = {inner_name = v.name, name = "entity-ghost", direction = v.direction, expires = true, force = v.force, position = v.position}
-            if(v.type == "assembling-machine" and v.get_recipe()) then
-              ghost.recipe = v.get_recipe().name
-            end
-          end
+          --local ghost
+          --if(eProto.create_ghost_on_death or eProto.create_ghost_on_death == nil) then
+          --  ghost = {inner_name = v.name, name = "entity-ghost", direction = v.direction, expires = true, force = v.force, position = v.position}
+          --  if(v.type == "assembling-machine" and v.get_recipe()) then
+          --    ghost.recipe = v.get_recipe().name
+          --  end
+          --end
           v.destroy{raise_destroy = true}
           surface.create_entity{name=corpseName, position=ePos}
-          if(eProto.create_ghost_on_death or eProto.create_ghost_on_death == nil) then
-            surface.create_entity(ghost)
-          end
+          --if(eProto.create_ghost_on_death or eProto.create_ghost_on_death == nil) then
+          --  surface.create_entity(ghost)
+          --end
         else
           if(cause and cause.valid) then
             v.damage(damage, force, "fire", cause)
