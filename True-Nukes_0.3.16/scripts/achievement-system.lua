@@ -7,9 +7,12 @@ global.allowAchievements = true
 
 
 local function checkAllowAchievements()
+  if(game.active_mods["space-exploration"]) then
+    global.allowAchievements = true
+  end
   if(global.allowAchievements)then
     for _,player in pairs(game.players) do
-      if(player.cheat_mode) then
+      if(player.cheat_mode and not game.active_mods["space-exploration"]) then
         global.allowAchievements = false;
         game.print("Warning, cheat mode detected - achievements disabled for True-Nukes")
       end
