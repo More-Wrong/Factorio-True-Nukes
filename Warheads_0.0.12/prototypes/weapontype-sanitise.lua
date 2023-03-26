@@ -468,6 +468,7 @@ local function sanitseWeapontype(weapontype)
     result.projectile.animation = weapontype.projectile_animation or weapontype.picture or weapontype.projectile.animation or weapontype.projectile.picture
     result.projectile.max_speed = weapontype.max_speed  or weapontype.projectile.max_speed
     result.projectile.collision_box = weapontype.collision_box or weapontype.projectile.collision_box
+    result.projectile.force_condition = weapontype.force_condition or weapontype.projectile.force_condition
 
     result.projectile.height = weapontype.height or weapontype.height_from_ground or weapontype.projectile.height or weapontype.projectile.height_from_ground
 

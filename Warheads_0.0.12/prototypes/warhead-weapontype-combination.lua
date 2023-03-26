@@ -241,7 +241,7 @@ local function combine(weapontype, warheadWeapon)
       projectile.smoke = weapontype.projectile.smoke
       projectile.height_from_ground = weapontype.projectile.height
       projectile.collision_box = weapontype.projectile.collision_box
-
+      projectile.force_condition = weapontype.projectile.force_condition
 
       if((not warheadWeapon.projectile.collisions) and (not weapontype.projectile.collide_anyway)) then
         projectile.collision_box = nil
