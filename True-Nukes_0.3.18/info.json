@@ -8,6 +8,7 @@
 	"factorio_version": "1.1",
 	"dependencies": [
 		"Warheads",
+		"? Atomic_Overhaul",
 		"? SchallTankPlatoon",
 		"? Aircraft",
 		"? bobelectronics",

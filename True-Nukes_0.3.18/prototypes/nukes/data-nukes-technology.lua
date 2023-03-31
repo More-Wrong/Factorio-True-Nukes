@@ -180,7 +180,7 @@ data:extend{
     {
       
     },
-    prerequisites = {"military-4", "uranium-processing"},
+    prerequisites = {"military-4", "uranium-processing", "electric-energy-accumulators"},
     unit =
     {
       count = 1000,
@@ -226,7 +226,7 @@ if(settings.startup["enable-large-atomics"].value) then
       icon_size = 256, icon_mipmaps = 4,
       icon = "__base__/graphics/technology/atomic-bomb.png",
       effects = {},
-      prerequisites = {"expanded-atomics"},
+      prerequisites = {"expanded-atomics", "circuit-network"},
       unit =
       {
         count = 250,
