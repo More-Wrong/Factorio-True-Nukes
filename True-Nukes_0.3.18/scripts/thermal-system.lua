@@ -1,7 +1,9 @@
 local function damage_entity(surface, distSq, ePos, fireballSq, initialDamage, v, force, cause, corpseMap)
   local damage = fireballSq*initialDamage/distSq
   local eProto = v.prototype
-  if(v.type=="tree") then
+  if(v.type=="spider-leg") then
+    return
+  elseif(v.type=="tree") then
     -- efficient tree handling
     if(math.random(0, 100)<1) then
       surface.create_entity{name="fire-flame-on-tree", target = v, position=ePos}

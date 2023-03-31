@@ -35,7 +35,7 @@ local function fire_damage_entity(surface, entity, force, cause, killPlanes)
             entity.damage(80, force, "fire")
           end
         end
-      elseif (type ~= "tree") then
+      elseif (type ~= "tree" and type ~= "spider-leg") then
         if(cause and cause.valid) then
           entity.damage(100, force, "fire", cause)
         else
@@ -52,8 +52,9 @@ local function damage_entity(surface, distSq, ePos, power, fire, damage_init, bl
   local eProto = entity.prototype
   local damage = power/distSq*damage_init+blast_min_damage
   local t = entity.type
-
-  if(t=="tree") then
+  if(t=="spider-leg") then
+    return
+  elseif(t=="tree") then
     if(fire) then
       surface.create_entity{name="fire-flame-on-tree", target = entity, position=ePos}
     end
