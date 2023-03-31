@@ -5,6 +5,7 @@ Date: 2023-03-31
     - Fixed dots appearing on map behind artillery
   Features:
     - Added compatibility for Atomic_Overhaul
+    - Added compatibility for light artillery Balanced
 ---------------------------------------------------------------------------------------------------
 Version: 0.0.13
 Date: 2023-03-26
