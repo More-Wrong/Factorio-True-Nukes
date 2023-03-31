@@ -260,7 +260,7 @@ local function combine(weapontype, warheadWeapon)
     projectile.shadow = weapontype.projectile.shadow
     projectile.localised_name = {"weapontype-name." .. weapontype.name, {"warhead-name." .. warheadWeapon.appendName}}
     projectile.localised_description = {"weapontype-description." .. weapontype.name, {"warhead-description." .. warheadWeapon.appendName}}
-
+    projectile.flags = {"not-on-map"}
     if(weapontype.type == "stream")then
       projectile.action = {
         type = "direct",
