@@ -1,4 +1,12 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.3.19
+Date: 2023-03-31
+  Bugfixes:
+    - Fixed dots appearing on map behind artillery
+    - Fixed spidertron legs taking damage
+  Features:
+    - Added compatibility for Atomic_Overhaul
+---------------------------------------------------------------------------------------------------
 Version: 0.3.18
 Date: 2023-03-26
   Bugfixes:
