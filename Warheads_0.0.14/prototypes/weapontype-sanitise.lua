@@ -241,7 +241,6 @@ local function sanitseWeapontype(weapontype)
       result.item.action_creator = function (projectile, range_mult, target_action, final_action, source_action)
         local a = table.deepcopy(item.ammo_type.action)
         local to_use = nil
-
         for _,act in pairs(a) do
           local action = act
           if(a.action_delivery)then
@@ -251,7 +250,7 @@ local function sanitseWeapontype(weapontype)
             to_use = action.action_delivery
           else
             for _,del in pairs(action.action_delivery) do
-              if (del.projectile) then
+              if (type(del) == "table" and del.projectile) then
                 to_use = del
               end
             end
