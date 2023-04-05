@@ -20,7 +20,6 @@ for _,w in pairs(warheads_to_add) do
   if  data.raw.item[w.warhead] then
     local warhead = warheads[w.warhead]
     local explosion
-    log(w.warhead)
     if(w.explosion) then
       explosion = warhead.explosions[w.explosion]
     else
