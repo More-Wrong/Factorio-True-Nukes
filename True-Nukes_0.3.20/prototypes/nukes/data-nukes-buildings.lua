@@ -8,11 +8,13 @@ table.insert(data.raw.technology["basic-atomic-weapons"].effects,
     type = "unlock-recipe",
     recipe = "nuclear-test-site"
   })
-table.insert(data.raw.technology["fusion-weapons"].effects,
-  {
-    type = "unlock-recipe",
-    recipe = "fusion-test-site"
-  })
+if data.raw.technology["fusion-weapons"] then
+  table.insert(data.raw.technology["fusion-weapons"].effects,
+    {
+      type = "unlock-recipe",
+      recipe = "fusion-test-site"
+    })
+end
 local warheads_to_add = require("data-nukes-building-warheads")
 
 
