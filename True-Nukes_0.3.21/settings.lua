@@ -32,7 +32,7 @@ data:extend({
     name = "large-nuke-fire-scaledown",
     setting_type = "runtime-global",
     minimum_value = 1,
-    maximum_value = 5,
+    maximum_value = 50,
     default_value = 1,
     order = "b0"
   },
@@ -41,7 +41,7 @@ data:extend({
     name = "huge-nuke-fire-scaledown",
     setting_type = "runtime-global",
     minimum_value = 1,
-    maximum_value = 10,
+    maximum_value = 100,
     default_value = 2,
     order = "b1"
   },
@@ -50,7 +50,7 @@ data:extend({
     name = "really-huge-nuke-fire-scaledown",
     setting_type = "runtime-global",
     minimum_value = 1,
-    maximum_value = 20,
+    maximum_value = 200,
     default_value = 5,
     order = "b2"
   },
@@ -59,7 +59,7 @@ data:extend({
     name = "large-nuke-range-scaledown",
     setting_type = "runtime-global",
     minimum_value = 1,
-    maximum_value = 4,
+    maximum_value = 40,
     default_value = 1.5,
     order = "c0"
   },
@@ -77,7 +77,7 @@ data:extend({
     name = "really-huge-nuke-range-scaledown",
     setting_type = "runtime-global",
     minimum_value = 1,
-    maximum_value = 4,
+    maximum_value = 40,
     default_value = 1.5,
     order = "c2"
   },
