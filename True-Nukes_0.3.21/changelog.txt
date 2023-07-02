@@ -1,6 +1,8 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.3.21
 Date: 2023-07-02
+  Features:
+    - Made tritium fuel cells based on uranium ones, for general compatability
   Bugfixes:
     - Fixed some locale issues with settings
 ---------------------------------------------------------------------------------------------------
