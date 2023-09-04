@@ -1,6 +1,6 @@
 {
 	"name": "True-Nukes",
-	"version": "0.3.22",
+	"version": "0.3.25",
 	"title": "True Nukes",
 	"author": "BicycleEater",
 	"description": "Adds realistic nuclear blasts, and more nuclear options.",
@@ -8,7 +8,6 @@
 	"factorio_version": "1.1",
 	"dependencies": [
 		"Warheads",
-		"? Atomic_Overhaul",
 		"? SchallTankPlatoon",
 		"? Aircraft",
 		"? bobelectronics",

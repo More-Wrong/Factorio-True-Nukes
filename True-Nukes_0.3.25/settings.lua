@@ -28,6 +28,34 @@ data:extend({
     order = "a5"
   },
   {
+    type = "bool-setting",
+    name = "retain-death-statistics",
+    setting_type = "runtime-global",
+    default_value = false,
+    order = "a6"
+  },
+  {
+    type = "bool-setting",
+    name = "retain-death-statistics-small",
+    setting_type = "runtime-global",
+    default_value = true,
+    order = "a7"
+  },
+  { 
+    type = "bool-setting",
+    name = "retain-death-statistics-for-trees",
+    setting_type = "runtime-global",
+    default_value = false,
+    order = "a8"
+  },
+  { 
+    type = "bool-setting",
+    name = "retain-death-statistics-for-trees-small",
+    setting_type = "runtime-global",
+    default_value = true,
+    order = "a9"
+  },
+  {
     type = "double-setting",
     name = "large-nuke-fire-scaledown",
     setting_type = "runtime-global",
@@ -53,6 +81,15 @@ data:extend({
     maximum_value = 200,
     default_value = 5,
     order = "b2"
+  },
+  {
+    type = "double-setting",
+    name = "general-nuke-range-scaledown",
+    setting_type = "runtime-global",
+    minimum_value = 0.5,
+    maximum_value = 40,
+    default_value = 1,
+    order = "c+"
   },
   {
     type = "double-setting",
