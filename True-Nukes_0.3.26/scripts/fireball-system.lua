@@ -78,10 +78,14 @@ local function full_fireball(surface_index, position, fireball_r, crater_externa
         v.destroy{raise_destroy = true}
       elseif cause and cause.valid then
         if not v.die(force, cause) then
-          v.destroy{raise_destroy = true}
+          if(v.destructible) then
+            v.destroy{raise_destroy = true}
+          end
         end
       elseif not v.die(force) then
-        v.destroy{raise_destroy = true}
+        if(v.destructible) then
+          v.destroy{raise_destroy = true}
+        end
       end
     end
   end
@@ -128,11 +132,15 @@ local function full_fireball(surface_index, position, fireball_r, crater_externa
         end
       elseif(cause and cause.valid) then
         if not v.die(force, cause) then
-          v.destroy{raise_destroy = true};
+          if(v.destructible) then
+            v.destroy{raise_destroy = true}
+          end
         end
       else
         if not v.die(force) then
-          v.destroy{raise_destroy = true};
+          if(v.destructible) then
+            v.destroy{raise_destroy = true}
+          end
         end
       end
     end
@@ -163,11 +171,15 @@ local function partial_fireball(surface_index, chunkLoaderStruct, chunkPosAndAre
         e.destroy{raise_destroy = true}
       elseif(cause ~= nil and cause.valid) then
         if not e.die(force, cause) then
-          e.destroy{raise_destroy = true};
+          if(e.destructible) then
+            e.destroy{raise_destroy = true}
+          end
         end
       else
         if not e.die(force) then
-          e.destroy{raise_destroy = true};
+          if(e.destructible) then
+            e.destroy{raise_destroy = true}
+          end
         end
       end
     end
@@ -192,11 +204,15 @@ local function partial_fireball(surface_index, chunkLoaderStruct, chunkPosAndAre
         e.destroy{raise_destroy = true}
       elseif(cause ~= nil and cause.valid) then
         if not e.die(force, cause) then
-          e.destroy{raise_destroy = true};
+          if(e.destructible) then
+            e.destroy{raise_destroy = true}
+          end
         end
       else
         if not e.die(force) then
-          e.destroy{raise_destroy = true};
+          if(e.destructible) then
+            e.destroy{raise_destroy = true}
+          end
         end
       end
     end
