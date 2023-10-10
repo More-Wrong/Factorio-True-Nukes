@@ -231,16 +231,16 @@ weaponTypes["capsule"]= {
 }
 
 weaponTypes["warhead-util-projectile"]= {
-  type = "projectile",
+  type = "artillery",
   baseName = "warhead-util-projectile",
   base_item = "infinity-chest",
   icon = "__base__/graphics/icons/infinity-chest.png",
   energy_required = 3000,
-  item = table.deepcopy(data.raw.ammo["cannon-shell"]),
+  item = table.deepcopy(data.raw.ammo["artillery-shell"]),
   projectile = table.deepcopy(data.raw["artillery-projectile"]["artillery-projectile"]),
   image_base_shift = {4, 2},
   image_warhead_shift = {-8, -8},
   projectile_acceleration = 1,
-  ammo_category = "cannon-shell"
+  ammo_category = "artillery-shell"
 }
 weaponNoTech["warhead-util-projectile"] = true
