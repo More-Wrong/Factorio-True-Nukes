@@ -483,5 +483,6 @@ remote.add_interface("True-Nukes Scripts", {
   thermobaricWeaponHit = thermobaric_weapon_hit,
   atomicWeaponHit = atomic_weapon_hit,
   createBlastSoundsAndFlash = createBlastSoundsAndFlash,
-  clearAllCraters = clearAllCraters
+  clearAllCraters = clearAllCraters,
+  getGlobal = getGlobal,
 });
