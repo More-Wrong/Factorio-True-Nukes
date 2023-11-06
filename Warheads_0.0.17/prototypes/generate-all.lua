@@ -34,7 +34,7 @@ for name,warhead_dirty in pairs(warheads) do
               end
               data:extend(results)
 
-              local tech = warhead_dirty.tech
+              local tech = warheadWeapon.tech
               if weaponNoTech[weapontype.name] then
                 tech = nil
               end

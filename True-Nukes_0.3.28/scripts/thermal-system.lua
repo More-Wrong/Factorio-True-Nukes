@@ -180,7 +180,7 @@ local function atomic_thermal_blast_move_along(corpseMap)
     local pos = atomic_thermal_blast_internal(therm.surface_index, therm.position, therm.force, therm.cause, therm.thermal_max_r, therm.initialDamage, therm.fireball_r, therm.x, therm.y, corpseMap);
     therm.x = pos.x
     therm.y = pos.y
-    if((pos.x == therm.position.x+therm.thermal_max_r and pos.y == therm.position.y+therm.thermal_max_r) or (pos.x == -1 and pos.y == -1)) then
+    if((math.abs(pos.x - (therm.position.x-therm.thermal_max_r))<1 and math.abs(pos.y - (therm.position.y+therm.thermal_max_r))<1) or (pos.x == -1 and pos.y == -1)) then
       global.thermalBlasts[i]=nil
     end
   end
