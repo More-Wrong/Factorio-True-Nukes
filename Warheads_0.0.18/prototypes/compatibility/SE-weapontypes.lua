@@ -23,7 +23,7 @@ weaponTypes["se-delivery-cannon-weapon"]= {
       table.insert(ingredients, i)
     end
     local results = {}
-    results = {{type="item", name="se-delivery-cannon-weapon-package-"..warheadWeapon.appendName, amount = 1}}
+    results = {{type="item", name="se-delivery-cannon-weapon-package-".."warhead-util-projectile"..warheadWeapon.appendName, amount = 1}}
     for _,r in pairs(warheadWeapon.recipe.additional_results) do
       table.insert(results, r)
     end
@@ -36,7 +36,7 @@ weaponTypes["se-delivery-cannon-weapon"]= {
       {
         -- capsule w/ capsule_action="equipment-remote" gives us the activate hotkey tooltip w/o it actually having to do anything outside of our script
         type = "capsule",
-        name = "se-delivery-cannon-artillery-targeter-"..warheadWeapon.appendName,
+        name = "se-delivery-cannon-artillery-targeter-".."warhead-util-projectile"..warheadWeapon.appendName,
         icons = artillery_icons,
         capsule_action =
         {
@@ -44,7 +44,7 @@ weaponTypes["se-delivery-cannon-weapon"]= {
           equipment = "dummy-defense-equipment"
         },
         -- order and subgroup match the vanilla artillery targeting remote such that all the artillery targeting remotes stay organized together
-        order = "b[turret]-d[artillery-turret]-b[remote]-"..warheadWeapon.appendOrder,
+        order = "b[turret]-d[artillery-turret]-b[remote]-wh"..warheadWeapon.appendOrder,
         subgroup = "defensive-structure",
         stack_size = 1,
         localised_name = {"item-name.se-delivery-cannon-artillery-targeter", {"warhead-name." .. warheadWeapon.appendName}},
@@ -58,7 +58,7 @@ weaponTypes["se-delivery-cannon-weapon"]= {
         -- if the dummy artillery flare needs to be removed before its early_death_ticks worth of lifetime expires, it
         -- must be manually destroyed by script
         type = "artillery-flare",
-        name = "se-dummy-artillery-flare-"..warheadWeapon.appendName,
+        name = "se-dummy-artillery-flare-".."warhead-util-projectile"..warheadWeapon.appendName,
         icon = "__base__/graphics/icons/artillery-targeting-remote.png",
         icon_size = 64, icon_mipmaps = 4,
         flags = {"placeable-off-grid", "not-on-map"},
@@ -86,7 +86,7 @@ weaponTypes["se-delivery-cannon-weapon"]= {
       {
         type = "recipe",
         name = "se-delivery-cannon-artillery-targeter-"..warheadWeapon.appendName,
-        result = "se-delivery-cannon-artillery-targeter-"..warheadWeapon.appendName,
+        result = "se-delivery-cannon-artillery-targeter-".."warhead-util-projectile"..warheadWeapon.appendName,
         enabled = false,
         energy_required = 0.5,
         ingredients = {
@@ -119,7 +119,7 @@ weaponTypes["se-delivery-cannon-weapon"]= {
       valid = true,
       item = {
         type = "item",
-        name = "se-delivery-cannon-weapon-package-" .. warheadWeapon.appendName,
+        name = "se-delivery-cannon-weapon-package-" .. "warhead-util-projectile"..warheadWeapon.appendName,
         icon = "__space-exploration-graphics__/graphics/icons/delivery-cannon-weapon-capsule.png",
         icon_size = 64,
         order = "" .. warheadWeapon.appendOrder,
