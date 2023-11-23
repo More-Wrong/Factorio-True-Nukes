@@ -511,6 +511,17 @@ if(hasFusion) then
       table.insert(data.raw.technology["fusion-weapons"].prerequisites, "compact-californium-weapons")
     elseif(data.raw.technology["californium-weapons"]) then
       table.insert(data.raw.technology["fusion-weapons"].prerequisites, "californium-weapons")
+      table.insert(data.raw.technology["fusion-weapons"].effects, 
+        {
+          type = "unlock-recipe",
+          recipe = "neutron-reflector"
+        })
+    else
+      table.insert(data.raw.technology["fusion-weapons"].effects, 
+        {
+          type = "unlock-recipe",
+          recipe = "neutron-reflector"
+        })
     end
     if (data.raw.technology["full-fission-atomics"]) then
       table.insert(data.raw.technology["fusion-weapons"].prerequisites, "full-fission-atomics")
