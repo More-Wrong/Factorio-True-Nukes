@@ -32,7 +32,6 @@ for name,warhead_dirty in pairs(warheads) do
               if(combination.landmine) then
                 table.insert(results, combination.landmine)
               end
-    --helpers.write_file("results.log", serpent.block(combination.item), true)
               data:extend(results)
 
               local tech = warheadWeapon.tech
@@ -59,7 +58,6 @@ for name,warhead_dirty in pairs(warheads) do
     end
   end
   if(used or generateWarheadAnyway[warhead.warhead.item.name]) then
-    helpers.write_file("used.log", serpent.block(warhead.warhead.item), true)
     data:extend({warhead.warhead.item, warhead.warhead.recipe})
     if(warhead_dirty.tech and data.raw.technology[warhead_dirty.tech]) then
       table.insert(data.raw.technology[warhead_dirty.tech].effects, 1,
