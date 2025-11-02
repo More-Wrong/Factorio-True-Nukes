@@ -58,7 +58,7 @@ local function sanitseWarhead(key, warhead)
   end
   result.warhead.recipe.ingredients = {}
   for ingName,ingAmount in pairs(recipeIngreds) do
-    table.insert(result.warhead.recipe.ingredients, {ingName,ingAmount})
+    table.insert(result.warhead.recipe.ingredients, { type = "item", name = ingName, amount = ingAmount})
   end
   if warhead.tint then
     result.warhead.recipe.crafting_machine_tint = warhead.tint

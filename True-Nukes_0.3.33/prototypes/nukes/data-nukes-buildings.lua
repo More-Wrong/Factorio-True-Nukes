@@ -38,9 +38,9 @@ for _,w in pairs(warheads_to_add) do
         energy_required = w.energy,
         ingredients =
         {
-          {w.warhead, 1}
+          {type="item",name=w.warhead,amount=1}
         },
-        result = "detonation" .. warhead.appendName .. explosion.appendName .. w.label,
+        results = { { type = "item", name = "detonation" .. warhead.appendName .. explosion.appendName .. w.label, amount = 1 } }
       }
       if(w.fusion) then
         recipe.category = "fusion-detonation"
@@ -104,12 +104,12 @@ data:extend{
     energy_required = 120,
     ingredients =
     {
-      {"steel-plate", 200},
-      {"concrete", 200},
-      {"advanced-circuit", 25},
-      {"accumulator", 5}
+      {type="item",name="steel-plate",amount=200},
+      {type="item",name="concrete",amount=200},
+      {type="item",name="advanced-circuit",amount=25},
+      {type="item",name="accumulator",amount=5}
     },
-    result = "nuclear-test-site"
+    results = { { type = "item", amount = 1, name = "nuclear-test-site" } }
   },
   {
     type = "recipe",
@@ -118,12 +118,12 @@ data:extend{
     energy_required = 120,
     ingredients =
     {
-      {"steel-plate", 2000},
-      {"refined-concrete", 2000},
-      {"processing-unit", 25},
-      {"accumulator", 50}
+      {type="item",name="steel-plate",amount=2000},
+      {type="item",name="refined-concrete",amount=2000},
+      {type="item",name="processing-unit",amount=25},
+      {type="item",name="accumulator",amount=50}
     },
-    result = "fusion-test-site"
+    results = { { type = "item", name = "fusion-test-site", amount = 1 } }
   },
   {
     type = "item",
@@ -240,15 +240,7 @@ data:extend{
           width = 212,
           height = 192,
           shift = util.by_pixel(0, -5),
-          scale = 0.5,
-          hr_version =
-          {
-            filename = "__True-Nukes__/graphics/megaton-nuke/megaton-nuke-base.png",
-            width = 212,
-            height = 192,
-            shift = util.by_pixel(0, -5),
-            scale = 0.5
-          }
+          scale = 0.5
         },
         {
           filename = "__True-Nukes__/graphics/megaton-nuke/megaton-nuke-shadow.png",
@@ -258,18 +250,7 @@ data:extend{
           repeat_count = repeat_count,
           shift = util.by_pixel(20, 6),
           draw_as_shadow = true,
-          scale = 0.5,
-          hr_version =
-          {
-            filename = "__True-Nukes__/graphics/megaton-nuke/megaton-nuke-shadow.png",
-            priority = "high",
-            width = 287,
-            height = 159,
-            repeat_count = repeat_count,
-            shift = util.by_pixel(20, 6),
-            draw_as_shadow = true,
-            scale = 0.5
-          }
+          scale = 0.5
         }
       }
     },
@@ -388,15 +369,7 @@ data:extend{
           width = 212,
           height = 192,
           shift = util.by_pixel(0, -5),
-          scale = 0.5,
-          hr_version =
-          {
-            filename = "__True-Nukes__/graphics/megaton-nuke/megaton-nuke-base.png",
-            width = 212,
-            height = 192,
-            shift = util.by_pixel(0, -5),
-            scale = 0.5
-          }
+          scale = 0.5
         },
         {
           filename = "__True-Nukes__/graphics/megaton-nuke/megaton-nuke-shadow.png",
@@ -406,18 +379,7 @@ data:extend{
           repeat_count = repeat_count,
           shift = util.by_pixel(20, 6),
           draw_as_shadow = true,
-          scale = 0.5,
-          hr_version =
-          {
-            filename = "__True-Nukes__/graphics/megaton-nuke/megaton-nuke-shadow.png",
-            priority = "high",
-            width = 287,
-            height = 159,
-            repeat_count = repeat_count,
-            shift = util.by_pixel(20, 6),
-            draw_as_shadow = true,
-            scale = 0.5
-          }
+          scale = 0.5
         }
       }
     },

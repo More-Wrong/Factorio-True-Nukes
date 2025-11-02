@@ -46,11 +46,11 @@ if(settings.startup["enable-small-thermobarics"].value) then
     clamp_position = true,
     tech = "thermobaric-weaponry",
     ingredients = {
-      {"explosives", 10},
-      {circuit_type, 5},
-      {fuel_type, 15},
-      {"flamethrower-ammo", 5},
-      {"empty-barrel", 2}
+      {type="item",name="explosives",amount=10},
+      {type="item",name=circuit_type,amount=5},
+      {type="item",name=fuel_type,amount=15},
+      {type="item",name="flamethrower-ammo",amount=5},
+      {type="item",name="barrel",amount=2}
     },
     final_effect = {
       {
@@ -133,11 +133,11 @@ if(settings.startup["enable-medium-thermobarics"].value) then
     clamp_position = true,
     tech = "thermobaric-weaponry",
     ingredients = {
-      {"explosives", 20},
-      {circuit_type, 10},
-      {fuel_type, 25},
-      {"flamethrower-ammo", 12},
-      {"empty-barrel", 5}
+      {type="item",name="explosives",amount=20},
+      {type="item",name=circuit_type,amount=10},
+      {type="item",name=fuel_type,amount=25},
+      {type="item",name="flamethrower-ammo",amount=12},
+      {type="item",name="barrel",amount=5}
     },
     final_effect = {
       {
@@ -217,11 +217,11 @@ if(settings.startup["enable-large-thermobarics"].value) then
     clamp_position = true,
     tech = "thermobaric-weaponry",
     ingredients = {
-      {"explosives", 30},
-      {circuit_type, 15},
-      {fuel_type, 40},
-      {"flamethrower-ammo", 20},
-      {"empty-barrel", 10}
+      {type="item",name="explosives",amount=30},
+      {type="item",name=circuit_type,amount=15},
+      {type="item",name=fuel_type,amount=40},
+      {type="item",name="flamethrower-ammo",amount=20},
+      {type="item",name="barrel",amount=10}
     },
     final_effect = {
       {

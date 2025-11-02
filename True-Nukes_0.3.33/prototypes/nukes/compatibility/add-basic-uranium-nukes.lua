@@ -19,11 +19,11 @@ if(warheads["TN-warhead-20--1"]) then
       enabled = false,
       subgroup = "large-warheads",
       ingredients = {
-        {"steel-plate", 10},
-        {computer, 8},
-        {"explosives", 30},
-        {dead, 15},
-        {boom, 30}
+        {type="item",name="steel-plate",amount=10},
+        {type="item",name=computer,amount=8},
+        {type="item",name="explosives",amount=30},
+        {type="item",name=dead,amount=15},
+        {type="item",name=boom,amount=30}
       },
       result = "TN-warhead-20--1"
     }
@@ -43,11 +43,11 @@ if(warheads["TN-warhead-20--2"]) then
     enabled = false,
     subgroup = "medium-warheads",
     ingredients = {
-      {light, 20},
-      {computer, 20},
-      {"explosives", 15},
-      {dead, 5},
-      {boom, 50}
+      {type="item",name=light,amount=20},
+      {type="item",name=computer,amount=20},
+      {type="item",name="explosives",amount=15},
+      {type="item",name=dead,amount=5},
+      {type="item",name=boom,amount=50}
     },
     result = "TN-warhead-20--2"
   }
@@ -67,11 +67,11 @@ if(warheads["TN-warhead-8--1"]) then
     enabled = false,
     subgroup = "medium-warheads",
     ingredients = {
-      {"steel-plate", 6},
-      {computer, 5},
-      {"explosives", 20},
-      {dead, 10},
-      {boom, 15}
+      {type="item",name="steel-plate",amount=6},
+      {type="item",name=computer,amount=5},
+      {type="item",name="explosives",amount=20},
+      {type="item",name=dead,amount=10},
+      {type="item",name=boom,amount=15}
     },
     result = "TN-warhead-8--1"
   }
@@ -88,11 +88,11 @@ if(warheads["TN-warhead-4--1"]) then
     enabled = false,
     subgroup = "medium-warheads",
     ingredients = {
-      {"steel-plate", 5},
-      {computer, 5},
-      {"explosives", 10},
-      {dead, 5},
-      {boom, 8}
+      {type="item",name="steel-plate",amount=5},
+      {type="item",name=computer,amount=5},
+      {type="item",name="explosives",amount=10},
+      {type="item",name=dead,amount=5},
+      {type="item",name=boom,amount=8}
     },
     result = "TN-warhead-4--1"
   }
