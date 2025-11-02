@@ -1,3 +1,4 @@
+global = global or {}
 require("prototypes.nukes.data-nukes")
 
 
@@ -17,7 +18,7 @@ require("MushroomCloudInBuilt.explosion_sizes")
 local fireutil = require("__base__.prototypes.fire-util")
 
 data:extend({
-  fireutil.add_basic_fire_graphics_and_effects_definitions
+  fireutil.add_basic_fire_graphics_and_effects_definitions(
   {
     type = "fire",
     name = "thermobaric-wave-fire",
@@ -33,7 +34,7 @@ data:extend({
     spread_delay_deviation = 180,
     maximum_spread_count = 100,
 
-    emissions_per_second = 0.005,
+    emissions_per_second = { pollution = 0.005 },
 
     initial_lifetime = 5,
     lifetime_increase_by = 150,
@@ -42,7 +43,7 @@ data:extend({
     delay_between_initial_flames = 10,
   --initial_flame_count = 1,
 
-  }})
+  })})
 
 
 
@@ -94,10 +95,10 @@ if(settings.startup["enable-fire-shield"].value) then
       energy_required = 30,
       ingredients =
       {
-        {"low-density-structure", 10},
-        {"empty-barrel", 10}
+        {type = "item", name = "low-density-structure", amount = 10},
+        {type = "item", name = "barrel", amount = 10}
       },
-      result = "fire-shield-equipment"
+      results = {{type = "item", name = "fire-shield-equipment", amount = 1}}
     }
   })
 end

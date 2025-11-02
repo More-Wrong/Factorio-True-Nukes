@@ -126,28 +126,28 @@ function everyTick(event)
 					if (maxDur - effects.ttl) < effects.flashDuration then
 						fs = ((maxDur - effects.ttl) / effects.flashDuration) * effects.flashMaxScale
 						
-						rendering.set_scale(flashBase, fs)
-						rendering.set_x_scale(flash, fs)
-						rendering.set_y_scale(flash, fs)
+						flashBase.scale = fs
+						flash.x_scale = fs
+						flash.y_scale = fs
 						
 					elseif (maxDur - effects.ttl) < effects.flashTransition then
 						fs = effects.flashMaxScale - ((effects.flashMaxScale - effects.flashTransitionScale) / (effects.flashTransition - effects.flashDuration)) * (maxDur - effects.ttl - effects.flashDuration)
 						ftProgress = (effects.flashMaxScale - fs) / effects.flashTransitionScale
 						
-						rendering.set_x_scale(flash, fs)
-						rendering.set_y_scale(flash, fs)
-						rendering.set_intensity(flashBase, 1 - ftProgress)
+						flash.x_scale = fs
+						flash.y_scale = fs
+						flashBase.intensity = 1 - ftProgress
 						
 						if (maxDur - effects.ttl) < effects.flashTransitionStartFadeOut then
 							local fctProgress = (maxDur - effects.ttl - effects.flashDuration) / (effects.flashTransitionStartFadeOut - effects.flashDuration) 
 							
 							local currentColor = rendering.get_color(flash)
 							
-							rendering.set_color(flash, {currentColor.r + effects.flashTransitionColorStep[1], currentColor.g + effects.flashTransitionColorStep[2], currentColor.b + effects.flashTransitionColorStep[3], currentColor.a + effects.flashTransitionColorStep[4]})
+							flash.color = {currentColor.r + effects.flashTransitionColorStep[1], currentColor.g + effects.flashTransitionColorStep[2], currentColor.b + effects.flashTransitionColorStep[3], currentColor.a + effects.flashTransitionColorStep[4]}
 						else
 							local ffaProgress = 1 - ((maxDur - effects.ttl - effects.flashTransitionStartFadeOut) / (effects.flashTransition - effects.flashTransitionStartFadeOut))
 							
-							rendering.set_color(flash, {effects.flashTransitionColorEnd[1] * ffaProgress, effects.flashTransitionColorEnd[2] * ffaProgress, effects.flashTransitionColorEnd[3] * ffaProgress, effects.flashTransitionColorEnd[4] * ffaProgress})
+							flash.color = {effects.flashTransitionColorEnd[1] * ffaProgress, effects.flashTransitionColorEnd[2] * ffaProgress, effects.flashTransitionColorEnd[3] * ffaProgress, effects.flashTransitionColorEnd[4] * ffaProgress}
 						end
 					end
 				end
@@ -170,22 +170,22 @@ function everyTick(event)
 				local objects = effects.ids.objects
 				local center = effects.ids.center
 				
-				rendering.set_intensity(glow, p2 * 0.4)
-				rendering.set_intensity(light, a1 * p3 * 1)
-				rendering.set_scale(light, a3 * p3 * 20 * effects.light_scale)
-				rendering.set_color(light, {1, math.min(a3/2 * p4, 1), math.min(a3/2 * p4, 1), 1})
+				glow.intensity = p2 * 0.4
+				light.intensity = a1 * p3 * 1
+				light.scale = a3 * p3 * 20 * effects.light_scale
+				light.color = {1, math.min(a3/2 * p4, 1), math.min(a3/2 * p4, 1), 1}
 				
-				rendering.set_color(surface, {p02 * 0.75, p02 * 0.65, p02 * 0.6, p02 * 0.2})
-				rendering.set_x_scale(surface, p1 * 20 * effects.light_scale)
-				rendering.set_y_scale(surface, p1 * 17 * effects.light_scale)
+				surface.color = {p02 * 0.75, p02 * 0.65, p02 * 0.6, p02 * 0.2}
+				surface.x_scale = p1 * 20 * effects.light_scale
+				surface.y_scale = p1 * 17 * effects.light_scale
 				
-				rendering.set_color(objects, {p02 * 1, p02 * 0.9, p02 * 0.5, p02 * 0.4})
-				rendering.set_x_scale(objects, p2 * 25 * effects.light_scale)
-				rendering.set_y_scale(objects, p2 * 21.5 * effects.light_scale)
+				objects.color = {p02 * 1, p02 * 0.9, p02 * 0.5, p02 * 0.4}
+				objects.x_scale = p2 * 25 * effects.light_scale
+				objects.y_scale = p2 * 21.5 * effects.light_scale
 				
-				rendering.set_color(center, {p03 * a2 * 1, p03 * a2 * 0.3, p03 * a2 * 0.1, p03 * a2 * 0.4})
-				rendering.set_x_scale(center, p1 * 10 * effects.light_scale)
-				rendering.set_y_scale(center, p1 * 8 * effects.light_scale)
+				center.color = {p03 * a2 * 1, p03 * a2 * 0.3, p03 * a2 * 0.1, p03 * a2 * 0.4}
+				center.x_scale = p1 * 10 * effects.light_scale
+				center.y_scale = p1 * 8 * effects.light_scale
 			end
 		end
 	end
@@ -545,7 +545,7 @@ local function moveBlast(i,blast,pastEHits)
 			local xdif = entity.position.x-center.x
 			local ydif = entity.position.y-center.y
 			local distSq = xdif*xdif + ydif*ydif
-			if((not (entity.prototype.max_health == 0)) and distSq > (blast.r - blast.speed)*(blast.r - blast.speed) and distSq <= blast["r"]*blast["r"]) then 
+			if((not (entity.prototype.get_max_health(entity.quality) == 0)) and distSq > (blast.r - blast.speed)*(blast.r - blast.speed) and distSq <= blast["r"]*blast["r"]) then 
 				local dist = math.sqrt(xdif*xdif + ydif*ydif)
 				local damage = blast.pow/distSq*blast.damage_init+blast.blast_min_damage
 				local t = entity.type
@@ -611,7 +611,7 @@ local function moveBlast(i,blast,pastEHits)
 						if(entity.valid)then
 							entity.damage(40, blast.force, "physical", blast.cause)
 						end
-						if(entity.valid and entity.type == "car" and (entity.prototype.max_health >= 1000 or fireShield)) then
+						if(entity.valid and entity.type == "car" and (entity.prototype.get_max_health(entity.quality) >= 1000 or fireShield)) then
 							entity.damage(80, blast.force, "fire", blast.cause)
 						end
 					else
@@ -619,7 +619,7 @@ local function moveBlast(i,blast,pastEHits)
 						if(entity.valid)then
 							entity.damage(40, blast.force, "physical")
 						end
-						if(entity.valid and entity.type == "car" and (entity.prototype.max_health >= 1000 or fireShield)) then
+						if(entity.valid and entity.type == "car" and (entity.prototype.get_max_health(entity.quality) >= 1000 or fireShield)) then
 							entity.damage(80, blast.force, "fire")
 						end
 					end
@@ -1281,7 +1281,7 @@ local function atomic_weapon_hit(event, crater_internal_r, crater_external_r, fi
 	 end
 	 -- do thermal heat-wave damage
 	 for _,v in pairs(game.surfaces[event.surface_index].find_entities_filtered{position=position, radius=thermal_max_r}) do
-		if(v.valid and not (v.prototype.max_health == 0)) then
+		if(v.valid and not (v.prototype.get_max_health(v.quality) == 0)) then
 			local distSq = (v.position.x-position.x)*(v.position.x-position.x)+(v.position.y-position.y)*(v.position.y-position.y)
 			if(distSq>fireball_r) then
 				local damage = thermal_max_r*thermal_max_r/distSq*10	

@@ -50,8 +50,6 @@ nuclear_crater.name = "nuclear-scorchmark"
 nuclear_crater.order = "d[remnants]-b[scorchmark]-b[nuclear]"
 --nuclear_crater.animation.scale = 8
 nuclear_crater.ground_patch.sheet.scale = 4
-nuclear_crater.ground_patch.sheet.hr_version.scale = 4
 nuclear_crater.ground_patch_higher.sheet.scale = 4
-nuclear_crater.ground_patch_higher.sheet.hr_version.scale = 4
 
 data:extend({nuclear_crater})

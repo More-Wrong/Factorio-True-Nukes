@@ -35,12 +35,12 @@ if(settings.startup["enable-small-atomics"].value) then
     recipe_result_count = 10,
     tech = "californium-weapons",
     ingredients = {
-      {"steel-plate", 5},
-      {light, 5},
-      {computer, 2},
-      {"explosives", 2},
-      {dead, 4},
-      {small, 10},
+      {type="item",name="steel-plate",amount=5},
+      {type="item",name=light,amount=5},
+      {type="item",name=computer,amount=2},
+      {type="item",name="explosives",amount=2},
+      {type="item",name=dead,amount=4},
+      {type="item",name=small,amount=10},
     },
   }
   warheads["TN-warhead-0-5--1"] = {
@@ -61,12 +61,12 @@ if(settings.startup["enable-small-atomics"].value) then
     tech = "californium-weapons",
     recipe_result_count = 6,
     ingredients = {
-      {"steel-plate", 1},
-      {light, 12},
-      {computer, 3},
-      {"explosives", 3},
-      {dead, 4},
-      {small, 12}
+      {type="item",name="steel-plate",amount=1},
+      {type="item",name=light,amount=12},
+      {type="item",name=computer,amount=3},
+      {type="item",name="explosives",amount=3},
+      {type="item",name=dead,amount=4},
+      {type="item",name=small,amount=12}
     }
   }
   if(settings.startup["enable-compact-small-atomics"].value) then
@@ -87,12 +87,12 @@ if(settings.startup["enable-small-atomics"].value) then
       tech = "compact-californium-weapons",
       recipe_result_count = 5,
       ingredients = {
-        {light, 10},
-        {computer, 2},
-        {reflector, 1},
-        {"explosives", 2},
-        {dead, 1},
-        {small, 8},
+        {type="item",name=light,amount=10},
+        {type="item",name=computer,amount=2},
+        {type="item",name=reflector,amount=1},
+        {type="item",name="explosives",amount=2},
+        {type="item",name=dead,amount=1},
+        {type="item",name=small,amount=8},
       }
     }
     warheads["TN-warhead-0-1--3"] = {
@@ -112,11 +112,11 @@ if(settings.startup["enable-small-atomics"].value) then
       tech = "compact-californium-weapons",
       recipe_result_count = 2,
       ingredients = {
-        {light, 3},
-        {computer, 2},
-        {reflector, 2},
-        {"explosives", 1},
-        {small, 4},
+        {type="item",name=light,amount=3},
+        {type="item",name=computer,amount=2},
+        {type="item",name=reflector,amount=2},
+        {type="item",name="explosives",amount=1},
+        {type="item",name=small,amount=4},
       }
     }
     warheads["TN-warhead-0-5--2"] = {
@@ -136,12 +136,12 @@ if(settings.startup["enable-small-atomics"].value) then
       tech = "compact-californium-weapons",
       recipe_result_count = 3,
       ingredients = {
-        {light, 9},
-        {computer, 3},
-        {reflector, 1},
-        {"explosives", 2},
-        {dead, 1},
-        {small, 9}
+        {type="item",name=light,amount=9},
+        {type="item",name=computer,amount=3},
+        {type="item",name=reflector,amount=1},
+        {type="item",name="explosives",amount=2},
+        {type="item",name=dead,amount=1},
+        {type="item",name=small,amount=9}
       }
     }
     warheads["TN-warhead-0-5--3"] = {
@@ -160,11 +160,11 @@ if(settings.startup["enable-small-atomics"].value) then
       collisions = false,
       tech = "compact-californium-weapons",
       ingredients = {
-        {light, 2},
-        {computer, 1},
-        {reflector, 1},
-        {"explosives", 1},
-        {small, 5}
+        {type="item",name=light,amount=2},
+        {type="item",name=computer,amount=1},
+        {type="item",name=reflector,amount=1},
+        {type="item",name="explosives",amount=1},
+        {type="item",name=small,amount=5}
       }
     }
   end
@@ -190,12 +190,12 @@ if(settings.startup["enable-medium-atomics"].value) then
     collisions = false,
     tech = "californium-weapons",
     ingredients = {
-      {"steel-plate", 5},
-      {computer, 5},
-      {"explosives", 5},
-      {dead, 3},
-      {boom, 3},
-      {small, 4}
+      {type="item",name="steel-plate",amount=5},
+      {type="item",name=computer,amount=5},
+      {type="item",name="explosives",amount=5},
+      {type="item",name=dead,amount=3},
+      {type="item",name=boom,amount=3},
+      {type="item",name=small,amount=4}
     }
   }
   warheads["TN-warhead-4--1"] = {
@@ -214,11 +214,11 @@ if(settings.startup["enable-medium-atomics"].value) then
     collisions = false,
     tech = "atomic-bomb",
     ingredients = {
-      {"steel-plate", 5},
-      {computer, 5},
-      {"explosives", 10},
-      {dead, 5},
-      {boom, 8}
+      {type="item",name="steel-plate",amount=5},
+      {type="item",name=computer,amount=5},
+      {type="item",name="explosives",amount=10},
+      {type="item",name=dead,amount=5},
+      {type="item",name=boom,amount=8}
     }
   }
   warheads["TN-warhead-8--1"] = {
@@ -237,11 +237,11 @@ if(settings.startup["enable-medium-atomics"].value) then
     collisions = false,
     tech = "atomic-bomb",
     ingredients = {
-      {"steel-plate", 6},
-      {computer, 5},
-      {"explosives", 20},
-      {dead, 10},
-      {boom, 15}
+      {type="item",name="steel-plate",amount=6},
+      {type="item",name=computer,amount=5},
+      {type="item",name="explosives",amount=20},
+      {type="item",name=dead,amount=10},
+      {type="item",name=boom,amount=15}
     }
   }
   warheads["TN-warhead-2--2"] = {
@@ -260,14 +260,14 @@ if(settings.startup["enable-medium-atomics"].value) then
     collisions = false,
     tech = "compact-californium-weapons",
     ingredients = {
-      {"steel-plate", 1},
-      {light, 4},
-      {computer, 10},
-      {reflector, 1},
-      {"explosives", 4},
-      {dead, 2},
-      {boom, 1},
-      {small, 8}
+      {type="item",name="steel-plate",amount=1},
+      {type="item",name=light,amount=4},
+      {type="item",name=computer,amount=10},
+      {type="item",name=reflector,amount=1},
+      {type="item",name="explosives",amount=4},
+      {type="item",name=dead,amount=2},
+      {type="item",name=boom,amount=1},
+      {type="item",name=small,amount=8}
     }
   }
   warheads["TN-warhead-20--1"] = {
@@ -286,11 +286,11 @@ if(settings.startup["enable-medium-atomics"].value) then
     collisions = false,
     tech = "basic-atomic-weapons",
     ingredients = {
-      {"steel-plate", 10},
-      {computer, 8},
-      {"explosives", 30},
-      {dead, 15},
-      {boom, 30}
+      {type="item",name="steel-plate",amount=10},
+      {type="item",name=computer,amount=8},
+      {type="item",name="explosives",amount=30},
+      {type="item",name=dead,amount=15},
+      {type="item",name=boom,amount=30}
     }
   }
   warheads["TN-warhead-20--2"] = {
@@ -309,11 +309,11 @@ if(settings.startup["enable-medium-atomics"].value) then
     collisions = false,
     tech = "atomic-bomb",
     ingredients = {
-      {light, 20},
-      {computer, 20},
-      {"explosives", 15},
-      {dead, 5},
-      {boom, 50}
+      {type="item",name=light,amount=20},
+      {type="item",name=computer,amount=20},
+      {type="item",name="explosives",amount=15},
+      {type="item",name=dead,amount=5},
+      {type="item",name=boom,amount=50}
     }
   }
   warheadWeaponNameMap["big-rocket-atomic-20t"] = "atomic-bomb"
@@ -336,11 +336,11 @@ if(settings.startup["enable-medium-atomics"].value) then
       collisions = false,
       tech = "compact-californium-weapons",
       ingredients = {
-        {light, 10},
-        {computer, 15},
-        {reflector, 4},
-        {"explosives", 2},
-        {small, 15}
+        {type="item",name=light,amount=10},
+        {type="item",name=computer,amount=15},
+        {type="item",name=reflector,amount=4},
+        {type="item",name="explosives",amount=2},
+        {type="item",name=small,amount=15}
       }
     }
     warheads["TN-warhead-4--2"] = {
@@ -359,11 +359,11 @@ if(settings.startup["enable-medium-atomics"].value) then
       collisions = false,
       tech = "californium-weapons",
       ingredients = {
-        {light, 10},
-        {computer, 12},
-        {"explosives", 5},
-        {boom, 2},
-        {small, 10}
+        {type="item",name=light,amount=10},
+        {type="item",name=computer,amount=12},
+        {type="item",name="explosives",amount=5},
+        {type="item",name=boom,amount=2},
+        {type="item",name=small,amount=10}
       }
     }
     warheads["TN-warhead-4--3"] = {
@@ -382,11 +382,11 @@ if(settings.startup["enable-medium-atomics"].value) then
       collisions = false,
       tech = "compact-californium-weapons",
       ingredients = {
-        {light, 15},
-        {computer, 20},
-        {reflector, 8},
-        {"explosives", 5},
-        {small, 20}
+        {type="item",name=light,amount=15},
+        {type="item",name=computer,amount=20},
+        {type="item",name=reflector,amount=8},
+        {type="item",name="explosives",amount=5},
+        {type="item",name=small,amount=20}
       }
     }
     warheads["TN-warhead-8--2"] = {
@@ -405,11 +405,11 @@ if(settings.startup["enable-medium-atomics"].value) then
       collisions = false,
       tech = "californium-weapons",
       ingredients = {
-        {light, 15},
-        {computer, 16},
-        {"explosives", 8},
-        {boom, 2},
-        {small, 20}
+        {type="item",name=light,amount=15},
+        {type="item",name=computer,amount=16},
+        {type="item",name="explosives",amount=8},
+        {type="item",name=boom,amount=2},
+        {type="item",name=small,amount=20}
       }
     }
     warheads["TN-warhead-8--3"] = {
@@ -428,11 +428,11 @@ if(settings.startup["enable-medium-atomics"].value) then
       collisions = false,
       tech = "compact-californium-weapons",
       ingredients = {
-        {light, 20},
-        {computer, 24},
-        {reflector, 12},
-        {"explosives", 10},
-        {small, 35}
+        {type="item",name=light,amount=20},
+        {type="item",name=computer,amount=24},
+        {type="item",name=reflector,amount=12},
+        {type="item",name="explosives",amount=10},
+        {type="item",name=small,amount=35}
       }
     }
 
@@ -452,12 +452,12 @@ if(settings.startup["enable-medium-atomics"].value) then
       collisions = false,
       tech = "compact-californium-weapons",
       ingredients = {
-        {light, 50},
-        {computer, 40},
-        {reflector, 12},
-        {"explosives", 5},
-        {boom, 5},
-        {small, 45}
+        {type="item",name=light,amount=50},
+        {type="item",name=computer,amount=40},
+        {type="item",name=reflector,amount=12},
+        {type="item",name="explosives",amount=5},
+        {type="item",name=boom,amount=5},
+        {type="item",name=small,amount=45}
       }
     }
   end
@@ -479,11 +479,11 @@ if(settings.startup["enable-large-atomics"].value) then
     collisions = false,
     tech = "expanded-atomics",
     ingredients = {
-      {"steel-plate", 20},
-      {computer, 10},
-      {"explosives", 40},
-      {dead, 25},
-      {boom, 75}
+      {type="item",name="steel-plate",amount=20},
+      {type="item",name=computer,amount=10},
+      {type="item",name="explosives",amount=40},
+      {type="item",name=dead,amount=25},
+      {type="item",name=boom,amount=75}
     }
   }
   warheads["TN-warhead-1k--1"] = {
@@ -502,11 +502,11 @@ if(settings.startup["enable-large-atomics"].value) then
     collisions = false,
     tech = "full-fission-atomics",
     ingredients = {
-      {"steel-plate", 25},
-      {computer, 20},
-      {"explosives", 100},
-      {dead, 25},
-      {boom, 100}
+      {type="item",name="steel-plate",amount=25},
+      {type="item",name=computer,amount=20},
+      {type="item",name="explosives",amount=100},
+      {type="item",name=dead,amount=25},
+      {type="item",name=boom,amount=100}
     }
   }
   if(settings.startup["enable-compact-large-atomics"].value) then
@@ -527,12 +527,12 @@ if(settings.startup["enable-large-atomics"].value) then
       collisions = false,
       tech = "full-fission-atomics",
       ingredients = {
-        {"steel-plate", 5},
-        {light, 15},
-        {computer, 20},
-        {"explosives", 25},
-        {dead, 15},
-        {boom, 100},
+        {type="item",name="steel-plate",amount=5},
+        {type="item",name=light,amount=15},
+        {type="item",name=computer,amount=20},
+        {type="item",name="explosives",amount=25},
+        {type="item",name=dead,amount=15},
+        {type="item",name=boom,amount=100},
       }
     }
     warheads["TN-warhead-500--3"] = {
@@ -551,12 +551,12 @@ if(settings.startup["enable-large-atomics"].value) then
       collisions = false,
       tech = "compact-full-fission-weapons",
       ingredients = {
-        {light, 45},
-        {computer, 50},
-        {reflector, 15},
-        {"explosives", 10},
-        {boom, 50},
-        {small, 60}
+        {type="item",name=light,amount=45},
+        {type="item",name=computer,amount=50},
+        {type="item",name=reflector,amount=15},
+        {type="item",name="explosives",amount=10},
+        {type="item",name=boom,amount=50},
+        {type="item",name=small,amount=60}
       }
     }
     warheads["TN-warhead-1k--2"] = {
@@ -575,12 +575,12 @@ if(settings.startup["enable-large-atomics"].value) then
       collisions = false,
       tech = "compact-full-fission-weapons",
       ingredients = {
-        {"steel-plate", 8},
-        {light, 20},
-        {computer, 45},
-        {"explosives", 50},
-        {dead, 5},
-        {boom, 120},
+        {type="item",name="steel-plate",amount=8},
+        {type="item",name=light,amount=20},
+        {type="item",name=computer,amount=45},
+        {type="item",name="explosives",amount=50},
+        {type="item",name=dead,amount=5},
+        {type="item",name=boom,amount=120},
       }
     }
     warheads["TN-warhead-1k--3"] = {
@@ -599,13 +599,13 @@ if(settings.startup["enable-large-atomics"].value) then
       collisions = false,
       tech = "compact-full-fission-weapons",
       ingredients = {
-        {light, 60},
-        {computer, 100},
-        {"red-wire", 20},
-        {reflector, 20},
-        {"explosives", 20},
-        {boom, 80},
-        {small, 80}
+        {type="item",name=light,amount=60},
+        {type="item",name=computer,amount=100},
+        {type="item",name="copper-cable",amount=20},
+        {type="item",name=reflector,amount=20},
+        {type="item",name="explosives",amount=20},
+        {type="item",name=boom,amount=80},
+        {type="item",name=small,amount=80}
       }
     }
   end
@@ -627,13 +627,12 @@ if(settings.startup["enable-15kt"].value) then
     collisions = false,
     tech = "full-fission-atomics",
     ingredients = {
-      {"steel-plate", 30},
-      {computer, 40},
-      {"red-wire", 5},
-      {"green-wire", 5},
-      {"explosives", 175},
-      {dead, 150},
-      {boom, 250}
+      {type="item",name="steel-plate",amount=30},
+      {type="item",name=computer,amount=40},
+      {type="item",name="copper-cable",amount=10},
+      {type="item",name="explosives",amount=175},
+      {type="item",name=dead,amount=150},
+      {type="item",name=boom,amount=250}
     }
   }
   if(settings.startup["enable-compact-15kt"].value) then
@@ -654,15 +653,14 @@ if(settings.startup["enable-15kt"].value) then
       collisions = false,
       tech = "compact-full-fission-weapons",
       ingredients = {
-        {"steel-plate", 10},
-        {light, 30},
-        {computer, 160},
-        {"red-wire", 10},
-        {"green-wire", 10},
-        {reflector, 10},
-        {"explosives", 130},
-        {dead, 25},
-        {boom, 325}
+        {type="item",name="steel-plate",amount=10},
+        {type="item",name=light,amount=30},
+        {type="item",name=computer,amount=160},
+        {type="item",name="copper-cable",amount=20},
+        {type="item",name=reflector,amount=10},
+        {type="item",name="explosives",amount=130},
+        {type="item",name=dead,amount=25},
+        {type="item",name=boom,amount=325}
       }
     }
     warheads["TN-warhead-15k--3"] = {
@@ -681,14 +679,13 @@ if(settings.startup["enable-15kt"].value) then
       collisions = false,
       tech = "compact-full-fission-weapons",
       ingredients = {
-        {light, 75},
-        {computer, 200},
-        {"red-wire", 20},
-        {"green-wire", 20},
-        {reflector, 50},
-        {"explosives", 100},
-        {boom, 300},
-        {small, 50}
+        {type="item",name=light,amount=75},
+        {type="item",name=computer,amount=200},
+        {type="item",name="copper-cable",amount=40},
+        {type="item",name=reflector,amount=50},
+        {type="item",name="explosives",amount=100},
+        {type="item",name=boom,amount=300},
+        {type="item",name=small,amount=50}
       }
     }
   end
@@ -709,17 +706,16 @@ if(settings.startup["enable-fusion"].value) then
     collisions = false,
     tech = "fusion-weapons",
     ingredients = {
-      {"steel-plate", 100},
-      {"copper-plate", 100},
-      {computer, 100},
-      {"red-wire", 20},
-      {"green-wire", 20},
-      {"FOGBANK", 10},
-      {"heat-pipe", 10},
-      {reflector, 20},
-      {"explosives", 200},
-      {dead, 400},
-      {boom, 250}
+      {type="item",name="steel-plate",amount=100},
+      {type="item",name="copper-plate",amount=100},
+      {type="item",name=computer,amount=100},
+      {type="item",name="copper-cable",amount=40},
+      {type="item",name="FOGBANK",amount=10},
+      {type="item",name="heat-pipe",amount=10},
+      {type="item",name=reflector,amount=20},
+      {type="item",name="explosives",amount=200},
+      {type="item",name=dead,amount=400},
+      {type="item",name=boom,amount=250}
     },
     progressiveRecipe = "from-first",
     explosions = {
@@ -731,7 +727,7 @@ if(settings.startup["enable-fusion"].value) then
         final_effect = nuke_explosions.N15kt_detonation
       },
       {
-        additional_ingedients = {{fusionMaterial, 2}},
+        additional_ingedients = {{type="item",name=fusionMaterial,amount=2}},
         appendName = "-100kt",
         appearance = createAppearance({type = "nuclear_core", tints = {tints.tritium, tints.tritium, tints.tritium}, text_location = "__True-Nukes__/graphics/text/", text = "100kt"}),
         appendOrder = "-0-100",
@@ -741,42 +737,42 @@ if(settings.startup["enable-fusion"].value) then
   }
   if(settings.startup["enable-big-fusion-weapons"].value) then
     table.insert(warheads["TN-warhead-big--1"].explosions, {
-      additional_ingedients = {{fusionMaterial, 20}},
+      additional_ingedients = {{type="item",name=fusionMaterial,amount=20}},
       appendName = "-1Mt",
       appearance = createAppearance({type = "nuclear_core", tints = {tints.tritium, tints.tritium, tints.tritium}, text_location = "__True-Nukes__/graphics/text/", text = "1Mt"}),
       appendOrder = "-1-001",
       final_effect = nuke_explosions.N1Mt_detonation
     })
     table.insert(warheads["TN-warhead-big--1"].explosions, {
-      additional_ingedients = {{fusionMaterial, 100}},
+      additional_ingedients = {{type="item",name=fusionMaterial,amount=100}},
       appendName = "-5Mt",
       appearance = createAppearance({type = "nuclear_core", tints = {tints.tritium, tints.tritium, tints.tritium}, text_location = "__True-Nukes__/graphics/text/", text = "5Mt"}),
       appendOrder = "-1-005",
       final_effect = nuke_explosions.N5Mt_detonation
     })
     table.insert(warheads["TN-warhead-big--1"].explosions, {
-      additional_ingedients = {{fusionMaterial, 200}},
+      additional_ingedients = {{type="item",name=fusionMaterial,amount=200}},
       appendName = "-10Mt",
       appearance = createAppearance({type = "nuclear_core", tints = {tints.tritium, tints.tritium, tints.tritium}, text_location = "__True-Nukes__/graphics/text/", text = "10Mt"}),
       appendOrder = "-1-010",
       final_effect = nuke_explosions.N10Mt_detonation
     })
     table.insert(warheads["TN-warhead-big--1"].explosions, {
-      additional_ingedients = {{fusionMaterial, 1000}},
+      additional_ingedients = {{type="item",name=fusionMaterial,amount=1000}},
       appendName = "-50Mt",
       appearance = createAppearance({type = "nuclear_core", tints = {tints.tritium, tints.tritium, tints.tritium}, text_location = "__True-Nukes__/graphics/text/", text = "50Mt"}),
       appendOrder = "-1-050",
       final_effect = nuke_explosions.N50Mt_detonation
     })
     table.insert(warheads["TN-warhead-big--1"].explosions, {
-      additional_ingedients = {{fusionMaterial, 2000}},
+      additional_ingedients = {{type="item",name=fusionMaterial,amount=2000}},
       appendName = "-100Mt",
       appearance = createAppearance({type = "nuclear_core", tints = {tints.tritium, tints.tritium, tints.tritium}, text_location = "__True-Nukes__/graphics/text/", text = "100Mt"}),
       appendOrder = "-1-100",
       final_effect = nuke_explosions.N100Mt_detonation
     })
     table.insert(warheads["TN-warhead-big--1"].explosions, {
-      additional_ingedients = {{fusionMaterial, 20000}},
+      additional_ingedients = {{type="item",name=fusionMaterial,amount=20000}},
       appendName = "-1Gt",
       appearance = createAppearance({type = "nuclear_core", tints = {tints.tritium, tints.tritium, tints.tritium}, text_location = "__True-Nukes__/graphics/text/", text = "1Gt"}),
       appendOrder = "-2-001",
@@ -799,18 +795,17 @@ if(settings.startup["enable-fusion"].value) then
       collisions = false,
       tech = "compact-fusion-weapons",
       ingredients = {
-        {"steel-plate", 50},
-        {"copper-plate", 50},
-        {light, 80},
-        {computer, 200},
-        {"red-wire", 40},
-        {"green-wire", 40},
-        {"FOGBANK", 40},
-        {"heat-pipe", 40},
-        {reflector, 40},
-        {"explosives", 130},
-        {dead, 200},
-        {boom, 325}
+        {type="item",name="steel-plate",amount=50},
+        {type="item",name="copper-plate",amount=50},
+        {type="item",name=light,amount=80},
+        {type="item",name=computer,amount=200},
+        {type="item",name="copper-cable",amount=80},
+        {type="item",name="FOGBANK",amount=40},
+        {type="item",name="heat-pipe",amount=40},
+        {type="item",name=reflector,amount=40},
+        {type="item",name="explosives",amount=130},
+        {type="item",name=dead,amount=200},
+        {type="item",name=boom,amount=325}
       },
       progressiveRecipe = "from-first",
       explosions = {
@@ -822,7 +817,7 @@ if(settings.startup["enable-fusion"].value) then
           final_effect = nuke_explosions.N15kt_detonation
         },
         {
-          additional_ingedients = {{fusionMaterial, 4}},
+          additional_ingedients = {{type="item",name=fusionMaterial,amount=4}},
           appendName = "-100kt",
           appearance = createAppearance({type = "nuclear_core", tints = {tints.uraniumLive, tints.tritium, tints.tritium}, text_location = "__True-Nukes__/graphics/text/", text = "100kt"}),
           appendOrder = "-0-100",
@@ -832,14 +827,14 @@ if(settings.startup["enable-fusion"].value) then
     }
     if(settings.startup["enable-big-fusion-weapons"].value) then
       table.insert(warheads["TN-warhead-big--2"].explosions, {
-        additional_ingedients = {{fusionMaterial, 40}},
+        additional_ingedients = {{type="item",name=fusionMaterial,amount=40}},
         appendName = "-1Mt",
         appearance = createAppearance({type = "nuclear_core", tints = {tints.uraniumLive, tints.tritium, tints.tritium}, text_location = "__True-Nukes__/graphics/text/", text = "1Mt"}),
         appendOrder = "-1-001",
         final_effect = nuke_explosions.N1Mt_detonation
       })
       table.insert(warheads["TN-warhead-big--2"].explosions, {
-        additional_ingedients = {{fusionMaterial, 200}},
+        additional_ingedients = {{type="item",name=fusionMaterial,amount=200}},
         appendName = "-5Mt",
         appearance = createAppearance({type = "nuclear_core", tints = {tints.uraniumLive, tints.tritium, tints.tritium}, text_location = "__True-Nukes__/graphics/text/", text = "5Mt"}),
         appendOrder = "-1-005",
@@ -860,17 +855,16 @@ if(settings.startup["enable-fusion"].value) then
       collisions = false,
       tech = "compact-fusion-weapons",
       ingredients = {
-        {"copper-plate", 20},
-        {light, 150},
-        {computer, 300},
-        {"red-wire", 100},
-        {"green-wire", 100},
-        {"FOGBANK", 60},
-        {"heat-pipe", 60},
-        {reflector, 80},
-        {"explosives", 75},
-        {dead, 50},
-        {boom, 400}
+        {type="item",name="copper-plate",amount=20},
+        {type="item",name=light,amount=150},
+        {type="item",name=computer,amount=300},
+        {type="item",name="copper-cable",amount=200},
+        {type="item",name="FOGBANK",amount=60},
+        {type="item",name="heat-pipe",amount=60},
+        {type="item",name=reflector,amount=80},
+        {type="item",name="explosives",amount=75},
+        {type="item",name=dead,amount=50},
+        {type="item",name=boom,amount=400}
       },
       progressiveRecipe = "from-first",
       explosions = {
@@ -882,7 +876,7 @@ if(settings.startup["enable-fusion"].value) then
           final_effect = nuke_explosions.N15kt_detonation
         },
         {
-          additional_ingedients = {{fusionMaterial, 8}},
+          additional_ingedients = {{type="item",name=fusionMaterial,amount=8}},
           appendName = "-100kt",
           appearance = createAppearance({type = "nuclear_core", tints = {tints.uraniumLive, tints.tritium, tints.uraniumLive}, text_location = "__True-Nukes__/graphics/text/", text = "100kt"}),
           appendOrder = "-0-100",

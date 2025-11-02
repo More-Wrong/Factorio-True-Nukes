@@ -1,3 +1,4 @@
+global = global or {}
 --local Profiler = require('__profiler__/profiler.lua')
 local mushroomFunctions = require("MushroomCloudInBuilt.control")
 
@@ -173,7 +174,7 @@ local function optimisedChunkLoadHandler(chunkPosAndArea, chunkLoaderStruct, kil
       end
     end
     local crater_system_to_use = crater_system
-    if((game.active_mods["space-exploration"]) and (game.surfaces[surface_index].count_tiles_filtered{position = originPos, radius=2, name = crater_system_se.interesting_tiles, limit=1} ~= 0)) then
+    if((script.active_mods["space-exploration"]) and (game.surfaces[surface_index].count_tiles_filtered{position = originPos, radius=2, name = crater_system_se.interesting_tiles, limit=1} ~= 0)) then
       crater_system_to_use = crater_system_se
     end
     if(settings.global["actually-generate-crater"].value) then
@@ -274,7 +275,7 @@ local function atomic_weapon_hit(surface_index, source, position, crater_interna
   fireball_system.full_fireball(surface_index, position, fireball_r, crater_external_r, force, cause, corpseMap)
 
   local crater_system_to_use = crater_system
-    if((game.active_mods["space-exploration"]) and (game.surfaces[surface_index].count_tiles_filtered{position = originPos, radius=2, name = crater_system_se.interesting_tiles, limit=1} ~= 0)) then
+    if((script.active_mods["space-exploration"]) and (game.surfaces[surface_index].count_tiles_filtered{position = originPos, radius=2, name = crater_system_se.interesting_tiles, limit=1} ~= 0)) then
     crater_system_to_use = crater_system_se
   end
   if(settings.global["actually-generate-crater"].value) then

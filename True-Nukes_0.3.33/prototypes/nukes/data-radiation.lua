@@ -16,7 +16,7 @@ data:extend({
     spread_delay_deviation = 180,
     maximum_spread_count = 100,
 
-    emissions_per_second = 0.005,
+    emissions_per_second = { pollution = 0.005 },
 
     initial_lifetime = 600,
     lifetime_increase_by = 150,

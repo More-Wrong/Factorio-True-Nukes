@@ -114,45 +114,49 @@ if(settings.startup["enable-nuclear-tests"].value) then
   end
 end
 
-
+for k, v in pairs(data.raw.tool) do 
+  if string.len(k) >= string.len("test-pack-") and string.sub(k, 0, string.len("test-pack-")) == "test-pack-" then
+    table.insert(data.raw.lab["lab"].inputs, k)
+  end
+end
 
 local standard = {
-  {"automation-science-pack", 1},
-  {"logistic-science-pack", 1},
-  {"chemical-science-pack", 1},
-  {"military-science-pack", 1},
-  {"production-science-pack", 1},
-  {"utility-science-pack", 1},
+  {"automation-science-pack",1},
+  {"logistic-science-pack",1},
+  {"chemical-science-pack",1},
+  {"military-science-pack",1},
+  {"production-science-pack",1},
+  {"utility-science-pack",1},
 }
 local no_prod = {
-  {"automation-science-pack", 1},
-  {"logistic-science-pack", 1},
-  {"chemical-science-pack", 1},
-  {"military-science-pack", 1},
-  {"utility-science-pack", 1},
+  {"automation-science-pack",1},
+  {"logistic-science-pack",1},
+  {"chemical-science-pack",1},
+  {"military-science-pack",1},
+  {"utility-science-pack",1},
 }
 local no_util = {
-  {"automation-science-pack", 1},
-  {"logistic-science-pack", 1},
-  {"chemical-science-pack", 1},
-  {"military-science-pack", 1},
-  {"production-science-pack", 1},
+  {"automation-science-pack",1},
+  {"logistic-science-pack",1},
+  {"chemical-science-pack",1},
+  {"military-science-pack",1},
+  {"production-science-pack",1},
 }
 local space = {
-  {"automation-science-pack", 1},
-  {"logistic-science-pack", 1},
-  {"chemical-science-pack", 1},
-  {"military-science-pack", 1},
-  {"production-science-pack", 1},
-  {"utility-science-pack", 1},
-  {"space-science-pack", 1},
+  {"automation-science-pack",1},
+  {"logistic-science-pack",1},
+  {"chemical-science-pack",1},
+  {"military-science-pack",1},
+  {"production-science-pack",1},
+  {"utility-science-pack",1},
+  {"space-science-pack",1},
 }
 
 if mods["apm_nuclear_ldinc"] then
-  table.insert(standard, {"apm_nuclear_science_pack", 1});
-  table.insert(no_prod, {"apm_nuclear_science_pack", 1});
-  table.insert(no_util, {"apm_nuclear_science_pack", 1});
-  table.insert(space, {"apm_nuclear_science_pack", 1});
+  table.insert(standard, {"apm_nuclear_science_pack",1});
+  table.insert(no_prod, {"apm_nuclear_science_pack",1});
+  table.insert(no_util, {"apm_nuclear_science_pack",1});
+  table.insert(space, {"apm_nuclear_science_pack",1});
 end
 
 if (not settings.startup["keep-atomic-bomb-without-changes"]) and
@@ -176,12 +180,12 @@ local hasCompact15kt = settings.startup["enable-compact-15kt"].value and has15kt
 local hasFusion = settings.startup["enable-fusion"].value 
 local hasCompactFusion = settings.startup["enable-compact-fusion"].value and hasFusion
 
-data.raw.technology["atomic-bomb"].prerequisites = {"basic-atomic-weapons", "rocket-control-unit", "rocket-fuel", "rocketry"}
+data.raw.technology["atomic-bomb"].prerequisites = {"basic-atomic-weapons", "rocket-fuel", "rocketry"}
 
 
 data.raw.technology["atomic-bomb"].unit.count = 1
 if(data.raw.tool["test-pack-atomic-20t-1"]) then
-  data.raw.technology["atomic-bomb"].unit.ingredients = {{"test-pack-atomic-20t-1", 1}}
+  data.raw.technology["atomic-bomb"].unit.ingredients = {{"test-pack-atomic-20t-1",1}}
 else
   data.raw.technology["atomic-bomb"].unit.ingredients = no_prod
 end
@@ -258,7 +262,7 @@ if(hasLarge) then
     data.raw.technology["full-fission-atomics"].unit =
       {
         count = 1,
-        ingredients = {{"test-pack-atomic-500t-1", 1}},
+        ingredients = {{"test-pack-atomic-500t-1",1}},
         time = 1
       }
   end
@@ -311,10 +315,10 @@ if(nuke_materials.smallBoomMaterial == "californium") then
         {
           count = 500,
           ingredients = {
-            {"automation-science-pack", 2},
-            {"logistic-science-pack", 2},
-            {"chemical-science-pack", 1},
-            {"production-science-pack", 1},
+            {"automation-science-pack",2},
+            {"logistic-science-pack",2},
+            {"chemical-science-pack",1},
+            {"production-science-pack",1},
           },
           time = 30
         },
@@ -413,9 +417,9 @@ if(hasCompact15kt or hasCompactLarge) then
   local canDoTest = true
 
   if(data.raw.tool["test-pack-atomic-15kt-1"]) then
-    table.insert(data.raw.technology["compact-full-fission-weapons"].unit.ingredients, {"test-pack-atomic-15kt-1", 1})
+    table.insert(data.raw.technology["compact-full-fission-weapons"].unit.ingredients, {"test-pack-atomic-15kt-1",1})
   elseif(data.raw.tool["test-pack-atomic-1kt-1"])then
-    table.insert(data.raw.technology["compact-full-fission-weapons"].unit.ingredients, {"test-pack-atomic-1kt-1", 1})
+    table.insert(data.raw.technology["compact-full-fission-weapons"].unit.ingredients, {"test-pack-atomic-1kt-1",1})
   else
     canDoTest = false
   end
@@ -423,7 +427,7 @@ if(hasCompact15kt or hasCompactLarge) then
     table.insert(data.raw.technology["compact-full-fission-weapons"].prerequisites, "compact-californium-weapons")
 
     if(data.raw.tool["test-pack-atomic-20t-3"] and canDoTest) then
-      table.insert(data.raw.technology["compact-full-fission-weapons"].unit.ingredients, {"test-pack-atomic-20t-3", 1})
+      table.insert(data.raw.technology["compact-full-fission-weapons"].unit.ingredients, {"test-pack-atomic-20t-3",1})
     end
   elseif(data.raw.technology["compact-full-fission-weapons"]) then
     if(nuke_materials.smallBoomMaterial == "californium") then
@@ -474,10 +478,10 @@ if(hasFusion) then
         count = 2000,
         ingredients =
         {
-          {"automation-science-pack", 1},
-          {"logistic-science-pack", 1},
-          {"chemical-science-pack", 1},
-          {"production-science-pack", 1}
+          {"automation-science-pack",1},
+          {"logistic-science-pack",1},
+          {"chemical-science-pack",1},
+          {"production-science-pack",1}
         },
         time = 45
       },
@@ -551,7 +555,7 @@ if(hasCompactFusion) then
     data.raw.technology["compact-fusion-weapons"].unit =
       {
         count = 1,
-        ingredients = {{"test-pack-atomic-2-stage-100kt-1", 1}},
+        ingredients = {{"test-pack-atomic-2-stage-100kt-1",1}},
         time = 1
       }
   end
@@ -567,7 +571,7 @@ if(hasCompactSmall or hasCompactMedium or hasCompactLarge or hasCompact15kt) the
         {icon = "__Warheads__/graphics/blank-64.png", icon_size = 64, scale = 1, shift = {0, -0}},
         {icon = "__True-Nukes__/graphics/californium-processing-tech.png", icon_size = 256, scale = 0.125, shift = {12, -12}, icon_mipmaps = 4},
         {icon = "__base__/graphics/technology/kovarex-enrichment-process.png", icon_size = 256, scale = 0.125, shift = {-12, -12}, icon_mipmaps = 4},
-        {icon = "__True-Nukes__/graphics/tritium-processing.png", icon_size = 256, scale = 0.125, shift = {0, 16}, icon_mipmaps = 4},
+        {icon = "__True-Nukes__/graphics/tritium-processing.png", icon_size = 256, scale = 0.125, shift = {0,16}, icon_mipmaps = 4},
         {icon = "__True-Nukes__/graphics/plus-red.png", icon_size = 32, scale = 0.5, shift = {24, -24}},
       },
       effects =

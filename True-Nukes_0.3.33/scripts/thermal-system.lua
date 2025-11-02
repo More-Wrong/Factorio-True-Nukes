@@ -156,7 +156,7 @@ local function atomic_thermal_blast_internal(surface_index, position, force, cau
         local xdif = ePos.x-cx
         local ydif = ePos.y-cy
         local distSq = xdif*xdif + ydif*ydif
-        if(distSq <= thermSq and distSq>fireballSq and v.prototype.max_health ~= 0
+        if(distSq <= thermSq and distSq>fireballSq and v.prototype.get_max_health(v.quality) ~= 0
           and ePos.x>=a[1][1] and ePos.x<a[2][1] and ePos.y>=a[1][2] and ePos.y<a[2][2]) then
           damage_entity(surface, distSq, ePos, fireballSq, initialDamage, v, force, cause, corpseMap, deathStatsForTrees, deathStatsForOther)
         end
@@ -203,7 +203,7 @@ local function chunk_loaded(chunkLoaderStruct, surface_index, originPos, x, y, c
       local xdif = ePos.x-cx
       local ydif = ePos.y-cy
       local distSq = xdif*xdif + ydif*ydif
-      if(distSq <= thermSq and distSq>fireballSq and v.prototype.max_health ~= 0
+      if(distSq <= thermSq and distSq>fireballSq and v.prototype.get_max_health(v.quality) ~= 0
         and ePos.x>=x and ePos.x<x+32 and ePos.y>=y and ePos.y<y+32 and (killPlanes or v.type ~= "car")) then
         damage_entity(surface, distSq, ePos, fireballSq, init_thermal, v, force, cause, corpseMap, false, false)
       end

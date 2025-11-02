@@ -1,19 +1,19 @@
 local achievement_system = require("achievement-system")
 
 local decorativeMap = {}
-decorativeMap["brown-asterisk"] = {"rock-tiny", 1/4}
+decorativeMap["brown-asterisk"] = {"tiny-rock", 1/4}
 decorativeMap["green-asterisk"] = {"brown-asterisk", 1/4}
 decorativeMap["green-asterisk-mini"] = {"brown-asterisk", 1/10}
 decorativeMap["brown-asterisk-mini"] = {"brown-asterisk", 1/20}
 decorativeMap["red-asterisk"] = {"brown-asterisk", 1/4}
 
-decorativeMap["green-pita"] = {"rock-tiny", 1/10}
-decorativeMap["red-pita"] = {"rock-small", 1/10}
-decorativeMap["green-croton"] = {"sand-rock-small", 1/10}
+decorativeMap["green-pita"] = {"tiny-rock", 1/10}
+decorativeMap["red-pita"] = {"small-rock", 1/10}
+decorativeMap["green-croton"] = {"small-sand-rock", 1/10}
 decorativeMap["red-croton"] = {"red-desert-decal", 1/10}
 decorativeMap["green-pita-mini"] = {"enemy-decal-transparent", 1/20}
 
-decorativeMap["brown-fluff"] = {"rock-tiny", 1/10}
+decorativeMap["brown-fluff"] = {"tiny-rock", 1/10}
 decorativeMap["brown-fluff-dry"] = {"brown-asterisk", 1/10}
 decorativeMap["garballo"] = {"brown-fluff", 1/10}
 decorativeMap["garballo-mini-dry"] = {"brown-fluff-dry", 1/10}
@@ -32,11 +32,11 @@ decorativeMap["green-small-grass"] = {"brown-asterisk", 1/10}
 decorativeMap["brown-carpet-grass"] = {"brown-carpet-grass", 1/2}
 decorativeMap["brown-hairy-grass"] = {"brown-hairy-grass", 1/2}
 
-decorativeMap["rock-medium"] = {}
-decorativeMap["rock-small"] = {}
-decorativeMap["rock-tiny"] = {}
-decorativeMap["sand-rock-medium"] = {}
-decorativeMap["sand-rock-small"] = {}
+decorativeMap["medium-rock"] = {}
+decorativeMap["small-rock"] = {}
+decorativeMap["tiny-rock"] = {}
+decorativeMap["medium-sand-rock"] = {}
+decorativeMap["small-sand-rock"] = {}
 
 decorativeMap["red-desert-decal"] = {}
 decorativeMap["dark-mud-decal"] = {}

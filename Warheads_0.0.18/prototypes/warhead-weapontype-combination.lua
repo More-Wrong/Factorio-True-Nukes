@@ -93,8 +93,7 @@ local function combine(weapontype, warheadWeapon)
   item.name = name
   item.order = weapontype.order .. warheadWeapon.appendOrder
   item.subgroup = weapontype.item.subgroup
-
-
+  
   local weaponAppearance
 
   if weapontype.appearances[warheadWeapon.appendName] then
@@ -115,6 +114,7 @@ local function combine(weapontype, warheadWeapon)
   end
   if (weapontype.type == "projectile" or weapontype.type == "stream" or weapontype.type == "artillery" or weapontype.type == "bullet") then
     item.type = "ammo"
+
     item.ammo_type = {}
     item.ammo_type.range_modifier = weapontype.item.range_modifier * warheadWeapon.item.range_modifier
     item.ammo_type.cooldown_modifier = weapontype.item.cooldown_modifier * warheadWeapon.item.cooldown_modifier
@@ -122,6 +122,7 @@ local function combine(weapontype, warheadWeapon)
     item.ammo_type.clamp_position = weapontype.item.clamp_position or warheadWeapon.item.clamp_position
     item.ammo_type.category = warheadWeapon.item.ammo_category or weapontype.item.ammo_category
     item.ammo_type.action = weapontype.item.action_creator(name, weapontype.item.range_modifier * warheadWeapon.item.range_modifier, warheadWeapon.projectile.action, warheadWeapon.projectile.final_action, warheadWeapon.projectile.created_action)
+    item.ammo_category = warheadWeapon.item.ammo_category or weapontype.item.ammo_category
   elseif(weapontype.type == "land-mine") then
     item.place_result = name
   elseif(weapontype.type == "capsule") then
@@ -150,9 +151,9 @@ local function combine(weapontype, warheadWeapon)
     if(warheadWeaponNameMap[buildUpName]) then
       buildUpName = warheadWeaponNameMap[buildUpName]
     end
-    table.insert(recipe.ingredients, {name = buildUpName, amount = warheadWeapon.recipe.build_up_ingredient.amount})
+    table.insert(recipe.ingredients, {type = "item", name = buildUpName, amount = warheadWeapon.recipe.build_up_ingredient.amount})
   else
-    table.insert(recipe.ingredients, {name = warheadWeapon.recipe.warhead_name, amount = weapontype.recipe.warhead_count})
+    table.insert(recipe.ingredients, {type = "item", name = warheadWeapon.recipe.warhead_name, amount = weapontype.recipe.warhead_count})
     warheadsUsed = weapontype.recipe.warhead_count
   end
   for _,i in pairs(warheadWeapon.recipe.additional_ingedients) do
@@ -202,7 +203,7 @@ local function combine(weapontype, warheadWeapon)
   end
   recipe.ingredients = {}
   for ingName,ingAmount in pairs(recipeIngreds) do
-    table.insert(recipe.ingredients, {ingName,ingAmount})
+    table.insert(recipe.ingredients, {type = "item", name = ingName, amount = ingAmount })
   end
   result.recipe = recipe
 
